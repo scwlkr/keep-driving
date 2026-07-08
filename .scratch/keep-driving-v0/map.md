@@ -19,9 +19,10 @@ The map is complete when nothing important remains undecided before launching a 
 
 ## Decisions so far
 
+- [Define Core Loop And Feel Target](issues/01-define-core-loop-and-feel-target.md) — v0 targets a Road Warrior Survival Expedition: open route planning across generated terrain, water as a barrier, fuel/damage/escalating pursuit, Miles Driven scoring, stable chunks per run, fresh seed per restart, readable top-down camera, and ram-first combat.
+
 ## Not yet specified
 
-- Exact visual style, asset sourcing, and audio direction after the core feel target is decided.
 - Mobile export proof depth after desktop-local v0 proof is defined.
 - Performance budgets for infinite world chunks after the generation architecture is chosen.
 - Full balance tuning after the loop, combat, resources, and upgrades are decided.
