@@ -16,3 +16,5 @@
 - **Active Window**: The bounded set of World Chunks currently attached as scene nodes around the player.
 - **Spawn Marker**: A deterministic generated record that can become a pickup, obstacle, zombie, blocker, or point of interest when its World Chunk is active.
 - **Run Mutation**: Player-made change to deterministic generated content, such as collected fuel or a destroyed obstacle, saved by Spawn Marker id for the current run.
+- **Arcade-Real Handling**: Vehicle feel target for v0: accessible arcade controls with believable car weight, momentum, drifting, terrain slowdown, and impact shove instead of instant twin-stick movement.
+- **Handbrake Drift**: A player-triggered drift move that lets the car rotate sharply and slide through turns at the cost of traction and control.
