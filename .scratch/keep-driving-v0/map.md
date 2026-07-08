@@ -20,11 +20,11 @@ The map is complete when nothing important remains undecided before launching a 
 ## Decisions so far
 
 - [Define Core Loop And Feel Target](issues/01-define-core-loop-and-feel-target.md) — v0 targets a Road Warrior Survival Expedition: open route planning across generated terrain, water as a barrier, fuel/damage/escalating pursuit, Miles Driven scoring, stable chunks per run, fresh seed per restart, readable top-down camera, and ram-first combat.
+- [Choose World Generation Architecture](issues/02-choose-world-generation-architecture.md) — world generation is deterministic chunk data from RunSeed plus ChunkCoord, rendered through bounded TileMapLayer chunk nodes; roads/paths come from a macro Route Network, spawns are deterministic markers, and saves keep mutations rather than full generated terrain.
 
 ## Not yet specified
 
 - Mobile export proof depth after desktop-local v0 proof is defined.
-- Performance budgets for infinite world chunks after the generation architecture is chosen.
 - Full balance tuning after the loop, combat, resources, and upgrades are decided.
 - Whether the first build run should also initialize a GitHub repo/issues or stay local until v0 exists.
 

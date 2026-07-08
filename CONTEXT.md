@@ -11,3 +11,8 @@
 - **Traversal Barrier**: A generated feature, such as water, cliffs, dense wreckage, or heavy debris, that meaningfully blocks or slows travel and forces route planning in the Free-Roaming World.
 - **Run Seed**: The random seed used to generate one survival run. World chunks remain stable while that run is active; a new run uses a fresh Run Seed so returning to the origin starts a different adventure.
 - **Miles Driven**: The headline run score for v0, based primarily on how far the player gets from the origin while surviving.
+- **World Chunk**: A square generated section of the Free-Roaming World, identified by chunk coordinates and created deterministically from the Run Seed.
+- **Chunk Data**: Pure generated data for a World Chunk before it becomes live Godot nodes: terrain ids, route segments, barriers, spawn markers, and proof hash.
+- **Active Window**: The bounded set of World Chunks currently attached as scene nodes around the player.
+- **Spawn Marker**: A deterministic generated record that can become a pickup, obstacle, zombie, blocker, or point of interest when its World Chunk is active.
+- **Run Mutation**: Player-made change to deterministic generated content, such as collected fuel or a destroyed obstacle, saved by Spawn Marker id for the current run.
