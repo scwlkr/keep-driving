@@ -18,6 +18,8 @@
 - **Pursuit Pressure**: The escalating run danger that increases Zombie, blocker, and Roadblock pressure as the player gets farther from the origin or danger rises.
 - **Run Seed**: The random seed used to generate one survival run. World chunks remain stable while that run is active; a new run uses a fresh Run Seed so returning to the origin starts a different adventure.
 - **Miles Driven**: The headline run score for v0, based primarily on how far the player gets from the origin while surviving.
+- **Fuel**: A hard but forgiving run-ending resource that drains during a run and can be restored by fuel pickups.
+- **Sputter Grace Period**: The short final state after Fuel reaches zero before the run ends.
 - **World Chunk**: A square generated section of the Free-Roaming World, identified by chunk coordinates and created deterministically from the Run Seed.
 - **Chunk Data**: Pure generated data for a World Chunk before it becomes live Godot nodes: terrain ids, route segments, barriers, spawn markers, and proof hash.
 - **Active Window**: The bounded set of World Chunks currently attached as scene nodes around the player.
@@ -25,3 +27,7 @@
 - **Run Mutation**: Player-made change to deterministic generated content, such as collected fuel or a destroyed obstacle, saved by Spawn Marker id for the current run.
 - **Arcade-Real Handling**: Vehicle feel target for v0: accessible arcade controls with believable car weight, momentum, drifting, terrain slowdown, and impact shove instead of instant twin-stick movement.
 - **Handbrake Drift**: A player-triggered drift move that lets the car rotate sharply and slide through turns at the cost of traction and control.
+- **Scrap**: The persistent between-run currency earned during a run and spent on simple car upgrades for later runs.
+- **Permanent Upgrade**: A between-run improvement that persists across fresh Run Seeds and helps the player's car push farther in future runs.
+- **Repair Pickup**: A rare in-run pickup that restores some Vehicle Damage without creating repair crafting, shop stops, or a repair economy.
+- **Garage**: The between-run screen where Scrap is spent on Permanent Upgrades before starting a fresh Run Seed.
