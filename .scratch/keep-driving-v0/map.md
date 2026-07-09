@@ -31,6 +31,7 @@ The map is complete when nothing important remains undecided before launching a 
 - [Define v0 Done Bar And Proof Plan](issues/07-define-v0-done-bar-and-proof-plan.md) — v0 passes only through an end-to-end playable loop, Godot-native automated proofs, desktop perf proof, 10-minute manual smoke, mobile simulation, readable placeholder assets, and hard stop conditions.
 - [Define v0 Balance Defaults](issues/12-define-v0-balance-defaults.md) — v0 uses rough but playable numeric constants for Fuel, Vehicle Damage, pickups, Scrap rewards, upgrade tiers, and four-tier Pursuit Pressure; perfect economy tuning is out of scope for the build run.
 - [Decide Build Run Tracking Model](issues/13-decide-build-run-tracking-model.md) — the first build run stays local in `.scratch/keep-driving-v0/issues/`, coordinated through tracker files and commits; GitHub issues wait until Playable v0 exists or remote/human-visible coordination is needed.
+- [Write One-Shot Build Run Prompt](issues/08-write-one-shot-build-run-prompt.md) — the launch artifact is an autonomous manager `/goal` prompt that creates local build tickets, coordinates agents, commits frequently, and runs proof gates until the Playable v0 Done Bar passes.
 
 ## Not yet specified
 

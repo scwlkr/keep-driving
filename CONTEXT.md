@@ -3,6 +3,7 @@
 ## Glossary
 
 - **One-Shot Build Run**: A single user launch prompt after which Codex coordinates as many sessions and parallel agents as needed to build and verify the playable v0 without requiring the user to manage intermediate steps.
+- **Autonomous Build Manager**: The Codex session launched by the One-Shot Build Run prompt, responsible for creating local build tickets, coordinating parallel agents, enforcing proof gates, committing progress, and reporting Done Bar status without requiring intermediate user coordination.
 - **Local Build Run Tracker**: The local markdown issue workflow for the first One-Shot Build Run, where implementation tasks live in `.scratch/keep-driving-v0/issues/` and coordination happens through ticket edits plus git commits instead of GitHub issues.
 - **Playable v0**: The first complete version of the game that can be run locally, played end to end, and verified against an explicit done bar.
 - **Done Bar**: The explicit pass/fail gate for Playable v0, combining automated proof, manual smoke proof, performance proof, and accepted limitations.
