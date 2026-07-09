@@ -2,6 +2,7 @@
 
 Type: task
 Status: open
+Assignee: Codex
 Blocked by: 12, 13
 
 ## Question
