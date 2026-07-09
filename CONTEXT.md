@@ -21,7 +21,7 @@
 - **Vehicle Damage**: The run health state of the player's car. Collisions, Zombie contact, and hard impacts reduce it; reaching zero ends the run.
 - **Route Network**: The generated world contains multiple possible roads, dirt paths, offroad traces, and terrain routes at once. The player is choosing among routes in an open world, not choosing between one road and one offroad lane.
 - **Traversal Barrier**: A generated feature, such as water, cliffs, dense wreckage, or heavy debris, that meaningfully blocks or slows travel and forces route planning in the Free-Roaming World.
-- **Obstacle**: A spawned physical hazard that the car can break, shove, be slowed by, or be blocked by depending on its weight class.
+- **Obstacle**: A spawned physical hazard represented as a readable world prop, such as debris, fencing, rocks, or wreckage, that the car can break, shove, be slowed by, or be blocked by depending on its weight class.
 - **Roadblock**: A generated cluster of Obstacles that pressures route choice on or near a route, without becoming an authored puzzle gate.
 - **Pursuit Pressure**: The escalating run danger that increases Zombie, blocker, and Roadblock pressure as the player gets farther from the origin or danger rises.
 - **Safe Origin Radius**: The starting area around a fresh Run Seed where active threats and pickups are restricted so play begins readable and fair before Pursuit Pressure starts.
@@ -35,7 +35,7 @@
 - **Streaming Drag**: A brief speed/acceleration cap applied when high-speed driving approaches missing active terrain, buying the world streamer time to attach required chunks without showing blank space or blocking the player with an invisible wall.
 - **Spawn Marker**: A deterministic generated record that can become a pickup, obstacle, zombie, blocker, or point of interest when its World Chunk is active.
 - **Run Mutation**: Player-made change to deterministic generated content, such as collected fuel or a destroyed obstacle, saved by Spawn Marker id for the current run.
-- **Arcade-Real Handling**: Vehicle feel target for v0: accessible arcade controls with believable car weight, momentum, drifting, terrain slowdown, and impact shove instead of instant twin-stick movement.
+- **Arcade-Real Handling**: Vehicle feel target for v0: accessible arcade controls with believable car weight, momentum, drifting, reverse steering behavior, terrain slowdown, and impact shove instead of instant twin-stick movement.
 - **Handbrake Drift**: A player-triggered drift move that lets the car rotate sharply and slide through turns at the cost of traction and control.
 - **Scrap**: The persistent between-run currency earned during a run and spent on simple car upgrades for later runs.
 - **Permanent Upgrade**: A between-run improvement that persists across fresh Run Seeds and helps the player's car push farther in future runs.
