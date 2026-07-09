@@ -26,10 +26,10 @@ The map is complete when nothing important remains undecided before launching a 
 - [Decide Combat Enemy And Obstacle Model](issues/05-decide-combat-enemy-and-obstacle-model.md) — v0 combat is car-only against simple zombie swarms and weight-classed obstacles, with Vehicle Damage as combat failure, roadblocks as route pressure, and distance/Pursuit Pressure-based spawn escalation.
 - [Decide Resources Upgrades And Run Progression](issues/06-decide-resources-upgrades-and-run-progression.md) — v0 uses Fuel, Vehicle Damage, Scrap, rare Repair Pickups, and a simple Garage with three persistent upgrades: Fuel Tank, Armor, and Engine.
 - [Decide Visual Audio And Asset Direction](issues/09-decide-visual-audio-and-asset-direction.md) — v0 uses Stylized Survival Readability: simple high-contrast 2D assets, readable terrain/routes/silhouettes, juicy movement/impact feedback, reactive minimal audio, and a small rugged dashboard UI.
+- [Define Infinite World Performance Budget](issues/10-define-infinite-world-performance-budget.md) — v0 gates on 60 FPS desktop proof with fixed chunk/entity caps, amortized chunk attach, Streaming Drag fallback, and a 3-minute high-speed `WorldPerfProof`.
 
 ## Not yet specified
 
-- Mobile export proof depth after desktop-local v0 proof is defined.
 - Full balance tuning after resources, upgrades, and proof plan are decided.
 - Whether the first build run should also initialize a GitHub repo/issues or stay local until v0 exists.
 

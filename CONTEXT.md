@@ -23,6 +23,7 @@
 - **World Chunk**: A square generated section of the Free-Roaming World, identified by chunk coordinates and created deterministically from the Run Seed.
 - **Chunk Data**: Pure generated data for a World Chunk before it becomes live Godot nodes: terrain ids, route segments, barriers, spawn markers, and proof hash.
 - **Active Window**: The bounded set of World Chunks currently attached as scene nodes around the player.
+- **Streaming Drag**: A brief speed/acceleration cap applied when high-speed driving approaches missing active terrain, buying the world streamer time to attach required chunks without showing blank space or blocking the player with an invisible wall.
 - **Spawn Marker**: A deterministic generated record that can become a pickup, obstacle, zombie, blocker, or point of interest when its World Chunk is active.
 - **Run Mutation**: Player-made change to deterministic generated content, such as collected fuel or a destroyed obstacle, saved by Spawn Marker id for the current run.
 - **Arcade-Real Handling**: Vehicle feel target for v0: accessible arcade controls with believable car weight, momentum, drifting, terrain slowdown, and impact shove instead of instant twin-stick movement.
