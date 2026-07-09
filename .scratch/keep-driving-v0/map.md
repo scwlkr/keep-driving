@@ -30,6 +30,7 @@ The map is complete when nothing important remains undecided before launching a 
 - [Decide Mobile Export Proof Depth](issues/11-decide-mobile-export-proof-depth.md) — v0 requires landscape mobile simulation proof on desktop, while real Android/iOS exports and physical-device smoke proof are deferred until after Playable v0 exists.
 - [Define v0 Done Bar And Proof Plan](issues/07-define-v0-done-bar-and-proof-plan.md) — v0 passes only through an end-to-end playable loop, Godot-native automated proofs, desktop perf proof, 10-minute manual smoke, mobile simulation, readable placeholder assets, and hard stop conditions.
 - [Define v0 Balance Defaults](issues/12-define-v0-balance-defaults.md) — v0 uses rough but playable numeric constants for Fuel, Vehicle Damage, pickups, Scrap rewards, upgrade tiers, and four-tier Pursuit Pressure; perfect economy tuning is out of scope for the build run.
+- [Decide Build Run Tracking Model](issues/13-decide-build-run-tracking-model.md) — the first build run stays local in `.scratch/keep-driving-v0/issues/`, coordinated through tracker files and commits; GitHub issues wait until Playable v0 exists or remote/human-visible coordination is needed.
 
 ## Not yet specified
 
