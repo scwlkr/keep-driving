@@ -25,8 +25,11 @@ Blocked by: build-01
 
 ## Agent Report
 
-- Changed files:
+- Changed files: `scripts/player_vehicle.gd`, `scripts/world_entity.gd`, `.scratch/keep-driving-v0/issues/build-04-vehicle-camera-and-mobile-controls.md`, `.scratch/keep-driving-v0/issues/build-05-combat-hazards-and-pursuit-pressure.md`
 - Proof commands:
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://tests/run_all.gd`
 - Proof outputs:
-- Known gaps:
-- Commit hash:
+  - `Godot Engine v4.7.stable.official.5b4e0cb0f`
+  - `ALL_KEEP_DRIVING_PROOFS_PASSED`
+- Known gaps: no manual landscape mobile smoke drive performed in this pass; camera follow is immediate rather than smoothed, and smoothing would require `scripts/game_root.gd`, outside this worker's edit scope.
+- Commit hash: pending commit

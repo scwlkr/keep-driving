@@ -79,6 +79,14 @@ func camera_zoom() -> Vector2:
 	return Vector2(z, z)
 
 func _draw() -> void:
+	var outline := PackedVector2Array([
+		Vector2(56, 0),
+		Vector2(24, -31),
+		Vector2(-49, -27),
+		Vector2(-58, 0),
+		Vector2(-49, 27),
+		Vector2(24, 31),
+	])
 	var body := PackedVector2Array([
 		Vector2(48, 0),
 		Vector2(20, -24),
@@ -87,9 +95,20 @@ func _draw() -> void:
 		Vector2(-42, 20),
 		Vector2(20, 24),
 	])
+	draw_polygon(outline, PackedColorArray([Color(0.035, 0.03, 0.02)]))
 	draw_polygon(body, PackedColorArray([Color(0.92, 0.76, 0.18)]))
-	draw_line(Vector2(30, -16), Vector2(30, 16), Color(0.12, 0.1, 0.08), 8.0)
-	draw_line(Vector2(-24, -22), Vector2(-24, 22), Color(0.04, 0.04, 0.04), 8.0)
+	draw_polygon(PackedVector2Array([
+		Vector2(22, -13),
+		Vector2(36, -7),
+		Vector2(36, 7),
+		Vector2(22, 13),
+	]), PackedColorArray([Color(0.08, 0.11, 0.12)]))
+	draw_line(Vector2(8, -19), Vector2(8, 19), Color(0.12, 0.1, 0.08), 6.0)
+	draw_line(Vector2(-27, -24), Vector2(-27, 24), Color(0.02, 0.02, 0.018), 9.0)
+	draw_line(Vector2(-4, -26), Vector2(26, -26), Color(0.025, 0.025, 0.022), 7.0)
+	draw_line(Vector2(-4, 26), Vector2(26, 26), Color(0.025, 0.025, 0.022), 7.0)
+	draw_circle(Vector2(47, -8), 3.0, Color(1.0, 0.94, 0.55))
+	draw_circle(Vector2(47, 8), 3.0, Color(1.0, 0.94, 0.55))
 	if dust_intensity > 0.05:
 		var dust_color := Color(0.75, 0.67, 0.49, 0.24 * dust_intensity)
 		draw_circle(Vector2(-56, -16), 18.0 + 12.0 * dust_intensity, dust_color)

@@ -25,8 +25,11 @@ Blocked by: build-02, build-04
 
 ## Agent Report
 
-- Changed files:
+- Changed files: `scripts/player_vehicle.gd`, `scripts/world_entity.gd`, `.scratch/keep-driving-v0/issues/build-04-vehicle-camera-and-mobile-controls.md`, `.scratch/keep-driving-v0/issues/build-05-combat-hazards-and-pursuit-pressure.md`
 - Proof commands:
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://tests/run_all.gd`
 - Proof outputs:
-- Known gaps:
-- Commit hash:
+  - `Godot Engine v4.7.stable.official.5b4e0cb0f`
+  - `ALL_KEEP_DRIVING_PROOFS_PASSED`
+- Known gaps: no manual smoke notes for ramming, obstacle weights, and damage failure were captured in this pass; Pursuit Pressure spawn escalation appears distance-based only, and elapsed-time escalation / spawn-distance safety would require `scripts/world_generator.gd` or `scripts/world_runtime.gd`, outside this worker's edit scope.
+- Commit hash: pending commit
