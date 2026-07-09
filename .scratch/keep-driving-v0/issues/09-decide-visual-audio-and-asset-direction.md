@@ -1,7 +1,7 @@
 # Decide Visual Audio And Asset Direction
 
 Type: grilling
-Status: open
+Status: claimed
 Blocked by: 01
 
 ## Question
