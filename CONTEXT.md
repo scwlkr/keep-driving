@@ -5,6 +5,7 @@
 - **One-Shot Build Run**: A single user launch prompt after which Codex coordinates as many sessions and parallel agents as needed to build and verify the playable v0 without requiring the user to manage intermediate steps.
 - **Playable v0**: The first complete version of the game that can be run locally, played end to end, and verified against an explicit done bar.
 - **Done Bar**: The explicit pass/fail gate for Playable v0, combining automated proof, manual smoke proof, performance proof, and accepted limitations.
+- **Balance Defaults**: The intentionally rough starting tuning values that let the One-Shot Build Run implement a playable v0 without inventing economy or difficulty rules during the build.
 - **Manual Smoke Proof**: The focused local play session that validates Playable v0 feels coherent and playable end to end, not only technically complete.
 - **WorldPerfProof**: The desktop-local automated performance proof for the Free-Roaming World, centered on a high-speed scripted drive with frame-time, streaming, chunk, and entity-budget metrics.
 - **Landscape Mobile Simulation Proof**: The v0 mobile proof standard that verifies landscape phone-scale layout, touch controls, and mobile-style play locally, without requiring a real Android/iOS export or physical-device smoke test.
@@ -20,6 +21,7 @@
 - **Obstacle**: A spawned physical hazard that the car can break, shove, be slowed by, or be blocked by depending on its weight class.
 - **Roadblock**: A generated cluster of Obstacles that pressures route choice on or near a route, without becoming an authored puzzle gate.
 - **Pursuit Pressure**: The escalating run danger that increases Zombie, blocker, and Roadblock pressure as the player gets farther from the origin or danger rises.
+- **Safe Origin Radius**: The starting area around a fresh Run Seed where active threats and pickups are restricted so play begins readable and fair before Pursuit Pressure starts.
 - **Run Seed**: The random seed used to generate one survival run. World chunks remain stable while that run is active; a new run uses a fresh Run Seed so returning to the origin starts a different adventure.
 - **Miles Driven**: The headline run score for v0, based primarily on how far the player gets from the origin while surviving.
 - **Fuel**: A hard but forgiving run-ending resource that drains during a run and can be restored by fuel pickups.
