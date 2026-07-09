@@ -1,8 +1,8 @@
 # Build 08 World Perf Proof And Automation
 
 Type: build
-Owner: unclaimed
-Status: todo
+Owner: parallel worker
+Status: done
 Blocked by: build-02, build-03, build-05
 
 ## Scope
@@ -24,8 +24,12 @@ Blocked by: build-02, build-03, build-05
 
 ## Agent Report
 
-- Changed files:
+- Changed files: `proofs/world_perf_proof.gd`, `scripts/world_runtime.gd`, `scripts/world_generator.gd`
 - Proof commands:
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://tests/run_all.gd`
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/world_perf_proof.gd`
 - Proof outputs:
-- Known gaps:
+  - `ALL_KEEP_DRIVING_PROOFS_PASSED`
+  - `WORLD_PERF_PROOF frames=10800 fps=1730.7 p95_frame_ms=1.153 p95_stream_ms=0.932 active_chunks=25 preloaded_chunks=49 attach_queue_max=24 chunks_attached_frame_max=1 zombies=120 obstacles=150 pickups=40 effects=0 markers_scanned=673 skipped_spawns=485 pool_total=310 pool_usage=310/400 streaming_drag_activations=1 streaming_drag_frames=12 blank_terrain_risk_frames=0 pass=true`
+- Known gaps: none for build-08 scope.
 - Commit hash:

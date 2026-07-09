@@ -191,10 +191,12 @@ static func _pick_tile(candidates:Array, run_seed:int, coord:Vector2i, salt:int)
 static func _add_marker(markers:Array, run_seed:int, coord:Vector2i, kind:String, tile:Vector2i, danger:float, route_bias:String) -> void:
 	if markers.size() >= C.MARKERS_PER_CHUNK:
 		return
+	var ordinal := markers.size()
 	markers.append({
-		"id": "%d:%d:%d:%s:%d:%d" % [run_seed, coord.x, coord.y, kind, tile.x, tile.y],
+		"id": "%d:%d:%d:%02d:%s:%d:%d" % [run_seed, coord.x, coord.y, ordinal, kind, tile.x, tile.y],
 		"kind": kind,
 		"tile": tile,
+		"ordinal": ordinal,
 		"danger": danger,
 		"route_bias": route_bias,
 	})

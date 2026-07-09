@@ -53,7 +53,11 @@ func update_streaming(player_pos:Vector2) -> Dictionary:
 	for coord in desired_active:
 		var key := WorldGenerator.coord_key(coord)
 		desired_active_keys[key] = true
-		if not active_chunks.has(key) and not attach_queue.has(coord):
+
+	attach_queue.clear()
+	for coord in desired_active:
+		var key := WorldGenerator.coord_key(coord)
+		if not active_chunks.has(key):
 			attach_queue.append(coord)
 
 	for key in active_chunks.keys():
@@ -72,6 +76,7 @@ func update_streaming(player_pos:Vector2) -> Dictionary:
 	if drag_active and not _drag_was_active:
 		metrics["streaming_drag_activations"] += 1
 	_drag_was_active = drag_active
+	metrics["current_chunk_active"] = active_chunks.has(current_key)
 	metrics["streaming_drag_active"] = drag_active
 	metrics["last_stream_ms"] = float(Time.get_ticks_usec() - start_usec) / 1000.0
 	metrics["active_chunk_count"] = active_chunks.size()
@@ -146,9 +151,13 @@ func marker_count_scanned() -> int:
 
 func _coords_in_radius(center:Vector2i, radius:int) -> Array[Vector2i]:
 	var coords:Array[Vector2i] = []
-	for y in range(center.y - radius, center.y + radius + 1):
-		for x in range(center.x - radius, center.x + radius + 1):
-			coords.append(Vector2i(x, y))
+	var max_distance_sq := radius * radius * 2
+	for distance_sq in range(max_distance_sq + 1):
+		for y in range(center.y - radius, center.y + radius + 1):
+			for x in range(center.x - radius, center.x + radius + 1):
+				var coord := Vector2i(x, y)
+				if (coord - center).length_squared() == distance_sq:
+					coords.append(coord)
 	return coords
 
 func _attach_chunk(coord:Vector2i, data:Dictionary) -> void:
@@ -236,6 +245,7 @@ func _reset_metrics() -> void:
 		"chunks_attached_this_frame": 0,
 		"skipped_spawn_count": 0,
 		"streaming_drag_activations": 0,
+		"current_chunk_active": false,
 		"streaming_drag_active": false,
 		"entity_counts": {"zombies": 0, "obstacles": 0, "pickups": 0, "effects": 0, "total": 0},
 	}
