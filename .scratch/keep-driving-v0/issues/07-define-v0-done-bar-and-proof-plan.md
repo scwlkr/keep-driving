@@ -2,6 +2,7 @@
 
 Type: grilling
 Status: open
+Assignee: Codex
 Blocked by: 02, 03, 04, 05, 06, 10, 11
 
 ## Question
