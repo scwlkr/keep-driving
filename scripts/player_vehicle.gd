@@ -13,7 +13,10 @@ const ACCELERATION := 520.0
 const BRAKE_FORCE := 680.0
 const REVERSE_ACCELERATION := 320.0
 const BASE_MAX_SPEED := 760.0
-const TURN_RATE := 2.55
+const TURN_RATE := 2.35
+const NORMAL_GRIP_MULTIPLIER := 3.65
+const HANDBRAKE_GRIP_MULTIPLIER := 0.72
+const REVERSE_STEER_THRESHOLD := -20.0
 
 func reset_vehicle(pos:Vector2 = Vector2.ZERO) -> void:
 	global_position = pos
@@ -41,12 +44,14 @@ func apply_controls(controls:Dictionary, terrain_id:int, delta:float) -> Diction
 			velocity -= forward * BRAKE_FORCE * delta
 		else:
 			velocity -= forward * REVERSE_ACCELERATION * terrain_speed * delta
+	var steering_forward_speed := velocity.dot(forward)
 	var speed_factor := clampf(velocity.length() / 240.0, 0.18, 1.4)
 	var turn_boost := 1.72 if handbrake else 1.0
-	rotation += steer * TURN_RATE * turn_boost * speed_factor * delta
+	var steering_direction := -1.0 if steering_forward_speed < REVERSE_STEER_THRESHOLD else 1.0
+	rotation += steer * steering_direction * TURN_RATE * turn_boost * speed_factor * delta
 	forward = Vector2.RIGHT.rotated(rotation)
 	var lateral := velocity - forward * velocity.dot(forward)
-	var grip := terrain_grip * (0.85 if handbrake else 2.8)
+	var grip := terrain_grip * (HANDBRAKE_GRIP_MULTIPLIER if handbrake else NORMAL_GRIP_MULTIPLIER)
 	velocity -= lateral * clampf(grip * delta, 0.0, 1.0)
 	if velocity.length() > max_speed:
 		velocity = velocity.normalized() * max_speed

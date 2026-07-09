@@ -54,17 +54,36 @@ func _draw() -> void:
 		draw_rect(Rect2(Vector2(-16, -5), Vector2(32, 10)), Color.WHITE)
 	elif kind.begins_with("obstacle_"):
 		if weight == "light":
-			var crate := Rect2(Vector2(-radius, -radius * 0.7), Vector2(radius * 2.0, radius * 1.4))
-			draw_rect(Rect2(crate.position - Vector2(4, 4), crate.size + Vector2(8, 8)), outline)
-			draw_rect(crate, Color(0.54, 0.42, 0.25))
-			draw_line(Vector2(-radius, -radius * 0.7), Vector2(radius, radius * 0.7), Color(0.88, 0.72, 0.36), 4.0)
-			draw_line(Vector2(-radius, radius * 0.7), Vector2(radius, -radius * 0.7), Color(0.22, 0.16, 0.1), 3.0)
+			var board_a := PackedVector2Array([
+				Vector2(-radius * 0.95, -radius * 0.5),
+				Vector2(radius * 0.72, radius * 0.14),
+				Vector2(radius * 0.58, radius * 0.42),
+				Vector2(-radius, -radius * 0.16),
+			])
+			var board_b := PackedVector2Array([
+				Vector2(-radius * 0.55, radius * 0.52),
+				Vector2(radius * 0.82, -radius * 0.38),
+				Vector2(radius * 0.98, -radius * 0.08),
+				Vector2(-radius * 0.38, radius * 0.72),
+			])
+			draw_polygon(board_a, PackedColorArray([outline]))
+			draw_polygon(PackedVector2Array([board_a[0] + Vector2(4, 3), board_a[1] - Vector2(5, 2), board_a[2] - Vector2(6, 4), board_a[3] + Vector2(5, -1)]), PackedColorArray([Color(0.58, 0.39, 0.18)]))
+			draw_polygon(board_b, PackedColorArray([outline]))
+			draw_polygon(PackedVector2Array([board_b[0] + Vector2(4, -3), board_b[1] - Vector2(6, -3), board_b[2] - Vector2(5, 4), board_b[3] + Vector2(5, -2)]), PackedColorArray([Color(0.46, 0.43, 0.34)]))
+			draw_circle(Vector2(radius * 0.28, radius * 0.46), 7.0, outline)
+			draw_circle(Vector2(radius * 0.28, radius * 0.46), 4.5, Color(0.12, 0.11, 0.1))
 		elif weight == "medium":
-			var block := Rect2(Vector2(-radius, -radius * 0.62), Vector2(radius * 2.0, radius * 1.24))
-			draw_rect(Rect2(block.position - Vector2(5, 5), block.size + Vector2(10, 10)), outline)
-			draw_rect(block, Color(0.34, 0.33, 0.31))
-			draw_rect(Rect2(Vector2(-radius * 0.75, -radius * 0.36), Vector2(radius * 1.5, radius * 0.72)), Color(0.24, 0.24, 0.23))
-			draw_line(Vector2(-radius * 0.82, -radius * 0.52), Vector2(radius * 0.82, radius * 0.52), Color(0.92, 0.68, 0.18), 5.0)
+			for post_x in [-radius * 0.68, 0.0, radius * 0.68]:
+				draw_rect(Rect2(Vector2(post_x - 5.0, -radius * 0.78), Vector2(10.0, radius * 1.56)), outline)
+				draw_rect(Rect2(Vector2(post_x - 3.0, -radius * 0.68), Vector2(6.0, radius * 1.36)), Color(0.47, 0.34, 0.19))
+			draw_line(Vector2(-radius * 0.9, -radius * 0.28), Vector2(radius * 0.9, -radius * 0.2), outline, 13.0)
+			draw_line(Vector2(-radius * 0.9, radius * 0.3), Vector2(radius * 0.9, radius * 0.2), outline, 13.0)
+			draw_line(Vector2(-radius * 0.86, -radius * 0.28), Vector2(radius * 0.86, -radius * 0.2), Color(0.55, 0.39, 0.2), 8.0)
+			draw_line(Vector2(-radius * 0.86, radius * 0.3), Vector2(radius * 0.86, radius * 0.2), Color(0.55, 0.39, 0.2), 8.0)
+			draw_circle(Vector2(radius * 0.56, radius * 0.56), 13.0, outline)
+			draw_circle(Vector2(radius * 0.56, radius * 0.56), 9.0, Color(0.32, 0.32, 0.29))
+			draw_circle(Vector2(radius * 0.82, radius * 0.26), 8.0, outline)
+			draw_circle(Vector2(radius * 0.82, radius * 0.26), 5.0, Color(0.24, 0.25, 0.23))
 		else:
 			var heavy_outline := PackedVector2Array([
 				Vector2(-radius - 5, -radius * 0.22),
@@ -85,9 +104,17 @@ func _draw() -> void:
 				Vector2(-radius * 0.62, radius * 0.48),
 			])
 			draw_polygon(heavy_outline, PackedColorArray([outline]))
-			draw_polygon(heavy_body, PackedColorArray([Color(0.13, 0.13, 0.125)]))
-			draw_line(Vector2(-radius * 0.48, -radius * 0.34), Vector2(radius * 0.62, radius * 0.3), Color(0.9, 0.58, 0.12), 6.0)
-			draw_line(Vector2(-radius * 0.12, radius * 0.42), Vector2(radius * 0.42, -radius * 0.48), Color(0.28, 0.27, 0.25), 5.0)
+			draw_polygon(heavy_body, PackedColorArray([Color(0.21, 0.22, 0.2)]))
+			draw_polygon(PackedVector2Array([
+				Vector2(-radius * 0.2, -radius * 0.2),
+				Vector2(radius * 0.56, -radius * 0.42),
+				Vector2(radius * 0.72, radius * 0.08),
+				Vector2(radius * 0.1, radius * 0.28),
+			]), PackedColorArray([Color(0.34, 0.32, 0.27)]))
+			draw_line(Vector2(-radius * 0.56, radius * 0.42), Vector2(radius * 0.42, -radius * 0.5), Color(0.08, 0.075, 0.065), 6.0)
+			draw_line(Vector2(-radius * 0.44, -radius * 0.35), Vector2(radius * 0.54, radius * 0.32), Color(0.48, 0.16, 0.08), 5.0)
+			draw_circle(Vector2(-radius * 0.42, radius * 0.42), 9.0, outline)
+			draw_circle(Vector2(radius * 0.5, -radius * 0.18), 7.0, outline)
 	else:
 		draw_circle(Vector2.ZERO, radius, Color.MAGENTA)
 

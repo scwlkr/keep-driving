@@ -44,6 +44,8 @@ static func generate_chunk(run_seed:int, coord:Vector2i) -> Dictionary:
 	_raster_line(terrain, route_mask, barrier_mask, center, Vector2i(int(exits["north"]), 0), C.TERRAIN_DIRT_PATH, 1)
 	_raster_line(terrain, route_mask, barrier_mask, center, Vector2i(int(exits["south"]), C.CHUNK_TILES - 1), C.TERRAIN_DIRT_PATH, 1)
 	_raster_line(terrain, route_mask, barrier_mask, Vector2i(0, C.CHUNK_TILES - 6), Vector2i(C.CHUNK_TILES - 1, 5), C.TERRAIN_ROUGH, 1)
+	if coord == Vector2i.ZERO:
+		_connect_origin_spawn_to_route(terrain, route_mask, barrier_mask, center)
 
 	var markers := _spawn_markers(run_seed, coord, terrain, route_mask)
 	var data := {
@@ -139,6 +141,25 @@ static func _set_disc(terrain:PackedByteArray, route_mask:PackedByteArray, barri
 				terrain[idx] = C.TERRAIN_SHALLOW
 			else:
 				terrain[idx] = terrain_id
+			route_mask[idx] = 1
+			barrier_mask[idx] = 0
+
+static func _connect_origin_spawn_to_route(terrain:PackedByteArray, route_mask:PackedByteArray, barrier_mask:PackedByteArray, target:Vector2i) -> void:
+	var steps:int = maxi(abs(target.x), abs(target.y))
+	for i in range(steps + 1):
+		var t := 0.0 if steps == 0 else float(i) / float(steps)
+		var p := Vector2i(roundi(lerpf(0.0, float(target.x), t)), roundi(lerpf(0.0, float(target.y), t)))
+		_set_forced_route_disc(terrain, route_mask, barrier_mask, p, 2)
+
+static func _set_forced_route_disc(terrain:PackedByteArray, route_mask:PackedByteArray, barrier_mask:PackedByteArray, center:Vector2i, radius:int) -> void:
+	for y in range(center.y - radius, center.y + radius + 1):
+		for x in range(center.x - radius, center.x + radius + 1):
+			if x < 0 or y < 0 or x >= C.CHUNK_TILES or y >= C.CHUNK_TILES:
+				continue
+			if Vector2(x - center.x, y - center.y).length() > float(radius) + 0.45:
+				continue
+			var idx := _idx(x, y)
+			terrain[idx] = C.TERRAIN_ROAD
 			route_mask[idx] = 1
 			barrier_mask[idx] = 0
 

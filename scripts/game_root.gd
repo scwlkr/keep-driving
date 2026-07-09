@@ -10,6 +10,11 @@ var world:WorldRuntime
 var player:PlayerVehicle
 var camera:Camera2D
 var canvas:CanvasLayer
+var hud_panel:VBoxContainer
+var fuel_label:Label
+var fuel_bar:ProgressBar
+var damage_label:Label
+var damage_bar:ProgressBar
 var dashboard:Label
 var menu_panel:PanelContainer
 var menu_label:Label
@@ -83,6 +88,7 @@ func show_start() -> void:
 	_set_menu(true, "KEEP DRIVING\nRoad Warrior Survival Expedition\n\nStart a fresh seeded run, push farther, bring Scrap home.")
 	_set_button_visibility(["start", "garage"])
 	_set_mobile_visible(false)
+	_set_hud_visible(false)
 	dashboard.visible = false
 
 func show_garage() -> void:
@@ -100,6 +106,7 @@ func show_garage() -> void:
 	_set_menu(true, text)
 	_set_button_visibility(["buy_fuel_tank", "buy_armor", "buy_engine", "back"])
 	_set_mobile_visible(false)
+	_set_hud_visible(false)
 	dashboard.visible = false
 
 func start_run(seed:int = 0) -> void:
@@ -123,9 +130,11 @@ func start_run(seed:int = 0) -> void:
 	run_end_reason = ""
 	feedback_counts = {"dust": 0, "skid": 0, "hit": 0, "debris": 0, "pickup": 0, "audio": 0}
 	_feedback_accumulator = 0.0
+	_update_resource_bars()
 	_set_menu(false, "")
 	_set_button_visibility([])
 	_set_mobile_visible(true)
+	_set_hud_visible(true)
 	dashboard.visible = true
 
 func end_run(reason:String) -> void:
@@ -142,6 +151,7 @@ func end_run(reason:String) -> void:
 		ProfileStore.save_profile(profile)
 	player.visible = false
 	_set_mobile_visible(false)
+	_set_hud_visible(false)
 	dashboard.visible = false
 	_set_menu(true, "RESULTS\nReason: %s\nMiles: %.2f\nScrap earned: %d\nTotal Scrap: %d" % [reason, miles_driven, earned, int(profile["scrap"])])
 	_set_button_visibility(["restart", "garage"])
@@ -196,6 +206,7 @@ func mobile_layout_report() -> Dictionary:
 		touch_sized = touch_sized and size.x >= 64.0 and size.y >= 64.0
 		controls_in_bounds = controls_in_bounds and rect.position.x >= 0.0 and rect.position.y >= 0.0 and rect.end.x <= viewport_size.x and rect.end.y <= viewport_size.y
 	var dashboard_has_core_stats := dashboard.text.find("Fuel") >= 0 and dashboard.text.find("Damage") >= 0 and dashboard.text.find("Miles") >= 0 and dashboard.text.find("Scrap") >= 0
+	var hud_has_resource_bars := hud_panel != null and hud_panel.visible and fuel_bar != null and damage_bar != null and fuel_bar.visible and damage_bar.visible and fuel_bar.max_value > 0.0 and damage_bar.max_value > 0.0
 	return {
 		"landscape": viewport_size.x >= viewport_size.y,
 		"viewport": viewport_size,
@@ -204,6 +215,7 @@ func mobile_layout_report() -> Dictionary:
 		"controls_in_bounds": controls_in_bounds,
 		"control_rects": control_rects,
 		"dashboard_has_core_stats": dashboard_has_core_stats,
+		"hud_has_resource_bars": hud_has_resource_bars,
 		"dashboard_width_ok": dashboard.size.x <= viewport_size.x - 16.0,
 		"feedback_counts": feedback_counts.duplicate(),
 	}
@@ -305,6 +317,7 @@ func _read_controls() -> Dictionary:
 	}
 
 func _update_dashboard(terrain:int, movement:Dictionary) -> void:
+	_update_resource_bars()
 	var counts := world.entity_counts()
 	dashboard.text = "Fuel %.0f  Damage %.0f  Miles %.2f  Scrap %d\nTerrain %s  Speed %.0f  Tier %d  Z %d O %d P %d" % [
 		fuel,
@@ -322,6 +335,16 @@ func _update_dashboard(terrain:int, movement:Dictionary) -> void:
 func _build_ui() -> void:
 	canvas = CanvasLayer.new()
 	add_child(canvas)
+	hud_panel = VBoxContainer.new()
+	hud_panel.name = "ResourceHUD"
+	hud_panel.add_theme_constant_override("separation", 4)
+	canvas.add_child(hud_panel)
+	var fuel_status := _add_resource_bar(hud_panel, "Fuel", Color(0.92, 0.12, 0.04))
+	fuel_label = fuel_status["label"]
+	fuel_bar = fuel_status["bar"]
+	var damage_status := _add_resource_bar(hud_panel, "Damage", Color(0.06, 0.66, 0.44))
+	damage_label = damage_status["label"]
+	damage_bar = damage_status["bar"]
 	dashboard = Label.new()
 	dashboard.name = "Dashboard"
 	dashboard.position = Vector2(12, 10)
@@ -350,6 +373,7 @@ func _build_ui() -> void:
 	_add_button(vbox, "buy_engine", "Buy Engine", func(): buy_upgrade("engine"))
 	_add_button(vbox, "back", "Back", show_start)
 	_build_mobile_controls()
+	_set_hud_visible(false)
 
 func _build_audio() -> void:
 	if DisplayServer.get_name() == "headless" or OS.get_cmdline_args().has("--script"):
@@ -373,6 +397,36 @@ func _add_button(parent:Node, key:String, text:String, action:Callable) -> void:
 	button.pressed.connect(action)
 	parent.add_child(button)
 	buttons[key] = button
+
+func _add_resource_bar(parent:Node, label_text:String, fill_color:Color) -> Dictionary:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	parent.add_child(row)
+	var label := Label.new()
+	label.custom_minimum_size = Vector2(112, 22)
+	label.add_theme_font_size_override("font_size", 16)
+	label.add_theme_color_override("font_color", Color(0.98, 0.95, 0.82))
+	label.add_theme_color_override("font_outline_color", Color(0.04, 0.035, 0.028))
+	label.add_theme_constant_override("outline_size", 2)
+	label.text = "%s 0/0" % label_text
+	row.add_child(label)
+	var bar := ProgressBar.new()
+	bar.custom_minimum_size = Vector2(220, 18)
+	bar.show_percentage = false
+	bar.max_value = 100.0
+	bar.value = 0.0
+	bar.add_theme_stylebox_override("background", _bar_style(Color(0.08, 0.075, 0.065, 0.86)))
+	bar.add_theme_stylebox_override("fill", _bar_style(fill_color))
+	row.add_child(bar)
+	return {"label": label, "bar": bar}
+
+func _bar_style(color:Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = color
+	style.border_color = Color(0.025, 0.022, 0.018)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(3)
+	return style
 
 func _build_mobile_controls() -> void:
 	var names := {
@@ -419,12 +473,19 @@ func _set_mobile_visible(visible:bool) -> void:
 	for button in mobile_controls.values():
 		button.visible = visible
 
+func _set_hud_visible(visible:bool) -> void:
+	if hud_panel != null:
+		hud_panel.visible = visible
+
 func _layout_ui(layout_size:Vector2 = Vector2.ZERO) -> void:
 	if dashboard == null:
 		return
 	var viewport_size := layout_size if layout_size.x > 0.0 and layout_size.y > 0.0 else get_viewport_rect().size
-	dashboard.position = Vector2(12, 10)
-	dashboard.size = Vector2(maxf(320.0, viewport_size.x - 24.0), 62.0)
+	if hud_panel != null:
+		hud_panel.position = Vector2(12, 10)
+		hud_panel.size = Vector2(minf(370.0, viewport_size.x - 24.0), 54.0)
+	dashboard.position = Vector2(12, 74)
+	dashboard.size = Vector2(maxf(320.0, viewport_size.x - 24.0), 58.0)
 	if menu_panel != null:
 		var panel_size := Vector2(minf(500.0, viewport_size.x - 40.0), minf(290.0, viewport_size.y - 40.0))
 		menu_panel.custom_minimum_size = panel_size
@@ -453,6 +514,18 @@ func _layout_mobile_controls(viewport_size:Vector2) -> void:
 			button.position = positions[key]
 			button.custom_minimum_size = button_size
 			button.size = button_size
+
+func _update_resource_bars() -> void:
+	if fuel_bar == null or damage_bar == null:
+		return
+	var max_fuel := C.max_fuel_for(profile["upgrades"])
+	var max_damage := C.max_damage_for(profile["upgrades"])
+	fuel_bar.max_value = max_fuel
+	fuel_bar.value = clampf(fuel, 0.0, max_fuel)
+	damage_bar.max_value = max_damage
+	damage_bar.value = clampf(vehicle_damage_remaining, 0.0, max_damage)
+	fuel_label.text = "Fuel %d/%d" % [roundi(fuel_bar.value), roundi(max_fuel)]
+	damage_label.text = "Damage %d/%d" % [roundi(damage_bar.value), roundi(max_damage)]
 
 func _fresh_seed() -> int:
 	return int(Time.get_ticks_usec() & 0x7fffffff)

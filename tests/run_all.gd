@@ -18,6 +18,7 @@ func _run() -> void:
 	_test_routes_and_barriers()
 	_test_vehicle_controls()
 	_test_combat_resource_progression()
+	_test_first_minute_run_trust()
 	_test_mobile_layout()
 	if failures.is_empty():
 		print("ALL_KEEP_DRIVING_PROOFS_PASSED")
@@ -90,6 +91,17 @@ func _test_vehicle_controls() -> void:
 	var drift := car.apply_controls({"steer": 1.0, "gas": true, "brake": false, "handbrake": true}, C.TERRAIN_DIRT_PATH, 0.5)
 	_expect(bool(drift["handbrake"]), "handbrake state must be reported")
 	_expect(car.camera_zoom().x < 1.0 or car.camera_lookahead().length() > 0.0, "camera must respond to speed")
+	car.reset_vehicle()
+	car.velocity = Vector2.LEFT * 160.0
+	car.apply_controls({"steer": 1.0, "gas": false, "brake": true, "handbrake": false}, C.TERRAIN_ROAD, 0.25)
+	_expect(car.rotation < 0.0, "right steering while reversing must rotate opposite the forward direction")
+	car.reset_vehicle()
+	car.velocity = Vector2.RIGHT * 160.0
+	car.apply_controls({"steer": 1.0, "gas": false, "brake": true, "handbrake": false}, C.TERRAIN_ROAD, 0.1)
+	_expect(car.rotation > 0.0, "right steering while still braking forward must not invert")
+	car.reset_vehicle()
+	car.apply_controls({"steer": 1.0, "gas": false, "brake": true, "handbrake": false}, C.TERRAIN_ROAD, 0.25)
+	_expect(car.rotation < 0.0, "right steering from reverse throttle must invert once the car moves backward")
 	car.apply_impact(Vector2(200, 0), 0.3)
 	_expect(car.impact_shake > 0.0 and absf(car.rotation) > 0.0, "collision impact must shake and rotate")
 	car.queue_free()
@@ -113,6 +125,25 @@ func _test_combat_resource_progression() -> void:
 	_expect(game.state == "results", "vehicle damage must end a run")
 	game.queue_free()
 
+func _test_first_minute_run_trust() -> void:
+	var game := GameRoot.new()
+	root.add_child(game)
+	game.persist_enabled = false
+	game._ready()
+	for seed in [1, 333, 999, 54321, 909090]:
+		game.start_run(seed)
+		var terrain := game.world.sample_terrain(game.player.global_position)
+		var starts_on_route := terrain == C.TERRAIN_ROAD or terrain == C.TERRAIN_DIRT_PATH
+		_expect(starts_on_route, "run must start on road or dirt route: seed=%d terrain=%s position=%s" % [seed, C.terrain_name(terrain), str(game.player.global_position)])
+		var chunk := WorldGenerator.generate_chunk(seed, Vector2i.ZERO)
+		var connected_route_tiles := _reachable_route_tiles(chunk["route_mask"], Vector2i.ZERO)
+		_expect(connected_route_tiles > 16, "origin start route must connect into the route network: seed=%d reachable_route_tiles=%d" % [seed, connected_route_tiles])
+	var report := game.mobile_layout_report()
+	_expect(bool(report.get("hud_has_resource_bars", false)), "HUD must expose persistent fuel and damage bars")
+	var proof := game.automated_loop_proof()
+	_expect(bool(proof["ok"]), "garage progression must still pass after first-minute run trust polish: %s" % str(proof))
+	game.queue_free()
+
 func _test_mobile_layout() -> void:
 	var game := GameRoot.new()
 	root.add_child(game)
@@ -123,3 +154,26 @@ func _test_mobile_layout() -> void:
 	_expect(report["controls"].size() >= 5, "mobile controls must include steering/gas/brake/handbrake")
 	_expect(bool(report["touch_sized"]), "mobile controls must be touch-sized")
 	game.queue_free()
+
+func _reachable_route_tiles(route_mask:PackedByteArray, start:Vector2i) -> int:
+	var start_idx:int = start.y * C.CHUNK_TILES + start.x
+	if int(route_mask[start_idx]) != 1:
+		return 0
+	var frontier := [start]
+	var seen := {"%d,%d" % [start.x, start.y]: true}
+	var count:int = 0
+	while not frontier.is_empty():
+		var tile:Vector2i = frontier.pop_front()
+		count += 1
+		for neighbor:Vector2i in [tile + Vector2i.RIGHT, tile + Vector2i.LEFT, tile + Vector2i.UP, tile + Vector2i.DOWN]:
+			if neighbor.x < 0 or neighbor.y < 0 or neighbor.x >= C.CHUNK_TILES or neighbor.y >= C.CHUNK_TILES:
+				continue
+			var key := "%d,%d" % [neighbor.x, neighbor.y]
+			if seen.has(key):
+				continue
+			var idx:int = neighbor.y * C.CHUNK_TILES + neighbor.x
+			if int(route_mask[idx]) != 1:
+				continue
+			seen[key] = true
+			frontier.append(neighbor)
+	return count
