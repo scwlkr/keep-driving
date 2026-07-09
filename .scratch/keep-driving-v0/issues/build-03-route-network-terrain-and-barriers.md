@@ -33,4 +33,4 @@ Blocked by: build-02
   - `ALL_KEEP_DRIVING_PROOFS_PASSED`
   - `WORLD_PERF_PROOF frames=10800 fps=1730.7 p95_frame_ms=1.153 p95_stream_ms=0.932 active_chunks=25 preloaded_chunks=49 attach_queue_max=24 chunks_attached_frame_max=1 zombies=120 obstacles=150 pickups=40 effects=0 markers_scanned=673 skipped_spawns=485 pool_total=310 pool_usage=310/400 streaming_drag_activations=1 streaming_drag_frames=12 blank_terrain_risk_frames=0 pass=true`
 - Known gaps: no route continuity gaps found in build-03 scope.
-- Commit hash:
+- Commit hash: 3139719

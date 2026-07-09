@@ -1,8 +1,8 @@
 # Build 04 Vehicle Camera And Mobile Controls
 
 Type: build
-Owner: unclaimed
-Status: todo
+Owner: parallel worker + manager
+Status: done
 Blocked by: build-01
 
 ## Scope
@@ -31,5 +31,5 @@ Blocked by: build-01
 - Proof outputs:
   - `Godot Engine v4.7.stable.official.5b4e0cb0f`
   - `ALL_KEEP_DRIVING_PROOFS_PASSED`
-- Known gaps: no manual landscape mobile smoke drive performed in this pass; camera follow is immediate rather than smoothed, and smoothing would require `scripts/game_root.gd`, outside this worker's edit scope.
-- Commit hash: pending commit
+- Known gaps: none after manager integration; camera follow smoothing and Landscape Mobile Simulation Proof pass.
+- Commit hash: 6f6b763 plus manager integration

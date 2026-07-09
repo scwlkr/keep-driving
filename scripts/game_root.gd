@@ -56,11 +56,13 @@ func _process(delta:float) -> void:
 	if bool(world.metrics.get("streaming_drag_active", false)):
 		player.velocity *= 0.985
 	world.update_streaming(player.global_position)
-	world.update_entities(player.global_position, delta)
+	world.update_entities(player.global_position, delta, elapsed_seconds)
 	_handle_contacts(delta)
 	_apply_run_resources(delta, terrain)
-	camera.global_position = player.global_position + player.camera_lookahead()
-	camera.zoom = player.camera_zoom()
+	var camera_target := player.global_position + player.camera_lookahead()
+	var follow_weight := 1.0 - pow(0.001, delta)
+	camera.global_position = camera.global_position.lerp(camera_target, follow_weight)
+	camera.zoom = camera.zoom.lerp(player.camera_zoom(), follow_weight)
 	if player.impact_shake > 0.0:
 		camera.offset = Vector2(randf_range(-5.0, 5.0), randf_range(-5.0, 5.0)) * player.impact_shake
 	else:
@@ -102,6 +104,8 @@ func start_run(seed:int = 0) -> void:
 	world.start_run(run_seed)
 	player.visible = true
 	player.reset_vehicle(Vector2.ZERO)
+	camera.global_position = player.global_position
+	camera.zoom = Vector2.ONE
 	world.update_streaming(player.global_position)
 	var upgrades:Dictionary = profile["upgrades"]
 	fuel = C.max_fuel_for(upgrades)

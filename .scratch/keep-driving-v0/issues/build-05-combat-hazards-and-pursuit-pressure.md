@@ -1,8 +1,8 @@
 # Build 05 Combat Hazards And Pursuit Pressure
 
 Type: build
-Owner: unclaimed
-Status: todo
+Owner: parallel worker + manager
+Status: done
 Blocked by: build-02, build-04
 
 ## Scope
@@ -31,5 +31,5 @@ Blocked by: build-02, build-04
 - Proof outputs:
   - `Godot Engine v4.7.stable.official.5b4e0cb0f`
   - `ALL_KEEP_DRIVING_PROOFS_PASSED`
-- Known gaps: no manual smoke notes for ramming, obstacle weights, and damage failure were captured in this pass; Pursuit Pressure spawn escalation appears distance-based only, and elapsed-time escalation / spawn-distance safety would require `scripts/world_generator.gd` or `scripts/world_runtime.gd`, outside this worker's edit scope.
-- Commit hash: pending commit
+- Known gaps: none after manager integration; scripted smoke covers ramming, zombie contact damage, all obstacle weights, Vehicle Damage end, elapsed pressure tiering, and spawn safety.
+- Commit hash: 6f6b763 plus manager integration

@@ -14,6 +14,7 @@ var active_entities := {}
 var tile_set:TileSet
 var metrics := {}
 var _drag_was_active := false
+var _last_player_pos := Vector2.ZERO
 
 func _ready() -> void:
 	tile_set = _make_tileset()
@@ -32,6 +33,7 @@ func start_run(seed:int) -> void:
 
 func update_streaming(player_pos:Vector2) -> Dictionary:
 	var start_usec := Time.get_ticks_usec()
+	_last_player_pos = player_pos
 	metrics["chunks_attached_this_frame"] = 0
 	var center := WorldGenerator.world_to_chunk(player_pos)
 	var desired_active := _coords_in_radius(center, C.ACTIVE_RADIUS)
@@ -85,7 +87,7 @@ func update_streaming(player_pos:Vector2) -> Dictionary:
 	metrics["entity_counts"] = entity_counts()
 	return metrics
 
-func update_entities(player_pos:Vector2, delta:float) -> void:
+func update_entities(player_pos:Vector2, delta:float, elapsed_seconds:float = 0.0) -> void:
 	for entity in active_entities.values():
 		if not is_instance_valid(entity) or not entity.alive:
 			continue
@@ -93,7 +95,7 @@ func update_entities(player_pos:Vector2, delta:float) -> void:
 			var to_player:Vector2 = player_pos - entity.global_position
 			var distance:float = to_player.length()
 			if distance < 900.0 and distance > 1.0:
-				var speed := 88.0 + float(pressure_tier(player_pos, 0.0)) * 22.0
+				var speed := 88.0 + float(pressure_tier(player_pos, elapsed_seconds)) * 22.0
 				entity.global_position += to_player.normalized() * speed * delta
 
 func sample_terrain(world_pos:Vector2) -> int:
@@ -202,6 +204,12 @@ func _spawn_entities_for_chunk(data:Dictionary, key:String) -> void:
 			metrics["skipped_spawn_count"] += 1
 			continue
 		var kind := str(marker["kind"])
+		var coord:Vector2i = data["coord"]
+		var spawn_pos := WorldGenerator.local_tile_to_world(coord, marker["tile"])
+		if (kind == "zombie" or kind.begins_with("obstacle_")) and spawn_pos.distance_to(_last_player_pos) < 240.0:
+			metrics["skipped_spawn_count"] += 1
+			metrics["spawn_safety_skips"] += 1
+			continue
 		if kind == "zombie" and counts["zombies"] >= C.ZOMBIE_CAP:
 			metrics["skipped_spawn_count"] += 1
 			continue
@@ -212,8 +220,7 @@ func _spawn_entities_for_chunk(data:Dictionary, key:String) -> void:
 			metrics["skipped_spawn_count"] += 1
 			continue
 		var entity := WorldEntity.new()
-		var coord:Vector2i = data["coord"]
-		entity.setup(marker, WorldGenerator.local_tile_to_world(coord, marker["tile"]), key)
+		entity.setup(marker, spawn_pos, key)
 		add_child(entity)
 		active_entities[marker_id] = entity
 		counts = entity_counts()
@@ -244,6 +251,7 @@ func _reset_metrics() -> void:
 		"attach_queue_length": 0,
 		"chunks_attached_this_frame": 0,
 		"skipped_spawn_count": 0,
+		"spawn_safety_skips": 0,
 		"streaming_drag_activations": 0,
 		"current_chunk_active": false,
 		"streaming_drag_active": false,

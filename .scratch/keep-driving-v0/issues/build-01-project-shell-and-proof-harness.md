@@ -32,5 +32,5 @@ Blocked by:
 - Proof outputs:
   - `ALL_KEEP_DRIVING_PROOFS_PASSED`
   - Godot opened headlessly with `4.7.stable.official.5b4e0cb0f`
-- Known gaps: full ticket-by-ticket proof and manual smoke still pending.
-- Commit hash: pending commit
+- Known gaps: none after final proof pass.
+- Commit hash: b63b1f2

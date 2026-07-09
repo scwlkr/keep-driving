@@ -37,5 +37,5 @@ Blocked by: build-01
   - Manual smoke reported `viewport=(896.0, 414.0)`, `touch_sized=true`, `controls_in_bounds=true`, `dashboard_has_core_stats=true`, `dashboard_width_ok=true`, and `pass=true`.
 - Known gaps:
   - None for build-07 scope.
-- Commit hash:
+- Commit hash: 546f034
   - Final worker report.

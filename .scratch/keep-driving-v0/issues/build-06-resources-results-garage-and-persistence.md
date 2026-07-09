@@ -38,5 +38,5 @@ Blocked by: build-01, build-05
   - `MANUAL_SMOKE_SIMULATION seconds=600` covered Fuel/Repair/Scrap pickups, Fuel end, Vehicle Damage end, Results, Garage, fresh restart, and `pass=true`.
 - Known gaps:
   - None for build-06 scope.
-- Commit hash:
+- Commit hash: 546f034
   - Final worker report.

@@ -44,5 +44,5 @@ Blocked by: build-02, build-03, build-04, build-05, build-06, build-07, build-08
   - `WORLD_PERF_PROOF frames=10800 fps=1853.4 p95_frame_ms=0.857 p95_stream_ms=0.771 blank_terrain_risk_frames=0 pass=true`
 - Known gaps:
   - None for build-09 scoped Done Bar.
-- Commit hash:
+- Commit hash: 546f034 plus manager integration
   - Final worker report.
