@@ -9,6 +9,7 @@
 - **Done Bar**: The explicit pass/fail gate for Playable v0, combining automated proof, manual smoke proof, performance proof, and accepted limitations.
 - **Balance Defaults**: The intentionally rough starting tuning values that let the One-Shot Build Run implement a playable v0 without inventing economy or difficulty rules during the build.
 - **Manual Smoke Proof**: The focused local play session that validates Playable v0 feels coherent and playable end to end, not only technically complete.
+- **First-Minute Run Trust**: The early-run player confidence that a fresh run starts fairly, communicates the car's condition clearly, and makes hazards and controls readable before deeper progression decisions matter.
 - **WorldPerfProof**: The desktop-local automated performance proof for the Free-Roaming World, centered on a high-speed scripted drive with frame-time, streaming, chunk, and entity-budget metrics.
 - **Landscape Mobile Simulation Proof**: The v0 mobile proof standard that verifies landscape phone-scale layout, touch controls, and mobile-style play locally, without requiring a real Android/iOS export or physical-device smoke test.
 - **Free-Roaming World**: A full 360-degree top-down world where the player can drive in any direction across roads, paths, grass, dirt, and offroad terrain.
