@@ -28,8 +28,10 @@ Blocked by: build-02, build-03, build-05
 - Proof commands:
   - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://tests/run_all.gd`
   - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/world_perf_proof.gd`
+  - `/opt/homebrew/bin/godot --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/world_perf_proof.gd`
 - Proof outputs:
   - `ALL_KEEP_DRIVING_PROOFS_PASSED`
-  - `WORLD_PERF_PROOF frames=10800 fps=1730.7 p95_frame_ms=1.153 p95_stream_ms=0.932 active_chunks=25 preloaded_chunks=49 attach_queue_max=24 chunks_attached_frame_max=1 zombies=120 obstacles=150 pickups=40 effects=0 markers_scanned=673 skipped_spawns=485 pool_total=310 pool_usage=310/400 streaming_drag_activations=1 streaming_drag_frames=12 blank_terrain_risk_frames=0 pass=true`
+  - Headless render-enabled: `WORLD_PERF_PROOF frames=10800 fps=140.4 p95_frame_ms=7.748 p95_stream_ms=1.373 active_chunks=25 preloaded_chunks=49 attach_queue_max=24 chunks_attached_frame_max=1 blank_terrain_risk_frames=0 pass=true`
+  - Desktop rendered: `WORLD_PERF_PROOF frames=10800 fps=116.6 p95_frame_ms=14.598 p95_stream_ms=0.964 active_chunks=25 preloaded_chunks=49 attach_queue_max=24 chunks_attached_frame_max=1 blank_terrain_risk_frames=0 pass=true`
 - Known gaps: none for build-08 scope.
-- Commit hash: 3139719
+- Commit hash: 3139719 plus final manager integration

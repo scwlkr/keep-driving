@@ -37,6 +37,7 @@ func _run() -> void:
 		"mobile": false,
 		"mobile_touch_input": false,
 		"dashboard": false,
+		"feedback_audio": false,
 	}
 	for i in range(60 * 600):
 		if game.state != "running":
@@ -73,6 +74,7 @@ func _run() -> void:
 	covered["obstacle_light"] = _prove_obstacle_contact(game, "light")
 	covered["obstacle_medium"] = _prove_obstacle_contact(game, "medium")
 	covered["obstacle_heavy"] = _prove_obstacle_contact(game, "heavy")
+	covered["feedback_audio"] = int(game.feedback_counts["hit"]) > 0 and int(game.feedback_counts["pickup"]) > 0 and int(game.feedback_counts["audio"]) > 0
 
 	game.fuel = 0.0
 	game.sputter_seconds = C.SPUTTER_GRACE_SECONDS
@@ -108,6 +110,7 @@ func _run() -> void:
 		ok = ok and bool(covered[key])
 	print("MANUAL_SMOKE_SIMULATION seconds=600 covered=%s mobile=%s pass=%s" % [str(covered), str(mobile_report), str(ok)])
 	game.queue_free()
+	await process_frame
 	quit(0 if ok else 1)
 
 func _spawn_entity(game:GameRoot, id:String, kind:String, offset:Vector2) -> WorldEntity:

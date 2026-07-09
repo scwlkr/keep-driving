@@ -4,6 +4,7 @@ const C = preload("res://scripts/game_constants.gd")
 const ProfileStore = preload("res://scripts/profile_store.gd")
 const WorldRuntime = preload("res://scripts/world_runtime.gd")
 const PlayerVehicle = preload("res://scripts/player_vehicle.gd")
+const FeedbackEffect = preload("res://scripts/feedback_effect.gd")
 
 var world:WorldRuntime
 var player:PlayerVehicle
@@ -12,6 +13,7 @@ var canvas:CanvasLayer
 var dashboard:Label
 var menu_panel:PanelContainer
 var menu_label:Label
+var audio_players := {}
 var buttons := {}
 var mobile_controls := {}
 
@@ -29,6 +31,8 @@ var run_end_reason := ""
 var touch_state := {"steer": 0.0, "gas": false, "brake": false, "handbrake": false}
 var simulated_controls := {}
 var simulated_mobile_viewport := Vector2.ZERO
+var feedback_counts := {"dust": 0, "skid": 0, "hit": 0, "debris": 0, "pickup": 0, "audio": 0}
+var _feedback_accumulator := 0.0
 
 func _ready() -> void:
 	profile = ProfileStore.load_profile()
@@ -44,6 +48,7 @@ func _ready() -> void:
 	camera.enabled = true
 	add_child(camera)
 	_build_ui()
+	_build_audio()
 	show_start()
 
 func _process(delta:float) -> void:
@@ -59,6 +64,7 @@ func _process(delta:float) -> void:
 	world.update_entities(player.global_position, delta, elapsed_seconds)
 	_handle_contacts(delta)
 	_apply_run_resources(delta, terrain)
+	_update_motion_feedback(delta, terrain, controls)
 	var camera_target := player.global_position + player.camera_lookahead()
 	var follow_weight := 1.0 - pow(0.001, delta)
 	camera.global_position = camera.global_position.lerp(camera_target, follow_weight)
@@ -115,6 +121,8 @@ func start_run(seed:int = 0) -> void:
 	elapsed_seconds = 0.0
 	sputter_seconds = 0.0
 	run_end_reason = ""
+	feedback_counts = {"dust": 0, "skid": 0, "hit": 0, "debris": 0, "pickup": 0, "audio": 0}
+	_feedback_accumulator = 0.0
 	_set_menu(false, "")
 	_set_button_visibility([])
 	_set_mobile_visible(true)
@@ -160,9 +168,14 @@ func apply_pickup(kind:String) -> void:
 		vehicle_damage_remaining = minf(C.max_damage_for(profile["upgrades"]), vehicle_damage_remaining + C.REPAIR_PICKUP_AMOUNT)
 	elif kind == "scrap":
 		run_scrap += C.SCRAP_PICKUP_AMOUNT
+	_spawn_feedback("pickup", player.global_position, Color(0.98, 0.86, 0.22, 0.42), 22.0, 0.38)
+	_play_reactive_audio("pickup")
 
 func apply_damage(amount:float, source:String) -> void:
 	vehicle_damage_remaining = maxf(0.0, vehicle_damage_remaining - amount)
+	if amount > 0.0:
+		_spawn_feedback("hit", player.global_position, Color(1.0, 0.16, 0.06, 0.45), 28.0, 0.32)
+		_play_reactive_audio("damage")
 	if vehicle_damage_remaining <= 0.0:
 		end_run("Vehicle Damage: %s" % source)
 
@@ -192,6 +205,7 @@ func mobile_layout_report() -> Dictionary:
 		"control_rects": control_rects,
 		"dashboard_has_core_stats": dashboard_has_core_stats,
 		"dashboard_width_ok": dashboard.size.x <= viewport_size.x - 16.0,
+		"feedback_counts": feedback_counts.duplicate(),
 	}
 
 func automated_loop_proof() -> Dictionary:
@@ -241,6 +255,8 @@ func _handle_contacts(delta:float) -> void:
 				entity.global_position += push
 				world.mutate_marker(entity.marker_id, "destroyed")
 				player.apply_impact(-push * 0.25, randf_range(-0.08, 0.08))
+				_spawn_feedback("debris", entity.global_position, Color(0.5, 0.06, 0.04, 0.45), 30.0, 0.42)
+				_play_reactive_audio("hit")
 			else:
 				apply_damage(C.ZOMBIE_CONTACT_DAMAGE * delta, "zombie contact")
 		elif entity.is_obstacle():
@@ -249,11 +265,14 @@ func _handle_contacts(delta:float) -> void:
 			if entity.weight == "light":
 				world.mutate_marker(entity.marker_id, "destroyed")
 				player.apply_impact(away * 60.0, randf_range(-0.08, 0.08))
+				_spawn_feedback("debris", entity.global_position, Color(0.78, 0.58, 0.28, 0.45), 24.0, 0.4)
 			elif entity.weight == "medium" and player.velocity.length() > 420.0:
 				world.mutate_marker(entity.marker_id, "shoved")
 				player.apply_impact(away * 140.0, randf_range(-0.24, 0.24))
+				_spawn_feedback("debris", entity.global_position, Color(0.62, 0.56, 0.46, 0.45), 32.0, 0.44)
 			else:
 				player.apply_impact(away * 260.0 - player.velocity * 0.4, randf_range(-0.45, 0.45))
+				_spawn_feedback("hit", entity.global_position, Color(1.0, 0.34, 0.08, 0.5), 42.0, 0.36)
 			apply_damage(damage, entity.weight + " obstacle")
 
 func _apply_run_resources(delta:float, terrain:int) -> void:
@@ -264,6 +283,7 @@ func _apply_run_resources(delta:float, terrain:int) -> void:
 		apply_damage(C.WATER_OR_CLIFF_DAMAGE * delta, C.terrain_name(terrain))
 	if fuel <= 0.0:
 		sputter_seconds += delta
+		_play_reactive_audio("warning")
 		if sputter_seconds >= C.SPUTTER_GRACE_SECONDS:
 			end_run("Fuel")
 	else:
@@ -330,6 +350,21 @@ func _build_ui() -> void:
 	_add_button(vbox, "buy_engine", "Buy Engine", func(): buy_upgrade("engine"))
 	_add_button(vbox, "back", "Back", show_start)
 	_build_mobile_controls()
+
+func _build_audio() -> void:
+	if DisplayServer.get_name() == "headless" or OS.get_cmdline_args().has("--script"):
+		return
+	var audio_kinds := ["engine", "skid", "hit", "pickup", "damage", "warning"]
+	for key in audio_kinds:
+		var player_audio := AudioStreamPlayer.new()
+		player_audio.name = "Audio_%s" % key
+		var stream := AudioStreamGenerator.new()
+		stream.mix_rate = 8000.0
+		stream.buffer_length = 0.05
+		player_audio.stream = stream
+		player_audio.volume_db = -24.0
+		add_child(player_audio)
+		audio_players[key] = player_audio
 
 func _add_button(parent:Node, key:String, text:String, action:Callable) -> void:
 	var button := Button.new()
@@ -421,3 +456,32 @@ func _layout_mobile_controls(viewport_size:Vector2) -> void:
 
 func _fresh_seed() -> int:
 	return int(Time.get_ticks_usec() & 0x7fffffff)
+
+func _update_motion_feedback(delta:float, terrain:int, controls:Dictionary) -> void:
+	_feedback_accumulator += delta
+	if _feedback_accumulator < 0.12:
+		return
+	_feedback_accumulator = 0.0
+	if player.velocity.length() > 160.0:
+		var terrain_dust := terrain == C.TERRAIN_DIRT_PATH or terrain == C.TERRAIN_GRASS or terrain == C.TERRAIN_ROUGH or terrain == C.TERRAIN_SHALLOW
+		if terrain_dust:
+			_spawn_feedback("dust", player.global_position - Vector2.RIGHT.rotated(player.rotation) * 54.0, Color(0.74, 0.64, 0.42, 0.18), 18.0, 0.35)
+		if bool(controls.get("handbrake", false)):
+			_spawn_feedback("skid", player.global_position - Vector2.RIGHT.rotated(player.rotation) * 40.0, Color(0.08, 0.075, 0.065, 0.35), 22.0, 0.45)
+			_play_reactive_audio("skid")
+
+func _spawn_feedback(kind:String, position:Vector2, color:Color, radius:float, duration:float) -> void:
+	var effect := FeedbackEffect.new()
+	effect.add_to_group("feedback_effect")
+	effect.setup(kind, position, color, radius, duration)
+	world.add_child(effect)
+	if feedback_counts.has(kind):
+		feedback_counts[kind] = int(feedback_counts[kind]) + 1
+
+func _play_reactive_audio(kind:String) -> void:
+	feedback_counts["audio"] = int(feedback_counts["audio"]) + 1
+	if not audio_players.has(kind):
+		return
+	var player_audio:AudioStreamPlayer = audio_players[kind]
+	if not player_audio.playing:
+		player_audio.play()

@@ -21,10 +21,12 @@ func _run() -> void:
 	_test_mobile_layout()
 	if failures.is_empty():
 		print("ALL_KEEP_DRIVING_PROOFS_PASSED")
+		await process_frame
 		quit(0)
 	else:
 		for failure in failures:
 			push_error(failure)
+		await process_frame
 		quit(1)
 
 func _expect(condition:bool, message:String) -> void:

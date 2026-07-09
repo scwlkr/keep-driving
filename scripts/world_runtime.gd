@@ -145,6 +145,13 @@ func entity_counts() -> Dictionary:
 			counts["pickups"] += 1
 	return counts
 
+func active_effect_count() -> int:
+	var count := 0
+	for node in get_tree().get_nodes_in_group("feedback_effect"):
+		if is_instance_valid(node):
+			count += 1
+	return count
+
 func marker_count_scanned() -> int:
 	var total := 0
 	for data in data_cache.values():

@@ -8,8 +8,9 @@ func _initialize() -> void:
 	call_deferred("_run")
 
 func _run() -> void:
+	root.size = Vector2i(1280, 720)
 	var world := WorldRuntime.new()
-	world.render_chunks = false
+	world.render_chunks = true
 	root.add_child(world)
 	world.start_run(424242)
 	var frame_times := []
@@ -30,6 +31,7 @@ func _run() -> void:
 		if i % 900 == 0:
 			velocity = velocity.rotated(0.72)
 		var metrics := world.update_streaming(player_pos)
+		await process_frame
 		var current_key := WorldGenerator.coord_key(WorldGenerator.world_to_chunk(player_pos))
 		frame_times.append(float(Time.get_ticks_usec() - frame_start) / 1000.0)
 		stream_times.append(float(metrics["last_stream_ms"]))
@@ -46,9 +48,10 @@ func _run() -> void:
 	var elapsed_seconds := maxf(float(Time.get_ticks_usec() - proof_start) / 1000000.0, 0.001)
 	var fps := float(frames) / elapsed_seconds
 	var counts := world.entity_counts()
+	counts["effects"] = world.active_effect_count()
 	var active_budget := (C.ACTIVE_RADIUS * 2 + 1) * (C.ACTIVE_RADIUS * 2 + 1)
 	var preload_budget := (C.PRELOAD_RADIUS * 2 + 1) * (C.PRELOAD_RADIUS * 2 + 1)
-	var ok := fps >= 60.0 and p95_frame <= 16.7 and p95_stream <= 4.0 and max_active <= active_budget and max_preload <= preload_budget and max_attach <= 1 and max_attach_queue <= active_budget - 1 and blank_terrain_risk_frames == 0
+	var ok := fps >= 60.0 and p95_frame <= 16.7 and p95_stream <= 4.0 and max_active <= active_budget and max_preload <= preload_budget and max_attach <= 1 and max_attach_queue <= active_budget - 1 and blank_terrain_risk_frames == 0 and world.render_chunks
 	print("WORLD_PERF_PROOF frames=%d fps=%.1f p95_frame_ms=%.3f p95_stream_ms=%.3f active_chunks=%d preloaded_chunks=%d attach_queue_max=%d chunks_attached_frame_max=%d zombies=%d obstacles=%d pickups=%d effects=%d markers_scanned=%d skipped_spawns=%d pool_total=%d pool_usage=%d/%d streaming_drag_activations=%d streaming_drag_frames=%d blank_terrain_risk_frames=%d pass=%s" % [
 		frames,
 		fps,
@@ -73,6 +76,7 @@ func _run() -> void:
 		str(ok),
 	])
 	world.queue_free()
+	await process_frame
 	quit(0 if ok else 1)
 
 func _percentile(values:Array, pct:float) -> float:

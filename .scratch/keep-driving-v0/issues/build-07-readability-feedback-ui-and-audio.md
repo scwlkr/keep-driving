@@ -34,8 +34,9 @@ Blocked by: build-01
   - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/manual_smoke_proof.gd`
 - Proof outputs:
   - `ALL_KEEP_DRIVING_PROOFS_PASSED`
-  - Manual smoke reported `viewport=(896.0, 414.0)`, `touch_sized=true`, `controls_in_bounds=true`, `dashboard_has_core_stats=true`, `dashboard_width_ok=true`, and `pass=true`.
+  - Manual smoke reported `viewport=(896.0, 414.0)`, `touch_sized=true`, `controls_in_bounds=true`, `dashboard_has_core_stats=true`, `dashboard_width_ok=true`, `feedback_audio=true`, and `pass=true`.
+  - Landscape mobile proof reported `terrain_seen=["rough_offroad", "grass", "road"]`, `camera_moved=true`, `readable=true`, `feedback=true`, and `pass=true`.
 - Known gaps:
   - None for build-07 scope.
-- Commit hash: 546f034
+- Commit hash: 546f034 plus final manager integration
   - Final worker report.

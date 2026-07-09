@@ -38,10 +38,14 @@ Blocked by: build-02, build-03, build-04, build-05, build-06, build-07, build-08
   - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://tests/run_all.gd`
   - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/manual_smoke_proof.gd`
   - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/world_perf_proof.gd`
+  - `/opt/homebrew/bin/godot --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/manual_smoke_proof.gd`
+  - `/opt/homebrew/bin/godot --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/world_perf_proof.gd`
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/landscape_mobile_proof.gd`
 - Proof outputs:
   - `ALL_KEEP_DRIVING_PROOFS_PASSED`
-  - `MANUAL_SMOKE_SIMULATION seconds=600` covered road/offroad, Handbrake, pickups, zombie ram/contact, all obstacle weights, Fuel end, Vehicle Damage end, Results, Garage, fresh restart, landscape mobile touch input, dashboard, and `pass=true`.
-  - `WORLD_PERF_PROOF frames=10800 fps=1853.4 p95_frame_ms=0.857 p95_stream_ms=0.771 blank_terrain_risk_frames=0 pass=true`
+  - `MANUAL_SMOKE_SIMULATION seconds=600` covered road/offroad, Handbrake, pickups, zombie ram/contact, all obstacle weights, Fuel end, Vehicle Damage end, Results, Garage, fresh restart, landscape mobile touch input, dashboard, feedback/audio, and `pass=true`.
+  - Desktop rendered perf: `WORLD_PERF_PROOF frames=10800 fps=116.6 p95_frame_ms=14.598 p95_stream_ms=0.964 blank_terrain_risk_frames=0 pass=true`
+  - `LANDSCAPE_MOBILE_PROOF viewport=(896.0, 414.0) terrain_seen=["rough_offroad", "grass", "road"] camera_moved=true readable=true feedback=true results=true garage=true restart=true pass=true`
 - Known gaps:
   - None for build-09 scoped Done Bar.
 - Commit hash: 546f034 plus manager integration
