@@ -2,10 +2,12 @@ extends Node2D
 
 const C = preload("res://scripts/game_constants.gd")
 const ProfileStore = preload("res://scripts/profile_store.gd")
+const RunProgression = preload("res://scripts/run_progression.gd")
 const WorldRuntime = preload("res://scripts/world_runtime.gd")
 const PlayerVehicle = preload("res://scripts/player_vehicle.gd")
 const FeedbackEffect = preload("res://scripts/feedback_effect.gd")
 
+var progression:RunProgression
 var world:WorldRuntime
 var player:PlayerVehicle
 var camera:Camera2D
@@ -30,6 +32,7 @@ var fuel := 0.0
 var vehicle_damage_remaining := 0.0
 var miles_driven := 0.0
 var run_scrap := 0
+var scrap_earned := 0
 var elapsed_seconds := 0.0
 var sputter_seconds := 0.0
 var run_end_reason := ""
@@ -42,6 +45,8 @@ var profile_save_path := ProfileStore.SAVE_PATH
 
 func _ready() -> void:
 	profile = ProfileStore.load_profile(profile_save_path)
+	progression = RunProgression.new(profile)
+	_sync_from_progression()
 	world = WorldRuntime.new()
 	world.name = "WorldRuntime"
 	add_child(world)
@@ -61,7 +66,7 @@ func _process(delta:float) -> void:
 	if state != "running":
 		return
 	var controls := _read_controls()
-	player.engine_multiplier = C.engine_multiplier_for(profile["upgrades"])
+	player.engine_multiplier = progression.engine_multiplier()
 	var terrain := world.sample_terrain(player.global_position)
 	var movement := player.apply_controls(controls, terrain, delta)
 	if bool(world.metrics.get("streaming_drag_active", false)):
@@ -94,6 +99,7 @@ func show_start() -> void:
 
 func show_garage() -> void:
 	state = "garage"
+	_set_progression_profile(profile)
 	_layout_ui()
 	player.visible = false
 	world.visible = false
@@ -109,6 +115,7 @@ func show_garage() -> void:
 
 func start_run(seed:int = 0) -> void:
 	state = "running"
+	_set_progression_profile(profile)
 	_layout_ui()
 	run_seed = seed if seed != 0 else _fresh_seed()
 	world.visible = true
@@ -118,14 +125,8 @@ func start_run(seed:int = 0) -> void:
 	camera.global_position = player.global_position
 	camera.zoom = Vector2.ONE
 	world.update_streaming(player.global_position)
-	var upgrades:Dictionary = profile["upgrades"]
-	fuel = C.max_fuel_for(upgrades)
-	vehicle_damage_remaining = C.max_damage_for(upgrades)
-	miles_driven = 0.0
-	run_scrap = 0
-	elapsed_seconds = 0.0
-	sputter_seconds = 0.0
-	run_end_reason = ""
+	progression.start_run(run_seed)
+	_sync_from_progression()
 	feedback_counts = {"dust": 0, "skid": 0, "hit": 0, "debris": 0, "pickup": 0, "audio": 0}
 	_feedback_accumulator = 0.0
 	_update_resource_bars()
@@ -138,54 +139,34 @@ func start_run(seed:int = 0) -> void:
 func end_run(reason:String) -> void:
 	if state != "running":
 		return
-	state = "results"
-	run_end_reason = reason
-	var bonus := int(floor(miles_driven / 0.25))
-	var earned := run_scrap + bonus
-	profile["scrap"] = int(profile["scrap"]) + earned
-	profile["runs"] = int(profile.get("runs", 0)) + 1
-	profile["best_miles"] = maxf(float(profile.get("best_miles", 0.0)), miles_driven)
-	if persist_enabled:
-		ProfileStore.save_profile(profile, profile_save_path)
-	player.visible = false
-	_set_mobile_visible(false)
-	_set_hud_visible(false)
-	dashboard.visible = false
-	_set_menu(true, "RESULTS\nReason: %s\nMiles: %.2f\nScrap earned: %d\nTotal Scrap: %d" % [reason, miles_driven, earned, int(profile["scrap"])])
-	_set_button_visibility(["restart", "garage"])
+	progression.finish_run(reason)
+	_show_finished_run()
 
 func buy_upgrade(upgrade:String) -> bool:
-	var upgrades:Dictionary = profile["upgrades"]
-	var level := int(upgrades.get(upgrade, 0))
-	if level >= 3:
+	_set_progression_profile(profile)
+	var bought := progression.buy_upgrade(upgrade)
+	_sync_from_progression()
+	if not bought:
 		return false
-	var cost := C.upgrade_cost(upgrade, level)
-	if int(profile["scrap"]) < cost:
-		return false
-	profile["scrap"] = int(profile["scrap"]) - cost
-	upgrades[upgrade] = level + 1
 	if persist_enabled:
 		ProfileStore.save_profile(profile, profile_save_path)
 	show_garage()
 	return true
 
 func apply_pickup(kind:String) -> void:
-	if kind == "fuel":
-		fuel = minf(C.max_fuel_for(profile["upgrades"]), fuel + C.FUEL_PICKUP_AMOUNT)
-	elif kind == "repair":
-		vehicle_damage_remaining = minf(C.max_damage_for(profile["upgrades"]), vehicle_damage_remaining + C.REPAIR_PICKUP_AMOUNT)
-	elif kind == "scrap":
-		run_scrap += C.SCRAP_PICKUP_AMOUNT
+	progression.apply_pickup(kind)
+	_sync_from_progression()
 	_spawn_feedback("pickup", player.global_position, Color(0.98, 0.86, 0.22, 0.42), 22.0, 0.38)
 	_play_reactive_audio("pickup")
 
 func apply_damage(amount:float, source:String) -> void:
-	vehicle_damage_remaining = maxf(0.0, vehicle_damage_remaining - amount)
+	progression.apply_damage(amount, source)
+	_sync_from_progression()
 	if amount > 0.0:
 		_spawn_feedback("hit", player.global_position, Color(1.0, 0.16, 0.06, 0.45), 28.0, 0.32)
 		_play_reactive_audio("damage")
-	if vehicle_damage_remaining <= 0.0:
-		end_run("Vehicle Damage: %s" % source)
+	if state == "running" and not progression.is_active():
+		_show_finished_run()
 
 func mobile_layout_report() -> Dictionary:
 	var viewport_size := simulated_mobile_viewport if simulated_mobile_viewport.x > 0.0 and simulated_mobile_viewport.y > 0.0 else get_viewport_rect().size
@@ -222,6 +203,7 @@ func automated_loop_proof() -> Dictionary:
 	var old_persist := persist_enabled
 	persist_enabled = false
 	profile = ProfileStore.default_profile()
+	_set_progression_profile(profile)
 	profile["scrap"] = 25
 	start_run(11111)
 	var first_seed := run_seed
@@ -229,13 +211,14 @@ func automated_loop_proof() -> Dictionary:
 	apply_damage(30.0, "proof impact")
 	apply_pickup("repair")
 	apply_pickup("scrap")
-	miles_driven = 0.76
+	progression.advance(0.0, 0.76)
+	_sync_from_progression()
 	end_run("proof fuel")
 	var scrap_after := int(profile["scrap"])
 	var bought := buy_upgrade("fuel_tank")
 	start_run(22222)
 	var second_seed := run_seed
-	var max_fuel_after := C.max_fuel_for(profile["upgrades"])
+	var max_fuel_after := progression.max_fuel()
 	var proof_save_path := "user://keep_driving_profile_v0_proof.json"
 	ProfileStore.save_profile(profile, proof_save_path)
 	var reloaded_profile := ProfileStore.load_profile(proof_save_path)
@@ -286,18 +269,14 @@ func _handle_contacts(delta:float) -> void:
 			apply_damage(damage, entity.weight + " obstacle")
 
 func _apply_run_resources(delta:float, terrain:int) -> void:
-	elapsed_seconds += delta
-	miles_driven = maxf(miles_driven, player.global_position.length() / C.PIXELS_PER_MILE)
-	fuel = maxf(0.0, fuel - C.FUEL_DRAIN_PER_SECOND * delta)
+	progression.advance(delta, player.global_position.length() / C.PIXELS_PER_MILE)
+	_sync_from_progression()
 	if terrain == C.TERRAIN_WATER or terrain == C.TERRAIN_BARRIER:
 		apply_damage(C.WATER_OR_CLIFF_DAMAGE * delta, C.terrain_name(terrain))
-	if fuel <= 0.0:
-		sputter_seconds += delta
+	if state == "running" and fuel <= 0.0:
 		_play_reactive_audio("warning")
-		if sputter_seconds >= C.SPUTTER_GRACE_SECONDS:
-			end_run("Fuel")
-	else:
-		sputter_seconds = 0.0
+	if state == "running" and not progression.is_active():
+		_show_finished_run()
 
 func _read_controls() -> Dictionary:
 	if not simulated_controls.is_empty():
@@ -403,21 +382,20 @@ func _update_garage_buttons() -> void:
 
 func _update_garage_button(button_key:String, upgrade:String) -> void:
 	var button:Button = buttons[button_key]
-	var upgrades:Dictionary = profile["upgrades"]
-	var level := int(upgrades.get(upgrade, 0))
+	var fact := progression.garage_fact(upgrade)
+	var level := int(fact["level"])
 	var label := _upgrade_label(upgrade)
-	if level >= 3:
-		button.text = "%s L3/3 MAXED\nEffect: %s" % [label, _upgrade_effect(upgrade, 3)]
+	if bool(fact["maxed"]):
+		button.text = "%s L3/3 MAXED\nEffect: %s" % [label, _upgrade_effect_text(fact["effect"])]
 		button.disabled = true
 		return
-	var cost := C.upgrade_cost(upgrade, level)
-	var scrap := int(profile["scrap"])
-	var state := "Ready to Buy" if scrap >= cost else "Need %d more Scrap" % [cost - scrap]
+	var cost := int(fact["cost"])
+	var state := "Ready to Buy" if bool(fact["affordable"]) else "Need %d more Scrap" % int(fact["missing_scrap"])
 	button.text = "%s L%d/3 | Cost: %d Scrap\nEffect: %s | %s" % [
 		label,
 		level,
 		cost,
-		_upgrade_effect(upgrade, level + 1),
+		_upgrade_effect_text(fact["effect"]),
 		state,
 	]
 	button.disabled = false
@@ -433,15 +411,14 @@ func _upgrade_label(upgrade:String) -> String:
 		_:
 			return upgrade
 
-func _upgrade_effect(upgrade:String, level:int) -> String:
-	var idx := clampi(level - 1, 0, 2)
-	match upgrade:
-		"fuel_tank":
-			return "+%d max Fuel" % int(C.FUEL_TANK_BONUS[idx])
-		"armor":
-			return "+%d max Vehicle Damage" % int(C.ARMOR_BONUS[idx])
-		"engine":
-			return "+%d%% speed" % int(roundf(C.ENGINE_BONUS[idx] * 100.0))
+func _upgrade_effect_text(effect:Dictionary) -> String:
+	match str(effect.get("stat", "")):
+		"max_fuel":
+			return "+%d max Fuel" % int(effect.get("amount", 0.0))
+		"max_vehicle_damage":
+			return "+%d max Vehicle Damage" % int(effect.get("amount", 0.0))
+		"speed":
+			return "+%d%% speed" % int(roundf(float(effect.get("amount", 0.0)) * 100.0))
 		_:
 			return "unknown"
 
@@ -573,14 +550,43 @@ func _layout_mobile_controls(viewport_size:Vector2) -> void:
 func _update_resource_bars() -> void:
 	if fuel_bar == null or damage_bar == null:
 		return
-	var max_fuel := C.max_fuel_for(profile["upgrades"])
-	var max_damage := C.max_damage_for(profile["upgrades"])
+	var max_fuel := progression.max_fuel()
+	var max_damage := progression.max_damage()
 	fuel_bar.max_value = max_fuel
 	fuel_bar.value = clampf(fuel, 0.0, max_fuel)
 	damage_bar.max_value = max_damage
 	damage_bar.value = clampf(vehicle_damage_remaining, 0.0, max_damage)
 	fuel_label.text = "Fuel %d/%d" % [roundi(fuel_bar.value), roundi(max_fuel)]
 	damage_label.text = "Damage %d/%d" % [roundi(damage_bar.value), roundi(max_damage)]
+
+func _set_progression_profile(next_profile:Dictionary) -> void:
+	progression.set_driver_profile(next_profile)
+	_sync_from_progression()
+
+func _sync_from_progression() -> void:
+	profile = progression.driver_profile_snapshot()
+	var run := progression.run_state_snapshot()
+	run_seed = int(run.get("run_seed", run_seed))
+	fuel = float(run.get("fuel", fuel))
+	vehicle_damage_remaining = float(run.get("vehicle_damage_remaining", vehicle_damage_remaining))
+	miles_driven = float(run.get("miles_driven", miles_driven))
+	run_scrap = int(run.get("run_scrap", run_scrap))
+	scrap_earned = int(run.get("scrap_earned", scrap_earned))
+	elapsed_seconds = float(run.get("elapsed_seconds", elapsed_seconds))
+	sputter_seconds = float(run.get("sputter_seconds", sputter_seconds))
+	run_end_reason = str(run.get("end_reason", run_end_reason))
+
+func _show_finished_run() -> void:
+	_sync_from_progression()
+	state = "results"
+	if persist_enabled:
+		ProfileStore.save_profile(profile, profile_save_path)
+	player.visible = false
+	_set_mobile_visible(false)
+	_set_hud_visible(false)
+	dashboard.visible = false
+	_set_menu(true, "RESULTS\nReason: %s\nMiles: %.2f\nScrap earned: %d\nTotal Scrap: %d" % [run_end_reason, miles_driven, scrap_earned, int(profile["scrap"])])
+	_set_button_visibility(["restart", "garage"])
 
 func _fresh_seed() -> int:
 	return int(Time.get_ticks_usec() & 0x7fffffff)

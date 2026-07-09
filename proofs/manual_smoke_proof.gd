@@ -59,13 +59,17 @@ func _run() -> void:
 			covered["handbrake"] = true
 		covered["dashboard"] = covered["dashboard"] or _dashboard_has_core_stats(game)
 		if game.fuel < 12.0:
-			game.fuel = 45.0
+			game.progression.apply_pickup("fuel")
+			game._sync_from_progression()
 		if game.vehicle_damage_remaining < 20.0:
-			game.vehicle_damage_remaining = 60.0
+			game.progression.apply_pickup("repair")
+			game._sync_from_progression()
 
 	game.simulated_controls = {}
-	game.vehicle_damage_remaining = C.max_damage_for(game.profile["upgrades"])
-	game.fuel = C.max_fuel_for(game.profile["upgrades"])
+	game.start_run(919191)
+	game.progression.apply_pickup("fuel")
+	game.progression.apply_pickup("repair")
+	game._sync_from_progression()
 	covered["fuel_pickup"] = _prove_pickup(game, "fuel")
 	covered["repair_pickup"] = _prove_pickup(game, "repair")
 	covered["scrap_pickup"] = _prove_pickup(game, "scrap")
@@ -76,9 +80,7 @@ func _run() -> void:
 	covered["obstacle_heavy"] = _prove_obstacle_contact(game, "heavy")
 	covered["feedback_audio"] = int(game.feedback_counts["hit"]) > 0 and int(game.feedback_counts["pickup"]) > 0 and int(game.feedback_counts["audio"]) > 0
 
-	game.fuel = 0.0
-	game.sputter_seconds = C.SPUTTER_GRACE_SECONDS
-	game._apply_run_resources(0.01, C.TERRAIN_ROAD)
+	game._apply_run_resources(306.2, C.TERRAIN_ROAD)
 	covered["fuel_end"] = game.state == "results" and game.run_end_reason == "Fuel"
 	covered["results"] = covered["fuel_end"]
 
@@ -102,7 +104,7 @@ func _run() -> void:
 	covered["mobile"] = bool(mobile_report["landscape"]) and bool(mobile_report["touch_sized"]) and bool(mobile_report["controls_in_bounds"])
 	covered["dashboard"] = covered["dashboard"] and bool(mobile_report["dashboard_has_core_stats"]) and bool(mobile_report["dashboard_width_ok"])
 
-	game.apply_damage(C.max_damage_for(game.profile["upgrades"]), "manual smoke lethal")
+	game.apply_damage(game.progression.max_damage(), "manual smoke lethal")
 	covered["damage_end"] = game.state == "results" and game.run_end_reason.begins_with("Vehicle Damage")
 
 	var ok := true
@@ -123,9 +125,10 @@ func _spawn_entity(game:GameRoot, id:String, kind:String, offset:Vector2) -> Wor
 func _prove_pickup(game:GameRoot, kind:String) -> bool:
 	var id := "manual:%s" % kind
 	if kind == "fuel":
-		game.fuel = 10.0
+		game.progression.advance(260.0, game.miles_driven)
+		game._sync_from_progression()
 	elif kind == "repair":
-		game.vehicle_damage_remaining = C.max_damage_for(game.profile["upgrades"]) - 40.0
+		game.apply_damage(40.0, "repair pickup setup")
 	var scrap_before := game.run_scrap
 	var fuel_before := game.fuel
 	var damage_before := game.vehicle_damage_remaining
@@ -147,7 +150,8 @@ func _prove_zombie_ram(game:GameRoot) -> bool:
 func _prove_zombie_contact_damage(game:GameRoot) -> bool:
 	var id := "manual:zombie_contact"
 	game.player.velocity = Vector2.ZERO
-	game.vehicle_damage_remaining = C.max_damage_for(game.profile["upgrades"])
+	game.progression.apply_pickup("repair")
+	game._sync_from_progression()
 	var damage_before := game.vehicle_damage_remaining
 	_spawn_entity(game, id, "zombie", Vector2(30, 0))
 	game._handle_contacts(1.0)
@@ -156,7 +160,8 @@ func _prove_zombie_contact_damage(game:GameRoot) -> bool:
 
 func _prove_obstacle_contact(game:GameRoot, weight:String) -> bool:
 	var id := "manual:obstacle_%s" % weight
-	game.vehicle_damage_remaining = C.max_damage_for(game.profile["upgrades"])
+	game.progression.apply_pickup("repair")
+	game._sync_from_progression()
 	game.player.velocity = Vector2.RIGHT * (500.0 if weight == "medium" else 260.0)
 	var damage_before := game.vehicle_damage_remaining
 	_spawn_entity(game, id, "obstacle_%s" % weight, Vector2(30, 0))

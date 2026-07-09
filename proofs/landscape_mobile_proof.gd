@@ -33,7 +33,6 @@ func _run() -> void:
 	game.apply_pickup("fuel")
 	game.apply_pickup("scrap")
 	game.apply_damage(20.0, "mobile proof impact")
-	game.miles_driven = 0.8
 	game.end_run("mobile proof complete")
 	var results_ok := game.state == "results" and int(game.profile["scrap"]) > 40
 	var proof_layout := game.mobile_layout_report()
