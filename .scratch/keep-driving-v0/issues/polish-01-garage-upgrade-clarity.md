@@ -2,7 +2,7 @@
 
 Type: polish
 Owner: Codex
-Status: ready
+Status: done
 Baseline: 655b230
 
 ## Problem
@@ -60,3 +60,18 @@ The player should immediately know what each Permanent Upgrade does, what the ne
 ## Done Bar
 
 Garage clarity is done when a first-time player can choose whether to save or spend Scrap without guessing upgrade prices or effects.
+
+## Agent Report
+
+- Changed files:
+  - `scripts/game_root.gd`
+  - `tests/run_all.gd`
+  - `.scratch/keep-driving-v0/issues/polish-01-garage-upgrade-clarity.md`
+- Proof command:
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://tests/run_all.gd`
+- Proof output:
+  - `ALL_KEEP_DRIVING_PROOFS_PASSED`
+- Notes:
+  - Garage upgrade buttons now show level, next cost, next effect, and Ready/Need/Maxed state.
+  - Unaffordable rows explain the missing Scrap while preserving the existing failed-buy behavior.
+  - Maxed upgrade buttons are disabled.

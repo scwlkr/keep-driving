@@ -38,9 +38,10 @@ var simulated_controls := {}
 var simulated_mobile_viewport := Vector2.ZERO
 var feedback_counts := {"dust": 0, "skid": 0, "hit": 0, "debris": 0, "pickup": 0, "audio": 0}
 var _feedback_accumulator := 0.0
+var profile_save_path := ProfileStore.SAVE_PATH
 
 func _ready() -> void:
-	profile = ProfileStore.load_profile()
+	profile = ProfileStore.load_profile(profile_save_path)
 	world = WorldRuntime.new()
 	world.name = "WorldRuntime"
 	add_child(world)
@@ -96,14 +97,11 @@ func show_garage() -> void:
 	_layout_ui()
 	player.visible = false
 	world.visible = false
-	var upgrades:Dictionary = profile["upgrades"]
-	var text := "GARAGE\nScrap: %d\n\nFuel Tank L%d | Armor L%d | Engine L%d\nPermanent upgrades persist across fresh Run Seeds." % [
+	var text := "GARAGE\nScrap: %d\nPermanent upgrades persist across fresh Run Seeds." % [
 		int(profile["scrap"]),
-		int(upgrades["fuel_tank"]),
-		int(upgrades["armor"]),
-		int(upgrades["engine"]),
 	]
 	_set_menu(true, text)
+	_update_garage_buttons()
 	_set_button_visibility(["buy_fuel_tank", "buy_armor", "buy_engine", "back"])
 	_set_mobile_visible(false)
 	_set_hud_visible(false)
@@ -148,7 +146,7 @@ func end_run(reason:String) -> void:
 	profile["runs"] = int(profile.get("runs", 0)) + 1
 	profile["best_miles"] = maxf(float(profile.get("best_miles", 0.0)), miles_driven)
 	if persist_enabled:
-		ProfileStore.save_profile(profile)
+		ProfileStore.save_profile(profile, profile_save_path)
 	player.visible = false
 	_set_mobile_visible(false)
 	_set_hud_visible(false)
@@ -167,7 +165,7 @@ func buy_upgrade(upgrade:String) -> bool:
 	profile["scrap"] = int(profile["scrap"]) - cost
 	upgrades[upgrade] = level + 1
 	if persist_enabled:
-		ProfileStore.save_profile(profile)
+		ProfileStore.save_profile(profile, profile_save_path)
 	show_garage()
 	return true
 
@@ -398,6 +396,55 @@ func _add_button(parent:Node, key:String, text:String, action:Callable) -> void:
 	parent.add_child(button)
 	buttons[key] = button
 
+func _update_garage_buttons() -> void:
+	_update_garage_button("buy_fuel_tank", "fuel_tank")
+	_update_garage_button("buy_armor", "armor")
+	_update_garage_button("buy_engine", "engine")
+
+func _update_garage_button(button_key:String, upgrade:String) -> void:
+	var button:Button = buttons[button_key]
+	var upgrades:Dictionary = profile["upgrades"]
+	var level := int(upgrades.get(upgrade, 0))
+	var label := _upgrade_label(upgrade)
+	if level >= 3:
+		button.text = "%s L3/3 MAXED\nEffect: %s" % [label, _upgrade_effect(upgrade, 3)]
+		button.disabled = true
+		return
+	var cost := C.upgrade_cost(upgrade, level)
+	var scrap := int(profile["scrap"])
+	var state := "Ready to Buy" if scrap >= cost else "Need %d more Scrap" % [cost - scrap]
+	button.text = "%s L%d/3 | Cost: %d Scrap\nEffect: %s | %s" % [
+		label,
+		level,
+		cost,
+		_upgrade_effect(upgrade, level + 1),
+		state,
+	]
+	button.disabled = false
+
+func _upgrade_label(upgrade:String) -> String:
+	match upgrade:
+		"fuel_tank":
+			return "Fuel Tank"
+		"armor":
+			return "Armor"
+		"engine":
+			return "Engine"
+		_:
+			return upgrade
+
+func _upgrade_effect(upgrade:String, level:int) -> String:
+	var idx := clampi(level - 1, 0, 2)
+	match upgrade:
+		"fuel_tank":
+			return "+%d max Fuel" % int(C.FUEL_TANK_BONUS[idx])
+		"armor":
+			return "+%d max Vehicle Damage" % int(C.ARMOR_BONUS[idx])
+		"engine":
+			return "+%d%% speed" % int(roundf(C.ENGINE_BONUS[idx] * 100.0))
+		_:
+			return "unknown"
+
 func _add_resource_bar(parent:Node, label_text:String, fill_color:Color) -> Dictionary:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
@@ -487,11 +534,19 @@ func _layout_ui(layout_size:Vector2 = Vector2.ZERO) -> void:
 	dashboard.position = Vector2(12, 74)
 	dashboard.size = Vector2(maxf(320.0, viewport_size.x - 24.0), 58.0)
 	if menu_panel != null:
-		var panel_size := Vector2(minf(500.0, viewport_size.x - 40.0), minf(290.0, viewport_size.y - 40.0))
+		var menu_height := 360.0 if state == "garage" else 290.0
+		var panel_size := Vector2(minf(500.0, viewport_size.x - 40.0), minf(menu_height, viewport_size.y - 40.0))
 		menu_panel.custom_minimum_size = panel_size
 		menu_panel.size = panel_size
 		menu_panel.position = (viewport_size - panel_size) * 0.5
+		_layout_garage_buttons(panel_size)
 	_layout_mobile_controls(viewport_size)
+
+func _layout_garage_buttons(panel_size:Vector2) -> void:
+	var row_width := maxf(180.0, panel_size.x - 40.0)
+	for key in ["buy_fuel_tank", "buy_armor", "buy_engine"]:
+		if buttons.has(key):
+			buttons[key].custom_minimum_size = Vector2(row_width, 58)
 
 func _layout_mobile_controls(viewport_size:Vector2) -> void:
 	if mobile_controls.is_empty():

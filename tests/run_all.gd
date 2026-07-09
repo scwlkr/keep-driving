@@ -5,6 +5,7 @@ const WorldGenerator = preload("res://scripts/world_generator.gd")
 const WorldRuntime = preload("res://scripts/world_runtime.gd")
 const PlayerVehicle = preload("res://scripts/player_vehicle.gd")
 const GameRoot = preload("res://scripts/game_root.gd")
+const ProfileStore = preload("res://scripts/profile_store.gd")
 
 var failures := []
 
@@ -18,6 +19,7 @@ func _run() -> void:
 	_test_routes_and_barriers()
 	_test_vehicle_controls()
 	_test_combat_resource_progression()
+	_test_garage_upgrade_clarity()
 	_test_first_minute_run_trust()
 	_test_mobile_layout()
 	if failures.is_empty():
@@ -125,6 +127,80 @@ func _test_combat_resource_progression() -> void:
 	_expect(game.state == "results", "vehicle damage must end a run")
 	game.queue_free()
 
+func _test_garage_upgrade_clarity() -> void:
+	var game := GameRoot.new()
+	root.add_child(game)
+	game.persist_enabled = false
+	game._ready()
+	game.profile = _test_profile(0, 0, 0, 0)
+	game.show_garage()
+	var empty_text := game.menu_label.text
+	var empty_fuel_button:String = game.buttons["buy_fuel_tank"].text
+	var empty_armor_button:String = game.buttons["buy_armor"].text
+	var empty_engine_button:String = game.buttons["buy_engine"].text
+	_expect(_has_text(empty_text, "Scrap: 0"), "garage must show current Scrap")
+	_expect(_has_text(empty_fuel_button, "Fuel Tank L0/3"), "garage must show Fuel Tank level cap")
+	_expect(_has_text(empty_fuel_button, "Cost: 20 Scrap"), "garage must show Fuel Tank next cost")
+	_expect(_has_text(empty_fuel_button, "Effect: +20 max Fuel"), "garage must show Fuel Tank next effect")
+	_expect(_has_text(empty_fuel_button, "Need 20 more Scrap"), "garage must mark Fuel Tank unaffordable")
+	_expect(not game.buttons["buy_fuel_tank"].disabled, "unaffordable Fuel Tank button must preserve buy attempt behavior")
+	_expect(_has_text(empty_armor_button, "Armor L0/3"), "garage must show Armor level cap")
+	_expect(_has_text(empty_armor_button, "Cost: 20 Scrap"), "garage must show Armor next cost")
+	_expect(_has_text(empty_armor_button, "Effect: +20 max Vehicle Damage"), "garage must show Armor next effect")
+	_expect(_has_text(empty_armor_button, "Need 20 more Scrap"), "garage must mark Armor unaffordable")
+	_expect(not game.buttons["buy_armor"].disabled, "unaffordable Armor button must preserve buy attempt behavior")
+	_expect(_has_text(empty_engine_button, "Engine L0/3"), "garage must show Engine level cap")
+	_expect(_has_text(empty_engine_button, "Cost: 25 Scrap"), "garage must show Engine next cost")
+	_expect(_has_text(empty_engine_button, "Effect: +5% speed"), "garage must show Engine next effect")
+	_expect(_has_text(empty_engine_button, "Need 25 more Scrap"), "garage must mark Engine unaffordable")
+	_expect(not game.buttons["buy_engine"].disabled, "unaffordable Engine button must preserve buy attempt behavior")
+	var unaffordable_bought := game.buy_upgrade("fuel_tank")
+	_expect(not unaffordable_bought, "unaffordable Fuel Tank buy attempt must still fail")
+	_expect(int(game.profile["scrap"]) == 0, "unaffordable Fuel Tank buy attempt must not spend Scrap")
+	var landscape_phone := Vector2(896, 414)
+	game.show_garage()
+	game._layout_ui(landscape_phone)
+	var menu_rect := Rect2(game.menu_panel.position, game.menu_panel.size)
+	_expect(menu_rect.position.x >= 0.0 and menu_rect.end.x <= landscape_phone.x, "garage menu must fit landscape phone width")
+	_expect(menu_rect.position.y >= 0.0 and menu_rect.end.y <= landscape_phone.y, "garage menu must fit landscape phone height")
+	_expect(game.buttons["buy_fuel_tank"].custom_minimum_size.x <= game.menu_panel.size.x, "Fuel Tank row must fit Garage panel width")
+	_expect(game.buttons["buy_armor"].custom_minimum_size.x <= game.menu_panel.size.x, "Armor row must fit Garage panel width")
+	_expect(game.buttons["buy_engine"].custom_minimum_size.x <= game.menu_panel.size.x, "Engine row must fit Garage panel width")
+	game.profile = _test_profile(25, 0, 0, 0)
+	game.show_garage()
+	_expect(not game.buttons["buy_fuel_tank"].disabled, "affordable Fuel Tank button must be enabled")
+	_expect(_has_text(game.buttons["buy_fuel_tank"].text, "Ready"), "affordable Fuel Tank button must show ready state")
+	var bought := game.buy_upgrade("fuel_tank")
+	_expect(bought, "affordable Fuel Tank purchase must still work")
+	_expect(int(game.profile["scrap"]) == 5, "Fuel Tank purchase must spend exact Scrap cost")
+	_expect(int(game.profile["upgrades"]["fuel_tank"]) == 1, "Fuel Tank purchase must increment level")
+	_expect(_has_text(game.buttons["buy_fuel_tank"].text, "Fuel Tank L1/3"), "garage must refresh bought level")
+	_expect(_has_text(game.buttons["buy_fuel_tank"].text, "Cost: 50 Scrap"), "garage must refresh next Fuel Tank cost")
+	_expect(_has_text(game.buttons["buy_fuel_tank"].text, "Effect: +40 max Fuel"), "garage must refresh next Fuel Tank effect")
+	var proof_save_path := "user://keep_driving_garage_clarity_test.json"
+	_remove_user_file(proof_save_path)
+	game.profile_save_path = proof_save_path
+	game.persist_enabled = true
+	game.profile = _test_profile(25, 0, 0, 0)
+	var persistent_bought := game.buy_upgrade("fuel_tank")
+	var persisted_profile := ProfileStore.load_profile(proof_save_path)
+	_expect(persistent_bought, "persistent Fuel Tank purchase must work")
+	_expect(int(persisted_profile["scrap"]) == 5, "persistent Fuel Tank purchase must save Scrap")
+	_expect(int(persisted_profile["upgrades"]["fuel_tank"]) == 1, "persistent Fuel Tank purchase must save level")
+	_remove_user_file(proof_save_path)
+	game.persist_enabled = false
+	game.profile = _test_profile(999, 3, 3, 3)
+	game.show_garage()
+	_expect(_has_text(game.buttons["buy_fuel_tank"].text, "Fuel Tank L3/3"), "maxed Fuel Tank level must be visible")
+	_expect(_has_text(game.buttons["buy_fuel_tank"].text, "MAXED"), "garage must expose maxed upgrade state")
+	_expect(game.buttons["buy_fuel_tank"].disabled, "maxed Fuel Tank button must be disabled")
+	_expect(_has_text(game.buttons["buy_fuel_tank"].text, "Fuel Tank L3/3 MAXED"), "maxed Fuel Tank button must explain state")
+	_expect(_has_text(game.buttons["buy_armor"].text, "Armor L3/3 MAXED"), "maxed Armor button must explain state")
+	_expect(game.buttons["buy_armor"].disabled, "maxed Armor button must be disabled")
+	_expect(_has_text(game.buttons["buy_engine"].text, "Engine L3/3 MAXED"), "maxed Engine button must explain state")
+	_expect(game.buttons["buy_engine"].disabled, "maxed Engine button must be disabled")
+	game.queue_free()
+
 func _test_first_minute_run_trust() -> void:
 	var game := GameRoot.new()
 	root.add_child(game)
@@ -154,6 +230,25 @@ func _test_mobile_layout() -> void:
 	_expect(report["controls"].size() >= 5, "mobile controls must include steering/gas/brake/handbrake")
 	_expect(bool(report["touch_sized"]), "mobile controls must be touch-sized")
 	game.queue_free()
+
+func _test_profile(scrap:int, fuel_tank:int, armor:int, engine:int) -> Dictionary:
+	return {
+		"scrap": scrap,
+		"upgrades": {
+			"fuel_tank": fuel_tank,
+			"armor": armor,
+			"engine": engine,
+		},
+		"best_miles": 0.0,
+		"runs": 0,
+	}
+
+func _has_text(text:String, expected:String) -> bool:
+	return text.find(expected) >= 0
+
+func _remove_user_file(path:String) -> void:
+	if FileAccess.file_exists(path):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
 func _reachable_route_tiles(route_mask:PackedByteArray, start:Vector2i) -> int:
 	var start_idx:int = start.y * C.CHUNK_TILES + start.x
