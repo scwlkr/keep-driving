@@ -1,8 +1,8 @@
 # Build 01 Project Shell And Proof Harness
 
 Type: build
-Owner: unclaimed
-Status: todo
+Owner: manager
+Status: resolved
 Blocked by:
 
 ## Scope
@@ -25,8 +25,12 @@ Blocked by:
 
 ## Agent Report
 
-- Changed files:
+- Changed files: `project.godot`, `scenes/main.tscn`, `scripts/*.gd`, `tests/run_all.gd`, `proofs/*.gd`
 - Proof commands:
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://tests/run_all.gd`
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --quit-after 1`
 - Proof outputs:
-- Known gaps:
-- Commit hash:
+  - `ALL_KEEP_DRIVING_PROOFS_PASSED`
+  - Godot opened headlessly with `4.7.stable.official.5b4e0cb0f`
+- Known gaps: full ticket-by-ticket proof and manual smoke still pending.
+- Commit hash: pending commit
