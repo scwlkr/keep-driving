@@ -1,7 +1,7 @@
 # Define Infinite World Performance Budget
 
 Type: research
-Status: open
+Status: claimed
 Blocked by: 02
 
 ## Question
