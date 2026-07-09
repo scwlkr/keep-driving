@@ -28,11 +28,11 @@ The map is complete when nothing important remains undecided before launching a 
 - [Decide Visual Audio And Asset Direction](issues/09-decide-visual-audio-and-asset-direction.md) — v0 uses Stylized Survival Readability: simple high-contrast 2D assets, readable terrain/routes/silhouettes, juicy movement/impact feedback, reactive minimal audio, and a small rugged dashboard UI.
 - [Define Infinite World Performance Budget](issues/10-define-infinite-world-performance-budget.md) — v0 gates on 60 FPS desktop proof with fixed chunk/entity caps, amortized chunk attach, Streaming Drag fallback, and a 3-minute high-speed `WorldPerfProof`.
 - [Decide Mobile Export Proof Depth](issues/11-decide-mobile-export-proof-depth.md) — v0 requires landscape mobile simulation proof on desktop, while real Android/iOS exports and physical-device smoke proof are deferred until after Playable v0 exists.
+- [Define v0 Done Bar And Proof Plan](issues/07-define-v0-done-bar-and-proof-plan.md) — v0 passes only through an end-to-end playable loop, Godot-native automated proofs, desktop perf proof, 10-minute manual smoke, mobile simulation, readable placeholder assets, and hard stop conditions.
 
 ## Not yet specified
 
-- Full balance tuning after resources, upgrades, and proof plan are decided.
-- Whether the first build run should also initialize a GitHub repo/issues or stay local until v0 exists.
+- None.
 
 ## Out of scope
 

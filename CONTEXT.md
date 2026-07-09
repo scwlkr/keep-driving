@@ -6,6 +6,7 @@
 - **Playable v0**: The first complete version of the game that can be run locally, played end to end, and verified against an explicit done bar.
 - **Done Bar**: The explicit pass/fail gate for Playable v0, combining automated proof, manual smoke proof, performance proof, and accepted limitations.
 - **Manual Smoke Proof**: The focused local play session that validates Playable v0 feels coherent and playable end to end, not only technically complete.
+- **WorldPerfProof**: The desktop-local automated performance proof for the Free-Roaming World, centered on a high-speed scripted drive with frame-time, streaming, chunk, and entity-budget metrics.
 - **Landscape Mobile Simulation Proof**: The v0 mobile proof standard that verifies landscape phone-scale layout, touch controls, and mobile-style play locally, without requiring a real Android/iOS export or physical-device smoke test.
 - **Free-Roaming World**: A full 360-degree top-down world where the player can drive in any direction across roads, paths, grass, dirt, and offroad terrain.
 - **Road Advantage**: Roads and paths are faster or safer routes through the Free-Roaming World, but they are not hard boundaries; the player may leave them at any time.
