@@ -28,6 +28,7 @@ var sputter_seconds := 0.0
 var run_end_reason := ""
 var touch_state := {"steer": 0.0, "gas": false, "brake": false, "handbrake": false}
 var simulated_controls := {}
+var simulated_mobile_viewport := Vector2.ZERO
 
 func _ready() -> void:
 	profile = ProfileStore.load_profile()
@@ -68,6 +69,7 @@ func _process(delta:float) -> void:
 
 func show_start() -> void:
 	state = "start"
+	_layout_ui()
 	player.visible = false
 	world.visible = false
 	_set_menu(true, "KEEP DRIVING\nRoad Warrior Survival Expedition\n\nStart a fresh seeded run, push farther, bring Scrap home.")
@@ -77,6 +79,7 @@ func show_start() -> void:
 
 func show_garage() -> void:
 	state = "garage"
+	_layout_ui()
 	player.visible = false
 	world.visible = false
 	var upgrades:Dictionary = profile["upgrades"]
@@ -93,6 +96,7 @@ func show_garage() -> void:
 
 func start_run(seed:int = 0) -> void:
 	state = "running"
+	_layout_ui()
 	run_seed = seed if seed != 0 else _fresh_seed()
 	world.visible = true
 	world.start_run(run_seed)
@@ -159,11 +163,31 @@ func apply_damage(amount:float, source:String) -> void:
 		end_run("Vehicle Damage: %s" % source)
 
 func mobile_layout_report() -> Dictionary:
+	var viewport_size := simulated_mobile_viewport if simulated_mobile_viewport.x > 0.0 and simulated_mobile_viewport.y > 0.0 else get_viewport_rect().size
+	_layout_ui(viewport_size)
+	var control_names := ["steer_left", "steer_right", "gas", "brake", "handbrake"]
+	var touch_sized := true
+	var controls_in_bounds := true
+	var control_rects := {}
+	for key in control_names:
+		var button:Button = mobile_controls[key]
+		var size := button.size
+		if size.x <= 0.0 or size.y <= 0.0:
+			size = button.custom_minimum_size
+		var rect := Rect2(button.position, size)
+		control_rects[key] = rect
+		touch_sized = touch_sized and size.x >= 64.0 and size.y >= 64.0
+		controls_in_bounds = controls_in_bounds and rect.position.x >= 0.0 and rect.position.y >= 0.0 and rect.end.x <= viewport_size.x and rect.end.y <= viewport_size.y
+	var dashboard_has_core_stats := dashboard.text.find("Fuel") >= 0 and dashboard.text.find("Damage") >= 0 and dashboard.text.find("Miles") >= 0 and dashboard.text.find("Scrap") >= 0
 	return {
-		"landscape": get_viewport_rect().size.x >= get_viewport_rect().size.y,
-		"viewport": get_viewport_rect().size,
-		"controls": ["steer_left", "steer_right", "gas", "brake", "handbrake"],
-		"touch_sized": true,
+		"landscape": viewport_size.x >= viewport_size.y,
+		"viewport": viewport_size,
+		"controls": control_names,
+		"touch_sized": touch_sized,
+		"controls_in_bounds": controls_in_bounds,
+		"control_rects": control_rects,
+		"dashboard_has_core_stats": dashboard_has_core_stats,
+		"dashboard_width_ok": dashboard.size.x <= viewport_size.x - 16.0,
 	}
 
 func automated_loop_proof() -> Dictionary:
@@ -184,7 +208,13 @@ func automated_loop_proof() -> Dictionary:
 	start_run(22222)
 	var second_seed := run_seed
 	var max_fuel_after := C.max_fuel_for(profile["upgrades"])
-	var ok := first_seed != second_seed and bought and int(profile["upgrades"]["fuel_tank"]) == 1 and max_fuel_after > C.MAX_FUEL and scrap_after >= 33
+	var proof_save_path := "user://keep_driving_profile_v0_proof.json"
+	ProfileStore.save_profile(profile, proof_save_path)
+	var reloaded_profile := ProfileStore.load_profile(proof_save_path)
+	if FileAccess.file_exists(proof_save_path):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(proof_save_path))
+	var persistence_ok := int(reloaded_profile["scrap"]) == int(profile["scrap"]) and int(reloaded_profile["upgrades"]["fuel_tank"]) == 1
+	var ok := first_seed != second_seed and bought and int(profile["upgrades"]["fuel_tank"]) == 1 and max_fuel_after > C.MAX_FUEL and scrap_after >= 33 and persistence_ok
 	persist_enabled = old_persist
 	return {
 		"ok": ok,
@@ -193,6 +223,7 @@ func automated_loop_proof() -> Dictionary:
 		"scrap_after_results": scrap_after,
 		"fuel_tank_level": int(profile["upgrades"]["fuel_tank"]),
 		"max_fuel_after_upgrade": max_fuel_after,
+		"profile_persistence_ok": persistence_ok,
 	}
 
 func _handle_contacts(delta:float) -> void:
@@ -251,7 +282,7 @@ func _read_controls() -> Dictionary:
 
 func _update_dashboard(terrain:int, movement:Dictionary) -> void:
 	var counts := world.entity_counts()
-	dashboard.text = "Fuel %.0f | Damage %.0f | Miles %.2f | Scrap %d | Terrain %s | Speed %.0f | Tier %d | Z %d O %d P %d" % [
+	dashboard.text = "Fuel %.0f  Damage %.0f  Miles %.2f  Scrap %d\nTerrain %s  Speed %.0f  Tier %d  Z %d O %d P %d" % [
 		fuel,
 		vehicle_damage_remaining,
 		miles_driven,
@@ -269,8 +300,11 @@ func _build_ui() -> void:
 	add_child(canvas)
 	dashboard = Label.new()
 	dashboard.name = "Dashboard"
-	dashboard.position = Vector2(18, 16)
+	dashboard.position = Vector2(12, 10)
+	dashboard.add_theme_font_size_override("font_size", 18)
 	dashboard.add_theme_color_override("font_color", Color(0.96, 0.91, 0.78))
+	dashboard.add_theme_color_override("font_outline_color", Color(0.05, 0.04, 0.03))
+	dashboard.add_theme_constant_override("outline_size", 3)
 	canvas.add_child(dashboard)
 	menu_panel = PanelContainer.new()
 	menu_panel.position = Vector2(390, 120)
@@ -303,21 +337,22 @@ func _add_button(parent:Node, key:String, text:String, action:Callable) -> void:
 
 func _build_mobile_controls() -> void:
 	var names := {
-		"steer_left": ["<", Vector2(46, 560)],
-		"steer_right": [">", Vector2(150, 560)],
-		"gas": ["GAS", Vector2(1080, 540)],
-		"brake": ["BRK", Vector2(970, 585)],
-		"handbrake": ["HB", Vector2(1170, 585)],
+		"steer_left": "<",
+		"steer_right": ">",
+		"gas": "GAS",
+		"brake": "BRK",
+		"handbrake": "HB",
 	}
 	for key in names.keys():
 		var button := Button.new()
-		button.text = names[key][0]
-		button.position = names[key][1]
+		button.text = names[key]
 		button.custom_minimum_size = Vector2(88, 72)
+		button.size = button.custom_minimum_size
 		button.button_down.connect(func(): _touch_button(key, true))
 		button.button_up.connect(func(): _touch_button(key, false))
 		canvas.add_child(button)
 		mobile_controls[key] = button
+	_layout_ui()
 
 func _touch_button(key:String, pressed:bool) -> void:
 	match key:
@@ -341,8 +376,44 @@ func _set_button_visibility(keys:Array) -> void:
 		buttons[key].visible = keys.has(key)
 
 func _set_mobile_visible(visible:bool) -> void:
+	_layout_ui()
 	for button in mobile_controls.values():
 		button.visible = visible
+
+func _layout_ui(layout_size:Vector2 = Vector2.ZERO) -> void:
+	if dashboard == null:
+		return
+	var viewport_size := layout_size if layout_size.x > 0.0 and layout_size.y > 0.0 else get_viewport_rect().size
+	dashboard.position = Vector2(12, 10)
+	dashboard.size = Vector2(maxf(320.0, viewport_size.x - 24.0), 62.0)
+	if menu_panel != null:
+		var panel_size := Vector2(minf(500.0, viewport_size.x - 40.0), minf(290.0, viewport_size.y - 40.0))
+		menu_panel.custom_minimum_size = panel_size
+		menu_panel.size = panel_size
+		menu_panel.position = (viewport_size - panel_size) * 0.5
+	_layout_mobile_controls(viewport_size)
+
+func _layout_mobile_controls(viewport_size:Vector2) -> void:
+	if mobile_controls.is_empty():
+		return
+	var button_size := Vector2(88, 72)
+	var gap := 12.0
+	var margin := 24.0
+	var bottom_y := maxf(96.0, viewport_size.y - margin - button_size.y)
+	var right_x := maxf(margin, viewport_size.x - margin - button_size.x * 3.0 - gap * 2.0)
+	var positions := {
+		"steer_left": Vector2(margin, bottom_y),
+		"steer_right": Vector2(margin + button_size.x + gap, bottom_y),
+		"brake": Vector2(right_x, bottom_y),
+		"handbrake": Vector2(right_x + button_size.x + gap, bottom_y),
+		"gas": Vector2(right_x + (button_size.x + gap) * 2.0, bottom_y),
+	}
+	for key in positions.keys():
+		if mobile_controls.has(key):
+			var button:Button = mobile_controls[key]
+			button.position = positions[key]
+			button.custom_minimum_size = button_size
+			button.size = button_size
 
 func _fresh_seed() -> int:
 	return int(Time.get_ticks_usec() & 0x7fffffff)

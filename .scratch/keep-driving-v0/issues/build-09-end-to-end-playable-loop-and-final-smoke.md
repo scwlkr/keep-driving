@@ -1,8 +1,8 @@
 # Build 09 End To End Playable Loop And Final Smoke
 
 Type: build
-Owner: unclaimed
-Status: todo
+Owner: Codex
+Status: done
 Blocked by: build-02, build-03, build-04, build-05, build-06, build-07, build-08
 
 ## Scope
@@ -30,7 +30,19 @@ Blocked by: build-02, build-03, build-04, build-05, build-06, build-07, build-08
 ## Agent Report
 
 - Changed files:
+  - `scripts/profile_store.gd`
+  - `scripts/game_root.gd`
+  - `proofs/manual_smoke_proof.gd`
+  - `.scratch/keep-driving-v0/issues/build-09-end-to-end-playable-loop-and-final-smoke.md`
 - Proof commands:
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://tests/run_all.gd`
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/manual_smoke_proof.gd`
+  - `/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://proofs/world_perf_proof.gd`
 - Proof outputs:
+  - `ALL_KEEP_DRIVING_PROOFS_PASSED`
+  - `MANUAL_SMOKE_SIMULATION seconds=600` covered road/offroad, Handbrake, pickups, zombie ram/contact, all obstacle weights, Fuel end, Vehicle Damage end, Results, Garage, fresh restart, landscape mobile touch input, dashboard, and `pass=true`.
+  - `WORLD_PERF_PROOF frames=10800 fps=1853.4 p95_frame_ms=0.857 p95_stream_ms=0.771 blank_terrain_risk_frames=0 pass=true`
 - Known gaps:
+  - None for build-09 scoped Done Bar.
 - Commit hash:
+  - Final worker report.

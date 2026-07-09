@@ -14,10 +14,10 @@ static func default_profile() -> Dictionary:
 		"runs": 0,
 	}
 
-static func load_profile() -> Dictionary:
-	if not FileAccess.file_exists(SAVE_PATH):
+static func load_profile(path:String = SAVE_PATH) -> Dictionary:
+	if not FileAccess.file_exists(path):
 		return default_profile()
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return default_profile()
 	var parsed = JSON.parse_string(file.get_as_text())
@@ -35,8 +35,8 @@ static func load_profile() -> Dictionary:
 			profile["upgrades"][key] = 0
 	return profile
 
-static func save_profile(profile:Dictionary) -> void:
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+static func save_profile(profile:Dictionary, path:String = SAVE_PATH) -> void:
+	var file := FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
 		return
 	file.store_string(JSON.stringify(profile, "\t"))
