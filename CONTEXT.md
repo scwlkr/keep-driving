@@ -31,3 +31,4 @@
 - **Permanent Upgrade**: A between-run improvement that persists across fresh Run Seeds and helps the player's car push farther in future runs.
 - **Repair Pickup**: A rare in-run pickup that restores some Vehicle Damage without creating repair crafting, shop stops, or a repair economy.
 - **Garage**: The between-run screen where Scrap is spent on Permanent Upgrades before starting a fresh Run Seed.
+- **Stylized Survival Readability**: The v0 visual direction: bold high-contrast top-down art that makes terrain, routes, hazards, pickups, enemies, and the car instantly readable. It favors simple custom or procedural assets over photorealism or asset-pack polish.

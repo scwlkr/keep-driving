@@ -25,6 +25,7 @@ The map is complete when nothing important remains undecided before launching a 
 - [Prototype Chunked World And Road Network](issues/04-prototype-chunked-world-and-road-network.md) — world proof must be a throwaway Godot scene proving full 360-degree free roaming, deterministic chunk hashes, multi-route continuity, hard/slow barriers, stable spawn markers, bounded active chunks, and no visible seams.
 - [Decide Combat Enemy And Obstacle Model](issues/05-decide-combat-enemy-and-obstacle-model.md) — v0 combat is car-only against simple zombie swarms and weight-classed obstacles, with Vehicle Damage as combat failure, roadblocks as route pressure, and distance/Pursuit Pressure-based spawn escalation.
 - [Decide Resources Upgrades And Run Progression](issues/06-decide-resources-upgrades-and-run-progression.md) — v0 uses Fuel, Vehicle Damage, Scrap, rare Repair Pickups, and a simple Garage with three persistent upgrades: Fuel Tank, Armor, and Engine.
+- [Decide Visual Audio And Asset Direction](issues/09-decide-visual-audio-and-asset-direction.md) — v0 uses Stylized Survival Readability: simple high-contrast 2D assets, readable terrain/routes/silhouettes, juicy movement/impact feedback, reactive minimal audio, and a small rugged dashboard UI.
 
 ## Not yet specified
 
