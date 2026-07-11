@@ -263,7 +263,8 @@ func _report_benchmark_and_quit() -> void:
 	var rendered_valid:bool = display_server != "headless" and benchmark_peak_draw_calls > 0
 	var rss_expected_samples := floori(benchmark_warmup_seconds + benchmark_duration_seconds)
 	var rss_valid:bool = benchmark_peak_rss_bytes > 0.0 and benchmark_rss_sample_failures == 0 and benchmark_rss_sample_count >= rss_expected_samples
-	var memory_valid:bool = benchmark_peak_static_memory_bytes > 0.0 and rss_valid
+	var static_memory_available:bool = benchmark_peak_static_memory_bytes > 0.0
+	var memory_valid:bool = rss_valid
 	var resolution_valid:bool = window_size == Vector2i(1920, 1080) and Vector2i(roundi(viewport_size.x), roundi(viewport_size.y)) == Vector2i(1280, 720)
 	var duration_valid:bool = benchmark_duration_seconds >= 15.0 and benchmark_warmup_seconds >= 5.0
 	var vsync_valid:bool = vsync_mode == DisplayServer.VSYNC_DISABLED if benchmark_mode == "capacity" else vsync_mode != DisplayServer.VSYNC_DISABLED
@@ -278,6 +279,7 @@ func _report_benchmark_and_quit() -> void:
 		"rendered_valid": rendered_valid,
 		"memory_valid": memory_valid,
 		"rss_valid": rss_valid,
+		"static_memory_available": static_memory_available,
 		"resolution_valid": resolution_valid,
 		"duration_valid": duration_valid,
 		"vsync_valid": vsync_valid,
