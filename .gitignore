@@ -1,0 +1,8 @@
+# Godot editor/import cache
+.godot/
+
+# Local export artifacts
+/build/
+
+# Proof captures are documentation, not runtime assets
+/proofs/*.jpeg.import

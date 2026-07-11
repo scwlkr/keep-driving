@@ -6,7 +6,9 @@ config_version=5
 [application]
 
 config/name="Keep Driving"
+config/name.prototype_handling="Handling Truth Slice"
 run/main_scene="res://scenes/main.tscn"
+run/main_scene.prototype_handling="res://prototypes/handling_truth_slice/prototype.tscn"
 config/features=PackedStringArray("4.7")
 
 [display]
@@ -43,3 +45,4 @@ drive_handbrake={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

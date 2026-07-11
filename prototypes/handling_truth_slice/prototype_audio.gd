@@ -74,6 +74,23 @@ func stop() -> void:
 		player.stream_paused = false
 
 
+func reset_state() -> void:
+	setup()
+	_critical = false
+	_surface_key = "road"
+	_last_cue_ms.clear()
+	_engine.pitch_scale = 0.72
+	_engine.volume_db = -16.0
+	for player in [_impact, _reward, _warning, _ui]:
+		player.stop()
+	_surface.stop()
+	_surface.stream = _surface_streams[_surface_key]
+	_surface.pitch_scale = 0.82
+	_surface.volume_db = -42.0
+	if _started:
+		_start_loops()
+
+
 func set_paused(paused: bool) -> void:
 	_tree_was_paused = paused
 	for player in _players:
