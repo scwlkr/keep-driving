@@ -194,7 +194,7 @@ Evolves the pure parts of the current `WorldGenerator` contract:
 
 ### ContentCatalog
 
-Application-wide read-only registry loaded at boot:
+Application-wide read-only **metadata** registry loaded at boot. Boot loads stable IDs, small scalar facts, localization keys, dependency hashes, and lazy package/asset handles—not region textures, audio payloads, scenes, baked geometry, encounter instances, or other heavy resources:
 
 - `VehicleDefinition`
 - `PartDefinition`
@@ -203,7 +203,9 @@ Application-wide read-only registry loaded at boot:
 - `EncounterDefinition`
 - `ContractDefinition`
 - `BalanceProfile`
-- Cosmetic and audio/visual resource definitions
+- Cosmetic and audio/visual metadata/handles
+
+Small vehicle/part/balance metadata may remain resident. Region, landmark, encounter, contract presentation, audio, and baked-world payloads live in versioned packages resolved lazily when an expedition/preload boundary needs them, then unload when no active/preloaded region references them. Catalog validation may scan source metadata in development/CI, but release boot must not force-load every asset to validate it.
 
 Catalog validation fails development/CI builds for duplicate/missing IDs, bad references, incompatible slots, invalid costs/ranges, missing localization, missing source/license metadata, or absent proof tags. Runtime content references stable IDs, never resource paths in saves.
 

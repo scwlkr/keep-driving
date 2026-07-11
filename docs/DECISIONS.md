@@ -147,7 +147,7 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 - Reason: Avoids unnecessary engine churn while preserving current proof value.
 - Tradeoffs: Xcode/iOS SDK compatibility could force an upgrade later; plugin/export fixes may differ across versions.
 - Systems affected: Project, export templates, CI, platform, rendering, save/resource compatibility.
-- Validation: First signed iPhone export of the desktop-proven slice and repeated recheck of Godot/Apple requirements.
+- Validation: One bounded signed-export feasibility check after the accepted desktop handling/hero slice, then reproduction against the content-complete stabilized build in Phase 15, plus repeated Godot/Apple requirement checks. The early check may not begin gameplay/UI adaptation.
 
 ## D011 — Share game logic across desktop/iOS; adapt behind platform/input/UI layers
 
@@ -232,4 +232,32 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 - Reason: Defines a real test floor while preserving the right to raise it based on full-game evidence and current market/tool requirements.
 - Tradeoffs: Older device support increases optimization/QA; raising later reduces addressable users and must happen before public promise.
 - Systems affected: Export, UI, performance, assets, device QA, App Store metadata/screenshots.
-- Validation: Signed feasibility spike, full content device matrix, market/OS adoption recheck before external TestFlight.
+- Validation: Phase-2 export-only feasibility on one physical iPhone, then Phase-15 full-content signed export, supported-device matrix, and market/OS adoption recheck before external TestFlight.
+
+## D017 — Treat Keep Driving as a working title pending formal clearance
+
+- Date/phase: 2026-07-11, product/release risk review.
+- Context: YCJY Games released a commercially established road-trip/car-customization game named `Keep Driving` in 2025, and its Steam product-page footer states that the name/logo are trademarks and/or registered trademarks. This creates material legal, store-confusion, discoverability, and positioning risk; it is not by itself a legal conclusion about this project.
+- Options considered:
+  - Lock the same title without clearance.
+  - Rename immediately from a rushed internal brainstorm.
+  - Keep the repository working title while performing qualified legal/name/competitive clearance and preparing distinctive candidates.
+- Selected option: Working title only. Neutral internal and ad-hoc prototype identifiers may continue. Do not register a production/release App ID or store identity or lock public brand assets until formal clearance; rename before those irreversible/expensive steps if clearance is not affirmative.
+- Reason: Preserves development continuity while treating a confirmed market/name collision as a release blocker rather than an aesthetic preference.
+- Tradeoffs: Delays final logo/icon/store naming and may require terminology/asset updates; early technical prototype labels may remain temporary.
+- Systems affected: Product name, bundle ID, store record, logo/icon/launch, URLs, legal, SEO/ASO, marketing, support, localization, credits.
+- Validation: Primary-source competitive record, broader trademark/store/domain search, qualified counsel decision in intended territories/classes, approved distinctiveness/confusion review, and documented rename fallback. Archive the clearance-or-rename decision by the end of Phase 2 before any signed iOS feasibility build; recheck and freeze it before Phase 9 public brand lock.
+
+## D018 — Standardize the player-facing vehicle resource as Vehicle Integrity
+
+- Date/phase: 2026-07-11, terminology/runtime migration.
+- Context: The v0 runtime/UI call the resource `Vehicle Damage`, but `vehicle_damage_remaining` already starts at its maximum, damage subtracts from it, repair adds to it, and zero ends the run. Its numeric semantics are remaining condition—already Integrity—while its label and symbol names are misleading. The current profile save does not persist run health.
+- Options considered:
+  - Keep accumulated Vehicle Damage everywhere.
+  - Use Damage and Integrity interchangeably.
+  - Standardize on remaining Vehicle Integrity; reserve “damage” for an event or amount subtracted from it.
+- Selected option: Public and target-domain vocabulary is **Vehicle Integrity**, where full condition is 100% and destruction is 0%. **Damage** is an impact/threat event or nonnegative amount subtracted from Integrity. Existing `vehicle_damage_remaining` runtime values map directly to Integrity with **no inversion**; only labels and target-domain symbol names change.
+- Reason: Remaining condition reads consistently beside Fuel, produces direct warnings, and avoids an inverted resource in UI and domain rules.
+- Tradeoffs: Runtime adapters/tests must preserve the existing remaining-value semantics while symbols and copy migrate; internal prototype symbols may temporarily retain legacy names behind that adapter. No v0 profile-health migration exists because v0 does not persist this run value.
+- Systems affected: Save migration, expedition state, vehicle rules, UI/HUD/Results, telemetry, tests, copy, accessibility narration, docs.
+- Validation: Characterization proves full legacy `vehicle_damage_remaining` maps to full Integrity, zero maps to destruction, damage subtracts, and repair adds. Any future checkpoint schema migrates this field by identity, never inversion. Target-domain APIs/public copy contain no ambiguous `Vehicle Damage` resource label; damage-event tests remain explicit.

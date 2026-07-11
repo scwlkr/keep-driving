@@ -2,7 +2,7 @@
 
 Status: canonical execution roadmap
 Roadmap date: 2026-07-11
-Current phase: Phase 2 — Technical-Risk Prototypes
+Current phase: Phase 2 — Technical-Risk Prototypes; handling truth slice in progress
 Canonical Wayfinder map: `.scratch/keep-driving-1-0/map.md`
 
 ## 1. Executive summary
@@ -11,11 +11,11 @@ Canonical Wayfinder map: `.scratch/keep-driving-1-0/map.md`
 
 Keep Driving is a playable Godot 4.7 v0/pre-alpha. Its start -> run -> Results -> Garage -> restart loop works; deterministic chunks, bounded streaming, terrain-sensitive arcade motion, Fuel/Vehicle Damage, car-only combat, three pickups, three upgrades, and a small JSON profile exist. Fresh core, loop-simulation, landscape-simulation, and headless streaming-performance proofs pass.
 
-It is not a desktop alpha, mobile port, or App Store candidate. The visible build has a six-line root scene, a 621-line `GameRoot`, default Godot UI, giant flat-color tiles, procedural placeholders, debug telemetry, effectively silent audio, one homing enemy, no objectives/destinations, no production part ecosystem, no versioned save, no controller, no export preset/CI/iOS project, and no release infrastructure. Current green proofs validate prototype hooks, not production experience.
+It is not a desktop alpha, mobile port, or App Store candidate. The visible shipping build has a six-line root scene, a 621-line `GameRoot`, default Godot UI, giant flat-color tiles, procedural placeholders, debug telemetry, effectively silent audio, one homing enemy, no objectives/destinations, no production part ecosystem, no versioned save, no verified controller, and no production export/CI/iOS/release infrastructure. Phase 2 now has a separate handling scene and prototype-only ad-hoc macOS export; that evidence lane is not shipping infrastructure. Current green proofs validate prototype hooks, not production experience.
 
 ### Proposed finished-game direction
 
-Build a premium, offline-first, top-down survival road-trip roguelite. The player configures a battered car, enters one seamless three-region county, chooses among authored roads and systemic conditions, completes route-centered expeditions, risks unsecured haul, restores safehouses/routes, and decides when to return. Three chassis, six functional part slots, at least 36 named sidegrade parts, four activity families, 15 landmarks, six safehouses, 24 objectives, 15+ encounter templates, an 8-12 hour primary arc, and postgame Expedition Mode form the launch floor.
+Under a formally cleared public title, build a premium, offline-first, top-down survival road-trip roguelite. The player configures a battered car, enters one seamless three-region county, chooses among authored roads and systemic conditions, completes route-centered expeditions, risks unsecured haul, restores safehouses/routes, and decides when to return. Three chassis, six functional part slots, at least 36 named sidegrade parts, four activity families, 15 landmarks, six safehouses, 24 objectives, 15+ encounter templates, an 8-12 hour primary arc, and postgame Expedition Mode form the launch floor. `Keep Driving` remains an internal working title until the clearance-or-rename gate passes.
 
 The world becomes a hybrid: authored macro roads/landmarks/shortcuts plus deterministic events, weather, threats, and rewards. The visual identity evolves into a sun-bleached illustrated survival road atlas. Vehicle feel remains Arcade-Real but moves to fixed-step analog control and robust collision. One shared game architecture reaches iPhone only after every corresponding desktop system passes.
 
@@ -46,6 +46,7 @@ The world becomes a hybrid: authored macro roads/landmarks/shortcuts plus determ
 - Three regions and extensive playtime could exceed content-production capacity or become filler.
 - Extraction could feel punitive or irrelevant depending on recovery tuning.
 - Pure difficulty escalation could overwhelm route choice and mobile readability.
+- The exact working title collides with an existing released road-trip game and cannot become the public brand without qualified clearance or a cleared replacement.
 
 ### Recommended path to 1.0.0
 
@@ -175,7 +176,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Required prototypes:** None.
 - **Tools/infrastructure:** Godot CLI, git, local Wayfinder tracker, desktop computer-use inspection.
 - **Desktop test plan:** Core suite, loop simulation, landscape simulation, 10,800-frame world perf proof, visible start/run inspection.
-- **Performance targets:** Record current baseline; fresh result 142.1 FPS, 7.852 ms p95 frame, 1.102 ms p95 stream, 25/49 chunks, zero blank-risk frames.
+- **Performance targets:** Record current baseline; fresh result 141.5 FPS, 7.756 ms p95 frame, 1.096 ms p95 stream, 25/49 chunks, zero blank-risk frames.
 - **Acceptance criteria:** Concrete files/symbols cited; false-positive audio/manual/mobile/perf limits identified; all required audit topics covered.
 - **Definition of done:** `docs/CURRENT_STATE_AUDIT.md` and map ticket answer/evidence complete; no critical unknown hidden as fact.
 - **Mobile implications:** Establish simulation-only status and all missing device/lifecycle/export work.
@@ -185,7 +186,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 1 — Product Vision and Design Foundation
 
-- **Status:** Complete as a planning baseline; prototypes may reopen decisions with evidence.
+- **Status:** Complete as Roadmap Phase 1: all ten required documents and the executable phase route exist. Wayfinder tickets 02-07 remain open only as the protocol's one-ticket-per-session audit/index queue; they may correct/reopen decisions and still block Phase 3, but they do not make the roadmap phase or bounded Phase 2 prototypes incomplete.
 - **Objective:** Define the strongest bounded 1.0 identity, systems, experience, architecture, platform, business model, and scope.
 - **Player-facing outcome:** A coherent promise: premium open-road survival, expressive car builds, meaningful return risk, memorable systemic world.
 - **Technical outcome:** Target module/data/save/content/mobile/test contracts and measurable launch floors.
@@ -194,44 +195,46 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Dependencies:** Phase 0.
 - **Major tasks:** Choose identity; define launch scope; resolve world/vehicle/progression/content/visual/technical/mobile/monetization decisions; document tradeoffs/validation.
 - **Recommended order:** Identity/pillars -> core loops/journey -> system design -> experience -> architecture -> mobile/release -> scope/decisions.
-- **Risks:** Wishlist scope; vague “polish”; preservation bias; invented certainty about staffing/market/platform.
-- **Risk reduction:** Numeric content floors, explicit non-goals, Required/Valuable/Post buckets, assumptions with validation timing.
+- **Risks:** Wishlist scope; vague “polish”; preservation bias; invented certainty about staffing/market/platform; exact-title legal/confusion risk.
+- **Risk reduction:** Numeric content floors, explicit non-goals, Required/Valuable/Post buckets, assumptions with validation timing, and a mandatory qualified clearance-or-rename gate before release identity or brand assets lock.
 - **Required prototypes:** Defined for Phase 2, not performed here.
 - **Tools/infrastructure:** Repository evidence, local research skill, first-party Apple/Godot sources.
 - **Desktop test plan:** Review designs against current playable flow; every player-facing decision maps to a later desktop proof.
 - **Performance targets:** Provisional desktop/iOS budgets defined for prototype validation.
 - **Acceptance criteria:** Another capable team can identify what is built, why, what is excluded, and how each risky decision will be tested.
-- **Definition of done:** All ten required planning documents exist, cross-reference stable decisions, and roadmap first milestone is executable.
+- **Definition of done:** All ten required planning documents exist, cross-reference decisions or explicit assumptions, and make the first bounded milestone executable. The separate Wayfinder audit/index queue remains visible until processed one ticket per session.
 - **Mobile implications:** Shared input/UI/save/platform constraints captured; migration remains gated.
 - **Documentation:** All files listed in Section 8.
 - **Complexity:** Large.
-- **Blocks later work:** Yes; complete.
+- **Blocks later work:** Bounded Phase 2 truth prototypes may run against this baseline. Phase 3, production multiplication, release identity, and ticket 08 remain blocked until the relevant open decision tickets and name-clearance gate resolve.
 
 ### Phase 2 — Technical-Risk Prototypes
 
-- **Status:** First incomplete phase.
+- **Status:** In progress. The isolated handling prototype and automated smoke cover normalized intent, three distinct demonstration tunes, surface ordering, rolling drag, stationary steering, identical direct 60 Hz step batching under synthetic 30/60/120 render cadences, ordered light/medium/heavy collision response, full reset, one transition per contact, Integrity damage, and nonempty PCM resources. A prototype-only clean macOS export and short rendered harness validations pass, but they are not acceptance evidence. End-to-end rendered 30/60/120 cadence proof, representative art/audio, 1,800-second clean-export runs/capture, human audible mix, physical controller, and five-player evidence remain open.
 - **Objective:** Falsify the costliest vehicle, world, buildcraft, first-minute, save, and full-stack performance assumptions before production scale-up.
 - **Player-facing outcome:** A rough but real 10-15 minute desktop truth environment that feels controllable, readable, purposeful, audible, and build-dependent.
 - **Technical outcome:** Evidence-backed choices for vehicle/collision substrate, hybrid world/bake seam, part catalog/stat model, UI/audio event path, save envelope, and representative performance budget.
-- **Included:** Handling track; hybrid proof region; 12-part/four-slot sandbox; first-60-second slice with real assets/audio; v0 save migration/fault spike; representative art/entity/audio/VFX perf scene.
+- **Included:** Handling track; hybrid proof region; 12-part/four-slot sandbox; first-60-second slice with real assets/audio; v0 save migration/fault spike; representative art/entity/audio/VFX perf scene; one bounded signed-export feasibility gate after the desktop handling/hero slice passes.
 - **Excluded:** Full regions/catalog/campaign, production mobile UI/export, broad refactor, final asset quantity.
-- **Dependencies:** Phases 0-1; exact interfaces in `TECHNICAL_ARCHITECTURE.md`.
-- **Major tasks:** Build normalized `DriveIntent`; compare collision approaches; author/bake one route network; create catalog schema/validator; build compare/test-lot UI; route real audio buses/assets; implement save temp/backup/migration proof; run full-stack metrics/human sessions.
-- **Recommended order:** Characterization/evidence naming -> handling/collision -> hybrid region -> part sandbox -> hero minute/audio -> save fault -> integrated perf/review.
+- **Dependencies:** Phase 0 and the Phase 1 working baseline; exact interfaces in `TECHNICAL_ARCHITECTURE.md`. Open Wayfinder decisions may be indexed in parallel, but Phase 3 remains blocked until the relevant tickets resolve.
+- **Major tasks:** Build normalized `DriveIntent`; compare collision approaches; accept the desktop handling/hero slice; clear or replace the public title and lock a development identity; run one export-only Godot/Xcode/sign/install feasibility check with no touch/UI/gameplay adaptation; author/bake one route network; create catalog schema/validator; build compare/test-lot UI; route real audio buses/assets; implement save temp/backup/migration proof; run full-stack metrics/human sessions.
+- **Recommended order:** Characterization/evidence naming -> handling/collision/hero minute/audio -> bounded signed export-only check -> hybrid region -> part sandbox -> save fault -> integrated perf/review.
 - **Risks:** Prototypes accidentally become unmaintainable production code; polish hides bad feel; multiple unknowns coupled too early.
 - **Risk reduction:** Explicit question/acceptance per prototype, disposable locations where appropriate, decision report after each, only selected contracts graduate.
-- **Required prototypes:** Six listed above; iOS export is deferred until the accepted desktop truth slice exists.
-- **Tools/infrastructure:** Dedicated prototype scenes, input visualizer, benchmark track, world bake validator, catalog report, save fault harness, rendered capture, profiler.
+- **Required prototypes:** The six desktop prototypes listed above plus a narrow signed-export feasibility check after the first desktop truth slice is accepted. The signed check proves exporter/Xcode/signing/install only; mobile gameplay/UI adaptation remains deferred to Phase 15.
+- **Tools/infrastructure:** Dedicated prototype scenes, input visualizer, benchmark track, minimal prototype-only macOS export preset/build, world bake validator, catalog report, save fault harness, rendered capture, profiler.
 - **Desktop test plan:** Five-player handling test; five-player hero minute; repeat proof-region navigation; build benchmark; three-run economy preview; save fixtures/faults; 30-minute representative performance run.
 - **Performance targets:** 60 FPS/p95 <=16.7 ms; world work <=4 ms; p99 <=25 ms; no >50 ms driving hitch; no blank terrain/tunneling/overlap spam; provisional memory counters active.
-- **Acceptance criteria:** Handling median >=4/5; four/five first-minute comprehension; proof-region decision density; >=3 viable builds/no universal winner; v0 migration/recovery works; representative full-stack budget passes.
-- **Definition of done:** Each prototype has evidence and keep/change/abandon decision; selected contracts recorded; unresolved blocker either fixed or roadmap decision changed before Phase 3.
+- **Acceptance criteria:** Handling median >=4/5; four/five first-minute comprehension; proof-region decision density; >=3 viable builds/no universal winner; v0 migration/recovery works; representative full-stack budget passes; a minimal signed archive installs and launches on one physical iPhone without requiring a game-system fork.
+- **Definition of done:** Each prototype has evidence and keep/change/abandon decision; selected contracts recorded; the bounded signed-export risk is retired; unresolved blocker is fixed or changes the roadmap before Phase 3.
 - **Mobile implications:** Intent, responsive component, asset, memory, and lifecycle-safe save contracts are mobile-shaped; no unfinished gameplay is ported.
 - **Documentation:** Prototype reports, updated decisions/architecture/game design/playtest findings.
 - **Complexity:** Extra Large.
 - **Blocks later work:** Yes; blocks all production foundation/content work.
 
 ### Phase 3 — Core Driving Production Truth Slice
+
+- **Status:** Not started; blocked by Phase 2 acceptance and the relevant open Wayfinder decisions.
 
 - **Objective:** Integrate selected prototype truths into one maintainable desktop vertical slice representing the first 15 minutes and full depart/drive/objective/extract/Garage/restart loop.
 - **Player-facing outcome:** A shareable slice that looks/sounds like the game, teaches itself, contains a memorable route choice, meaningful haul/return decision, and one visible build change.
@@ -256,6 +259,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 4 — World and Free-Roaming Foundation
 
+- **Status:** Not started; blocked by dependencies below.
+
 - **Objective:** Build the production authored/baked county framework and scale the proof region into all three region graphs with streaming-safe content sockets.
 - **Player-facing outcome:** A coherent open county with road hierarchy, landmarks, safehouses, shortcuts, crossings, region identity, time/weather rules, and stable backtracking.
 - **Technical outcome:** Validated County/Region/RoadGraph sources, world bake, BakedWorld packages, deterministic population, predictive streamer, spatial lifecycle, map/navigation graph, and mutation IDs.
@@ -278,6 +283,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Blocks later work:** Yes; activity/content scale and full visual production depend on stable world sockets/topology.
 
 ### Phase 5 — Vehicle and Upgrade Foundation
+
+- **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Deliver all launch chassis/slot rules and a scalable catalog-driven part/loadout ecosystem with provable sidegrades.
 - **Player-facing outcome:** Three distinct vehicles and at least five route-changing build archetypes that are fast to understand, compare, test, save, and rebuild.
@@ -302,6 +309,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 6 — Progression and Economy
 
+- **Status:** Not started; blocked by dependencies below.
+
 - **Objective:** Implement the complete restoration arc, extraction/failure reward rules, Scrap economy, unlock pacing, records, and anti-grind protections.
 - **Player-facing outcome:** Every expedition changes a place, capability, build, or goal; returning and pushing farther are meaningful; the game has a clear completion arc.
 - **Technical outcome:** Typed/versioned profile and expedition models, Progression/Economy/Inventory transactions, reward escrow/security, milestone graph, records, tuning/simulation tools.
@@ -324,6 +333,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Blocks later work:** Yes; activity rewards and campaign content need stable progression/economy.
 
 ### Phase 7 — Core Activity and Content Systems
+
+- **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Build reusable activity/encounter authoring systems and produce a representative cross-region content set before full quantity scale.
 - **Player-facing outcome:** Salvage/recovery, risky delivery, restoration, mastery, and dynamic road events feel different while keeping route/build decisions central.
@@ -348,6 +359,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 8 — Interface and Onboarding
 
+- **Status:** Not started; blocked by dependencies below.
+
 - **Objective:** Implement every required player flow as reusable responsive production UI and make first launch/first expedition self-explanatory.
 - **Player-facing outcome:** Title, setup, Garage, mission board, map, HUD, pause, Results, settings/accessibility/save/error flows are fast, clear, device-aware, and consistent.
 - **Technical outcome:** AppFlow screen routing, `.tscn` component library, Theme/tokens, presenters, localization, focus maps, responsive/aspect/text harness, input glyph system.
@@ -371,13 +384,15 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 9 — Visual-Quality Production
 
+- **Status:** Not started; blocked by dependencies below.
+
 - **Objective:** Replace all placeholder visuals with a cohesive Sun-Bleached Survival Road Atlas asset/animation/VFX package across required content.
 - **Player-facing outcome:** World, vehicles, landmarks, threats, pickups, weather, UI, rewards, and marketing frames look like one distinctive finished game and remain readable at speed.
 - **Technical outcome:** Validated asset pipeline, atlases/materials, animation state, VFX pools/caps, region kits, source/license/import metadata, quality tiers, screenshot capture points.
 - **Included:** Three region kits; three chassis/visible parts; entities/props/landmarks; UI icons/theme; weather/day-night; damage/movement/reward VFX; final fonts; cosmetics floor.
 - **Excluded:** Post-1.0 region/vehicle sets, photorealism, unbounded decorative variants.
-- **Dependencies:** Phases 4-8; representative art perf from Phase 2.
-- **Major tasks:** Lock art bible/palette/type/icon; build asset/import pipeline; hero assets; region kits; vehicle/part layers; world props/landmarks; UI/icons; VFX/animation/weather; license audit; optimize/review.
+- **Dependencies:** Phases 4-8; representative art perf from Phase 2; formal clearance of the exact public title before type/logo/icon, name-bearing art, or marketing frames lock. Non-branded world/vehicle production may proceed while that gate is pending.
+- **Major tasks:** Pass the clearance-or-rename gate; lock art bible/palette/type/icon; build asset/import pipeline; hero assets; region kits; vehicle/part layers; world props/landmarks; UI/icons; VFX/animation/weather; license audit; optimize/review.
 - **Recommended order:** Art bible/technical specs -> hero minute -> one complete region -> vehicle/entity kits -> remaining regions -> UI/icons -> VFX/weather/cosmetics -> consistency/perf/license pass.
 - **Risks:** Inconsistent outsource/generated assets, screenshot-first detail hurts play, texture/material/memory explosion, art throughput below content plan.
 - **Risk reduction:** Source templates/review gates; atlas/material budgets; production throughput measured after one region; silhouette/value tests; no broad asset generation before art lock.
@@ -393,6 +408,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Blocks later work:** Yes; content-complete beta and mobile memory/performance need final-like assets.
 
 ### Phase 10 — Audio and Game-Feel Production
+
+- **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Deliver real state-driven vehicle/world/UI/music audio, haptics semantics, and polished multimodal feedback.
 - **Player-facing outcome:** Engine/load/surface, drift, impacts, threats, weather, rewards, warnings, Garage, Results, and music make driving tactile and information clear without overload.
@@ -417,6 +434,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 11 — Save, Settings, Accessibility, and Reliability
 
+- **Status:** Not started; blocked by dependencies below.
+
 - **Objective:** Make profile/expedition/settings state durable across failure/update/lifecycle and complete the required accessibility/recovery suite.
 - **Player-facing outcome:** Progress is safe, interruption is unsurprising, settings persist, errors explain preservation/recovery, and common play adapts to control/sensory needs.
 - **Technical outcome:** Final versioned atomic SaveService; v0/N-2 migrations; backups/recovery; active resume; SettingsService; fault harness; accessibility settings; structured release logs.
@@ -439,6 +458,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Blocks later work:** Yes; alpha/beta and mobile lifecycle cannot proceed without durable state.
 
 ### Phase 12 — Desktop Alpha
+
+- **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Integrate every major 1.0 system in one exported desktop build and prove the full product shape before launch-content completion.
 - **Player-facing outcome:** A new player can complete representative early/mid/late expeditions, use all chassis/build/activity families, restore progression, and finish a provisional campaign path.
@@ -463,6 +484,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 13 — Desktop Content-Complete Beta
 
+- **Status:** Not started; blocked by dependencies below.
+
 - **Objective:** Produce, integrate, balance, and validate every Required-for-1.0 content item and the complete primary/endgame experience.
 - **Player-facing outcome:** Full three-region campaign, 15 landmarks, six safehouses, 24 objectives, 15+ encounters, three chassis, 36+ parts, five builds, mastery, and Expedition Mode are playable start to finish.
 - **Technical outcome:** Content/catalog/world hashes locked, migration path stable, no missing IDs/assets/strings/licenses, and beta-quality performance/reliability.
@@ -477,7 +500,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** Content dashboards, region/checklist validators, repetition report, economy/build benchmarks, full-playthrough fixtures, localization/license coverage.
 - **Desktop test plan:** 20-30 player beta; clean full campaign; returning/mid/late profiles; failure/success-heavy; all chassis/builds; Expedition/mastery; two-hour soak; install/update/save migrations.
 - **Performance targets:** Meet Phase 12 with worst launch content; no content activation hitch >50 ms; package/memory projections within mobile targets.
-- **Acceptance criteria:** All numeric floors met without filler; no progression/random grind blocker; every build/activity/region viable/distinct; zero P0/P1; bounded P2; complete content/license/string IDs.
+- **Acceptance criteria:** All numeric floors met without filler; no progression/random grind blocker; every build/activity/region viable/distinct; zero P0/P1; bounded P2; complete content/license/string IDs; clean-profile active-play cohort meets the 8-12 hour primary-arc and 20+ hour completion/mastery contracts in Section 6.
 - **Definition of done:** Content complete and frozen except bug/balance corrections; full campaign/endgame evidence and beta report approved.
 - **Mobile implications:** Final content defines real asset/package/memory/UI/device workload; no new required content added after mobile entry without requalification.
 - **Documentation:** Content catalog/release inventory, region completion reports, balance/economy snapshot, known issues, localization/license manifest.
@@ -485,6 +508,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Blocks later work:** Yes; mobile adaptation must target final workload.
 
 ### Phase 14 — Desktop Optimization and Stabilization
+
+- **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Convert content-complete beta into a stable, optimized, release-like desktop reference that becomes the mobile source baseline.
 - **Player-facing outcome:** Smooth, reliable, coherent full game with no blocker, hitch, leak, corrupted save, input failure, or major usability defect.
@@ -509,17 +534,19 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 15 — Mobile Architecture Preparation and Signed Export
 
+- **Status:** Not started; blocked by dependencies below.
+
 - **Objective:** Prove the frozen shared game can export, sign, install, archive, and survive basic iOS lifecycle without yet redesigning unfinished gameplay.
 - **Player-facing outcome:** Internal signed iPhone build reaches the same core game, though touch/UI/performance adaptation is not yet final.
 - **Technical outcome:** Xcode/Godot toolchain, iOS preset, bundle/version/signing, PlatformService iOS adapter, lifecycle/safe-area/audio/haptic stubs, build manifest, internal TestFlight pipeline.
 - **Included:** Recheck current Apple/Godot requirements; Xcode 26+/iOS 26 SDK current floor; provisional iOS 17 target; iPhone family; signed archive/install; privacy manifest baseline; lifecycle/save smoke; internal upload.
 - **Excluded:** Final touch controls/layout, full device optimization, store metadata/assets/review submission, iPad unless promoted.
-- **Dependencies:** Phase 14; Apple membership/signing/tool access.
-- **Major tasks:** Verify tools/templates; commit export preset; choose/verify immutable identity; generate/inspect Xcode target; implement adapters; archive/validate/install; internal TestFlight; record gaps.
+- **Dependencies:** Phase 14; the Phase 2 signed-export feasibility pass; formally cleared public title; approved immutable release identity; Apple membership/signing/tool access.
+- **Major tasks:** Reverify tools/templates; commit production export preset; verify the already approved immutable identity; generate/inspect Xcode target; implement adapters; archive/validate/install; internal TestFlight; record gaps.
 - **Recommended order:** Requirement/tool audit -> identity/preset -> local export -> adapter basics -> physical install -> lifecycle/save/audio/haptic smoke -> archive/validate -> internal TestFlight.
 - **Risks:** Godot exporter/Xcode incompatibility, signing delay, privacy manifest/API issue, platform adapter leaks into domain, unsupported deployment/device floor.
 - **Risk reduction:** Small first archive from frozen source; inspect generated project/archive; minimal entitlements/SDKs; protected secrets; requirement recheck; explicit raise-floor decision before external promise.
-- **Required prototypes:** Signed export feasibility spike now graduates; no gameplay prototype.
+- **Required prototypes:** Reproduce the Phase 2 signed-export feasibility result against the frozen production source; no new gameplay prototype.
 - **Tools/infrastructure:** Xcode/Godot templates, export preset, signing/keychain, build/version automation, privacy report, archive/symbol/manifest retention, internal TestFlight.
 - **Desktop test plan:** Full desktop regression remains green after platform adapter work.
 - **Performance targets:** Basic launch/resume/save correctness; detailed device budgets measured and baselined, not yet final.
@@ -531,6 +558,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Blocks later work:** Yes; touch/UI and device optimization need a real signed build.
 
 ### Phase 16 — Mobile Controls and Interface Adaptation
+
+- **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Make every common game/menu flow comfortable, readable, safe-area correct, and interruption-safe on physical iPhones.
 - **Player-facing outcome:** Precise simultaneous touch driving, customizable/left-handed controls, responsive HUD/map/Garage/settings, optional controller, and accessible mobile interaction.
@@ -555,13 +584,15 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 17 — iOS Device Testing and Optimization
 
+- **Status:** Not started; blocked by dependencies below.
+
 - **Objective:** Meet frame, memory, thermal, battery, launch, lifecycle, audio/haptic, save, offline, and supported-device budgets with final content.
 - **Player-facing outcome:** Stable full game on minimum through current iPhones, with correct 30/60 modes and no degraded core readability/feel.
 - **Technical outcome:** Quality tiers, asset/audio compression, bounded caches/pools/voices, lifecycle hardening, device evidence, external-TestFlight-ready build.
 - **Included:** Minimum/small/mid/large/current devices; iOS min/latest; clean install/update; offline; touch/controller; lifecycle; low storage/battery; thermal/memory; full campaign; save faults.
 - **Excluded:** New gameplay/content; App Store screenshots/marketing except test captures; optional iPad unless approved.
 - **Dependencies:** Phase 16, final desktop content/baseline.
-- **Major tasks:** Device baseline; profile worst scenes; fix sync/scaling; tune atlases/audio/materials/effects/quality; lifecycle/audio/haptics; 1,000 faults; 30-min thermal/battery; two-hour memory; internal then external beta gate.
+- **Major tasks:** Device baseline; profile worst scenes; fix sync/scaling; tune atlases/audio/materials/effects/quality; lifecycle/audio/haptics; 1,000 faults; 30-min thermal/battery; two-hour memory; internal stability gate; freeze the external-TestFlight-ready candidate for Phase 18.
 - **Recommended order:** Minimum device correctness -> frame/memory -> assets/effects/audio -> lifecycle/save -> thermal/battery -> full matrix -> internal stability -> external TestFlight candidate.
 - **Risks:** Minimum device cannot meet core quality; thermal drift; memory warnings; device-specific renderer/input/audio/save defects.
 - **Risk reduction:** Raise floor before public promise if necessary; optional quality first; fixed-step invariants; representative current/old hardware; exact evidence per build.
@@ -569,8 +600,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** Xcode Instruments/Organizer, Godot profiler/metrics, device logs/symbols, automated lifecycle/save faults, TestFlight, battery/thermal protocol.
 - **Desktop test plan:** Frozen desktop reference regression on every shared-code change.
 - **Performance targets:** Minimum 30 FPS/p95 <=33.3; A15+ 60/p95 <=16.7/p99 <=25; <=350 MB working/<=500 MB peak provisional; launch <=5; resume <=2; thermal/battery target; no leaks.
-- **Acceptance criteria:** All supported tiers/OS pass; no blank/hitch/stuck/audio duplicate/save loss; 1,000 faults; >=99.8% internal/external crash-free trajectory; no P0/P1.
-- **Definition of done:** Supported matrix and final minimum OS/device floor locked; external-TestFlight release beta approved.
+- **Acceptance criteria:** All supported tiers/OS pass; no blank/hitch/stuck/audio duplicate/save loss; 1,000 faults; internal crash/hang evidence is stable enough to expose externally; no P0/P1; exact candidate and matrix are ready for the defined Phase 18 external beta.
+- **Definition of done:** Supported matrix and final minimum OS/device floor locked; external-TestFlight-ready candidate approved for Phase 18. The 50-participant/1,000-session/14-day external gate has not yet run.
 - **Mobile implications:** Mobile gameplay candidate complete; only compliance/RC fixes remain.
 - **Documentation:** Device/perf reports, quality-tier rules, lifecycle/audio/haptic/save matrix, final support floor, beta notes.
 - **Complexity:** Extra Large.
@@ -578,22 +609,24 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 18 — App Store Compliance and Launch Preparation
 
-- **Objective:** Complete every product-page, identity, legal/privacy, accessibility, export, TestFlight, review, support, and launch operation for the exact candidate.
+- **Status:** Not started; blocked by dependencies below.
+
+- **Objective:** Prepare every product-page, identity, legal/privacy, accessibility, export, TestFlight, review, support, and launch operation for the exact candidate.
 - **Player-facing outcome:** Honest polished store page, working support/privacy, accurate age/accessibility/privacy/controller claims, and review-ready complete game.
 - **Technical outcome:** Final identity/signing/entitlements/privacy manifest, processed builds, metadata/assets, compliance records, review notes, support/monitoring/emergency pipeline.
-- **Included:** Entire `APP_STORE_RELEASE_CHECKLIST.md`; screenshots/previews; icons/launch; price/territories; age/privacy/accessibility/export/DSA; support/privacy URLs; external beta; review package.
-- **Excluded:** New feature/content, unproven optional service, speculative marketing claim.
-- **Dependencies:** Phase 17 candidate; legal/business assets/accounts/URLs.
-- **Major tasks:** Recheck requirements; final SDK/privacy inventory; create/finish record; capture assets; complete metadata/declarations; external TestFlight; support/emergency drill; submit review package.
+- **Included:** The preparation and external-beta portions of `APP_STORE_RELEASE_CHECKLIST.md`; screenshots/previews; icons/launch; price/territories; age/privacy/accessibility/export/DSA; support/privacy URLs; review notes and package assembly. Phase 19 owns final RC selection/submission/review, Phase 20 owns launch-day items, and Phase 21 owns post-launch items.
+- **Excluded:** New feature/content, unproven optional service, speculative marketing claim, App Review submission, and review-resolution changes.
+- **Dependencies:** Phase 17 candidate; formally cleared public title; approved publisher/bundle identity; legal/business assets/accounts/URLs.
+- **Major tasks:** Recheck requirements; final SDK/privacy inventory; create/finish record; capture assets; complete metadata/declarations; external TestFlight; support/emergency drill; assemble and internally approve the review package.
 - **Recommended order:** Identity/business prerequisites -> privacy/legal/SDK -> icons/launch -> metadata/screenshots -> accessibility/age/export -> TestFlight -> review notes/support -> checklist audit.
 - **Risks:** Volatile Apple rules, immutable ID mistake, declaration/archive mismatch, misleading assets, missing URL/legal/account, review delay.
-- **Risk reduction:** First-party recheck at gates; exact archive audit; no optional capability; retained store snapshot; submit before promised date; staffed contact.
+- **Risk reduction:** First-party recheck at gates; exact archive audit; no optional capability; retained store snapshot; schedule margin before the promised date; staffed contact.
 - **Required prototypes:** None; honest marketing captures from RC-like build.
 - **Tools/infrastructure:** App Store Connect, Xcode archive/privacy report, screenshot/video pipeline, release checklist/runbook, support/privacy site, TestFlight.
 - **Desktop test plan:** Desktop reference regression for shared fixes; store assets reviewed against exact release experience.
 - **Performance targets:** Candidate retains Phase 17 budgets and >=99.8% crash-free beta; no compliance-driven SDK regression.
-- **Acceptance criteria:** Every applicable checklist item has owner/evidence; exact build/declarations/assets agree; external beta and review package accepted; no P0/P1/review blocker.
-- **Definition of done:** App approved or review-ready with all launch operations tested and no unresolved mismatch.
+- **Acceptance criteria:** Every applicable checklist item has owner/evidence; exact build/declarations/assets agree; external beta passes; review package is internally accepted; no P0/P1/review blocker.
+- **Definition of done:** The exact candidate is review-ready, the package is frozen and internally approved, launch operations are tested, and no unresolved mismatch remains. Submission is reserved for Phase 19.
 - **Mobile implications:** Final exact iOS archive and claims freeze.
 - **Documentation:** Completed release checklist/runbook, store metadata/assets index, privacy/legal/export/accessibility records, review notes, support/emergency plan.
 - **Complexity:** Large.
@@ -601,13 +634,15 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 19 — Release Candidate
 
-- **Objective:** Freeze, reproduce, and validate the exact 1.0.0 archive through the complete release-blocker suite.
+- **Status:** Not started; blocked by dependencies below.
+
+- **Objective:** Freeze, reproduce, validate, submit, and obtain approval for the exact 1.0.0 archive through the complete release-blocker and App Review loop.
 - **Player-facing outcome:** Final build contains the complete stable game with no known critical/major release blocker.
 - **Technical outcome:** Tagged source, reproducible archive/provenance, retained symbols/manifest, full automation/human/device/save/store evidence, bounded accepted P2 list.
 - **Included:** Clean build; full campaign/Expedition; install/update/offline; performance/soak; 1,000 faults; accessibility/localization; metadata/archive agreement; emergency patch drill.
 - **Excluded:** New systems/content/polish bundle; only reviewed blocker fixes create a new RC.
-- **Dependencies:** Phase 18; approved checklist and candidate.
-- **Major tasks:** Freeze RC1; run entire suite; triage; smallest blocker fixes; RC2+ as needed; exact archive selection; review/approval; launch readiness review.
+- **Dependencies:** Phase 18; internally approved review-ready checklist, package, and candidate.
+- **Major tasks:** Freeze RC1; run entire suite; triage; smallest blocker fixes; RC2+ as needed; select exact archive; submit; resolve App Review feedback with a new fully tested RC when required; obtain approval; run launch-readiness review.
 - **Recommended order:** Freeze -> automation/content -> desktop human -> device/TestFlight -> save/lifecycle -> store/compliance audit -> fix/repeat -> signoff.
 - **Risks:** Late fix destabilizes; archive differs from tested build; save update defect; accepted P2 hides systemic issue.
 - **Risk reduction:** New RC for every code/content change; tag/manifest/hash; full focused+blocker regression; frequency-based severity; no direct archive edit.
@@ -616,13 +651,15 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Desktop test plan:** Full blocker suite and campaign on exported reference build; compare to iOS behavior.
 - **Performance targets:** All desktop/iOS targets; >=99.8% crash-free; zero data loss; package/launch/resume budgets.
 - **Acceptance criteria:** Zero P0/P1; all required evidence; exact selected archive/metadata/declarations agree; support/emergency staffed; approval available.
-- **Definition of done:** Release authority signs off exact `1.0.0` archive and manual-release plan; no required work remains.
+- **Definition of done:** Release authority signs off the exact approved `1.0.0` archive and manual-release plan. Public launch and immediate stabilization remain required in Phases 20-21.
 - **Mobile implications:** This is the final mobile build; any change reopens relevant device/compliance gates.
 - **Documentation:** RC report, manifest/hash/symbols, accepted issues, signoff, launch schedule, emergency baseline.
 - **Complexity:** Large.
 - **Blocks later work:** Yes; final launch gate.
 
 ### Phase 20 — 1.0.0 Launch
+
+- **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Release manually during a staffed window, verify public install/product page/core loop, and begin active monitoring/support.
 - **Player-facing outcome:** Keep Driving 1.0.0 is purchasable, installable, offline-playable, supported, and accurately represented.
@@ -646,6 +683,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Blocks later work:** Yes; stabilization follows, not feature expansion.
 
 ### Phase 21 — Immediate Post-Launch Stabilization
+
+- **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Stabilize real-world crashes, saves, progression, performance, device, review/support, and compliance issues before expansion.
 - **Player-facing outcome:** Fast transparent fixes for severe defects without destabilizing saves or adding unrelated scope.
@@ -673,16 +712,28 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 ### Release-blocking sequence
 
 ```text
-Audit -> Vision -> Risk Prototypes -> Production Truth Slice
+Audit -> Vision -> Desktop Handling/Hero Truth Slice
+  -> Cleared Public Title + Release Identity -> Signed Export Feasibility
+  -> Remaining Risk Prototypes -> Production Truth Slice
   -> World + Vehicle/Parts Foundations
   -> Progression -> Activities/Content Pipeline
   -> Complete UI/Art/Audio/Save/Accessibility
   -> Desktop Alpha -> Content Beta -> Desktop Stabilization
   -> Signed iOS Base -> Touch/UI -> Device Optimization
-  -> App Store Preparation -> Release Candidate -> Launch -> Stabilize
+  -> App Store Preparation + External Release Beta
+  -> Release Candidate + Review Approval -> Launch -> Stabilize
 ```
 
 The formal blocking chain is Phases 0 through 21. A phase may overlap preparation with the prior phase, but it cannot claim acceptance or allow downstream content multiplication until its listed gate passes.
+
+Name clearance or a cleared replacement is an independent release-identity gate. Research and neutral internal/ad-hoc prototype identifiers can proceed early, but no registered production/release App ID, App Store record, logo/icon, public URL, marketing asset, or final public name locks before the written clearance record is archived in `docs/DECISIONS.md`. The decision is due by the end of Phase 2 before the signed iOS feasibility build and is rechecked/frozen at Phase 9.
+
+### Reproducible measurement contracts
+
+- **Desktop regression reference:** MacBookPro18,2, Apple M1 Max (10-core CPU, 32-core GPU), 64 GB RAM, built-in 3456 x 2234 display. Release-like performance runs use a 1920 x 1080 output window with the project's 1280 x 720 logical viewport, GL Compatibility, current exact Godot build, and a clean exported build. Capacity captures run with VSync off; play-feel captures rerun with VSync on. Every artifact records macOS version, engine build, renderer, display/output/logical viewport, VSync, power state, build flavor, commit, scene/seed, asset set, warm-up, duration, p50/p95/p99/worst frame, peak/plateau memory, and raw evidence location. This machine is a comparison reference, not evidence of minimum-device support.
+- **Crash-free release beta:** At least 1,000 counted launch-to-background-or-quit sessions over at least 14 consecutive days from at least 50 external participants, spanning every supported device tier. A session is crash-free only when it has no uncaught crash, OS watchdog termination, or unrecovered hang attributable to the build. The gate is `crash-free sessions / counted sessions >= 99.8%`, with zero reproducible save loss and zero P0/P1; unknown/un-symbolicated terminations do not get silently excluded.
+- **Primary-arc length:** At desktop content beta, at least 10 new players use clean profiles with no developer shortcuts. Record active play only, excluding pause/background time. Median first primary-arc completion must be 8-12 hours, at least 8/10 must finish within 6-14 hours, and no participant may be blocked by mandatory random grind.
+- **Completion/mastery length:** At least five clean-profile players who continue after the primary arc must each reach 90% of tracked authored objectives/landmarks/restorations plus three distinct Expedition mastery goals within 20-30 hours of non-idle active play. Median mastery enjoyment must be >=4/5, and no player may require repeated identical filler to extend or complete that range.
 
 ### Greatest-risk systems
 
@@ -694,6 +745,7 @@ The formal blocking chain is Phases 0 through 21. A phase may overlap preparatio
 6. Versioned save, migration, lifecycle, and reward transaction safety.
 7. Full-stack desktop-to-iOS performance/memory/thermal/touch behavior.
 8. Exact App Store privacy/accessibility/export/archive agreement.
+9. Public-name clearance, differentiation, and release-identity lock.
 
 ### Prototypes that must happen first
 
@@ -704,7 +756,7 @@ The formal blocking chain is Phases 0 through 21. A phase may overlap preparatio
 - Versioned save/v0 migration/interruption recovery spike.
 - Representative full-stack performance scene.
 
-The signed iOS feasibility export happens after the desktop truth slice is accepted, not before unfinished gameplay is ported.
+One bounded signed-export feasibility check happens in Phase 2 after the accepted desktop handling/hero slice and the release-identity gate. It proves only Godot -> Xcode -> signing -> physical install/launch; it does not add touch UI, adapt gameplay, tune devices, upload a store record, or begin mobile content work. Formal mobile adaptation still begins in Phase 15 after the content-complete desktop stability gate.
 
 ### Work that can safely occur in parallel
 
@@ -766,6 +818,7 @@ This is the first bounded implementation milestone inside Phase 2. It answers wh
 - Minimal production HUD facts: Fuel, Integrity, objective direction; no debug dashboard.
 - Real audio buses/assets for engine, at least three surfaces, light/heavy impact, reward, warning, and UI confirm.
 - Representative hero car/road/terrain/hazard treatment sufficient to judge direction.
+- Prototype-only macOS export preset and repeatable clean release build; this does not establish general desktop distribution or production CI.
 - Benchmark telemetry, automated regression, rendered capture, and human test script.
 
 #### Explicitly excluded
@@ -778,7 +831,7 @@ This is the first bounded implementation milestone inside Phase 2. It answers wh
 #### Task sequence
 
 1. Record baseline proof output and current handling constants/behavior.
-2. Add a dedicated prototype ticket/report and create isolated test scene(s); keep current main loop launchable.
+2. Add a dedicated prototype ticket/report, isolated test scene(s), and minimal prototype-only macOS release export preset/build; keep current main loop launchable.
 3. Define `DriveIntent`, keyboard/controller/automated adapters, and contract tests.
 4. Implement fixed-step vehicle with road surface and rolling/brake/reverse behavior.
 5. Add steering/slip/handbrake and 30/60/120 render-rate benchmark replay.
@@ -787,7 +840,7 @@ This is the first bounded implementation milestone inside Phase 2. It answers wh
 8. Author Garage lot plus first fork/landmark/surface route; add deterministic reset/teleport debug anchors.
 9. Add real audio buses/resources/state routing and audible capture proof.
 10. Add minimal hero HUD/onboarding and representative visual treatment.
-11. Run automated regression, release-like rendered performance, and five-player handling/hero-minute sessions.
+11. Export a clean macOS release build; run automated regression, 1,800-second feel/VSync-on and capacity/VSync-off rendered performance captures, and five-player handling/hero-minute sessions.
 12. Record keep/change/abandon decisions; either graduate the selected path into Phase 3 or revise before proceeding.
 
 #### Expected playable result
@@ -842,6 +895,7 @@ A player launches a separate desktop slice, starts moving within ten seconds, le
 | `docs/PLAYTEST_PLAN.md` | Evidence classes, structured cohorts/tasks/questions/metrics, device/regression/severity/release blockers |
 | `docs/DECISIONS.md` | Durable major product/architecture decisions, alternatives, tradeoffs, validation |
 | `docs/research/APP_STORE_REQUIREMENTS.md` | 2026-07-11 first-party Apple/Godot requirement snapshot and volatile recheck list |
+| `docs/research/NAME_CLEARANCE_RISK.md` | Exact-title collision evidence and mandatory qualified clearance-or-rename gate |
 | `.scratch/keep-driving-1-0/` | Canonical Wayfinder map and decision/execution frontier |
 
 All documents are living contracts. A changed decision updates the owning document and appends/supersedes a decision log entry; downstream acceptance gates are re-evaluated.
@@ -855,9 +909,11 @@ The user directed the roadmap to proceed without questions. These assumptions pe
 | Team/capacity | Small independent team/agent-driven production; scope optimized for reusable content tools | Content/art/audio throughput may be lower than target | Measure one full region and reference content tranche before multiplying; reforecast at alpha |
 | Final asset sourcing | Cohesive owned/licensed custom 2D/audio mix; no unreviewed asset-pack collage | Cost, license, or style mismatch | Hero minute then one-region production throughput/license audit |
 | Product price | Premium one-time purchase; exact regional price unresolved | Store conversion/value mismatch | Current market/pricing research and store-page test before App Store record finalization |
-| Publisher/bundle/support domain | Candidate `com.scwlkr.keepdriving`; Team ID, publisher entity, support/privacy URLs unresolved | Immutable ID/legal/launch blocker | Resolve before App ID/App Store record/upload |
-| Apple membership/signing | Access will exist when Phase 15 begins | Signed export/TestFlight could block | Audit account/certificates at Phase 15 entry |
-| Physical devices | Minimum/small/mid/large/current iPhone tiers can be obtained | Device gaps hide perf/layout/lifecycle defects | Inventory/obtain devices before Phase 15; do not substitute simulator |
+| Public product name | `Keep Driving` is an internal working title only; use it publicly only if qualified written clearance passes, otherwise select and clear a distinctive replacement | Legal/confusion/discoverability and expensive rebrand risk | Resolve before bundle ID, App Store record, logo/icon, public URLs, marketing, or broad final-art naming lock |
+| Publisher/bundle/support domain | Bundle ID, Team ID, publisher entity, and support/privacy URLs unresolved pending cleared public title and publisher identity | Immutable ID/legal/launch blocker | Resolve before App ID/App Store record/upload |
+| Apple membership/signing | Access will exist for the Phase 2 export-only feasibility gate and remain valid at Phase 15 | Signed export/TestFlight could block | Audit account/certificates after desktop truth-slice acceptance and recheck at Phase 15 entry |
+| Physical devices | One physical iPhone can be obtained for Phase 2 signing/launch; minimum/small/mid/large/current tiers can be obtained for mobile adaptation | Device gaps hide exporter, perf, layout, or lifecycle defects | Obtain one before the Phase 2 signed gate and the full matrix before Phase 15; do not substitute simulator |
+| Playtest recruitment | A coordinator can recruit five genuinely new handling/hero-minute players before Slice A acceptance, 20-30 desktop beta players, and at least 50 external iOS testers; consent, privacy-minimal records, scheduling, and any incentive budget are owned | Missing people can block feel/comprehension/reliability gates; agents or implementers cannot substitute for naïve players | Confirm coordinator, cohort criteria, dates, consent, devices, and incentive budget before each candidate freezes; recruit Slice A cohort before presentation lock |
 | Minimum iOS | Provisional iOS 17.0, A12/3 GB floor | Optimization burden or OS adoption may make floor wrong | Signed slice and market/OS recheck; lock before external TestFlight |
 | Native iPad | Not Required; iPhone-only native 1.0 | Missed market; compatibility expectations | Promote only if native layout/device/store-asset capacity exists before beta |
 | Game Center/cloud | Valuable, not Required; disabled by default | Feature value versus entitlement/privacy/sync risk | Separate decision after local save/device stability; omit if any gate is incomplete |
@@ -881,22 +937,30 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - Reran the current proof floor.
 - Researched current Apple/Godot release requirements through first-party sources.
 - Defined the finished product, systems, experience, architecture, mobile, release, playtest, scope, decisions, and 22-phase execution route.
+- Built an isolated fixed-step handling truth-slice prototype with normalized keyboard/controller/simulated intent, road/dirt/mud behavior, collision damage/recovery, authored fork, minimal HUD, and generated audible feedback resources.
+- Recorded the exact-title collision as a formal clearance-or-rename release gate.
 
 ### Files created
 
 - The ten required documentation files listed in Section 8.
 - `docs/research/APP_STORE_REQUIREMENTS.md`.
+- `docs/research/NAME_CLEARANCE_RISK.md`.
+- `prototypes/handling_truth_slice/` with its isolated scene, smoke harness, notes, and run instructions.
+- `export_presets.cfg` with a prototype-only ad-hoc macOS export; it does not export the shipping scene.
+- `proofs/handling_truth_slice_relay.jpeg`, retained from visible inspection.
 - `.scratch/keep-driving-1-0/map.md` and eight child tickets.
 
 ### Files modified
 
-- None of the existing gameplay/runtime files in this planning cycle.
+- No existing main gameplay/runtime scripts. `project.godot` adds only the prototype feature override and export texture compatibility; prototype work remains isolated from the shipping scene.
+- `prototypes/handling_truth_slice/prototype_audio.gd` extends the previously committed audio helper for the integrated truth slice.
 - Existing v0 and Real Vertical Slice trackers remain preserved as history/subordinate milestones.
 
 ### Playable build status
 
 - Current v0 debug build launches and the end-to-end prototype loop remains playable.
 - It is effectively silent and visibly prototype-grade; it is not desktop alpha or mobile/App Store ready.
+- The separate handling truth slice launches and is mechanically testable; it is not accepted until the remaining rendered, audible, controller, performance, and human evidence passes.
 
 ### Tests performed and results
 
@@ -904,8 +968,11 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - Core suite: `ALL_KEEP_DRIVING_PROOFS_PASSED`.
 - Automated 600-second loop simulation: all declared cases true, `pass=true`.
 - Landscape 896 x 414 simulation: `pass=true`.
-- World perf: 10,800 frames, 142.1 FPS, p95 frame 7.852 ms, p95 stream 1.102 ms, 25 active/49 preloaded, 310 entities, zero blank-risk frames, `pass=true`.
+- World perf: 10,800 frames, 141.5 FPS, p95 frame 7.756 ms, p95 stream 1.096 ms, 25 active/49 preloaded, 310 entities, zero blank-risk frames, `pass=true`.
 - Visible desktop inspection: Start and Run render, but default UI/debug text/block tiles/procedural placeholders confirm presentation gap.
+- Handling truth-slice smoke: normalized input, progressive road/dirt/mud speeds, rolling drag, stationary steering, single collision transition, and Integrity damage pass.
+- Handling truth-slice scene: separate headless boot passes and the original main scene/proofs remain launchable.
+- Prototype-only clean macOS export: universal release app, neutral internal bundle identifier, ad-hoc signature, exported-scene launch pass. Short 15-second feel/capacity harness validations pass with `acceptance_pass=false`; final post-commit metrics are recorded in `prototypes/handling_truth_slice/NOTES.md`. These are not the required clean exported 1,800-second acceptance runs.
 
 ### Known defects
 
@@ -916,16 +983,16 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - One chassis, nine linear purchases, no real build ecosystem.
 - Unversioned non-atomic save and no resume/recovery.
 - Default code-built UI; touch displayed in desktop runs; no controller/settings/accessibility/map.
-- No release export/CI/iOS/App Store infrastructure.
+- Only a prototype-specific ad-hoc macOS export exists; no production desktop/CI/iOS/App Store infrastructure.
 
 ### Outstanding risks
 
-Vehicle feel, hybrid world, build balance, content throughput, extraction economy, save/lifecycle reliability, production full-stack performance, and physical iOS/toolchain evidence.
+Vehicle feel human acceptance, hybrid world, build balance, content throughput, extraction economy, save/lifecycle reliability, production full-stack performance, physical iOS/toolchain evidence, and formal public-name clearance.
 
 ### Current roadmap phase
 
-Phase 2 — Technical-Risk Prototypes. Phases 0-1 are complete as evidence/planning baselines and reopen only when prototype evidence invalidates a decision.
+Phase 2 — Technical-Risk Prototypes. Phases 0-1 are complete as roadmap phases. Wayfinder decision tickets 02-07 remain open as a one-ticket-per-session audit/index queue; they can correct decisions and block Phase 3/production scale-up, but they do not roll execution back from bounded Phase 2 work.
 
 ### Next recommended task
 
-Execute **Desktop Truth Slice A — Production Handling and the First Road** exactly as defined in Section 7, beginning with characterization, `DriveIntent`, and the fixed-step vehicle/collision prototype. Do not begin broad content or mobile migration.
+Finish **Desktop Truth Slice A — Production Handling and the First Road**, not evidence alone: replace the demonstrator presentation with representative hero car/road/terrain/hazard assets and a reviewable engine/surface/impact/UI audio direction; prove actual rendered 30/60/120 cadence behavior; then run clean exported 1,800-second feel/capacity benchmarks, retain the first-60-second capture, verify the audible mix and physical controller, and complete five-player handling plus five-naive-player hero-minute sessions. Record keep/change/abandon before the signed export-only gate or hybrid-region prototype; do not begin broad content or mobile migration.

@@ -7,6 +7,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ## Release policy
 
 - 1.0 is a premium, one-time-purchase, offline-first iPhone game.
+- `Keep Driving` is a working title. Formal legal/name/trademark/competitive clearance is required before bundle ID, App Store record, logo/icon, public URLs, or marketing lock.
 - No advertising, cross-app tracking, ATT prompt, account, launch IAP, subscription, or mandatory network service.
 - Native iPad, Game Center, and cloud save ship only if their full product, privacy, device, metadata, and review gates pass; otherwise they remain disabled and undisclosed.
 - Use manual release after approval so support, monitoring, metadata, and emergency response are staffed.
@@ -15,6 +16,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ## Current repository blockers
 
 - [ ] Production game/content complete and desktop gates pass.
+- [ ] Public product name cleared in intended territories/classes, confusion risk reviewed, and rename fallback closed before irreversible identity/brand work.
 - [ ] `export_presets.cfg` with reproducible iOS export exists.
 - [ ] Xcode 26+ and iOS 26 SDK upload floor revalidated against Apple's live requirements.
 - [ ] Matching Godot 4.7 export templates and exporter compatibility proven.
@@ -27,8 +29,8 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 
 ### Decisions
 
-- Product name: **Keep Driving**.
-- Candidate bundle identifier: `com.scwlkr.keepdriving`; verify ownership/availability before creating the App ID. Do not upload a build until this immutable choice is approved.
+- Working product name: **Keep Driving**; blocked from public/store lock pending formal clearance.
+- Bundle identifier: unresolved until the cleared public name/publisher identity is approved. `com.scwlkr.keepdriving` is only a discarded planning example, not authorization to register it.
 - Marketing version: `1.0.0`.
 - Build value: monotonically increasing CI/release number; never reuse an uploaded build value.
 - Primary language: English.
@@ -38,6 +40,9 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ### Checklist
 
 - [ ] Apple Developer Program membership active and correct legal entity selected.
+- [ ] Qualified name/trademark clearance covers the intended app/game title, logo, publisher use, territories/classes, store confusion, domains, and likely marketing/search context.
+- [ ] Existing released games/apps and claimed marks—including YCJY Games' `Keep Driving`—are recorded in the clearance file; no legal conclusion is inferred from a web search alone.
+- [ ] If clearance is not affirmative, replacement candidates receive the same search/clearance before selection; repository strings/assets migrate before public brand lock.
 - [ ] Current Apple Developer and App Store Connect agreements accepted.
 - [ ] Bundle ID approved and registered as an explicit App ID.
 - [ ] App Store Connect app record created with matching bundle ID, stable SKU, primary language, and name reservation.
@@ -90,7 +95,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 
 ### Working metadata
 
-- Name: `Keep Driving`.
+- Working name: `Keep Driving`; replace with the cleared public name before App Store record/metadata approval.
 - Subtitle candidate: `Survive the Open Road` (validate length and positioning).
 - Primary category: Games.
 - Game subcategories: choose from the current App Store taxonomy at record creation; likely Action/Adventure, subject to final positioning.
@@ -174,6 +179,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ### Other legal/compliance
 
 - [ ] All code, fonts, art, audio, music, icons, marketing assets, and tools have documented ownership/license and required attribution.
+- [ ] Product name, logo, subtitle, domains, screenshots, keywords, and marketing copy have documented name/trademark/competitive clearance; legal review record retained privately.
 - [ ] Credits/licenses screen and source/license manifest complete.
 - [ ] Content rights declaration accurate.
 - [ ] Copyright owner/year accurate.
@@ -207,10 +213,10 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ### External testing
 
 - [ ] First external group submitted through TestFlight App Review when required.
-- [ ] 20-30 person first wave covers device/input/accessibility/player-experience gaps.
-- [ ] Larger wave used only to close content/economy/reliability confidence, not substitute for structured tests.
+- [ ] 20-30 person first wave covers device/input/accessibility/player-experience gaps; total release gate reaches at least 50 external participants.
+- [ ] Larger wave is used only to close content/economy/reliability confidence, not substitute for structured tests.
 - [ ] Feedback, screenshot reports, crashes, hangs, device metrics, support contacts, and questionnaire results triaged.
-- [ ] At least 99.8% crash-free sessions and zero reproducible save loss over the release beta window.
+- [ ] At least 1,000 launch-to-background-or-quit sessions over at least 14 consecutive days across all supported tiers; at least 50 external participants; crash-free counted sessions >=99.8%; zero reproducible save loss. Attributable crash/watchdog/unrecovered hang fails a session, and unknown terminations remain counted until resolved.
 - [ ] TestFlight 90-day build expiry and tester access monitored.
 
 ## Physical-device and performance release gate
@@ -218,7 +224,9 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Minimum device sustains approved 30 FPS with p95 <=33.3 ms and no repeated >50 ms hitch.
 - [ ] A15-class and newer target devices sustain 60 FPS with p95 <=16.7 ms and p99 <=25 ms.
 - [ ] Gameplay working set <=350 MB target and process peak <=500 MB provisional hard ceiling, or a documented evidence-based revision is approved.
-- [ ] Thirty-minute thermal/battery soak passes on minimum/mid/current devices.
+- [ ] App Store processed download size <=400 MB for every supported iPhone variant; clean post-first-launch installed footprint <=800 MB on minimum and current devices; exact build/measurement screens retained.
+- [ ] Thirty-minute thermal/battery soak passes on minimum/mid/current devices after five-minute ambient idle; thermal state sampled at least once/second; zero `critical`; `serious` lasts <=60 consecutive seconds and <=10% of the measured window.
+- [ ] Controlled battery use is <=15% over the same 30-minute run at 50% brightness, with device, battery health, network, audio, frame mode, and temperature recorded.
 - [ ] Two-hour memory/traversal soak plateaus within +/-5% after warm-up.
 - [ ] Cold launch <=5 seconds; resume <=2 seconds, target <=1 second.
 - [ ] Touch/haptic/audio/controller/lifecycle behavior remains correct under frame and thermal fallback.

@@ -9,7 +9,7 @@ Product stage: playable v0 / pre-alpha, not a production alpha
 
 Keep Driving already has a coherent end-to-end survival-driving loop and unusually useful proof seams for a prototype. It is possible to launch, begin a deterministic run, drive freely, cross streamed chunk boundaries, collect resources, take damage, reach Results, spend Scrap in the Garage, persist three upgrades, and restart with a fresh seed. Fresh Godot-native checks pass.
 
-That is a strong prototype nucleus, not a near-release game. The repository has one six-line scene, nine runtime scripts, no production assets, no real audio, no controller support, an unversioned single-file save, no export configuration, no CI, no iOS project, no activities or destinations, one enemy behavior, one vehicle, and nine monotonic upgrade purchases. The visible build still uses default Godot controls, block-color tiles, debug telemetry, and procedural placeholder drawings.
+That is a strong prototype nucleus, not a near-release game. The repository has one six-line shipping scene, nine shipping runtime scripts, no production assets, no real shipping audio, no verified controller support, an unversioned single-file save, no production export/CI configuration, no iOS project, no activities or destinations, one enemy behavior, one vehicle, and nine monotonic upgrade purchases. A separate Phase-2 handling scene and prototype-only ad-hoc macOS export now exist without changing the shipping scene. The visible shipping build still uses default Godot controls, block-color tiles, debug telemetry, and procedural placeholder drawings.
 
 The shortest responsible route to 1.0 is not to stack content onto this runtime. Preserve the verified contracts, prove the target vehicle/world/first-minute experience in a desktop truth slice, then migrate the prototype behind modular, data-driven systems before producing the full world and content set.
 
@@ -27,7 +27,7 @@ The shortest responsible route to 1.0 is not to stack content onto this runtime.
 | Interface | Programmatic default-theme HUD, menus, Garage, and five touch buttons | Replace presentation; retain Garage information standard |
 | Art/audio | Procedural draw calls and flat generated tiles; no committed image, font, shader, or audio asset | Replace for production |
 | Tests | One core script plus smoke, mobile simulation, and streaming perf scripts | Retain fast floor; add real integration, rendered, device, and human evidence |
-| Build/release | No `export_presets.cfg`, app version, bundle ID, icons, launch screen, CI, release scripts, signing, or iOS project | Build from scratch |
+| Build/release | Prototype-only macOS preset, neutral internal bundle ID, ad-hoc signing, and clean local export exist for the handling evidence build; no production desktop preset/version/icon/CI/release signing or iOS project exists | Keep prototype lane isolated; build production pipeline from scratch |
 
 ## Current runtime flow
 
@@ -62,8 +62,10 @@ Commands were run against the audited working tree:
 | `/opt/homebrew/bin/godot --headless --path . --script res://tests/run_all.gd` | `ALL_KEEP_DRIVING_PROOFS_PASSED` |
 | `proofs/manual_smoke_proof.gd` | Scripted 600-second simulation reports all declared cases `true` |
 | `proofs/landscape_mobile_proof.gd` | 896 x 414 simulated layout/input loop reports `pass=true` |
-| `proofs/world_perf_proof.gd` | 10,800 frames; 142.1 FPS; 7.852 ms p95 frame; 1.102 ms p95 stream; 25 active; 49 preloaded; 310 entities; 0 blank-risk frames |
+| `proofs/world_perf_proof.gd` | 10,800 frames; 141.5 FPS; 7.756 ms p95 frame; 1.096 ms p95 stream; 25 active; 49 preloaded; 310 entities; 0 blank-risk frames |
 | Visible desktop inspection | Build launches and runs; presentation remains visibly prototype-grade |
+
+Baseline host facts: MacBookPro18,2; Apple M1 Max (10-core CPU, 32-core GPU); 64 GB RAM; macOS 27.0 build 26A5378j; Godot `4.7.stable.official.5b4e0cb0f`; GL Compatibility project configuration. These scripts ran headless from the working tree. The old proof output did **not** retain exact commit, build flavor, power state, viewport, VSync, warm-up, raw frame series, peak memory, or artifact path, so its performance numbers are an audit baseline rather than a reproducible release comparison. The production harness must emit every field in `TECHNICAL_ARCHITECTURE.md` and the roadmap measurement contract.
 
 ### What these proofs establish
 
@@ -84,7 +86,7 @@ Commands were run against the audited working tree:
 
 ### Core loop and flow
 
-`scripts/game_root.gd` implements Start -> Run -> Results -> Garage -> Restart. A run ends only through Fuel depletion or Vehicle Damage. Scrap pickups and a straight-line distance bonus are banked automatically at death.
+`scripts/game_root.gd` implements Start -> Run -> Results -> Garage -> Restart. A run ends only through Fuel depletion or the legacy-labeled `Vehicle Damage` resource. Its `vehicle_damage_remaining` value already behaves as remaining **Vehicle Integrity** (maximum healthy -> 0 destroyed): damage subtracts and Repair adds. Production work should rename the player/domain vocabulary without inverting values; the v0 profile does not persist run health. Scrap pickups and a straight-line distance bonus are banked automatically at death.
 
 Strengths:
 
@@ -183,9 +185,9 @@ Production gaps:
 
 ## Desktop and mobile support
 
-Desktop support currently means the Godot debug project can run on macOS with WASD/Space. There are no desktop exports, controller tests, key rebinding, window/fullscreen settings, release configuration, or distribution artifacts.
+Desktop support currently means the Godot debug project can run on macOS with WASD/Space. An isolated handling truth slice now has a prototype-only ad-hoc macOS export, but the production game still has no desktop export, controller tests, key rebinding, window/fullscreen settings, release configuration, or distribution artifact.
 
-Mobile support currently means GL Compatibility is selected and an 896 x 414 viewport fits five default buttons. There is no `export_presets.cfg`, iOS/Xcode output, signing, safe-area handling, orientation lifecycle, device matrix, background/resume path, real haptics, touch interruption recovery, asset compression plan, thermal/battery/memory profile, TestFlight, or App Store configuration.
+Mobile support currently means GL Compatibility is selected and an 896 x 414 viewport fits five default buttons. The prototype-only macOS preset does not provide an iOS preset/Xcode output, signing, safe-area handling, orientation lifecycle, device matrix, background/resume path, real haptics, touch interruption recovery, asset compression plan, thermal/battery/memory profile, TestFlight, or App Store configuration.
 
 ## Production infrastructure missing
 
@@ -248,7 +250,7 @@ Mobile support currently means GL Compatibility is selected and an 896 x 414 vie
 | First-minute clarity | Diegetic prompts and a visible destination can teach without a modal tutorial | Mobile HUD could overload the screen | Five-player first-60-seconds test with comprehension targets |
 | Performance scaling | Current streaming contracts can survive production-like assets and systems | Current benchmark is artificially cheap | Rendered full-stack 30-minute soak with representative art/audio/AI/collisions |
 | Save evolution | A versioned atomic envelope can migrate the existing v0 profile | Bad migration could destroy progress | N-2 fixtures, real v0 fixture, 1,000 interrupted writes, corrupt-primary recovery |
-| iOS feasibility | Godot GL Compatibility and the chosen architecture can ship on the selected device floor | Renderer, input, lifecycle, or signing issue could arrive late | Export/install smoke after the desktop truth slice, before content scale-up |
+| iOS feasibility | Godot GL Compatibility and the chosen architecture can ship on the selected device floor | Exporter, Xcode, signing, or renderer failure could arrive late | Export-only signed feasibility check after the first accepted desktop truth slice; repeat with the frozen full game at Phase 15 before mobile adaptation |
 
 ## Risk register
 
@@ -264,6 +266,7 @@ Mobile support currently means GL Compatibility is selected and an 896 x 414 vie
 | UI cannot scale from desktop to phone | Medium | High | Responsive component system, safe-area matrix, controller/focus tests | UX gate |
 | Art/audio pipeline becomes inconsistent | Medium | High | Production target board, budgets, import validation, vertical-slice signoff | Content production |
 | App Store compliance changes | Medium | High | Recheck official requirements at TestFlight, RC, and submission | Release gate |
+| Working title conflicts with an existing released game/claimed mark | High | Critical | Formal legal/name/competitive clearance and rename fallback; neutral internal/ad-hoc prototype identifiers may continue | Written clearance or cleared replacement before the Phase-2 signed iOS feasibility build, then recheck before Phase-9 public brand lock |
 
 ## Audit definition of done
 

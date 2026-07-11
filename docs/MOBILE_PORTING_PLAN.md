@@ -23,7 +23,7 @@ The mobile phase may begin only when the desktop content-complete beta has:
 - Responsive UI aspect/text/focus matrix passing at the simulated phone floor.
 - No open desktop P0/P1 defect and a bounded P2 list.
 
-An earlier signed iOS **feasibility spike** may export only the already-accepted desktop truth slice to validate toolchain/renderer/input/lifecycle risk. It cannot be used to port unfinished systems or declare mobile readiness.
+After the accepted desktop handling/hero truth slice, Phase 2 performs one bounded signed-export feasibility check: Godot export -> generated Xcode target inspection -> signing -> archive -> physical install/launch. It requires a formally cleared public title and approved development identity, and it may not add touch UI, adapt gameplay, tune content, or begin store setup. Formal mobile adaptation and the first signed build of the complete frozen game still begin at the Phase 15 desktop entry gate above.
 
 ## Platform recommendation
 
@@ -143,8 +143,8 @@ Desktop side panels become focused tabs/sheets on phone. Garage and map preserve
 
 ### Thermal and battery
 
-- Thirty-minute representative expedition soak on minimum and mid-tier devices.
-- No sustained serious/critical thermal state, forced shutdown, runaway quality oscillation, or input degradation.
+- Thirty-minute representative expedition soak on minimum and mid-tier devices, sampling `ProcessInfo.thermalState` at least once per second after a five-minute ambient-temperature idle baseline.
+- Zero `critical` sample; `serious` may not persist for more than 60 consecutive seconds or exceed 10% of the measured 30-minute window. Any forced shutdown, runaway quality oscillation, or input degradation fails the gate.
 - Provisional battery target: no more than 15% of a healthy device charge during a controlled 30-minute session at 50% brightness; record exact device, battery health, network, audio, frame mode, and temperature.
 - Offer 30/60 frame mode only if both are stable and clearly labeled; never default to an unstable 60 mode.
 
@@ -173,7 +173,7 @@ Desktop side panels become focused tabs/sheets on phone. Garage and map preserve
 
 ### Package
 
-- Provisional download target <= 400 MB and installed footprint <= 800 MB.
+- Provisional App Store processed download size <=400 MB for every supported iPhone variant, verified from App Store Connect/TestFlight build metadata; clean installed footprint <=800 MB in iPhone Storage on minimum and current devices after first launch with no optional cache.
 - Strip source/debug assets, development tools, unused locales, and unlicensed placeholders from release.
 - Track per-region texture/audio/baked-world contribution in the build manifest.
 
@@ -298,7 +298,7 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 | Production art/audio exceeds memory | Representative asset spike and per-region manifests | Before content lock |
 | Thermal/battery degrades long runs | Minimum/mid 30-minute soaks every milestone | Device beta |
 | Background creates stuck input/duplicate reward/save loss | Lifecycle adapter plus 1,000 fault cycles | Internal TestFlight |
-| Godot/Xcode/SDK exporter incompatibility | Signed feasibility spike and volatile-requirement recheck | Before mobile scale-up |
+| Godot/Xcode/SDK exporter incompatibility | Phase-2 export-only feasibility check after desktop truth slice; reproduce against frozen game in Phase 15 | Before production scale-up, then before mobile scale-up |
 | Optional SDK changes privacy/review scope | Default no tracking; formal SDK decision/privacy manifest audit | Before integration |
 
 ## Mobile definition of done
@@ -308,5 +308,5 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 - Touch, controller, safe area, orientation, accessibility, audio, haptics, lifecycle, save, and interruption matrices pass.
 - Minimum device sustains approved 30 FPS/memory/thermal/battery/launch/resume budgets; target devices sustain 60 FPS.
 - Signed archive installs and updates on all required device tiers.
-- Internal and external TestFlight gates pass with at least 99.8% crash-free sessions and no save loss.
+- Internal gates pass; external TestFlight records at least 1,000 counted sessions over 14 consecutive days from at least 50 participants across supported tiers, with at least 99.8% free of attributable crash/watchdog/unrecovered hang and no reproducible save loss.
 - Privacy manifest, App Store declarations, export compliance, metadata, accessibility claims, and review notes match the exact archive.

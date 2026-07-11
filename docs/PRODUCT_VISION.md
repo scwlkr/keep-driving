@@ -1,11 +1,13 @@
 # Keep Driving Product Vision
 
-Status: target vision for 1.0.0
+Status: target vision for 1.0.0; `Keep Driving` is a working title pending formal clearance
 Vision date: 2026-07-11
 
 ## Product summary
 
-**Keep Driving** is a premium, offline-first, top-down survival road-trip roguelite. The player takes a battered car from a refuge Garage into a hostile open county, reads the road ahead, chooses safer or faster routes, completes risky expeditions, recovers parts, and decides when to return before Fuel, Vehicle Integrity, weather, or threats turn a good haul into a loss.
+**Keep Driving** is the working title for a premium, offline-first, top-down survival road-trip roguelite. The player takes a battered car from a refuge Garage into a hostile open county, reads the road ahead, chooses safer or faster routes, completes risky expeditions, recovers parts, and decides when to return before Fuel, Vehicle Integrity, weather, or threats turn a good haul into a loss.
+
+The product vision is title-independent. A released road-trip game already uses `Keep Driving` and its official site asserts trademark rights, so public naming requires qualified legal/name/competitive clearance. If clearance fails, select a distinctive replacement before bundle ID, store record, logo, icon, marketing, or broad final art lock.
 
 The 1.0 world is a connected, freely explorable road atlas built from authored regions, road hierarchy, shortcuts, landmarks, and safehouses. Deterministic systems remix hazards, route closures, weather, pickups, and encounters so the player learns a real place without receiving the same run twice. The car is both movement and weapon; there is no on-foot mode and no unrelated combat layer.
 
@@ -227,6 +229,7 @@ Names are working names until art/narrative validation. The functional contrast 
 - No MMO, real-time multiplayer, mandatory backend, account, or always-online dependency.
 - No launch ads, loot boxes, energy, battle pass, subscriptions, or pay-to-win purchases.
 - No feature is accepted because code exists; it must be integrated, playable, evidenced, documented, and inside performance/reliability budgets.
+- No public title/logo/store identity is locked before formal clearance; a rename changes the brand layer, not the settled gameplay vision.
 
 ## Product success measures
 
@@ -235,5 +238,7 @@ Names are working names until art/narrative validation. The functional contrast 
 - At least three benchmarked builds remain viable across road, offroad, impact, cargo, and endurance tests; no one build wins every axis.
 - Repeated 15-minute sessions contain a meaningful route, encounter, or build decision at least every 30-45 seconds while driving.
 - Primary progression has no required grind wall longer than two normal sessions without a new capability, location, or meaningful part choice.
-- Release beta reaches at least 99.8% crash-free sessions, zero open P0/P1 defects, and complete save-recovery gates.
+- Release beta records at least 1,000 launch-to-background-or-quit sessions across at least 50 external participants and every supported device tier over at least 14 consecutive days; at least 99.8% are free of attributable crash/watchdog/unrecovered hang, with zero reproducible save loss and zero open P0/P1.
+- In at least ten clean-profile new-player campaign runs with active play timed separately from pause/background, median first primary-arc completion is 8-12 hours, at least eight finish within 6-14 hours, and none is blocked by mandatory random grind.
+- At least five clean-profile mastery players each reach 90% of tracked authored completion plus three distinct Expedition mastery goals within 20-30 non-idle active hours; median mastery enjoyment is >=4/5 and repeated identical filler is neither required nor counted.
 - Supported iOS devices meet the declared frame, memory, thermal, battery, launch, resume, and input budgets.

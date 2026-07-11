@@ -70,19 +70,26 @@ Required launch material includes:
 
 ## Keep Driving repository gap on 2026-07-11
 
-The repository currently has `project.godot` with a Godot 4.7 Compatibility-renderer desktop configuration, but no `export_presets.cfg`, app version, icon/launch assets, iOS minimum/device-family decision, Team ID/bundle ID, signing setup, privacy manifest, permission strings, localization resources, App Store metadata/assets, or TestFlight/release automation. Its mobile proof is a desktop 896x414 simulation and explicitly defers real exports and device tests. Therefore the project is **not yet iOS-build-ready or App-Store-submission-ready**.
+The repository currently has `project.godot` with a Godot 4.7 Compatibility-renderer configuration and a prototype-only ad-hoc macOS export preset for handling evidence. It still has no iOS preset, production app version, icon/launch assets, final iOS minimum/device-family decision, approved Team ID/bundle ID, release signing setup, privacy manifest, permission strings, localization resources, App Store metadata/assets, or TestFlight/release automation. Its mobile proof remains a desktop 896x414 simulation and explicitly defers real iOS exports/device tests. Therefore the project is **not yet iOS-build-ready or App-Store-submission-ready**.
 
-Recommended first release-infrastructure spike after the desktop vertical slice is stable:
+Recommended two-stage release-infrastructure proof:
+
+**Stage 1 — Phase 2 export-only feasibility, after the accepted desktop handling/hero slice and name/identity clearance:**
 
 1. Install/verify Xcode 26+, iOS 26 SDK, Godot 4.7 export templates, signing, and `xcode-select`.
-2. Add a reproducible iOS export preset with placeholder-free identity/versioning and a chosen deployment target/device family.
+2. Add a minimal reproducible development export preset with the cleared identity, provisional deployment target, and iPhone family.
 3. Export the smallest current desktop-proven slice, inspect the Xcode target/privacy manifest, archive, validate, and install on at least one physical iPhone.
-4. Prove touch, safe areas, lifecycle resume, local-save durability, audio/haptics, frame pacing, memory, and thermal behavior before migrating more systems.
-5. Upload an internal TestFlight build, then record every remaining App Store Connect and compliance field as an owned release checklist item.
+4. Record exporter/Xcode/signing/launch findings, then stop. Do not add touch UI, adapt unfinished gameplay, tune content, create an App Store record, or treat this as mobile acceptance.
+
+**Stage 2 — Phase 15 formal mobile entry, after the content-complete desktop build is optimized and stable:**
+
+1. Reproduce the signed archive against the frozen complete game and inspect the generated target/archive again.
+2. Prove touch, safe areas, lifecycle resume, local-save durability, audio/haptics, frame pacing, memory, and thermal behavior before migrating more mobile systems.
+3. Upload an internal TestFlight build, then record every remaining App Store Connect and compliance field as an owned release checklist item.
 
 ## Volatile gates to recheck
 
-Recheck the linked first-party pages at the **first iOS export spike**, **first external TestFlight build**, and **release-candidate submission**. At minimum revalidate:
+Recheck the linked first-party pages at the **Phase 2 bounded signed export-only feasibility check**, **first external TestFlight build**, and **release-candidate submission**. At minimum revalidate:
 
 - Xcode and SDK upload floor.
 - Godot 4.7 compatibility with the required Xcode/iOS SDK and any exporter fixes.

@@ -44,6 +44,8 @@ Reports must name the evidence honestly.
 - Optional capture plus input/performance overlay recorded separately from player view.
 - Known test save/seed and clean-profile reset path.
 
+The current desktop comparison host is MacBookPro18,2 with an Apple M1 Max (10-core CPU, 32-core GPU), 64 GB RAM, and built-in 3456 x 2234 display. Release-like benchmark captures use a clean exported GL Compatibility build in a 1920 x 1080 output window with the project's 1280 x 720 logical viewport. Capacity runs disable VSync; play-feel/input runs repeat with VSync enabled. Record macOS/build, exact Godot build, renderer, display/output/logical viewport/scale, VSync, power state, build flavor, commit, scene/seed, asset set, warm-up, duration, p50/p95/p99/worst frame, peak/plateau memory, and raw artifact path. This is a stable comparison host, not minimum-device evidence.
+
 ### Mobile environment
 
 - Signed physical-device/TestFlight build.
@@ -248,6 +250,7 @@ Build: all required launch content and progression present.
 Tests:
 
 - Full primary campaign and completion.
+- Active-play timing from clean profile through primary completion and mastery; pause/background/developer-shortcut time is excluded.
 - Region/content repetition and density.
 - Three chassis/five archetypes.
 - Economy/progression pacing and dead ends.
@@ -261,6 +264,8 @@ Exit:
 - Content floors met without obvious filler/repetition.
 - All required build archetypes viable.
 - Economy source/sink and failure/extraction behavior stable.
+- At least ten new clean-profile players: median first primary-arc completion 8-12 hours; at least 8/10 complete within 6-14 hours; no mandatory random-grind block.
+- At least five clean-profile players continuing into mastery each reach 90% tracked authored completion plus three distinct Expedition mastery goals within 20-30 active hours; median mastery enjoyment is >=4/5 and identical repeated filler is neither required nor counted.
 - Zero P0/P1; P2 burn-down is bounded and scheduled.
 
 ### 9. iOS internal TestFlight
@@ -277,11 +282,13 @@ Exit:
 
 ### 10. External TestFlight / release beta
 
-Cohort: 20-30 first wave; expand to 50-100 only to close defined coverage gaps.
+Cohort: 20-30 first wave; the release gate requires at least 50 external participants, so expand to 50-100 only to close defined device/content/reliability coverage.
+
+Reliability window: at least 1,000 counted launch-to-background-or-quit sessions over at least 14 consecutive days, spanning every supported device tier. A session fails when it has an attributable uncaught crash, OS watchdog termination, or unrecovered hang. Unknown/un-symbolicated terminations remain in the denominator until resolved.
 
 Exit:
 
-- At least 99.8% crash-free sessions over the release beta window.
+- `crash-free counted sessions / all counted sessions >= 99.8%` over the defined release-beta window.
 - Zero reproducible save loss/P0/P1.
 - Store/review path and support material tested by someone outside the development loop.
 - Device, accessibility, progression, and content confidence covers the supported matrix.
@@ -475,7 +482,7 @@ Any of the following blocks 1.0:
 
 - Open P0 or P1.
 - Any reproducible profile loss, corruption without recovery, reward duplication, or unsupported migration.
-- Crash-free sessions below 99.8% release-beta target.
+- Crash-free counted sessions below 99.8% over the defined minimum 1,000-session/50-participant/14-day release-beta window.
 - Primary progression, extraction, Garage, save/resume, or Expedition Mode cannot complete.
 - Minimum supported device misses approved sustained frame, memory, thermal, launch/resume, touch, or lifecycle budget.
 - Required first-minute, handling, hybrid-world, buildcraft, economy, accessibility, and content gates lack passing human evidence.

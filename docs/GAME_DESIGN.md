@@ -75,6 +75,20 @@ Use an authored macrograph with deterministic runtime population.
 - Road closures, salvage clusters, threat composition, patrol/swarm pressure, weather transitions, ambient props, and optional resource placement.
 - Contract variants, bonus conditions, and post-progression Expedition layouts/rules.
 
+### Living-world selection
+
+Do **not** build generalized civilian traffic, friendly vehicle pathfinding, or a persistent population simulation for 1.0. In a hostile post-collapse county, ordinary traffic weakens the fantasy while adding collision, navigation, AI, audio, content, and mobile-performance cost that does not improve the core driving decisions.
+
+Make the county feel inhabited and reactive through a bounded stack instead:
+
+- Migrating zombie pressure, road-crossing swarms, and route-aware threat patrols use the same deterministic event sockets as other encounters.
+- Safehouses show small stateful work loops—lights, gates, tools, smoke, radios, parked vehicles, and changing restoration activity—without adding on-foot NPC interaction.
+- Noninteractive ambient life uses cheap pooled silhouettes and audio: birds lifting from fields, insects, distant wildlife, wind-driven debris, water, dust, weather fronts, and changing distant smoke/light signals.
+- Rare authored survivor signals may appear as radio calls, distant headlights, an already-departing vehicle silhouette, or changed roadside evidence. They communicate other people without creating a traffic simulator or collision promise.
+- Ambient motion never masks a hazard, imitates an objective cue, consumes collision budget, or exceeds the readability/effect cap. Encounter and ambience density are reported separately.
+
+The acceptance question is not “is something always moving?” Five-player region tests must describe the county as reactive and inhabited while still reading routes, hazards, and objectives at speed; the representative max-density scene must remain inside the phase performance budget. If that fails, improve state change and authored evidence before adding autonomous traffic.
+
 This replaces pure procedural infinity in the campaign because exploration needs recognizable place, deliberate sightlines, and route memory. It retains deterministic generation because repeated travel needs variation, reproducibility, testability, and compact saves.
 
 ### World scale and content floor
