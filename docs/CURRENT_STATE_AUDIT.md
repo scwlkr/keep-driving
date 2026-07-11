@@ -62,7 +62,7 @@ Commands were run against the audited working tree:
 | `/opt/homebrew/bin/godot --headless --path . --script res://tests/run_all.gd` | `ALL_KEEP_DRIVING_PROOFS_PASSED` |
 | `proofs/manual_smoke_proof.gd` | Scripted 600-second simulation reports all declared cases `true` |
 | `proofs/landscape_mobile_proof.gd` | 896 x 414 simulated layout/input loop reports `pass=true` |
-| `proofs/world_perf_proof.gd` | 10,800 frames; 141.5 FPS; 7.756 ms p95 frame; 1.096 ms p95 stream; 25 active; 49 preloaded; 310 entities; 0 blank-risk frames |
+| `proofs/world_perf_proof.gd` | 10,800 frames; 140.6 FPS; 8.734 ms p95 frame; 1.349 ms p95 stream; 25 active; 49 preloaded; 310 entities; 0 blank-risk frames |
 | Visible desktop inspection | Build launches and runs; presentation remains visibly prototype-grade |
 
 Baseline host facts: MacBookPro18,2; Apple M1 Max (10-core CPU, 32-core GPU); 64 GB RAM; macOS 27.0 build 26A5378j; Godot `4.7.stable.official.5b4e0cb0f`; GL Compatibility project configuration. These scripts ran headless from the working tree. The old proof output did **not** retain exact commit, build flavor, power state, viewport, VSync, warm-up, raw frame series, peak memory, or artifact path, so its performance numbers are an audit baseline rather than a reproducible release comparison. The production harness must emit every field in `TECHNICAL_ARCHITECTURE.md` and the roadmap measurement contract.

@@ -1,0 +1,71 @@
+{
+  "schema": "keep-driving.prototype-render-benchmark.v1",
+  "date": "2026-07-11",
+  "build": {
+    "commit": "a8c00766d18aee6b01ccdca689dfa4440a5049af",
+    "dirty": false,
+    "debug": false,
+    "godot": "4.7-stable (official)",
+    "platform": "macOS",
+    "os_version": "27.0.0",
+    "display_server": "macOS",
+    "renderer": "gl_compatibility",
+    "bundle_identifier": "com.scwlkr.prototype.handlingtruthslice",
+    "architectures": ["arm64", "x86_64"],
+    "signature": "adhoc-verified",
+    "app_bundle_kib": 165636
+  },
+  "machine": {
+    "model": "MacBookPro18,2",
+    "processor": "Apple M1 Max",
+    "memory_gib": 64,
+    "display": [3456, 2234],
+    "output_window": [1920, 1080],
+    "logical_viewport": [1280, 720]
+  },
+  "feel": {
+    "vsync_mode": 1,
+    "warmup_seconds": 5,
+    "duration_seconds": 15,
+    "sample_frames": 1787,
+    "fps_average": 119.042086251528,
+    "frame_ms_p50": 8.33333333333333,
+    "frame_ms_p95": 9.09090909090909,
+    "frame_ms_p99": 9.09090909090909,
+    "frame_ms_worst": 11.8199999999998,
+    "max_sampled_rss_mb": 178.53125,
+    "rss_interval_seconds": 1,
+    "rss_samples": 20,
+    "rss_expected_samples": 20,
+    "rss_failures": 0,
+    "peak_nodes": 25,
+    "peak_draw_calls": 28,
+    "harness_pass": true,
+    "acceptance_pass": false
+  },
+  "capacity": {
+    "vsync_mode": 0,
+    "warmup_seconds": 5,
+    "duration_seconds": 15,
+    "sample_frames": 10342,
+    "fps_average": 689.380784212032,
+    "frame_ms_p50": 1.38888888888889,
+    "frame_ms_p95": 1.66666666666667,
+    "frame_ms_p99": 1.85185185185185,
+    "frame_ms_worst": 15.0532954514452,
+    "max_sampled_rss_mb": 180.8125,
+    "rss_interval_seconds": 1,
+    "rss_samples": 20,
+    "rss_expected_samples": 20,
+    "rss_failures": 0,
+    "peak_nodes": 25,
+    "peak_draw_calls": 28,
+    "harness_pass": true,
+    "acceptance_pass": false
+  },
+  "limitations": [
+    "Short harness validation only; not a 1,800-second acceptance run.",
+    "RSS is sampled once per second and is not an instantaneous peak or plateau measurement.",
+    "Representative production art and reviewed audio are not present."
+  ]
+}

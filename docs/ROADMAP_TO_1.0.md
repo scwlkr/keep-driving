@@ -176,7 +176,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Required prototypes:** None.
 - **Tools/infrastructure:** Godot CLI, git, local Wayfinder tracker, desktop computer-use inspection.
 - **Desktop test plan:** Core suite, loop simulation, landscape simulation, 10,800-frame world perf proof, visible start/run inspection.
-- **Performance targets:** Record current baseline; fresh result 141.5 FPS, 7.756 ms p95 frame, 1.096 ms p95 stream, 25/49 chunks, zero blank-risk frames.
+- **Performance targets:** Record current baseline; final fresh result 140.6 FPS, 8.734 ms p95 frame, 1.349 ms p95 stream, 25/49 chunks, zero blank-risk frames.
 - **Acceptance criteria:** Concrete files/symbols cited; false-positive audio/manual/mobile/perf limits identified; all required audit topics covered.
 - **Definition of done:** `docs/CURRENT_STATE_AUDIT.md` and map ticket answer/evidence complete; no critical unknown hidden as fact.
 - **Mobile implications:** Establish simulation-only status and all missing device/lifecycle/export work.
@@ -968,16 +968,16 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - Core suite: `ALL_KEEP_DRIVING_PROOFS_PASSED`.
 - Automated 600-second loop simulation: all declared cases true, `pass=true`.
 - Landscape 896 x 414 simulation: `pass=true`.
-- World perf: 10,800 frames, 141.5 FPS, p95 frame 7.756 ms, p95 stream 1.096 ms, 25 active/49 preloaded, 310 entities, zero blank-risk frames, `pass=true`.
+- World perf: 10,800 frames, 140.6 FPS, p95 frame 8.734 ms, p95 stream 1.349 ms, 25 active/49 preloaded, 310 entities, zero blank-risk frames, `pass=true`.
 - Visible desktop inspection: Start and Run render, but default UI/debug text/block tiles/procedural placeholders confirm presentation gap.
-- Handling truth-slice smoke: normalized input, progressive road/dirt/mud speeds, rolling drag, stationary steering, single collision transition, and Integrity damage pass.
+- Handling truth-slice smoke: normalized input, progressive road/dirt/mud speeds, three tunes differentiated across speed/turn/grip/impact resistance, rolling drag, stationary steering, single collision transition, full reset, and Integrity damage pass.
 - Handling truth-slice scene: separate headless boot passes and the original main scene/proofs remain launchable.
-- Prototype-only clean macOS export: universal release app, neutral internal bundle identifier, ad-hoc signature, exported-scene launch pass. Short 15-second feel/capacity harness validations pass with `acceptance_pass=false`; final post-commit metrics are recorded in `prototypes/handling_truth_slice/NOTES.md`. These are not the required clean exported 1,800-second acceptance runs.
+- Prototype-only clean macOS export from `a8c00766d18aee6b01ccdca689dfa4440a5049af`: embedded clean-commit provenance, universal release app, neutral internal bundle identifier, verified ad-hoc signature, exported-scene launch pass. Short 15-second feel/capacity harness validations pass with `acceptance_pass=false`; exact metrics are recorded in `prototypes/handling_truth_slice/NOTES.md` and `proofs/handling_truth_slice_benchmark_a8c0076.json`. These are not the required clean exported 1,800-second acceptance runs.
 
 ### Known defects
 
-- Empty AudioStreamGenerator paths mean no real audio despite counter proof.
-- Variable-delta manual vehicle/radius contacts and repeated-overlap damage risk.
+- Shipping v0 empty AudioStreamGenerator paths mean no real audio despite counter proof; the isolated truth slice has generated PCM but no human mix verdict.
+- Shipping v0 variable-delta manual vehicle/radius contacts and repeated-overlap damage risk.
 - Repetitive four-spoke world/flat terrain/no authored place.
 - No success/extraction/activity/campaign; all failure banks all Scrap.
 - One chassis, nine linear purchases, no real build ecosystem.
