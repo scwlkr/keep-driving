@@ -1,7 +1,7 @@
 # Decide Product Identity And Launch Scope
 
 Type: research
-Status: open
+Status: claimed
 Blocked by: 01
 
 ## Question
