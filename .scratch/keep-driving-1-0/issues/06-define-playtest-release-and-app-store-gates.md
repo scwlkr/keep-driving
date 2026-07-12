@@ -1,7 +1,7 @@
 # Define Playtest Release And App Store Gates
 
 Type: research
-Status: open
+Status: claimed
 Blocked by: 01, 02, 04, 05
 
 ## Question
