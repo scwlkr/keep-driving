@@ -2,6 +2,7 @@
 
 Status: 1.0 validation program
 Plan date: 2026-07-11
+Gate decision and current first-party basis: [Playtest, Release, and App Store Gates](research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md)
 
 ## Purpose
 
@@ -32,7 +33,19 @@ Reports must name the evidence honestly.
 - Record exact build, device, input, save fixture, settings, scenario/seed, duration, and facilitator.
 - Preserve raw notes, then distinguish observation, player quote/paraphrase, interpretation, severity, and proposed action.
 - Do not collect unnecessary personal data. Get explicit consent for screen/audio/video capture and diagnostic upload.
+- Keep recruitment/contact/incentive records outside git; repository evidence uses anonymous session IDs and aggregates. Delete identifiable raw capture by the earlier of 90 days after `KD-G11` passes or 180 days after capture. Cancellation or indefinite archive triggers a deletion review within 30 days; separate consent or a documented legal/security need names a new review/deletion date.
 - A single enthusiastic session cannot close a systemic risk; a single reproducible data-loss or progression blocker can reopen a phase.
+- A provisional `[PLACEHOLDER]` may guide a prototype, but no gate may pass while a placeholder remains inside that gate's acceptance scope.
+
+## Gate governance
+
+Production readiness uses `KD-G0` through `KD-G11` from the gate decision. Before a candidate enters a gate, `KD-G0 Evidence Contract` freezes its script, thresholds, owners, cohort/device quotas, clocks, numerator/denominator, consent/retention, required suites, artifact paths, and change-to-retest rules.
+
+The future `docs/release/<version>/RELEASE_EVIDENCE.md` ledger records each gate's `NOT_STARTED`, `RUNNING`, `PASS`, `FAIL`, or `REOPENED` status against one exact build/commit/content/save/toolchain identity. Required gates and P0/P1 defects are never waived. Every pass has an Evidence Owner; Build, Product, Privacy/Compliance, and Release Owners attest only their scope. One person may hold multiple roles, but implementers/agents never substitute for naive-player evidence.
+
+Before outcomes are seen, every human script fixes valid `N`, cohort eligibility, tasks, clock anchors, numerator/denominator, rounding, and invalid-session rules. Only facilitator/technical failures unrelated to player behavior may be excluded; retain the reason and replace that session. A player counts as naive once, though they may return in a later explicitly labeled cohort.
+
+Any code/content/configuration change reruns affected human and automated gates. Any prelaunch binary/content/configuration change after `KD-G7` begins creates a new external build and restarts its participant/session/day window. After public launch, an urgent smallest-scope patch uses `KD-E1 Emergency Patch`; a non-emergency update returns to normal `KD-G7` qualification. Metadata-only changes reopen the affected store/RC gate. Targets change only through a dated decision followed by a rerun—never retroactively to pass observed results.
 
 ## Playtest environments
 
@@ -74,6 +87,7 @@ Every session records:
 - Player responses and confidence ratings.
 - Defects with reproduction/evidence.
 - Design findings, severity, owner, validation follow-up.
+- Script/version hash, valid/excluded decision, exclusion reason, and gate/evidence-ledger link.
 
 ## Internal playtesting cadence
 
@@ -101,12 +115,13 @@ This is necessary but not sufficient for milestone acceptance.
 - Dedicated structured cohort using frozen candidate build and script.
 - No facilitator who implemented the feature should lead every session.
 - Aggregate results before changing the acceptance target.
+- Named Evidence/Product owners mark PASS or FAIL; scheduled corrective work without passing retest never closes the gate.
 
 ## Structured test stages
 
 ### 1. Production handling lab
 
-Cohort: at least five players; mix driving-game familiar and unfamiliar.
+Cohort: five valid players; mix driving-game familiar and unfamiliar; at least two use a physical controller and at least two use keyboard, with one player allowed to exercise both.
 Build: desktop test track with road, dirt, mud, slalom, braking, reverse, breakable/medium/heavy collision, recovery.
 Presets: three deliberately distinct vehicle tunes or chassis/loadouts.
 
@@ -122,7 +137,7 @@ Tasks:
 
 Acceptance:
 
-- All five can drive, reverse, drift, and recover without moderator takeover.
+- Every valid participant can drive, reverse, drift, and recover without moderator takeover.
 - Median handling satisfaction at least 4/5.
 - No overlap damage spam, tunneling, stationary rotation, stuck throttle, or frame-rate-dependent control defect.
 - Surface differences are identified correctly by at least four of five.
@@ -130,7 +145,7 @@ Acceptance:
 
 ### 2. First 60 seconds / hero minute
 
-Cohort: five new players who have not seen the build/docs for the observed hero minute, plus five additional new players for the ten-person phone-scale silhouette-recognition subcohort.
+Cohort: ten valid new players who have not seen the build/docs. The first five receive the deep observed hero-minute script; all ten attempt first movement/onboarding and the phone-scale silhouette-recognition script.
 Build: representative final-quality Garage departure, road, route fork, landmark, reward/threat, HUD, real audio.
 
 Observe without help:
@@ -149,23 +164,24 @@ Acceptance:
 - Four of five move within ten seconds.
 - Four of five identify objective and Fuel/Integrity within 30 seconds.
 - Four of five encounter and understand a meaningful route or reward decision within 60 seconds.
-- At least 90% drive without help within two minutes across the larger onboarding cohort.
+- Nine of ten drive without help within two minutes across the full onboarding cohort.
 - No player needs debug vocabulary; engine/surface/impact/pickup/warning/UI audio is audible and mix-controlled.
 - At least eight of ten identify each required critical category and false positives remain `[PLACEHOLDER: <=10%]`; failures simplify value/shape/motion before labels or effects multiply.
 - Four of five identify critical cue cause/severity without relying on one sensory channel.
 
 ### 3. Hybrid proof region
 
-Cohort: five to eight players; at least two repeat the region.
+Cohort: at least five valid players; at least two repeat the region after conditions change.
 Build: 10-15 minute region with two primary routes, offroad shortcut, three landmarks, crossing/barrier, dynamic event, safe return.
 
 Acceptance:
 
-- First-time players reach destination using world cues/map without facilitator route instruction.
+- At least 80% of valid first-time players reach the destination using world cues/map without facilitator route instruction.
 - For a typical 15-minute proof, begin with the explicit `[PLACEHOLDER]` composition of two to four route choices, one to three encounters, one optional detour, one objective beat, and one return decision; reject filler inserted only to satisfy a timer.
-- Players can describe at least two landmarks and one route tradeoff afterward.
+- At least 80% describe at least two landmarks and one route tradeoff afterward.
 - At least 80% correctly order the relative risk of paired route/contract forecasts before departure; compare different loadouts against the same committed offer to verify threats/rewards do not counter-pick.
 - Repeat players use learned geography while responding to changed systemic conditions.
+- At least 80% notice one route-relevant ambient/dynamic world change and correctly explain whether it altered navigation, risk, or only atmosphere; a reactive county cannot be faked by a cosmetic event with no readable consequence.
 - No obvious route grammar repetition, seam, blank terrain, or unavoidable lethal event.
 - Release-like desktop streaming remains <=4 ms p95.
 
@@ -214,7 +230,9 @@ Acceptance:
 
 ### 6. UX shell and accessibility
 
-Cohort: representative touch/controller/keyboard users plus recruited players who use relevant accessibility settings where possible.
+Cohort: at least five valid desktop participants spanning keyboard and controller, including at least two people with self-identified permanent, temporary, or situational access needs relevant to the tested vision, hearing, motor, or cognitive settings. Before `KD-G6`, repeat the common-task matrix with at least five valid physical-iPhone participants spanning touch and controller, again including at least two people with relevant self-identified access needs. A participant may count in both cohorts only when both sessions are declared; do not collect diagnoses. Any VoiceOver or Voice Control product-page claim additionally requires at least two participants who regularly use that assistive technology.
+
+`KD-G1` judges only the desktop-capable UX, audio, and accessibility evidence. Touch targets, safe areas, haptic comfort, mobile input switching, physical-device common tasks, and mobile accessibility evidence cannot pass by inheritance and belong to `KD-G6`.
 
 Flows:
 
@@ -234,6 +252,7 @@ Acceptance:
 - Touch target/safe-area rules pass on physical devices before mobile acceptance.
 - App Store accessibility claims are made only after criterion-specific end-to-end tests.
 - Every proposed App Store accessibility label has a dated exact-build/device/common-task evidence record; unsupported labels remain unclaimed.
+- The claim register maps feature -> every common task -> device type/OS -> exact build/settings -> evaluator/participant evidence -> owner. Any failed claimed common task is P1 until the claim is removed everywhere or the implementation passes retest.
 - The desktop 30-minute session samples 0-5 masking/fatigue every five minutes, stops immediately on request or at >=4 discomfort, meets `[PLACEHOLDER: median <=2 and no unresolved score >=3]`, and keeps critical warnings distinguishable under the busiest representative mix. The physical-iPhone haptic session uses the same stop rule and records comfort, control precision, and battery separately.
 
 ### 7. Desktop alpha
@@ -251,7 +270,7 @@ Goals:
 Exit:
 
 - Primary loop understandable to at least 80% after one expedition.
-- Median overall session rating at least 4/5 or documented changes scheduled.
+- Median overall session rating at least 4/5 after corrective work and a frozen-candidate retest.
 - No P0/P1; high-frequency P2 trends owned.
 - Full-stack performance and save gates pass on desktop reference hardware.
 
@@ -270,6 +289,7 @@ Tests:
 - D020-locked mastery and postgame scope; currently Expedition Mode if retained.
 - Accessibility/localization/save upgrade.
 - Two-hour soak and worst-case content.
+- At least ten participants complete three unmoderated sessions across at least seven calendar days to test return intent, retained knowledge, support discovery, and repeated-content fatigue.
 
 Exit:
 
@@ -281,33 +301,61 @@ Exit:
 - At least ten new clean-profile players: median first primary-arc completion lands inside the D020-locked range (current target 8-12 active hours; coherent fallback 5-8), at least 8/10 land inside the lock's declared tolerance, and no player hits a mandatory random-grind block.
 - At least five clean-profile players continuing into mastery each reach the D020-locked authored completion/build/mastery goal inside its active-play range (current target 20-30 hours; coherent fallback 10-15); median mastery enjoyment is >=4/5 and identical repeated filler is neither required nor counted. Expedition-specific goals apply only if the mode survives D020.
 - At least four of five post-completion players identify and voluntarily begin a non-Scrap next goal; Expedition Mode, if retained, remixes declared conditions on the same county topology and grants no exclusive campaign power.
-- Zero P0/P1; P2 burn-down is bounded and scheduled.
+- Zero P0/P1; no more than five accepted P2s remain under the risk budget below, each with scheduled burn-down.
 
 ### 9. iOS internal TestFlight
 
-Cohort: assigned device/input/accessibility matrix.
+Cohort: the assigned device/input/accessibility matrix plus ten valid first-time-iPhone participants who have never used a mobile build of the game. This ten-person cohort is distinct from the ten first-time participants later required by `KD-G7`; each required tier is used by at least two cohort members, and the second minimum/current devices are each exercised by at least one. Nine of ten must drive without help within two minutes and eight of ten must complete first launch -> expedition -> pause/background/resume -> Settle -> Service using touch.
 Focus: install/update, touch, safe areas, audio/haptics, controller, lifecycle, save, frame/memory/thermal/battery, offline.
+
+Before the candidate, lock exact model/chip/OS/input/frame/quality assignments: at least one physical device in each minimum/small/mid/large/current tier plus a second minimum and current device; deployment-min latest patch and latest public iOS are both represented. Freeze memory, thermal, battery, launch/resume, frame-mode, and free-storage protocol values before measuring.
 
 Exit:
 
-- Minimum and target device budgets pass.
-- 1,000 lifecycle/save fault cycles pass.
+- Every assigned model/OS/input/frame/quality row passes every applicable locked frame, memory, thermal, battery, launch, resume, free-storage, functional, and accessibility budget; results are not averaged across devices or tiers.
+- 1,000/1,000 lifecycle/save fault cycles complete with zero committed-state loss, duplication, double settlement, or unclassified state mismatch.
 - No stuck input, duplicate reward/audio, save loss, or safe-area blocker.
-- Internal crash/hang evidence supports external test.
+- One exact internal-TestFlight build records at least 200 reported sessions in one frozen seven-day UTC window, every required tier contributes at least 20 attributable sessions, and `(reported sessions - Failed Session Equivalents) / reported sessions >= 99.5%`. External access remains off. Open internal use at `T0=00:00 UTC` and use the `T0+7d` last-seven-day boundary export/snapshot; daily rolling views are audit evidence and are never summed. Device/Xcode watchdog/hang evidence uses the same conservative categories and no-double-count rule as `KD-G7`; unresolved unknown terminations fail the gate.
 
 ### 10. External TestFlight / release beta
 
-Cohort: 20-30 first wave; the release gate requires at least 50 external participants, so expand to 50-100 only to close defined device/content/reliability coverage.
+Cohort: 20-30 first wave; the release gate requires at least 50 active external participants, so expand to 50-100 only to close defined device/content/reliability coverage. An active participant is one unique person assigned to the external group with at least one TestFlight-reported session inside the two frozen windows. Before `T0`, assign each person one coverage tier; they count toward that tier's participant floor only after at least one attributable session on it, otherwise only toward the global 50. The ten first-time-iPhone participants here are distinct from `KD-G6`.
 
-Reliability window: at least 1,000 counted launch-to-background-or-quit sessions over at least 14 consecutive days, spanning every supported device tier. A session fails when it has an attributable uncaught crash, OS watchdog termination, or unrecovered hang. Unknown/un-symbolicated terminations remain in the denominator until resolved.
+Reliability window: stop all internal use, open external access at frozen `T0=00:00 UTC`, and measure two disjoint windows `W1=[T0,T0+7d)` and `W2=[T0+7d,T0+14d)` on one exact processed build. Archive the last-seven-day export/snapshot at each boundary and sum only `W1+W2`; daily rolling views are audit evidence and are never summed. If a boundary is missed, internal use contaminates the window, or the source cannot separate/attribute the window, the gate remains running and starts a clean pair. Per-tester/device records map each session to one declared tier; ambiguous sessions remain in the global denominator but count toward no tier. Use device/Xcode Organizer evidence for hangs/watchdogs. A crash occurrence, distinct non-crash watchdog/unrecovered-hang session, or unresolved unknown termination is a failed-session equivalent assigned by incident timestamp to exactly one window; do not double-count one incident.
 
 Exit:
 
-- `crash-free counted sessions / all counted sessions >= 99.8%` over the defined release-beta window.
+- `((W1_sessions + W2_sessions) - (W1_failed_equivalents + W2_failed_equivalents)) / (W1_sessions + W2_sessions) >= 99.8%` over the exact-build release-beta window.
 - Zero reproducible save loss/P0/P1.
+- Every supported tier has at least five assigned participants and 100 attributable sessions inside the overall floor.
+- At least ten participants are first-time iPhone players: nine of ten drive without help within two minutes and eight of ten complete first launch -> expedition -> pause/background/resume -> Settle -> Service using touch.
 - Store/review path and support material tested by someone outside the development loop.
 - Device, accessibility, progression, and content confidence covers the supported matrix.
-- Every accepted P2 has explicit impact, owner, and post-launch plan.
+- No more than two accepted P2s remain under the risk budget; every one has explicit impact, owner, and post-launch plan.
+
+### 11. Store-page truth and reviewer/support rehearsal
+
+Cohort: five target players unfamiliar with the build plus one person outside the development loop for reviewer/support rehearsal.
+
+Tasks:
+
+- View final unbranded product-page screenshots/preview sequence for five seconds, then describe the game, its key decision, and expected play.
+- Compare against three adjacent driving/progression product pages without title/logo cues.
+- Follow Review Notes from first launch through expedition, failure/extraction, Settle, Service, offline/save/reset, and support/privacy.
+
+Acceptance:
+
+- Four of five identify route-shaped buildcraft and county restoration, and no participant infers a marketed feature absent from the archive.
+- Marketing icon/screenshots/previews remain suitable for a 4+ audience even if the calculated game age rating is higher.
+- The outside reviewer reaches every documented path without developer explanation and finds working support/privacy material.
+
+### 12. Launch, stabilization, and emergency-patch evidence
+
+Before manual release, the ledger freezes UTC launch time, enabled storefronts, minimum/mid/current public-smoke devices, monitoring sources and expected reporting latency, support/diagnostic owners, staffed/on-call coverage, polling cadence, and the exact stability rules below.
+
+- `KD-G10`: staff continuously from preflight through at least eight hours after first public storefront availability. Check and timestamp store state, support inbox, and available crash/hang/device sources at least hourly; slower Apple sources are checked at every refresh with latency recorded. Minimum/mid/current pass public page/purchase/install/first launch/core offline/save/support smokes. If propagation remains incomplete, named on-call ownership continues hourly checks until the 24-hour state is recorded. Any open P0/P1, unknown live failure, broken source without replacement evidence, or failed smoke keeps the gate running.
+- `KD-G11`: measure seven complete UTC days after launch or the latest patch. Aggregate observed reported-session health is >=99.8%; every supported tier with >=100 attributable sessions is >=99.5%; every lower-volume failed equivalent is classified. There is zero reproducible save loss/P0/P1, no unknown termination or support item remains untriaged beyond one staffed day, at most two accepted P2s remain with no escalation, and no same-root-cause P2 report count rises on three consecutive UTC days. Update/save compatibility and declarations remain correct. Delayed/missing evidence extends the window; a patch restarts all seven days.
+- `KD-E1 Emergency Patch`: only a post-launch urgent defect qualifies. Build the smallest fix from the latest public tag with the next monotonically increasing patch version/build and no unrelated change; retain reproduced-before/fixed-after evidence on every affected tier plus minimum/mid/current; pass clean update/save smokes from every supported public predecessor, 100% of the full P0/P1 blocker suite and every affected earlier gate, and 1,000/1,000 faults when persistence/progression/lifecycle changes. The exact patch then records >=25 internal-TestFlight sessions over >=4 staffed hours, >=5 per minimum/mid/current and each additional affected tier, 100% conservative session health, and no unknown termination. Evidence, Build, Privacy/Compliance, and Release Owners sign the delta. A broader/non-urgent update uses normal `KD-G7`; a released patch restarts `KD-G11`.
 
 ## Feedback questions
 
@@ -459,6 +507,7 @@ Simulator evidence can close basic layout/compatibility only, never touch, hapti
 - Full campaign and any D020-locked postgame-mode completion.
 - Offline, lifecycle, low-storage, corruption recovery, and emergency-patch migration.
 - Exact archive metadata/privacy/accessibility/review agreement.
+- 100% of required suites pass. A flaky/quarantined test covering a blocker criterion fails the gate until fixed or replaced with equal coverage; rerunning until green never erases the failing artifact.
 
 ## Bug severity
 
@@ -482,6 +531,8 @@ Response: stop release/affected rollout; preserve evidence; smallest safe fix; f
 - App Review, privacy, metadata, signing, export, or legal blocker.
 - Missing/unlicensed/placeholder production content.
 
+Response: stop the gate/release path, preserve evidence, assign an owner, fix or supersede the affected product decision, rerun focused regression plus every impacted gate, and require Evidence/Release Owner signoff before resuming.
+
 ### P2 — Major
 
 - Important activity/build/region path degraded but workaround exists.
@@ -489,7 +540,7 @@ Response: stop release/affected rollout; preserve evidence; smallest safe fix; f
 - Non-common device/layout defect inside supported matrix.
 - Performance hitch or content repetition above target without blocking completion.
 
-P2 may be accepted into RC only with explicit impact, scope, workaround, owner, and post-launch timing; high-frequency P2 becomes P1.
+P2 may be accepted only with explicit impact, scope, workaround, owner, expiry/fix target, and Product/Release Owner signoff. `KD-G3` through `KD-G8` permit at most five accepted open P2s total; `KD-G9` through `KD-G11` permit at most two. No more than one may affect the same common flow or supported tier. Save/progression integrity, security/privacy/legal, common accessibility, install/purchase/launch/support, and App Review defects cannot consume this budget and are P1. A P2 also becomes P1 when it appears in three independent sessions on a common path, affects at least 5% of applicable task opportunities, or affects every tested device in one supported tier. The cap is a ceiling, not a quota; Product or Release Owner may require zero.
 
 ### P3 — Minor/polish
 
@@ -503,13 +554,16 @@ Any of the following blocks 1.0:
 
 - Open P0 or P1.
 - Any reproducible profile loss, corruption without recovery, reward duplication, or unsupported migration.
-- Crash-free counted sessions below 99.8% over the defined minimum 1,000-session/50-participant/14-day release-beta window.
+- Conservative exact-build health below 99.8% over disjoint `W1+W2`, fewer than 1,000 sessions/50 active participants, or any tier below five assigned participants/100 attributable sessions.
 - Primary progression, extraction, Garage, save/resume, or any D020-locked postgame mode cannot complete.
 - Minimum supported device misses approved sustained frame, memory, thermal, launch/resume, touch, or lifecycle budget.
 - Required first-minute, handling, hybrid-world, buildcraft, economy, accessibility, and content gates lack passing human evidence.
 - App Store declarations/assets/metadata/review notes do not match the selected archive.
 - Placeholder/debug/unlicensed/missing content remains.
 - Core offline play depends on an unavailable service.
+- A release-scope acceptance criterion still contains an unresolved `[PLACEHOLDER]`, lacks a fixed denominator/owner, or has no current evidence-ledger row.
+- A claimed accessibility feature fails any common task on its declared device/build.
+- Any required blocker suite is failing, silently quarantined, or flaky without equal replacement coverage.
 
 ## Playtest definition of done
 
@@ -517,3 +571,4 @@ Any of the following blocks 1.0:
 - Raw session records and aggregate findings map to build/commit and acceptance criteria.
 - Failures create owned defects/design actions and are retested; targets are not moved after seeing poor results without a recorded product decision.
 - Release beta satisfies crash/save/device/content/accessibility gates with no P0/P1.
+- `KD-G0` through the currently required gate are PASS in the exact candidate's evidence ledger, with no invalidated inherited evidence.

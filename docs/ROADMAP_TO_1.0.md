@@ -211,7 +211,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 2 — Technical-Risk Prototypes
 
-- **Status:** In progress. The isolated handling prototype and automated smoke cover normalized intent, three distinct demonstration tunes, surface ordering, rolling drag, stationary steering, identical direct 60 Hz step batching under synthetic 30/60/120 render cadences, ordered light/medium/heavy collision response, full reset, one transition per contact, Integrity damage, and nonempty PCM resources. A prototype-only clean macOS export and short rendered harness validations pass, but they are not acceptance evidence. End-to-end rendered 30/60/120 cadence proof, representative art/audio, 1,800-second clean-export runs/capture, human audible mix, physical controller, and five-player evidence remain open.
+- **Status:** In progress. The isolated handling prototype and automated smoke cover normalized intent, three distinct demonstration tunes, surface ordering, rolling drag, stationary steering, identical direct 60 Hz step batching under synthetic 30/60/120 render cadences, ordered light/medium/heavy collision response, full reset, one transition per contact, Integrity damage, and nonempty PCM resources. A prototype-only clean macOS export and short rendered harness validations pass, but they are not acceptance evidence. End-to-end rendered 30/60/120 cadence proof, representative art/audio, 1,800-second clean-export runs/capture, human audible mix, physical controller, five-player handling, and ten-player hero/onboarding evidence remain open.
 - **Experience contract now locked:** Animated Road Atlas + County Field Manual + Semantic Kinetics; Service/Plan/Drive/Settle postures; one Preflight Card; bounded component grammar; semantic multimodal events; staged family gates. Phase 2 proves Drive hero vehicle/world/HUD and real engine/surface/impact/warning/pickup feedback; Phase 3 proves integrated Service/Settle, ambience/music, and a 15-minute loop; Phases 8/10 prove the complete shell/mix, desktop fatigue, and separate physical haptics. The current fallback visuals/code labels/generated tones do not satisfy any production gate.
 - **Objective:** Falsify the costliest vehicle, world, buildcraft, first-minute, save, and full-stack performance assumptions before production scale-up.
 - **Player-facing outcome:** A rough but real 10-15 minute desktop truth environment that feels controllable, readable, purposeful, audible, and build-dependent.
@@ -225,7 +225,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Risk reduction:** Explicit question/acceptance per prototype, disposable locations where appropriate, decision report after each, only selected contracts graduate.
 - **Required prototypes:** The six desktop prototypes listed above plus a narrow signed-export feasibility check after the first desktop truth slice is accepted. The signed check proves exporter/Xcode/signing/install only; mobile gameplay/UI adaptation remains deferred to Phase 15.
 - **Tools/infrastructure:** Dedicated prototype scenes, input visualizer, benchmark track, minimal prototype-only macOS export preset/build, world bake validator, catalog report, save fault harness, rendered capture, profiler.
-- **Desktop test plan:** Five-player handling test; five-player hero minute; repeat proof-region navigation; build benchmark; three-run economy preview; save fixtures/faults; 30-minute representative performance run.
+- **Desktop test plan:** Five-player handling test with >=2 controller/>=2 keyboard users; ten-player hero/onboarding test with the first five deeply observed; repeat proof-region navigation; build benchmark; three-run economy preview; save fixtures/faults; 30-minute representative performance run.
 - **Performance targets:** 60 FPS/p95 <=16.7 ms; world work <=4 ms; p99 <=25 ms; no >50 ms driving hitch; no blank terrain/tunneling/overlap spam; provisional memory counters active.
 - **Acceptance criteria:** Handling median >=4/5; four/five first-minute comprehension; proof-region decision density; >=3 viable builds/no universal winner; v0 migration/recovery works; representative full-stack budget passes; a minimal signed archive installs and launches on one physical iPhone without requiring a game-system fork.
 - **Definition of done:** Each prototype has evidence and keep/change/abandon decision; selected contracts recorded; the bounded signed-export risk is retired; unresolved blocker is fixed or changes the roadmap before Phase 3.
@@ -252,7 +252,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** CI fast gate, development build flags, rendered capture, debug overlay, build manifest, clean export preset.
 - **Desktop test plan:** Clean profile; tutorial; objective/extraction/wrecked/stranded/abandon; safehouse closure/new-manifest boundary; fault/reload assertions for the immutable manifest plus exact authoritative checksum-valid verified-slot position, Fuel, Integrity, Pressure branch, objective/encounter state, consumed sockets, escrow, pending mutations, `AppliedExpeditionAssistPolicy`, and `RetainedCampaignDeltaOutbox`; exactly-once retained-delta transfer/reward idempotence; Garage compare/install; keyboard/controller; multiple manifests on one county; human 15-minute test; release-like performance.
 - **Performance targets:** 60 FPS/p95 <=16.7 ms, p99 <=25 ms, world <=4 ms, no >50 ms hitch, stable 30-minute memory, UI acknowledgement <100 ms.
-- **Acceptance criteria:** Four/five hero-minute targets; full loop without debug help; Service/Settle comprehension and a captured human-accepted 15-minute real-audio mix; county truth survives manifests; the immutable manifest plus every authoritative `ExpeditionProgress` field resumes from the latest verified-slot checkpoint; terminal rewards/mutations and retained Campaign deltas commit once; players predict kept/lost facts; no duplicate authority; exported build passes; the representative content cell and staged presentation evidence supply measured throughput plus explicit family caps/headroom rather than inferred capacity.
+- **Acceptance criteria:** Four/five deep hero-minute targets plus 9/10 unaided two-minute movement across the full onboarding cohort; full loop without debug help; Service/Settle comprehension and a captured human-accepted 15-minute real-audio mix; county truth survives manifests; the immutable manifest plus every authoritative `ExpeditionProgress` field resumes from the latest verified-slot checkpoint; terminal rewards/mutations and retained Campaign deltas commit once; players predict kept/lost facts; no duplicate authority; exported build passes; the representative content cell and staged presentation evidence supply measured throughput plus explicit family caps/headroom rather than inferred capacity.
 - **Definition of done:** Integrated, playable, tested, documented production slice; D020 count target is explicitly locked or superseded before multiplication; current Real Vertical Slice map is resolved/superseded with evidence; no open P0/P1.
 - **Mobile implications:** Shared contracts and responsive proof floor accepted; desktop touch simulation remains non-release evidence.
 - **Documentation:** Slice spec/report, architecture/decision updates, control/asset/content contracts, and `docs/production/SCOPE_LOCK.md` with the D020 capacity ledger/formula/verdict.
@@ -477,7 +477,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** Desktop export/install script, CI artifacts, alpha build manifest, crash/log collection, session templates, defect tracker.
 - **Desktop test plan:** 10-15 players; clean first hour; representative full arc; every D020-locked chassis/activity/region; keyboard/controller; install/update/offline; save fault; two-hour soak.
 - **Performance targets:** 60 FPS/p95 <=16.7/p99 <=25; world <=4 ms; no >50 ms hitch; memory plateau; cold launch <=5 seconds; resume <=2.
-- **Acceptance criteria:** >=80% loop comprehension; median session >=4/5 or owned changes; all systems integrated; no P0/P1; major P2 trends owned; clean export reproducible.
+- **Acceptance criteria:** >=80% loop comprehension; median session >=4/5 after corrective work and frozen-candidate retest; all systems integrated; no P0/P1; major P2 trends owned; clean export reproducible.
 - **Definition of done:** Alpha evidence signed off, architectural/product blockers resolved, content production plan reforecast with measured throughput.
 - **Mobile implications:** Desktop systems freeze enough for later adaptation; any mobile-hard architecture defect is fixed before content completion.
 - **Documentation:** Alpha report, defect/design backlog, architecture drift review, content throughput/scope update, proof manifest.
@@ -500,9 +500,9 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Risk reduction:** Weekly density/repetition/throughput reports; modular templates with authored difference; content freeze; Required first; performance/save/catalog gates per tranche.
 - **Required prototypes:** None; every new template must use accepted authoring contracts and get one representative validation before multiplication.
 - **Tools/infrastructure:** Content dashboards, region/checklist validators, repetition report, economy/build benchmarks, full-playthrough fixtures, localization/license coverage.
-- **Desktop test plan:** 20-30 player beta; clean full campaign; returning/mid/late profiles; failure/success-heavy; all D020-locked chassis/builds/modes; two-hour soak; install/update/save migrations.
+- **Desktop test plan:** 20-30 player beta; at least 10 new clean full-campaign completions, five mastery completions, and 10 participants completing three unmoderated sessions across >=7 days; returning/mid/late and failure/success-heavy profiles; all D020-locked chassis/builds/modes; two-hour soak; install/update/save migrations.
 - **Performance targets:** Meet Phase 12 with worst launch content; no content activation hitch >50 ms; package/memory projections within mobile targets.
-- **Acceptance criteria:** Every D020-locked count and playtime range is met without filler; no progression/random grind blocker; every locked build/activity/region is viable/distinct; zero P0/P1; bounded P2; complete content/license/string IDs; clean-profile cohorts meet the Section-6 locked duration/enjoyment contracts.
+- **Acceptance criteria:** Every D020-locked count and playtime range is met without filler; no progression/random grind blocker; every locked build/activity/region is viable/distinct; zero P0/P1; no more than five accepted P2s under the fixed risk budget; complete content/license/string IDs; clean-profile cohorts meet the Section-6 locked duration/enjoyment contracts.
 - **Definition of done:** Content complete and frozen except bug/balance corrections; full campaign/endgame evidence and beta report approved.
 - **Mobile implications:** Final content defines real asset/package/memory/UI/device workload; no new required content added after mobile entry without requalification.
 - **Documentation:** Content catalog/release inventory, region completion reports, balance/economy snapshot, known issues, localization/license manifest.
@@ -594,7 +594,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Included:** Minimum/small/mid/large/current devices; iOS min/latest; clean install/update; offline; touch/controller; lifecycle; low storage/battery; thermal/memory; full campaign; save faults.
 - **Excluded:** New gameplay/content; App Store screenshots/marketing except test captures; optional iPad unless approved.
 - **Dependencies:** Phase 16, final desktop content/baseline.
-- **Major tasks:** Device baseline; profile worst scenes; fix sync/scaling; tune atlases/audio/materials/effects/quality; lifecycle/audio/haptics; 1,000 faults; 30-min thermal/battery; two-hour memory; internal stability gate; freeze the external-TestFlight-ready candidate for Phase 18.
+- **Major tasks:** Lock the exact model/chip/OS/input/frame/quality/owner matrix and all device budgets before results; baseline; profile worst scenes; fix sync/scaling; tune atlases/audio/materials/effects/quality; lifecycle/audio/haptics; 1,000 faults; 30-min thermal/battery; two-hour memory; distinct ten-person first-time-iPhone full touch-flow cohort; >=200 exact-build internal-TestFlight sessions in one frozen seven-day UTC window with every tier >=20 attributable sessions; freeze the external-TestFlight-ready candidate for Phase 18.
 - **Recommended order:** Minimum device correctness -> frame/memory -> assets/effects/audio -> lifecycle/save -> thermal/battery -> full matrix -> internal stability -> external TestFlight candidate.
 - **Risks:** Minimum device cannot meet core quality; thermal drift; memory warnings; device-specific renderer/input/audio/save defects.
 - **Risk reduction:** Raise floor before public promise if necessary; optional quality first; fixed-step invariants; representative current/old hardware; exact evidence per build.
@@ -602,7 +602,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** Xcode Instruments/Organizer, Godot profiler/metrics, private QA-only `IOSDeviceMetricsProbe` thermal/battery plugin, device logs/symbols, automated lifecycle/save faults, TestFlight, battery/thermal protocol.
 - **Desktop test plan:** Frozen desktop reference regression on every shared-code change.
 - **Performance targets:** Minimum 30 FPS/p95 <=33.3; A15+ 60/p95 <=16.7/p99 <=25; <=350 MB working/<=500 MB peak provisional; launch <=5; resume <=2; thermal/battery target; no leaks.
-- **Acceptance criteria:** All supported tiers/OS pass; no blank/hitch/stuck/audio duplicate/save loss; 1,000 faults; internal crash/hang evidence is stable enough to expose externally; no P0/P1; exact candidate and matrix are ready for the defined Phase 18 external beta.
+- **Acceptance criteria:** At least one physical device per minimum/small/mid/large/current tier plus a second minimum/current device passes every applicable locked OS/input/frame/quality/performance/accessibility assignment without averaging; no blank/hitch/stuck/audio duplicate/save loss; 1,000/1,000 faults preserve committed state; the distinct first-time cohort reaches 9/10 unaided driving and 8/10 first launch -> expedition -> pause/background/resume -> Settle -> Service using touch; >=200 exact-build internal-TestFlight sessions occupy one frozen seven-day UTC window with every tier >=20 attributable sessions and conservative health >=99.5%; no P0/P1; exact candidate and matrix are ready for Phase 18.
 - **Definition of done:** Supported matrix and final minimum OS/device floor locked; external-TestFlight-ready candidate approved for Phase 18. The 50-participant/1,000-session/14-day external gate has not yet run.
 - **Mobile implications:** Mobile gameplay candidate complete; only compliance/RC fixes remain.
 - **Documentation:** Device/perf reports, quality-tier rules, lifecycle/audio/haptic/save matrix, final support floor, beta notes.
@@ -619,7 +619,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Included:** The preparation and external-beta portions of `APP_STORE_RELEASE_CHECKLIST.md`; screenshots/previews; icons/launch; price/territories; age/privacy/accessibility/export/DSA; support/privacy URLs; review notes and package assembly. Phase 19 owns final RC selection/submission/review, Phase 20 owns launch-day items, and Phase 21 owns post-launch items.
 - **Excluded:** New feature/content, unproven optional service, speculative marketing claim, App Review submission, and review-resolution changes.
 - **Dependencies:** Phase 17 candidate; D021-passed public title; approved publisher/bundle identity; legal/business assets/accounts/URLs.
-- **Major tasks:** Recheck requirements; final SDK/privacy inventory; create/finish record; capture assets; complete metadata/declarations; external TestFlight; support/emergency drill; assemble and internally approve the review package.
+- **Major tasks:** Recheck requirements; final SDK/privacy inventory; create/finish record; capture 4+-suitable assets; complete distribution/Mac/Vision/controller/territory decisions and metadata/declarations; run exact-build external TestFlight in two disjoint seven-day UTC windows with external-only participant/tier attribution plus hang/watchdog ledger; blind five-player store-positioning test; support/reviewer/emergency drill; assemble and internally approve the review package.
 - **Recommended order:** Identity/business prerequisites -> privacy/legal/SDK -> icons/launch -> metadata/screenshots -> accessibility/age/export -> TestFlight -> review notes/support -> checklist audit.
 - **Risks:** Volatile Apple rules, immutable ID mistake, declaration/archive mismatch, misleading assets, missing URL/legal/account, review delay.
 - **Risk reduction:** First-party recheck at gates; exact archive audit; no optional capability; retained store snapshot; schedule margin before the promised date; staffed contact.
@@ -627,7 +627,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** App Store Connect, Xcode archive/privacy report, screenshot/video pipeline, release checklist/runbook, support/privacy site, TestFlight.
 - **Desktop test plan:** Desktop reference regression for shared fixes; store assets reviewed against exact release experience.
 - **Performance targets:** Candidate retains Phase 17 budgets and >=99.8% crash-free beta; no compliance-driven SDK regression.
-- **Acceptance criteria:** Every applicable checklist item has owner/evidence; exact build/declarations/assets agree; external beta passes; review package is internally accepted; no P0/P1/review blocker.
+- **Acceptance criteria:** `KD-G0` through `KD-G8` pass in the exact candidate ledger; the same processed build that passed `KD-G7` is selected for App Review; every applicable checklist item has owner/evidence; 4/5 unfamiliar target players identify route-shaped buildcraft/county restoration from unbranded store assets without inferring an unshipped feature; exact build/declarations/assets agree; external beta passes; review package is internally accepted; no P0/P1/review blocker.
 - **Definition of done:** The exact candidate is review-ready, the package is frozen and internally approved, launch operations are tested, and no unresolved mismatch remains. Submission is reserved for Phase 19.
 - **Mobile implications:** Final exact iOS archive and claims freeze.
 - **Documentation:** Completed release checklist/runbook, store metadata/assets index, privacy/legal/export/accessibility records, review notes, support/emergency plan.
@@ -640,8 +640,8 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 - **Objective:** Freeze, reproduce, validate, submit, and obtain approval for the exact 1.0.0 archive through the complete release-blocker and App Review loop.
 - **Player-facing outcome:** Final build contains the complete stable game with no known critical/major release blocker.
-- **Technical outcome:** Tagged source, reproducible archive/provenance, retained symbols/manifest, full automation/human/device/save/store evidence, bounded accepted P2 list.
-- **Included:** Clean build; full campaign and every D020-locked postgame mode; install/update/offline; performance/soak; 1,000 faults; accessibility/localization; metadata/archive agreement; emergency patch drill.
+- **Technical outcome:** Tagged source, reproducible archive/provenance, retained symbols/manifest, full automation/human/device/save/store evidence, and at most two accepted P2s under the fixed risk budget.
+- **Included:** `KD-G0` through `KD-G9` ledger audit; clean build; full campaign and every D020-locked postgame mode; install/update/offline; performance/soak; 1,000 faults; accessibility/localization; metadata/archive agreement; emergency patch drill.
 - **Excluded:** New systems/content/polish bundle; only reviewed blocker fixes create a new RC.
 - **Dependencies:** Phase 18; internally approved review-ready checklist, package, and candidate.
 - **Major tasks:** Freeze RC1; run entire suite; triage; smallest blocker fixes; RC2+ as needed; select exact archive; submit; resolve App Review feedback with a new fully tested RC when required; obtain approval; run launch-readiness review.
@@ -652,9 +652,9 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** Frozen branch/tag, CI/release host, artifact repository, device matrix, App Store Connect, launch checklist/war room.
 - **Desktop test plan:** Full blocker suite and campaign on exported reference build; compare to iOS behavior.
 - **Performance targets:** All desktop/iOS targets; >=99.8% crash-free; zero data loss; package/launch/resume budgets.
-- **Acceptance criteria:** Zero P0/P1; all required evidence; exact selected archive/metadata/declarations agree; support/emergency staffed; approval available.
+- **Acceptance criteria:** Required suites pass 100% with no blocker coverage silently flaky/quarantined; no RC-scope placeholder; zero P0/P1; all required evidence; exact selected archive/metadata/declarations agree; support/emergency staffed; App Review approval available; `KD-G9` PASS.
 - **Definition of done:** Release authority signs off the exact approved `1.0.0` archive and manual-release plan. Public launch and immediate stabilization remain required in Phases 20-21.
-- **Mobile implications:** This is the final mobile build; any change reopens relevant device/compliance gates.
+- **Mobile implications:** This is the final mobile build; any change reopens every affected earlier human, automated, device, store, and compliance gate identified by the ledger.
 - **Documentation:** RC report, manifest/hash/symbols, accepted issues, signoff, launch schedule, emergency baseline.
 - **Complexity:** Large.
 - **Blocks later work:** Yes; final launch gate.
@@ -669,15 +669,15 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Included:** Manual release; minimum/mid/current fresh install; product page/price/territory/links; first launch/offline/save; support; metrics/triage.
 - **Excluded:** New features, live tuning without a build, celebratory changes to production systems.
 - **Dependencies:** Phase 19 approval/signoff.
-- **Major tasks:** Final preflight; release; store/install verification; core smoke; monitor; triage; communicate known issues; decide patch need.
+- **Major tasks:** Freeze UTC/storefront/device/monitor-source/latency/owner/cadence contract; final preflight; release; minimum/mid/current store/install/core smoke; staff at least eight hours after first availability; hourly support/store/available-diagnostic checks; own propagation through the 24-hour state; triage; communicate; decide patch need.
 - **Recommended order:** Staff/support ready -> preflight -> release -> store propagation -> install/smoke -> monitor/respond -> status report.
 - **Risks:** Store configuration/propagation, unobserved device/save crash, support overload, rushed patch.
-- **Risk reduction:** Manual staffed window; three-device live smoke; retained RC; severity policy; evidence before patch; support scripts.
+- **Risk reduction:** Manual staffed window that allows up to 24 hours for storefront propagation; three-device live smoke; retained RC; severity policy; evidence before patch; support scripts.
 - **Required prototypes:** None.
 - **Tools/infrastructure:** App Store Connect, physical devices, support inbox/site, crash/hang diagnostics, release log, emergency branch/pipeline.
 - **Desktop test plan:** Desktop reference remains available to reproduce shared defects.
-- **Performance targets:** Public crash-free remains >=99.8%; zero confirmed data-loss cluster; no regression from RC.
-- **Acceptance criteria:** Store page/install/core flow/offline/save/support verified; monitoring healthy; no uncontrolled P0/P1.
+- **Performance targets:** Public smokes retain RC device/launch/save budgets with zero confirmed data-loss/P0/P1 regression. Numeric public-session health is collected but belongs to the seven-day `KD-G11` criterion, not this launch-day gate.
+- **Acceptance criteria:** Store page/purchase/install/core flow/offline/save/support passes on minimum/mid/current; at least eight consecutive staffed hours and hourly timestamped checks complete after first availability; named on-call owns any remaining propagation through its recorded 24-hour state; no failed smoke, missing source without replacement evidence, unknown live failure, or open P0/P1; `KD-G10` PASS.
 - **Definition of done:** Public launch recorded and stabilization phase owns all live issues.
 - **Mobile implications:** Live supported matrix and declarations become binding promises.
 - **Documentation:** Launch log, live verification, support/issue dashboard, first-day report.
@@ -690,22 +690,22 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 - **Objective:** Stabilize real-world crashes, saves, progression, performance, device, review/support, and compliance issues before expansion.
 - **Player-facing outcome:** Fast transparent fixes for severe defects without destabilizing saves or adding unrelated scope.
-- **Technical outcome:** Verified 1.0.1 path if needed, updated fixtures/metrics/support knowledge, retrospective and rebaselined roadmap.
-- **Included:** Daily first-week triage; P0/P1 fixes; severe balance/accessibility/device corrections; update/save compatibility; App Store declaration changes; retrospective.
+- **Technical outcome:** Verified monotonic emergency-patch path from the latest public tag, updated fixtures/metrics/support knowledge, retrospective and rebaselined roadmap.
+- **Included:** Daily triage for at least seven calendar days after launch or the latest emergency patch; P0/P1 fixes; severe balance/accessibility/device corrections; update/save compatibility; App Store declaration changes; retrospective.
 - **Excluded:** New region/chassis/activity/system; broad refactor; post-1.0 feature bundle.
 - **Dependencies:** Phase 20.
-- **Major tasks:** Monitor/cluster; reproduce; protect diagnostics/saves; patch smallest safe fix; full blocker regression; submit/release; measure; close stabilization; retrospective.
+- **Major tasks:** Monitor/cluster in complete UTC days; reproduce; protect diagnostics/saves; when urgent run the exact `KD-E1` patch gate, otherwise return updates to normal `KD-G7`; submit/release; restart the seven-day window after any patch; measure; close stabilization; retrospective.
 - **Recommended order:** Save/crash/progression/security -> device/perf -> accessibility/support -> severe balance -> cosmetic; evidence before change.
 - **Risks:** Panic patch, save schema incompatibility, metrics/privacy mismatch, scope creep.
-- **Risk reduction:** Severity policy; release-tag branch; no destructive reset; exact update fixtures; new privacy/review audit for SDK/capability changes.
+- **Risk reduction:** Severity policy; branch from the latest public tag with a monotonic patch version/build; no destructive reset; `KD-E1` exact delta/affected-gate/device/internal-TestFlight proof; exact update fixtures; new privacy/review audit for SDK/capability changes.
 - **Required prototypes:** None.
-- **Tools/infrastructure:** Crash/support triage, emergency pipeline, retained 1.0.0 archive/symbols, update/migration matrix, App Store Connect.
+- **Tools/infrastructure:** Crash/support triage, emergency pipeline, retained archives/symbols for every public version, update/migration matrix, App Store Connect.
 - **Desktop test plan:** Shared regression plus reproduction; full blocker suite for patch.
-- **Performance targets:** >=99.8% crash-free or improving to target; zero unresolved data-loss/P0/P1; patch retains device budgets.
-- **Acceptance criteria:** Live P0/P1 closed; saves/update safe; support volume/metrics stable; accepted issues owned; no compliance mismatch.
+- **Performance targets:** Across seven complete evidenced UTC days, aggregate observed reported-session health >=99.8%; each tier with >=100 attributable sessions >=99.5%; lower-volume failures all classified; zero unresolved data-loss/P0/P1; patch retains device budgets.
+- **Acceptance criteria:** No unknown termination or support item remains untriaged beyond one staffed day; <=2 accepted P2s remain with no escalation or same-root report count rising three consecutive UTC days; update/save/declarations are safe; missing/delayed evidence extends the window; any patch restarts all seven days; `KD-G11` is approved.
 - **Definition of done:** Stabilization review approves move to planned post-1.0 work and publishes lessons/roadmap changes.
 - **Mobile implications:** Actual device data refines budgets/support floor; no silent support drop.
-- **Documentation:** 1.0.1 notes/evidence if used, incident records, support FAQ, stabilization report, retrospective, updated decisions/roadmap.
+- **Documentation:** Patch notes/evidence if used, incident records, support FAQ, stabilization report, retrospective, updated decisions/roadmap.
 - **Complexity:** Medium.
 - **Blocks later work:** Yes; expansion waits for stabilization signoff.
 
@@ -732,8 +732,13 @@ D021's legal-clearance plus positioning/search-confusion review is an independen
 
 ### Reproducible measurement contracts
 
+- **Gate ledger:** Every release candidate uses `KD-G0` through `KD-G11` from `docs/research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md`. `docs/release/<version>/RELEASE_EVIDENCE.md` binds status, owners, build/commit/content/save/toolchain/archive identity, evidence, P2 risks, and reopen triggers. Required gates/P0/P1 are never waived; an invalidating change marks affected gates `REOPENED`.
 - **Desktop regression reference:** MacBookPro18,2, Apple M1 Max (10-core CPU, 32-core GPU), 64 GB RAM, built-in 3456 x 2234 display. Release-like performance runs use a 1920 x 1080 output window with the project's 1280 x 720 logical viewport, GL Compatibility, current exact Godot build, and a clean exported build. Capacity captures run with VSync off; play-feel captures rerun with VSync on. Every artifact records macOS version, engine build, renderer, display/output/logical viewport, VSync, power state, build flavor, commit, scene/seed, asset set, warm-up, duration, p50/p95/p99/worst frame, peak/plateau memory, and raw evidence location. This machine is a comparison reference, not evidence of minimum-device support.
-- **Crash-free release beta:** At least 1,000 counted launch-to-background-or-quit sessions over at least 14 consecutive days from at least 50 external participants, spanning every supported device tier. A session is crash-free only when it has no uncaught crash, OS watchdog termination, or unrecovered hang attributable to the build. The gate is `crash-free sessions / counted sessions >= 99.8%`, with zero reproducible save loss and zero P0/P1; unknown/un-symbolicated terminations do not get silently excluded.
+- **Crash-free release beta:** Stop internal use and open external access at frozen `T0=00:00 UTC`. On one exact processed build, measure disjoint `W1=[T0,T0+7d)` and `W2=[T0+7d,T0+14d)` using their last-seven-day boundary exports/snapshots; daily rolling views are never summed. At least 50 active external participants—unique external-group people with >=1 window session—produce `W1+W2 >=1,000` sessions. A person counts toward their preassigned tier only after >=1 attributable session on it, otherwise only toward the global 50. Per-tester/device attribution gives every tier >=5 qualified participants/100 attributable sessions; ambiguous sessions remain only in the global denominator. Timestamp each failed equivalent into one window. The combined conservative score is >=99.8%, with zero reproducible save loss/P0/P1. A contaminated/missed/unattributable window or prelaunch binary/content/config change restarts cleanly.
+- **Mobile-acceptance internal run:** Before external beta, the exact candidate while in internal TestFlight records at least 200 sessions in one frozen seven-day UTC window, every required tier contributes at least 20 attributable sessions, and the conservative failed-equivalent formula reaches >=99.5%; daily rolling views are never summed. Every assigned device row passes every locked budget; 1,000/1,000 fault cycles preserve committed state; and a ten-person first-time-iPhone cohort not reused at `KD-G7` reaches 9/10 unaided driving and 8/10 first launch -> expedition -> pause/background/resume -> Settle -> Service using touch. Without changing the binary/content/configuration, that processed build graduates to external testing for `KD-G7`.
+- **P2 risk budget:** Through `KD-G8`, no more than five accepted open P2s may remain; through `KD-G9`-`KD-G11`, no more than two. No more than one may affect the same common flow or tier, and integrity/security/privacy/legal/common-accessibility/install/purchase/launch/support/App-Review defects are P1 rather than budgetable P2s.
+- **Launch/stabilization contract:** `KD-G10` freezes and proves eight staffed hours after first availability, hourly available-source checks, three-device public smoke, and named propagation ownership. `KD-G11` requires seven complete UTC days after launch/latest patch, aggregate health >=99.8%, tier health >=99.5% when tier sessions >=100, all lower-volume failures classified, no untriaged item older than one staffed day, <=2 non-escalating P2s, no three-day same-root rise, and safe update/save/declarations. Missing evidence extends rather than passes the gate.
+- **Emergency patch contract:** Prelaunch changes reset `KD-G7`. Post-launch `KD-E1` is limited to an urgent smallest-scope delta from the latest public tag using the next monotonic patch version/build: affected-tier plus minimum/mid/current reproduce/fix and every-supported-predecessor update/save evidence, 100% P0/P1 blocker suite and affected earlier gates, 1,000/1,000 faults when persistence/progression/lifecycle changes, and >=25 exact-patch internal sessions across >=4 staffed hours with >=5 per minimum/mid/current and each additional affected tier, 100% health, no unknown termination, and four-owner signoff. Broader/non-urgent updates use normal `KD-G7`; a released patch restarts `KD-G11`.
 - **Primary-arc length:** At desktop content beta, at least 10 new players use clean profiles with no developer shortcuts. Record active play only, excluding pause/background time. The D020 scope lock declares the tested primary range (provisional target 8-12 hours; coherent fallback 5-8) and completion tolerance; median must land inside it, at least 8/10 must land inside tolerance, and no participant may be blocked by mandatory random grind.
 - **Completion/mastery length:** At least five clean-profile players who continue after the primary arc must each reach the D020-locked authored completion/build/mastery goal inside its non-idle active-play range (provisional target 20-30 hours; coherent fallback 10-15). Median mastery enjoyment must be >=4/5, repeated identical filler is neither required nor counted, and Expedition-specific goals apply only if that mode survives scope lock.
 
@@ -842,7 +847,7 @@ This is the first bounded implementation milestone inside Phase 2. It answers wh
 8. Author Garage lot plus first fork/landmark/surface route; add deterministic reset/teleport debug anchors.
 9. Add real audio buses/resources/state routing and audible capture proof.
 10. Add minimal hero HUD/onboarding and representative visual treatment.
-11. Export a clean macOS release build; run automated regression, 1,800-second feel/VSync-on and capacity/VSync-off rendered performance captures, and five-player handling/hero-minute sessions.
+11. Export a clean macOS release build; run automated regression, 1,800-second feel/VSync-on and capacity/VSync-off rendered performance captures, five-player handling, and ten-player hero/onboarding sessions.
 12. Record keep/change/abandon decisions; either graduate the selected path into Phase 3 or revise before proceeding.
 
 #### Expected playable result
@@ -857,7 +862,7 @@ A player launches a separate desktop slice, starts moving within ten seconds, le
 4. Run high-speed light/medium/heavy and repeated-contact cases; assert no tunneling/overlap spam.
 5. Run a 30-minute release-like automated/rendered loop; record p50/p95/p99, worst hitch, world work, nodes/collision queries, effects/audio voices, and memory.
 6. Capture the first 60 seconds with player HUD only.
-7. Conduct five new-player sessions using the handling and hero-minute scripts in `PLAYTEST_PLAN.md`.
+7. Conduct five handling sessions and ten new-player hero/onboarding sessions using the frozen scripts in `PLAYTEST_PLAN.md`.
 8. Rerun after fixes; do not average a failed critical behavior into a pass.
 
 #### Acceptance criteria
@@ -902,6 +907,7 @@ A player launches a separate desktop slice, starts moving within ten seconds, le
 | `docs/research/GAMEPLAY_CONTENT_AND_PROGRESSION_SYSTEMS.md` | Resolved stable-county, buildcraft, activity, economy, difficulty, and replay contracts |
 | `docs/research/UX_ART_AUDIO_AND_GAME_FEEL_DIRECTION.md` | Compared interface directions and resolved UI/art/asset/audio/feedback/accessibility contract |
 | `docs/research/TECHNICAL_AND_MOBILE_ARCHITECTURE.md` | Compared Interface shapes and resolved Module authority, loading, durability, platform Seam, build, and migration contracts |
+| `docs/research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md` | Exact evidence ledger, cohorts, TestFlight denominator, App Store package, authority, launch, and emergency gates |
 | `.scratch/keep-driving-1-0/` | Canonical Wayfinder map and decision/execution frontier |
 
 All documents are living contracts. A changed decision updates the owning document and appends/supersedes a decision log entry; downstream acceptance gates are re-evaluated.
@@ -918,8 +924,8 @@ The user directed the roadmap to proceed without questions. These assumptions pe
 | Public product name | `Keep Driving` is internal only; public execution assumes a distinctive cleared replacement unless legal and positioning review affirmatively clears the exact title | Legal/confusion/discoverability and expensive rebrand risk | Resolve before signed iOS feasibility, production App ID/App Store record, logo/icon, public URLs, marketing, or branded final-art lock |
 | Publisher/bundle/support domain | Bundle ID, Team ID, publisher entity, and support/privacy URLs unresolved pending cleared public title and publisher identity | Immutable ID/legal/launch blocker | Resolve before App ID/App Store record/upload |
 | Apple membership/signing | Access will exist for the Phase 2 export-only feasibility gate and remain valid at Phase 15 | Signed export/TestFlight could block | Audit account/certificates after desktop truth-slice acceptance and recheck at Phase 15 entry |
-| Physical devices | One physical iPhone can be obtained for Phase 2 signing/launch; minimum/small/mid/large/current tiers can be obtained for mobile adaptation | Device gaps hide exporter, perf, layout, or lifecycle defects | Obtain one before the Phase 2 signed gate and the full matrix before Phase 15; do not substitute simulator |
-| Playtest recruitment | A coordinator can recruit five genuinely new handling/hero-minute players before Slice A acceptance, 20-30 desktop beta players, and at least 50 external iOS testers; consent, privacy-minimal records, scheduling, and any incentive budget are owned | Missing people can block feel/comprehension/reliability gates; agents or implementers cannot substitute for naïve players | Confirm coordinator, cohort criteria, dates, consent, devices, and incentive budget before each candidate freezes; recruit Slice A cohort before presentation lock |
+| Physical devices | One physical iPhone can be obtained for Phase 2 signing/launch; before `KD-G6`, at least one distinct device per minimum/small/mid/large/current tier plus a second minimum/current device can be obtained | Device gaps hide exporter, perf, layout, or lifecycle defects | Obtain one before the Phase-2 signed gate; freeze exact models/OS/input/frame/quality/owners and all budgets before internal-candidate measurement; do not substitute simulator |
+| Playtest recruitment | A coordinator can recruit the exact Playtest Plan cohorts: five handling, ten hero/onboarding, five desktop plus five physical-iPhone accessibility participants with two relevant access-needs participants in each, 10-15 alpha, 20-30 beta including 10 clean completions/five mastery/10 longitudinal, two regular assistive-technology users per claimed VoiceOver/Voice Control label, a distinct ten-person `KD-G6` first-time-iPhone cohort, and at least 50 active external iOS testers including a separate ten-person `KD-G7` first-time cohort; each mobile cohort reaches 9/10 unaided driving and 8/10 full touch pause/background/resume flow | Missing people can block feel/comprehension/accessibility/reliability gates; agents or implementers cannot substitute for naive players | Confirm coordinator, cohort/denominator rules, dates, consent/retention, devices, and incentive budget in `KD-G0` before each candidate freezes |
 | Minimum iOS | Provisional iOS 17.0, A12/3 GB floor | Optimization burden or OS adoption may make floor wrong | Signed slice and market/OS recheck; lock before external TestFlight |
 | Native iPad | Not Required; iPhone-only native 1.0 | Missed market; compatibility expectations | Promote only if native layout/device/store-asset capacity exists before beta |
 | Game Center/cloud | Valuable, not Required; disabled by default | Feature value versus entitlement/privacy/sync risk | Separate decision after local save/device stability; omit if any gate is incomplete |
@@ -949,6 +955,7 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - Resolved the gameplay/content/progression stack: stable county plus persisted manifests, exact escrow/settlement, unique named sidegrades, three activity state machines plus mastery overlays, action-driven Pressure, completed-county replay, and measurable production/balance gates.
 - Resolved the experience stack: Animated Road Atlas + County Field Manual + Semantic Kinetics, Service/Plan/Drive/Settle postures, one Preflight Card, bounded components, staged presentation-family gates, semantic multimodal feedback, real-audio/haptic proof, and accessibility-claims discipline.
 - Resolved the target architecture: a thin `ApplicationShell` over five deep Modules, typed durability/order contracts, offer-time immutable plans, one content scheduler, exact paused resume with progress reconciliation, alternating verified save slots, and narrow desktop/iOS Adapters.
+- Resolved the playtest/release/App Store contract: exact-candidate `KD-G0`-`KD-G11` evidence, fixed human/device/reliability/P2 thresholds, disjoint TestFlight windows, current first-party compliance checks, staffed manual launch, exact stabilization, and `KD-E1` emergency patching.
 
 ### Files created
 
@@ -959,6 +966,7 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - `docs/research/GAMEPLAY_CONTENT_AND_PROGRESSION_SYSTEMS.md`.
 - `docs/research/UX_ART_AUDIO_AND_GAME_FEEL_DIRECTION.md`.
 - `docs/research/TECHNICAL_AND_MOBILE_ARCHITECTURE.md`.
+- `docs/research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md`.
 - `prototypes/handling_truth_slice/` with its isolated scene, smoke harness, notes, and run instructions.
 - `export_presets.cfg` with a prototype-only ad-hoc macOS export; it does not export the shipping scene.
 - `proofs/handling_truth_slice_relay.jpeg`, retained from visible inspection.
@@ -968,7 +976,7 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 
 - No existing main gameplay/runtime scripts. `project.godot` adds only the prototype feature override and export texture compatibility; prototype work remains isolated from the shipping scene.
 - `prototypes/handling_truth_slice/prototype_audio.gd` extends the previously committed audio helper for the integrated truth slice.
-- Product, gameplay, UX/art, technical, mobile, App Store, decision, context, tracker, and roadmap documents now carry the resolved ticket-05 architecture contracts and gates; no gameplay/runtime implementation changed in this ticket.
+- Playtest, mobile, App Store, requirement-research, decision, context, tracker, and roadmap documents now carry the resolved ticket-06 exact-candidate release contracts; no gameplay/runtime implementation changed in this ticket.
 - Existing v0 and Real Vertical Slice trackers remain preserved as history/subordinate milestones.
 
 ### Playable build status
@@ -1006,8 +1014,8 @@ Vehicle feel human acceptance, hybrid world, build balance, content throughput, 
 
 ### Current roadmap phase
 
-Phase-1 decision-foundation review and bounded Phase-2 Technical-Risk Prototypes overlap deliberately. Product identity/scope, gameplay/content/progression, UX/art/audio/game-feel, and target technical/mobile architecture are settled. Wayfinder tickets 06-07 still block Phase 3/production scale-up. Handling truth-slice evidence remains valid but does not satisfy the representative presentation, human, or full-duration gates.
+Phase-1 decision-foundation review and bounded Phase-2 Technical-Risk Prototypes overlap deliberately. Product identity/scope, gameplay/content/progression, UX/art/audio/game-feel, target technical/mobile architecture, and playtest/release/App Store gates are settled. Only Wayfinder ticket 07 still blocks Phase 3/production scale-up. Handling truth-slice evidence remains valid but does not satisfy the representative presentation, human, or full-duration gates.
 
 ### Next recommended task
 
-Workflow next: resolve **Define Playtest Release And App Store Gates** as the next Wayfinder frontier. Implementation next remains **Desktop Truth Slice A — Production Handling and the First Road**: replace demonstrator presentation with the selected final-pipeline hero tranche and real audio, prove actual rendered 30/60/120 behavior, then complete 1,800-second runs, first-minute capture, controller/audible checks, and five-player handling plus five-naive-player hero-minute sessions. Do not begin broad content or mobile migration.
+Workflow next: resolve **Publish Complete 1.0 Roadmap Package** (ticket 07), then stop at that decision-foundation boundary. Implementation next remains **Desktop Truth Slice A — Production Handling and the First Road**: replace demonstrator presentation with the selected final-pipeline hero tranche and real audio, prove actual rendered 30/60/120 behavior, then complete 1,800-second runs, first-minute capture, controller/audible checks, and five-player handling plus ten-person hero/onboarding sessions (the first five receive the deep observed hero-minute script). Do not begin broad content or mobile migration.

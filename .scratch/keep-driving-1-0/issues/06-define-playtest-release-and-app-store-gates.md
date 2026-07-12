@@ -1,9 +1,53 @@
 # Define Playtest Release And App Store Gates
 
 Type: research
-Status: claimed
+Status: resolved
 Blocked by: 01, 02, 04, 05
 
 ## Question
 
 What playtest program, quality metrics, device matrix, accessibility and privacy checks, TestFlight flow, App Store assets/metadata/compliance, release-candidate gates, launch strategy, and emergency-patch process define production readiness?
+
+## Answer
+
+Production readiness is a cumulative exact-candidate gate chain recorded in one version-scoped `ReleaseEvidenceLedger`, not a final checklist sweep or target date:
+
+1. `KD-G0 Evidence Contract` — freeze script, thresholds, owners, cohort/device quotas, clocks/denominators, consent/retention, required suites, artifacts, and change-to-retest rules before results.
+2. `KD-G1 Risk Truth` — desktop handling, hero minute, hybrid region, buildcraft, economy, UX/audio/accessibility human/rendered/automated/performance claims pass with no P0/P1; touch, haptic, physical-device, and mobile accessibility evidence belongs to `KD-G6`.
+3. `KD-G2 Desktop Alpha` — 10-15 players; >=80% loop comprehension; median >=4/5 after corrective work and retest; clean export; no P0/P1.
+4. `KD-G3 Desktop Content Beta` — 20-30 players; >=10 new clean campaign completions, >=5 mastery completions, and >=10 people completing three unmoderated sessions across >=7 days; all locked content/duration/diversity/economy gates pass.
+5. `KD-G4 Desktop Reference` — tagged content-complete desktop build passes full campaign, perf/soak, seed/fault, controller, accessibility, install/update/save and becomes the sole mobile baseline.
+6. `KD-G5 Signed iOS Integration` — stable supported macOS/Xcode/SDK plus exact Godot/templates produce a reproducible signed physical/internal-TestFlight archive with correct identity/lifecycle/save/audio/haptic basics and no gameplay fork.
+7. `KD-G6 Mobile Acceptance` — exact model/OS/input/frame matrix has >=1 device per minimum/small/mid/large/current tier plus a second minimum/current device; every assigned row passes every locked budget; 1,000/1,000 save/lifecycle faults pass; a 10-person first-time-iPhone cohort, not reused at `KD-G7`, reaches 9/10 unaided driving and 8/10 touch completion of first launch -> expedition -> pause/background/resume -> Settle -> Service; and >=200 internal-TestFlight sessions in one frozen seven-day UTC window reach >=99.5% conservative health with every tier contributing >=20 attributable sessions.
+8. `KD-G7 External Release Beta` — one exact build, >=50 active external participants, >=1,000 TestFlight-reported sessions, two disjoint seven-day UTC windows, and every tier >=5 participants/100 attributable sessions. An active participant is one unique external-group person with >=1 session in those windows; they count toward their preassigned tier only after >=1 attributable session on it, otherwise only toward the global 50. Boundary snapshots/exports, never summed overlapping daily views, plus Xcode/device watchdog/hang evidence yield `(reported sessions - Failed Session Equivalents) / reported sessions >=99.8%`, with unknown terminations failing until classified, zero reproducible save loss, and zero P0/P1. A distinct 10-person first-time-iPhone cohort reaches 9/10 unaided driving and 8/10 touch completion of first launch -> expedition -> pause/background/resume -> Settle -> Service. Internal use stops at window start; any prelaunch binary/content/config change resets the whole window.
+9. `KD-G8 Store Package` — the same processed build that passed `KD-G7` is selected for App Review; its archive, privacy report/manifests/SDK signatures, required-reason APIs, age/accessibility/export/controller/distribution/territory declarations, 4+-suitable icon/screenshots/previews, metadata/URLs/Review Notes, blind store-positioning test, and support/emergency rehearsal agree. A new processed build resets `KD-G7`.
+10. `KD-G9 RC and Review` — required suites pass 100% with no blocker coverage silently flaky/quarantined, no acceptance placeholder remains, the accepted-P2 ledger is within the exact risk budget, App Review approves, and Release Owner signs the exact archive/manual-release plan.
+11. `KD-G10 Manual Launch` — release manually with at least eight consecutive staffed hours after first public availability, hourly support/store/diagnostic checks, named on-call propagation checks through the recorded 24-hour state, and passing page/purchase/install/first launch/core offline/save/support smokes on minimum/mid/current devices.
+12. `KD-G11 Stabilization` — seven complete UTC days after launch or latest emergency patch; observed reported-session health >=99.8%; each tier with >=100 sessions >=99.5%; every lower-volume incident classified; zero reproducible save loss/P0/P1; no unknown/support item untriaged beyond one staffed day; accepted P2s remain within the two-item risk budget with no escalation or three-day same-root-cause rise; saves/update/compliance remain safe. Missing or delayed evidence keeps the gate running.
+
+### Evidence and authority
+
+- `docs/release/<version>/RELEASE_EVIDENCE.md` records `NOT_STARTED|RUNNING|PASS|FAIL|REOPENED`, candidate version/build/commit/content/save/toolchain/archive hash, entry/pass evidence, owners, dates, devices/cohorts, P2 ledger, volatile rechecks, and reopen reason. It stores no credentials or private tester identity.
+- Evidence, Build, Product, Privacy/Compliance, and Release Owners attest their own scope. A small team may reuse people across roles, but agents/implementers never replace naive or assistive-technology human evidence.
+- Required gates/P0/P1 cannot be waived. A P2 escalates to P1 at three independent common-path sessions, >=5% of applicable task opportunities, or every tested device in one supported tier. At most five accepted P2s may remain through `KD-G8` and at most two through `KD-G9`-`KD-G11`, with no more than one on the same common flow or supported tier and none in save/progression integrity, security/privacy/legal, common accessibility, install/purchase/launch/support, or App Review scope.
+- A placeholder can guide an early prototype but cannot survive into its owning gate. Targets never move after results without a dated superseding decision and full retest.
+- A person counts as naive once. Later sessions are labeled returning. Human scripts predeclare valid `N`, task, clock, numerator/denominator, rounding, and invalid-session rules.
+
+### Accessibility, tester privacy, and current Apple policy
+
+- Baseline UX/accessibility evidence uses at least five desktop participants and at least five physical-iPhone participants, with at least two self-identified relevant access-needs participants in each cohort; the same person may count in both only when both sessions are declared. Every App Store accessibility claim maps all common tasks on the declared device/build to evidence/owner. VoiceOver or Voice Control claims additionally require two participants who regularly use that technology; failed feasibility leaves the label unclaimed without weakening the non-native baseline.
+- Accessibility Nutrition Labels are voluntary at the 2026-07-11 snapshot, but 1.0 completes them honestly as an internal gate and rechecks mandatory status at RC.
+- Tester contact/incentive records stay private; git keeps anonymous IDs/aggregates. Capture/diagnostic upload requires scoped consent. Identifiable raw capture is deleted by the earlier of 90 days after `KD-G11` or 180 days after capture; cancellation/indefinite archive triggers deletion review within 30 days. Separate consent or a documented legal/security need must name a new review/deletion date.
+- Use App Store Connect TestFlight sessions/crashes/feedback plus disjoint UTC boundary exports/snapshots, daily audit views, and Xcode/device hang/watchdog evidence; never sum overlapping rolling views or add third-party analytics merely to satisfy the metric.
+- Recheck current Xcode/SDK, screenshot/preview/icon, age questionnaire, accessibility labels, privacy manifest/required SDK, export, territory, and Review rules at signed feasibility, first external TestFlight, RC upload, and submission.
+- 1.0 distribution is Public; Mac/Vision availability is tested or opted out. Controller capability/Info.plist says optional. The first version uses manual release; phased release is update-only containment, not rollback.
+
+### Emergency contract
+
+There is no dependable binary rollback after customers install. Preserve diagnostics and both verified save slots; contain availability where possible; communicate; ship the smallest forward-compatible requalified patch. A prelaunch change after `KD-G7` starts still resets `KD-G7`; a post-launch urgent defect uses the dedicated `KD-E1 Emergency Patch` gate, while non-emergency updates return to normal `KD-G7` qualification.
+
+- During the staffed launch window, P0 triage starts within 15 minutes, hold/remove/communication decision within 60 minutes, and customer advisory within two hours when affected. P1 triage starts within four staffed hours with a same-day owner/containment/patch decision.
+- Release Owner controls hold/remove-from-sale/phased-update-pause/expedite/emergency submission; Privacy/Compliance Owner concurs for security/privacy/legal incidents.
+- `KD-E1` permits only the smallest urgent fix from the latest public tag, using the next monotonically increasing patch version/build and no unrelated change. It requires reproduced-before/fixed-after evidence on every affected tier plus minimum/mid/current; clean update/save smokes from every supported public predecessor; 100% full P0/P1 blocker suite plus every affected earlier gate; 1,000/1,000 faults when persistence/progression/lifecycle changes; exact declarations/Review Notes; and >=25 internal-TestFlight sessions over >=4 staffed hours, >=5 per minimum/mid/current and each additional affected tier, with 100% conservative session health and no unknown termination. Evidence, Build, Privacy/Compliance, and Release Owners sign the delta; the public patch restarts `KD-G11`. Expedited review may be requested with reproduction/impact but is never assumed.
+
+Detailed decision/evidence: [`docs/research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md`](../../../docs/research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md). Canonical program: [`docs/PLAYTEST_PLAN.md`](../../../docs/PLAYTEST_PLAN.md), [`docs/APP_STORE_RELEASE_CHECKLIST.md`](../../../docs/APP_STORE_RELEASE_CHECKLIST.md), [`docs/MOBILE_PORTING_PLAN.md`](../../../docs/MOBILE_PORTING_PLAN.md), D041 in [`docs/DECISIONS.md`](../../../docs/DECISIONS.md), and phases/gates in [`docs/ROADMAP_TO_1.0.md`](../../../docs/ROADMAP_TO_1.0.md).

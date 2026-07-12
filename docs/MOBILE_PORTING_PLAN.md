@@ -3,6 +3,7 @@
 Status: desktop-to-iOS plan for 1.0.0
 Plan date: 2026-07-11
 Architecture decision and first-party constraints: [Technical and Mobile Architecture Decision](research/TECHNICAL_AND_MOBILE_ARCHITECTURE.md)
+Release/device gate decision: [Playtest, Release, and App Store Gates](research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md)
 
 ## Principle
 
@@ -22,7 +23,7 @@ The mobile phase may begin only when the desktop content-complete beta has:
 - Versioned alternating-slot save plus v0 migration; highest checksum-valid sequence authoritative, with disclosed lower-slot recovery only when the higher candidate is incomplete, unparsable, or checksum-invalid; active-expedition resume and 1,000 interruption/fault cycles passing.
 - Keyboard and controller adapters using the same `DriveIntent` contract.
 - Responsive UI aspect/text/focus matrix passing at the simulated phone floor.
-- No open desktop P0/P1 defect and a bounded P2 list.
+- No open desktop P0/P1 defect and no more than five accepted P2s under the release risk budget.
 
 After the accepted desktop handling/hero truth slice, Phase 2 performs one bounded signed-export feasibility check: Godot export -> generated Xcode target inspection -> signing -> archive -> physical install/launch. It requires a D021-passed public title and approved development identity, and it may not add touch UI, adapt gameplay, tune content, or begin store setup. Formal mobile adaptation and the first signed build of the complete frozen game still begin at the Phase 15 desktop entry gate above.
 
@@ -33,6 +34,7 @@ After the accepted desktop handling/hero truth slice, Phase 2 performs one bound
 - Native iPhone landscape app.
 - Both landscape-left and landscape-right; portrait is unsupported and never used for gameplay/menus.
 - Native iPad layout is Valuable if Capacity Allows and must not be enabled merely because the iPhone build scales. If iPad is enabled, it receives its own layout, device matrix, screenshots, and QA.
+- Tablet simulation remains nonblocking reference evidence unless native iPad is explicitly promoted through that full gate.
 - iOS controller support remains enabled and fully navigable when a compatible controller is connected.
 
 ### Provisional deployment floor
@@ -252,6 +254,7 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 - Touch controls may fade when controller is active but remain recoverable.
 - Disconnect during motion pauses or safely clears intent according to policy.
 - App Store controller disclosure matches actual required/optional support.
+- Inspect the archived Game Controllers capability/Info.plist; supported profiles and `GCSupportsControllerUserInteraction` must match tests, while `GCRequiresControllerUserInteraction` stays absent because touch is a complete path.
 
 ## Device test matrix
 
@@ -265,6 +268,10 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 | Large/notched | Current large iPhone class | Safe area, reach, wide layout |
 | Current flagship | Current shipping iPhone at RC | SDK/OS/renderer forward compatibility |
 | Optional iPad | Oldest and current enabled iPad classes | Only if native iPad is included |
+
+Before `KD-G6`, freeze an exact `DeviceMatrixLock`: at least one distinct physical device per required tier plus a second minimum and current device; exact model/chip/memory, OS, input, frame/quality mode, battery health, free storage, owner, and protocol. Minimum runs approved 30 FPS mode; A15-class and newer runs the required 60 FPS mode. Memory/thermal/battery/launch/resume ceilings must be locked or superseded by a pre-result decision before measurement.
+
+`KD-G6` passes only when every assigned matrix row meets every applicable locked budget without cross-device averaging; 1,000/1,000 lifecycle/save faults preserve committed state; a distinct ten-person first-time-iPhone cohort reaches 9/10 unaided driving and 8/10 first launch -> expedition -> pause/background/resume -> Settle -> Service completion using touch; and one exact internal-TestFlight build records >=200 sessions in a frozen seven-day UTC window, every required tier >=20 attributable sessions, and a conservative crash-free score >=99.5% with unknown terminations failing until classified. Daily rolling views are not summed. That first-time cohort cannot be reused as the separate `KD-G7` first-time cohort.
 
 ### OS coverage
 
@@ -287,16 +294,20 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 
 - Signed archive from tagged commit and evidence manifest.
 - Internal group on every mobile milestone that clears device gates.
+- Create the internal group before any external group. Do not upload a release candidate as **TestFlight Internal Only**, because that build cannot later go external or to customers.
 - What to Test names exact changes, known defects, save compatibility, and instrumentation/privacy state.
 - Minimum/mid/current device owners assigned explicitly.
 
 ### External
 
 - Begin only after internal crash/save/performance/accessibility gates pass.
+- The first external build receives TestFlight App Review; significant later changes are resubmitted even when a full review is not automatically required.
 - First wave: 20-30 targeted testers across device/input/accessibility classes.
 - Second wave: 50-100 if content/economy or device coverage requires it.
-- Collect structured session questionnaire, App Store Connect crash/hang data, optional consented diagnostics, and screenshot feedback.
-- External TestFlight review metadata, contact, beta description, privacy, and review instructions remain production-quality.
+- Collect structured questionnaires, TestFlight installs/sessions/crashes/feedback, Xcode Organizer/device hang/watchdog evidence, optional consented diagnostics, and screenshot feedback. App Store Connect is not treated as a combined hang metric.
+- Stop internal launches and open external access at frozen `T0=00:00 UTC`. Archive disjoint last-seven-day boundary exports/snapshots for `W1=[T0,T0+7d)` and `W2=[T0+7d,T0+14d)`; never sum daily rolling views. Per-tester/device evidence attributes sessions to one tier, ambiguous sessions remain only in the global denominator, and each failed equivalent belongs to one timestamped window.
+- Require >=50 active external participants, each a unique external-group person with >=1 `W1`/`W2` session. A participant counts toward their preassigned tier only after >=1 attributable session on it, otherwise only toward the global 50. `W1+W2 >=1,000`; every tier >=5 qualified participants/100 attributable sessions; combined conservative health >=99.8%; and the distinct ten-person `KD-G7` first-time touch cohort. Missed/contaminated/unattributable windows restart cleanly.
+- External TestFlight beta description, feedback email, contact/review notes, credentials if ever required, and per-build `What to Test` remain production-quality; privacy URL remains current app-level metadata.
 
 ## Mobile-specific risks
 
@@ -319,5 +330,6 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 - Touch, controller, safe area, orientation, accessibility, audio, haptics, lifecycle, save, and interruption matrices pass.
 - Minimum device sustains approved 30 FPS/memory/thermal/battery/launch/resume budgets; target devices sustain 60 FPS.
 - Signed archive installs and updates on all required device tiers.
-- Internal gates pass; external TestFlight records at least 1,000 counted sessions over 14 consecutive days from at least 50 participants across supported tiers, with at least 99.8% free of attributable crash/watchdog/unrecovered hang and no reproducible save loss.
+- Internal gates pass; the unchanged processed build records disjoint external `W1+W2 >=1,000` sessions from at least 50 active participants, with every tier contributing at least five participants/100 attributable sessions, a conservative score of at least 99.8% after crash/watchdog/hang/unknown failed equivalents, and no reproducible save loss.
+- Ten first-time iPhone players distinct from `KD-G6` reach 9/10 unaided driving and 8/10 first launch -> expedition -> pause/background/resume -> Settle -> Service completion using touch on that candidate.
 - Privacy manifest, App Store declarations, export compliance, metadata, accessibility claims, and review notes match the exact archive.

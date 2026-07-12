@@ -2,6 +2,7 @@
 
 Status: not ready; launch checklist for 1.0.0
 Checklist snapshot: 2026-07-11
+Gate/authority decision: [Playtest, Release, and App Store Gates](research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md)
 First-party research: [Apple App Store and Godot iOS Requirements](research/APP_STORE_REQUIREMENTS.md)
 
 ## Release policy
@@ -11,6 +12,8 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - No advertising, cross-app tracking, ATT prompt, account, launch IAP, subscription, or mandatory network service.
 - Native iPad, Game Center, and cloud save ship only if their full product, privacy, device, metadata, and review gates pass; otherwise they remain disabled and undisclosed.
 - Use manual release after approval so support, monitoring, metadata, and emergency response are staffed.
+- Every applicable item has an owner/evidence link in `docs/release/<version>/RELEASE_EVIDENCE.md`; Evidence, Build, Product, Privacy/Compliance, and Release Owners attest only their scope.
+- Required `KD-G0` through `KD-G9` gates must pass for the exact archive. Required gates/P0/P1 are never waived, and invalidating changes mark affected gates `REOPENED`.
 - Recheck current Apple/Godot requirements at first signed export, first external TestFlight, release-candidate upload, and final submission.
 
 ## Current repository blockers
@@ -46,6 +49,8 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Current Apple Developer and App Store Connect agreements accepted.
 - [ ] Bundle ID approved and registered as an explicit App ID.
 - [ ] App Store Connect app record created with matching bundle ID, stable SKU, primary language, and name reservation.
+- [ ] Distribution method is explicitly **Public** for 1.0; the approval-time immutability/unlisted exception is understood and recorded.
+- [ ] Default iPhone-app availability on Apple-silicon Mac and Apple Vision Pro is explicitly tested and supported or opted out before submission; neither is silently claimed as a supported game platform.
 - [ ] Team ID recorded in private release runbook and Godot export environment.
 - [ ] Distribution certificate/signing identity valid through launch and emergency-patch window.
 - [ ] App Store provisioning/profile or Xcode automatic-signing policy documented and reproducible.
@@ -81,12 +86,13 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] If any IAP is later added, it receives separate StoreKit product, restore, parental, price, privacy, receipt, offline, review, and metadata scope; no launch IAP is assumed.
 - [ ] If Game Center is added, entitlement/configuration, authentication/offline behavior, achievements/leaderboards, privacy, review notes, and UI all pass; otherwise entitlement is absent.
 - [ ] Controller support disclosure matches actual optional/required behavior.
+- [ ] Archived Game Controllers capability/Info.plist matches reality: supported profiles and `GCSupportsControllerUserInteraction` are inspected; `GCRequiresControllerUserInteraction` is absent because controller is optional.
 
 ## Icons and launch experience
 
 - [ ] Final 1024 x 1024 base/App Store icon approved and embedded through Godot/Xcode asset catalog.
 - [ ] Dark/tinted icon variants included only if supported and visually approved.
-- [ ] Icon has no transparency/forbidden treatment and remains legible at every rendered size.
+- [ ] Icon uses the current Xcode layered workflow: background is full-bleed/opaque, no manual mask/rounded corners are baked, and default/dark/clear/tinted rendered appearances remain legible.
 - [ ] Launch storyboard/screen uses final brand, correct background, safe areas, both landscape orientations, and no misleading progress/control.
 - [ ] Cold launch transitions from launch screen to interactive app without visual jump or long blank frame.
 - [ ] App icon and launch assets tested on every supported appearance/device class.
@@ -126,12 +132,15 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Overlay copy, if used, is accurate, localized, inside safe zones, and not obscuring release UI.
 - [ ] Screenshot order tells a coherent product story and remains readable at product-page thumbnail size.
 - [ ] Optional app preview uses captured release footage, current length/codec/size rules, accurate controls, licensed audio/music, and no unshipped content.
+- [ ] If used, each preview is 15-30 seconds, <=500 MB, <=30 fps, supported H.264 or ProRes 422 HQ, and uses captured in-app footage; narration/overlays may explain but never simulate interaction.
 - [ ] Up to three previews per localization/device size only when quality justifies production cost; otherwise omit.
+- [ ] Icon, screenshots, and previews are suitable for a 4+ audience even if the final game age rating is higher; zombie threat/impact framing is reviewed specifically.
 - [ ] Source captures, edit project, final exports, licenses, and exact build retained.
 
 ## Age rating and content
 
 - [ ] Complete the live age-rating questionnaire for the exact release content.
+- [ ] Re-answer the 2026-07-09 social-media-capability questions and every changed live-questionnaire field; never reuse an older screenshot/answer export blindly.
 - [ ] Declare stylized Zombie violence, impact effects, fear/horror themes, any blood/gore, weapons, profanity, substances, gambling/loot boxes, web access, UGC, chat, ads, and social features accurately.
 - [ ] Candidate expectation is an age rating driven by stylized fantasy violence; do not publish a rating guess in marketing before App Store Connect calculates it.
 - [ ] Region-specific rating differences reviewed.
@@ -148,8 +157,10 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Touch controls support size/position/opacity/handedness/sensitivity and simultaneous input.
 - [ ] Difficulty assists and tutorial replay work without blocking primary completion.
 - [ ] Evaluate each current App Store Accessibility Nutrition Label using Apple's live criterion.
+- [ ] Record that labels are voluntary as of the 2026-07-11 snapshot but complete the 1.0 declarations as an internal honesty gate; recheck whether Apple has made them mandatory.
 - [ ] Because Godot 4.7 does not document iOS screen-reader support, any VoiceOver claim has physical-iPhone common-task evidence from the exact native/plugin Implementation; Control metadata alone never passes.
 - [ ] Claim only features that support **all common tasks**. Do not claim VoiceOver, Voice Control, Larger Text, Reduced Motion, captions, or another label based on partial screens.
+- [ ] Claim register maps feature -> every common task -> device/OS -> exact build/settings -> evidence/owner; VoiceOver or Voice Control additionally has at least two participants who regularly use that technology.
 - [ ] Accessibility claims match product page, review notes, support docs, and exact build.
 
 ## Privacy and legal
@@ -161,6 +172,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] If the final app and partners collect no data, select App Store Connect's explicit no-data response and retain evidence. If anything is collected, disclose every qualifying data type/use/linkage accurately.
 - [ ] No ATT prompt unless the exact binary performs Apple-defined tracking; gameplay is never gated on consent.
 - [ ] Local structured diagnostics contain no unnecessary personal/sensitive data and are not uploaded without an explicit, documented flow.
+- [ ] Identifiable tester capture is deleted by the earlier of 90 days after `KD-G11` or 180 days after capture; cancellation/indefinite archive receives a deletion review within 30 days, and any consent/legal/security extension names its next review/deletion date.
 
 ### Privacy policy
 
@@ -186,6 +198,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Copyright owner/year accurate.
 - [ ] EU Digital Services Act trader status declared; verification/contact disclosure complete if distributing as a trader in the EU.
 - [ ] Territory-specific permits, consumer requirements, tax, and banking reviewed.
+- [ ] If selected, Vietnam game licensing, mainland-China NPPA approval plus ICP requirements, and conditional Korea GRAC requirements have specialist evidence; otherwise those storefronts remain disabled.
 - [ ] App Review Guidelines reviewed at RC, especially completeness, accurate metadata, privacy, payments, and minimum functionality.
 
 ## Export compliance
@@ -201,27 +214,35 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ### Build preparation
 
 - [ ] Processed signed build has correct identifier/version/build and no Missing Compliance.
-- [ ] Test information includes beta description, feedback email, What to Test, privacy URL, contact, and exact review instructions.
+- [ ] App-level privacy URL is current. External test information includes beta description, feedback email, contact/review notes, and credentials if ever needed; each build has exact `What to Test` text.
 - [ ] Save schema/build compatibility and known defects stated to testers.
+- [ ] Internal TestFlight group exists before the external group; release candidates are not uploaded as **TestFlight Internal Only**, because that build type can never graduate externally or to customers.
 
 ### Internal testing
 
 - [ ] Assigned minimum/small/mid/large/current device matrix complete.
 - [ ] Clean install, update, offline, touch/controller, safe area, 200% text, lifecycle, save, memory, thermal, battery, low storage, audio route, and primary flow pass.
-- [ ] Crash/hang/save/performance results reviewed per build.
-- [ ] No internal P0/P1; bounded P2 list has owners.
+- [ ] Every assigned matrix row passes every locked budget; 1,000/1,000 lifecycle/save faults preserve committed state.
+- [ ] Distinct ten-person first-time-iPhone cohort reaches 9/10 unaided driving and 8/10 touch completion of first launch -> expedition -> pause/background/resume -> Settle -> Service; it is not reused for `KD-G7`.
+- [ ] Open internal use at frozen `T0=00:00 UTC`; exact build records >=200 sessions in `[T0,T0+7d)`, every tier >=20 attributable sessions, and conservative health >=99.5%. Use the `T0+7d` last-seven-day boundary export/snapshot plus device/Xcode evidence; never sum daily rolling views; unknown terminations fail until classified.
+- [ ] No internal P0/P1; accepted P2 list remains within the fixed release risk budget and has owners.
 
 ### External testing
 
 - [ ] First external group submitted through TestFlight App Review when required.
-- [ ] 20-30 person first wave covers device/input/accessibility/player-experience gaps; total release gate reaches at least 50 external participants.
+- [ ] First external build receives full TestFlight review; later same-version builds are resubmitted when changes are significant even if App Store Connect does not automatically demand a full review.
+- [ ] 20-30 person first wave covers device/input/accessibility/player-experience gaps; total release gate reaches at least 50 active external participants, each a unique external-group person with >=1 exact-build session in `W1` or `W2`; a person counts toward the preassigned tier floor only after >=1 attributable session on it, otherwise only toward the global 50.
 - [ ] Larger wave is used only to close content/economy/reliability confidence, not substitute for structured tests.
-- [ ] Feedback, screenshot reports, crashes, hangs, device metrics, support contacts, and questionnaire results triaged.
-- [ ] At least 1,000 launch-to-background-or-quit sessions over at least 14 consecutive days across all supported tiers; at least 50 external participants; crash-free counted sessions >=99.8%; zero reproducible save loss. Attributable crash/watchdog/unrecovered hang fails a session, and unknown terminations remain counted until resolved.
+- [ ] Feedback, screenshot reports, TestFlight sessions/crashes, Xcode Organizer/device hang/watchdog reports, device metrics, support contacts, and questionnaire results triaged; App Store Connect is not described as providing a combined hang metric.
+- [ ] Stop internal use and open external access at frozen `T0=00:00 UTC`; archive disjoint last-seven-day boundary exports/snapshots for `W1=[T0,T0+7d)` and `W2=[T0+7d,T0+14d)`. Daily rolling views are never summed; missed/contaminated/unattributable windows restart cleanly.
+- [ ] `W1+W2` contains at least 1,000 exact-build TestFlight-reported sessions and 50 active external participants; conservative crash-free score >=99.8%; zero reproducible save loss. Every session/failed equivalent belongs to one timestamped window, and one incident is not double-counted across categories/windows.
+- [ ] Per-tester/device evidence maps sessions to one tier; ambiguous sessions remain in the global denominator but count toward no tier. Every tier contributes at least five participants and 100 attributable sessions.
+- [ ] Ten first-time iPhone players distinct from `KD-G6`: 9/10 drive unaided within two minutes and 8/10 complete first launch -> expedition -> pause/background/resume -> Settle -> Service using touch.
 - [ ] TestFlight 90-day build expiry and tester access monitored.
 
 ## Physical-device and performance release gate
 
+- [ ] `DeviceMatrixLock` names at least one distinct minimum/small/mid/large/current physical device plus a second minimum/current device, exact model/chip/memory/OS/input/frame/quality/battery/free-storage owner, and frozen protocol/budgets before results.
 - [ ] Minimum device sustains approved 30 FPS with p95 <=33.3 ms and no repeated >50 ms hitch.
 - [ ] A15-class and newer target devices sustain 60 FPS with p95 <=16.7 ms and p99 <=25 ms.
 - [ ] Gameplay working set <=350 MB target and process peak <=500 MB provisional hard ceiling, or a documented evidence-based revision is approved.
@@ -262,27 +283,33 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] No beta label, crash, placeholder, debug menu, broken purchase, unavailable server, misleading metadata, or unfinished content.
 - [ ] Review build tested on current physical devices and current public iOS.
 - [ ] Age/privacy/accessibility/export answers match the archive.
-- [ ] Build selected in a draft submission with all required items, then submitted.
+- [ ] The same processed build that passed `KD-G7` is selected in the draft submission with all required items, then submitted; selecting a new processed build resets `KD-G7`.
 
 ## Final release-candidate checks
 
 - [ ] RC commit/tag frozen; only release-blocker changes accepted through reviewed cherry-picks/new RC build.
+- [ ] `KD-G0` through `KD-G9` ledger rows name this exact archive/build and remain PASS; no evidence was inherited across an invalidating change.
 - [ ] Clean-clone build reproduces the selected archive hash/equivalent signed provenance.
 - [ ] All automated suites, content validators, rendered captures, desktop and iOS performance, save faults, accessibility, localization, install/update, offline, lifecycle, and full campaign playthrough pass.
-- [ ] Zero open P0/P1; every accepted P2 has explicit player impact and post-launch owner.
+- [ ] Required suites pass 100%; no blocker test is silently flaky/quarantined, and rerun-until-green output is not substituted for a fixed test.
+- [ ] Zero open P0/P1; no more than two accepted P2s remain, no more than one affects the same common flow or tier, protected critical scopes consume none of the budget, and every accepted P2 has explicit player impact and post-launch owner.
 - [ ] Crash-free target met; no data loss, reward duplication, progression block, review blocker, or unsupported-device failure.
 - [ ] Archive, dSYM/symbols, manifest, licenses, privacy report, test evidence, store metadata/assets, review notes, and known-issue log retained.
 - [ ] Support page, privacy page, contact inbox, crash triage, status communication, and emergency build pipeline tested.
 - [ ] Price, territories, availability date, and release method approved.
+- [ ] No acceptance criterion in RC scope still contains `[PLACEHOLDER]` or lacks a fixed owner/denominator/evidence link.
 
 ## Release strategy
 
 - [ ] Submit early enough for review uncertainty without promising an unapproved public date.
 - [ ] Select **manual release** for 1.0.
+- [ ] Confirm phased release does not apply to first-version 1.0; it is a seven-day update-only tool, may be paused for up to 30 cumulative days, and is not rollback because anyone may manually download the update.
 - [ ] After approval, run final server/URL/support/privacy checks even though core game is offline.
-- [ ] Release during a staffed monitoring window, not before an unattended period.
+- [ ] Freeze UTC release time, enabled storefronts, minimum/mid/current smoke devices, monitoring sources/expected latency, owners, hourly polling cadence, and staffed/on-call coverage before release.
+- [ ] Staff continuously through at least eight hours after first public availability; if propagation remains incomplete, named on-call ownership continues hourly checks through the recorded 24-hour state.
 - [ ] Confirm product page live, price/territories correct, install from store, receipt/first launch/offline/save path, and support links.
-- [ ] Record exact release time/build/store state and begin monitoring/support cadence.
+- [ ] Record exact release time/build/store state; timestamp support/store/available diagnostic checks at least hourly, checking slower sources at every refresh and recording their latency.
+- [ ] Allow possible storefront propagation of up to 24 hours; do not promise an exact public instant before live verification.
 
 ## Launch-day checks
 
@@ -292,24 +319,33 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Crash/hang metrics, reviews/support inbox, save reports, and performance/device anomalies monitored.
 - [ ] Known issues/support replies use approved facts; do not advise destructive reset before preserving diagnostics and both verified-slot candidates.
 - [ ] No live tuning/content/SDK change without versioned build and release process.
+- [ ] `KD-G10` remains RUNNING for a failed public smoke, unavailable monitoring source without replacement evidence, unknown live failure, open P0/P1, or unowned propagation state.
 
 ## Rollback and emergency patch
 
 There is no dependable binary rollback after customers update. The safety plan is prevent, contain, communicate, and ship a forward-compatible patch.
 
-- [ ] Retain selected 1.0.0 archive, symbols, tag, toolchain manifest, store snapshot, save fixtures, and known-good clean profile.
-- [ ] Emergency branch/build path can produce `1.0.1` with a new build value from the release tag.
+- [ ] Retain every public archive, symbols, tag, toolchain manifest, store snapshot, save fixtures, and known-good clean profile; identify the latest public tag before branching.
+- [ ] Prelaunch binary/content/config changes after `KD-G7` restart it. Only a post-launch urgent smallest-scope fix can enter `KD-E1`; broader/non-urgent updates return to normal `KD-G7`.
+- [ ] Emergency branch/build path produces the next monotonically increasing patch version/build from the latest public tag with no unrelated change.
 - [ ] Save migrations are forward-only and patch-compatible; a patch never writes a schema the prior approved emergency fallback cannot safely recognize unless unavoidable and reviewed.
 - [ ] Feature/content kill switches are local/versioned and used only for non-core optional behavior; no mandatory remote dependency.
 - [ ] Criteria defined for remove-from-sale, stop phased update for later versions, support notice, or expedited review request.
-- [ ] P0 response: reproduce/preserve diagnostics, stop risky rollout where possible, publish support notice, patch smallest safe fix, run focused plus full blocker suite, upload new build, update Review Notes, and monitor.
+- [ ] Response authority is recorded: Release Owner controls hold/remove-from-sale/phased-update-pause/expedite/emergency submission; Privacy/Compliance Owner concurs for security/privacy/legal incidents.
+- [ ] P0 internal target: triage starts within 15 staffed minutes, hold/remove/communication decision within 60 minutes, and customer-facing support advisory within two hours when affected; App Review timing is never promised.
+- [ ] P1 internal target: triage starts within four staffed hours with owner/containment/patch decision the same staffed day.
+- [ ] `KD-E1` retains reproduced-before/fixed-after evidence on every affected tier plus minimum/mid/current; passes clean update/save smokes from every supported public predecessor, 100% full P0/P1 blocker suite and every affected earlier gate, and 1,000/1,000 faults when persistence/progression/lifecycle changes.
+- [ ] Exact patch records >=25 internal-TestFlight sessions over >=4 staffed hours, >=5 per minimum/mid/current and each additional affected tier, 100% conservative session health, and no unknown termination; Evidence, Build, Privacy/Compliance, and Release Owners sign the delta before emergency submission.
+- [ ] Expedited review is requested only for qualifying critical circumstances with current-version reproduction/impact; the plan assumes Apple may decline or take longer.
 - [ ] Never delete/mask a broken save automatically. Recover an eligible lower verified slot only under the declared corruption rule, preserve evidence, and communicate; future schema/content/migration failure remains blocked.
 
 ## Post-launch stabilization
 
-- [ ] Daily first-week triage of crashes, hangs, saves, progression blockers, device performance, review/support themes, and privacy/security reports.
-- [ ] `1.0.1` limited to verified defects, compatibility, and severe balance issues; no destabilizing feature bundle.
-- [ ] Validate every patch against 1.0.0 install/update/save fixtures and exact App Store declarations.
+- [ ] Record seven complete UTC days after launch or latest public patch, with daily reported sessions/failed equivalents by tier, support/root-cause counts, backlog age, device evidence, update/save state, and compliance state; a patch restarts all seven days.
+- [ ] Aggregate observed reported-session health >=99.8%; every tier with >=100 attributable sessions >=99.5%; every lower-volume failed equivalent classified; missing/delayed evidence extends the window.
+- [ ] Zero reproducible save loss/P0/P1; no unknown termination or support item untriaged beyond one staffed day; <=2 accepted P2s with no escalation and no same-root P2 report count rising three consecutive UTC days.
+- [ ] Every emergency patch is limited to verified urgent defects, compatibility, and severe blocking balance issues; no destabilizing feature bundle.
+- [ ] Validate every patch against all supported public-predecessor install/update/save fixtures and exact App Store declarations.
 - [ ] After stabilization, publish a retrospective: actual performance/device/support metrics, escaped defects, roadmap changes, and first deferred expansion decision.
 
 ## Checklist definition of done
