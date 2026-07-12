@@ -100,6 +100,7 @@ No `if OS == iOS` branches inside economy, world, activity, or progression rules
 - 896 x 414 logical landscape simulation remains a fast regression, not the release gate.
 - Physical small/notched/wide devices define the real safe-area and readability floor.
 - Touch target minimum 48 x 48 logical points, at least 12 points between conflicting actions.
+- Primary touch-driving controls begin at `[PLACEHOLDER: 64 x 64]` and are locked only by reach, occlusion, simultaneous-input, and mis-input evidence.
 - Interactive content stays within the OS safe area plus a 16-point design inset.
 
 ### Reflow priorities
@@ -110,7 +111,7 @@ No `if OS == iOS` branches inside economy, world, activity, or progression rules
 4. Cargo/unsecured haul.
 5. Secondary details.
 
-Desktop side panels become focused tabs/sheets on phone. Garage and map preserve exact compare/navigation facts while reducing simultaneous columns. No text becomes smaller to fit; it wraps, pages, or moves behind a deliberate detail action.
+Desktop side panels become focused Field Manual cards/sheets on phone. Phone Plan shows one primary card; desktop may show the atlas plus two support rails. AtlasCanvas and RouteLedger remain equivalent paths to route facts, and Service's Garage content preserves exact Gains/Costs/Route-consequence comparison while reducing simultaneous columns. No text becomes smaller to fit; it wraps, pages, or moves behind a deliberate detail action.
 
 ### Safe areas and orientation
 
@@ -159,10 +160,12 @@ Desktop side panels become focused tabs/sheets on phone. Garage and map preserve
 ### Textures and world
 
 - Atlas compatible terrain/props/UI; eliminate unused alpha/oversized source in export.
+- The initial atlas-page hypothesis is `[PLACEHOLDER: 2048 x 2048]`; larger pages require a recorded quality/memory comparison on the representative tranche.
 - Platform-appropriate VRAM compression validated for quality, transparency, and memory.
 - Region packages support deterministic preload/unload and do not retain all source textures at once.
 - Limit unique materials/canvas state changes and dynamic 2D lights based on device evidence.
 - Landmark silhouettes and road/hazard readability survive reduced detail.
+- The staged final-pipeline vehicle/Garage/route/surface/landmark/obstacle/threat/hazard/objective/safehouse/extraction/Fuel/repair/cargo/reward/core-card tranches and matching real engine/surface/impact/warning/reward/UI/Settle/ambience/music proof sets pass their family-specific phone-scale recognition, source/license/import, mix, memory, package, and throughput gates before those families multiply.
 
 ### Audio
 
@@ -230,7 +233,7 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 ## Haptics
 
 - Use the platform adapter; gameplay emits semantic intensity/pattern events.
-- Rate-limit road texture and repeated contact.
+- Continuous road texture is off by default and cannot graduate without comfort, control-precision, battery, and 30-minute fatigue proof; all discrete patterns are rate-limited.
 - Validate light/heavy impact, drift threshold, pickup, critical warning, and extraction patterns on physical devices.
 - Respect Reduce/Off setting instantly.
 - Haptics never replace audio/visual meaning and do not run in background.

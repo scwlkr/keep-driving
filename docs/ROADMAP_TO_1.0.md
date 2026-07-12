@@ -187,7 +187,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 1 — Product Vision and Design Foundation
 
-- **Status:** Documentation package complete; decision-foundation acceptance in progress. Wayfinder tickets 02-03 settle product identity/scope and gameplay/content/progression; tickets 04-06 still audit experience, architecture, and release decisions, and ticket 07 certifies the package. Bounded Phase-2 prototypes may continue, but Phase 3 and content multiplication remain blocked.
+- **Status:** Documentation package complete; decision-foundation acceptance in progress. Wayfinder tickets 02-04 settle product identity/scope, gameplay/content/progression, and UX/art/audio/game-feel; tickets 05-06 still audit architecture and release decisions, and ticket 07 certifies the package. Bounded Phase-2 prototypes may continue, but Phase 3 and content multiplication remain blocked.
 - **Objective:** Define the strongest bounded 1.0 identity, systems, experience, architecture, platform, business model, and scope.
 - **Player-facing outcome:** A coherent promise: premium open-road survival, expressive car builds, meaningful return risk, memorable systemic world.
 - **Technical outcome:** Target module/data/save/content/mobile/test contracts and measurable launch floors.
@@ -212,6 +212,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 ### Phase 2 — Technical-Risk Prototypes
 
 - **Status:** In progress. The isolated handling prototype and automated smoke cover normalized intent, three distinct demonstration tunes, surface ordering, rolling drag, stationary steering, identical direct 60 Hz step batching under synthetic 30/60/120 render cadences, ordered light/medium/heavy collision response, full reset, one transition per contact, Integrity damage, and nonempty PCM resources. A prototype-only clean macOS export and short rendered harness validations pass, but they are not acceptance evidence. End-to-end rendered 30/60/120 cadence proof, representative art/audio, 1,800-second clean-export runs/capture, human audible mix, physical controller, and five-player evidence remain open.
+- **Experience contract now locked:** Animated Road Atlas + County Field Manual + Semantic Kinetics; Service/Plan/Drive/Settle postures; one Preflight Card; bounded component grammar; semantic multimodal events; staged family gates. Phase 2 proves Drive hero vehicle/world/HUD and real engine/surface/impact/warning/pickup feedback; Phase 3 proves integrated Service/Settle, ambience/music, and a 15-minute loop; Phases 8/10 prove the complete shell/mix, desktop fatigue, and separate physical haptics. The current fallback visuals/code labels/generated tones do not satisfy any production gate.
 - **Objective:** Falsify the costliest vehicle, world, buildcraft, first-minute, save, and full-stack performance assumptions before production scale-up.
 - **Player-facing outcome:** A rough but real 10-15 minute desktop truth environment that feels controllable, readable, purposeful, audible, and build-dependent.
 - **Technical outcome:** Evidence-backed choices for vehicle/collision substrate, hybrid world/bake seam, part catalog/stat model, UI/audio event path, save envelope, and representative performance budget.
@@ -240,10 +241,10 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Objective:** Integrate selected prototype truths into one maintainable desktop vertical slice representing the first 15 minutes and full depart/drive/objective/extract/Garage/restart loop.
 - **Player-facing outcome:** A shareable slice that looks/sounds like the game, teaches itself, contains a memorable route choice, meaningful haul/return decision, and one visible build change.
 - **Technical outcome:** Production AppFlow/ExpeditionSession/Input/Vehicle/PersistentCounty/ExpeditionManifest/ExpeditionProgress/ContentCatalog/Presentation/Audio/Save skeleton with old paths removed where replaced.
-- **Included:** Utility wagon; fixed-step driving/collision/camera; one production landmark-centered content cell and pending/committed safehouse state change/Restoration Objective as its own axis; three production `ContractInstance`s spanning at least two `ContractDefinition`s with at least one decision-changing variant; five encounter/event instances spanning declared templates with at least one decision-changing variant; exactly-once extraction/failure/abandon/resume; 12 production-quality parts or the accepted minimum; production HUD/Results/Garage subset; real final-pipeline art/audio/VFX/localization metadata; versioned save; clean desktop export.
+- **Included:** Utility wagon; fixed-step driving/collision/camera; one production landmark-centered content cell and pending/committed safehouse state change/Restoration Objective as its own axis; three production `ContractInstance`s spanning at least two `ContractDefinition`s with at least one decision-changing variant; five encounter/event instances spanning declared templates with at least one decision-changing variant; exactly-once extraction/failure/abandon/resume; 12 production-quality parts or the accepted minimum; production Drive/Service/Settle subset; real final-pipeline art/audio/VFX/localization metadata; versioned save; clean desktop export.
 - **Excluded:** Full D020-locked region rollout and final catalog/content counts, complete settings/accessibility, mobile export, App Store work.
 - **Dependencies:** Phase 2 passes.
-- **Major tasks:** Implement module shell; migrate main loop; separate persistent county IDs/state from frozen manifests plus mutable progress; integrate selected handling/world/catalog/save; implement escrow and idempotent `resolution_id`; build hero UI/audio/art; produce the D020 Lowlands tranche and unique-work samples/estimates with original-definition versus marginal-variant hours separated; publish the complete `SCOPE_LOCK.md` with separate Restoration Objective, Contract Definition, Contract Instance, Mastery Overlay, Encounter Template, Part, and Viable Build ledgers, dated capacity, mandatory baseline, 30% unallocated risk reserve, formula, cut/fallback result, and PASS/FAIL; add export/CI seed; remove superseded prototype root paths; capture evidence.
+- **Major tasks:** Implement module shell; migrate main loop; separate persistent county IDs/state from frozen manifests plus mutable progress; integrate selected handling/world/catalog/save; implement escrow and idempotent `resolution_id`; graduate the Drive hero and build representative Service compare/part-install plus extraction/safehouse mutation and Settle Receipt; complete the 15-minute ambience/music/settlement mix; produce the D020 Lowlands tranche and unique-work samples/estimates with original-definition versus marginal-variant hours separated; publish the complete `SCOPE_LOCK.md` with separate gameplay ledgers plus measured presentation family caps/headroom, mandatory baseline, 30% unallocated risk reserve, formula, cut/fallback result, and PASS/FAIL; add export/CI seed; remove superseded prototype root paths; capture evidence.
 - **Recommended order:** App/session/content/save interfaces -> input/vehicle -> world -> activity/extraction/economy -> UI/audio/feedback -> export/perf/playtest -> delete old path.
 - **Risks:** Half-migrated duplicate authority; scope expands into content production; slice only works on one scripted seed.
 - **Risk reduction:** One authoritative state per fact; public integration tests; multiple seeds/failure states; explicit exclusions; architecture review before merge.
@@ -251,7 +252,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** CI fast gate, development build flags, rendered capture, debug overlay, build manifest, clean export preset.
 - **Desktop test plan:** Clean profile; tutorial; objective/extraction/wrecked/stranded/abandon; safehouse closure/new-manifest boundary; fault/reload assertions for the immutable manifest plus exact latest-checkpoint position, Fuel, Integrity, Pressure branch, objective/encounter state, consumed sockets, escrow, and pending mutations; reward idempotence; Garage compare/install; keyboard/controller; multiple manifests on one county; human 15-minute test; release-like performance.
 - **Performance targets:** 60 FPS/p95 <=16.7 ms, p99 <=25 ms, world <=4 ms, no >50 ms hitch, stable 30-minute memory, UI acknowledgement <100 ms.
-- **Acceptance criteria:** Four/five hero-minute targets; full loop without debug help; real audible state feedback; county truth survives manifests; the immutable manifest plus every authoritative `ExpeditionProgress` field resumes from the latest atomic checkpoint; terminal rewards/mutations commit once; players predict kept/lost facts; no duplicate authority; exported build passes; the representative content cell supplies measured throughput and a credible content forecast rather than inferred capacity.
+- **Acceptance criteria:** Four/five hero-minute targets; full loop without debug help; Service/Settle comprehension and a captured human-accepted 15-minute real-audio mix; county truth survives manifests; the immutable manifest plus every authoritative `ExpeditionProgress` field resumes from the latest atomic checkpoint; terminal rewards/mutations commit once; players predict kept/lost facts; no duplicate authority; exported build passes; the representative content cell and staged presentation evidence supply measured throughput plus explicit family caps/headroom rather than inferred capacity.
 - **Definition of done:** Integrated, playable, tested, documented production slice; D020 count target is explicitly locked or superseded before multiplication; current Real Vertical Slice map is resolved/superseded with evidence; no open P0/P1.
 - **Mobile implications:** Shared contracts and responsive proof floor accepted; desktop touch simulation remains non-release evidence.
 - **Documentation:** Slice spec/report, architecture/decision updates, control/asset/content contracts, and `docs/production/SCOPE_LOCK.md` with the D020 capacity ledger/formula/verdict.
@@ -318,14 +319,14 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Included:** Safehouse/region/final milestones; chassis/blueprint unlocks; Scrap sources/sinks; committed/immediate/escrow/manifest security states; explicit failure, abandon, stranded, and extraction settlement; first-session choice; records; catch-up/migration; completed-county replay and the D020-locked postgame unlock if any (currently Expedition Mode).
 - **Excluded:** Live-service progression, multiple currencies, battle pass, daily obligation, final contract content balance.
 - **Dependencies:** Phases 4-5; SaveService foundation from Phase 3.
-- **Major tasks:** Define milestone graph/reward tables, namespaced `RewardLedger`, and repetition ledger; transaction APIs; persist manifest/progress snapshots; implement orthogonal expedition and objective state; settle every terminal `resolution_id` exactly once; Results facts; economy simulation; fixed disclosed repeat rewards and finite manifest budgets; unlock/catch-up; records; save/fault fixtures; player tests.
-- **Recommended order:** Domain invariants -> resolution/security -> milestones/unlocks -> sources/sinks -> Results/records -> simulation -> three-run/hour/midgame tests -> tune.
+- **Major tasks:** Define milestone graph/reward tables, namespaced `RewardLedger`, and repetition ledger; transaction APIs; persist manifest/progress snapshots; implement orthogonal expedition and objective state; settle every terminal `resolution_id` exactly once; Settle facts; economy simulation; fixed disclosed repeat rewards and finite manifest budgets; unlock/catch-up; records; save/fault fixtures; player tests.
+- **Recommended order:** Domain invariants -> resolution/security -> milestones/unlocks -> sources/sinks -> Settle/records -> simulation -> three-run/hour/midgame tests -> tune.
 - **Risks:** Grind, intentional failure/farming, rewards too punitive/generous, progression dead ends, content IDs/migrations break profiles.
 - **Risk reduction:** Guaranteed unlocks; one-currency audit; deterministic simulation; clean/failure-heavy/success-heavy fixtures; exact UI consequences; no hidden rubber-banding.
 - **Required prototypes:** Three-run economy proof and one-hour build-path test; full arc simulation before content lock.
 - **Tools/infrastructure:** Economy simulator/report, milestone graph validator, transaction log, profile fixtures, reward fault/duplication tests.
 - **Desktop test plan:** Clean first hour; three-run push/return/fail; safehouse close-and-continue preserving claimed/rolled socket value; abandon/stranded/background/reload; offer cancellation/loadout-preview invariance; four-hour midgame; alternate chassis; fail-fast/circling/bounce/reload farms; completion fixture; migration/duplicate resolution/restart.
-- **Performance targets:** Transactions/Results <100 ms excluding deliberate animation; no economy work in physics frame; save commit within lifecycle budget.
+- **Performance targets:** Transactions/Settle acknowledgement <100 ms excluding deliberate animation; no economy work in physics frame; save commit within lifecycle budget.
 - **Acceptance criteria:** First meaningful choice in first session; >=2 credible paths in hour; required restoration and baseline Fuel/Integrity never require Scrap; no solved low-risk repeat or idle/fail/bounce/reload farm gates progress; at least 80% of players predict exact committed/exposed state; fault injection resumes the immutable manifest plus every authoritative `ExpeditionProgress` field from the latest atomic checkpoint and commits each resolution once; completion remains reachable without all content.
 - **Definition of done:** Full progression/economy integrated, balanced to alpha confidence, migration-safe, human-tested, documented, and no exploit/progression blocker.
 - **Mobile implications:** Short-session safe boundaries and background-safe transactions; mobile adaptation deferred.
@@ -363,23 +364,23 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Implement every required player flow as reusable responsive production UI and make first launch/first expedition self-explanatory.
-- **Player-facing outcome:** Title, setup, Garage, mission board, map, HUD, pause, Results, settings/accessibility/save/error flows are fast, clear, device-aware, and consistent.
-- **Technical outcome:** AppFlow screen routing, `.tscn` component library, Theme/tokens, presenters, localization, focus maps, responsive/aspect/text harness, input glyph system.
+- **Player-facing outcome:** Title/Preflight, Service, Plan contract/Atlas/RouteLedger, Drive, Settle Receipt, and SystemSheet settings/accessibility/save/error flows are fast, clear, device-aware, and consistent.
+- **Technical outcome:** AppFlow Service/Plan/Drive/Settle routing, `.tscn` Field Manual component library, Theme/tokens, presenters, localization, focus maps, equivalent Atlas/RouteLedger models, responsive/aspect/text harness, input glyph system.
 - **Included:** All information architecture in UX spec; Garage lot tutorial; first expedition; descriptive difficulty presets plus Custom mapped to independent assists; loading/empty/error/offline; 100-200% text; pseudoloc; keyboard/controller; simulated touch layout.
 - **Excluded:** Final mobile touch polish/device proof, every localization language, final App Store assets.
 - **Dependencies:** Phases 3-7 stable facts; art direction tokens.
-- **Major tasks:** Build theme/components; route screens; presenters; onboarding; map/Garage/mission/results; settings/save/recovery; localization extraction; focus/glyph; aspect/text/capture tests; human usability.
-- **Recommended order:** Tokens/components -> AppFlow/title/pause -> HUD/onboarding -> map -> Garage -> mission/results -> settings/accessibility/save/errors -> localization/focus/matrix.
+- **Major tasks:** Build the eight-primitive/seven-card gallery and state matrix; route postures; presenters/intents; one Preflight Card and playable hero minute; Plan Atlas/RouteLedger/contract cards; Service vehicle/loadout; Drive HUD; Settle Receipt; SystemSheet settings/save/recovery; localization extraction; focus/glyph; aspect/text/capture tests; human usability.
+- **Recommended order:** Tokens/components -> AppFlow/Title/SystemSheet -> Drive/onboarding -> Plan -> Service -> Settle -> settings/accessibility/save/errors -> localization/focus/matrix.
 - **Risks:** Information overload, hardcoded desktop layouts, controller focus traps, localization late, UI couples domain rules.
-- **Risk reduction:** Presenter boundaries; component state matrix; mobile floor from day one; pseudoloc; new-player tests; no text-shrinking to fit.
-- **Required prototypes:** Accepted hero-minute/compare UI; UI shell proof at phone/desktop, controller, 200% text, +40% pseudoloc.
+- **Risk reduction:** Presenter boundaries; initial 20-component ceiling; one primary action; world-first plus explicit equivalent rule; component state matrix; mobile floor from day one; pseudoloc; new-player tests; no text-shrinking to fit.
+- **Required prototypes:** Accepted representative hero-minute/compare/Receipt UI; UI shell proof at phone/desktop, controller, 200% text, +40% pseudoloc, known/estimated/unknown routes, error/recovery, and Reduced Motion.
 - **Tools/infrastructure:** UI gallery, design tokens/Theme, screenshot matrix, safe-area/text/pseudoloc preview, focus inspector, input glyph switcher.
-- **Desktop test plan:** Every common flow by keyboard/controller; clean/current/corrupt/empty saves; descriptive presets/Custom mapping and mid-campaign changes; settings persistence; same committed offer before/after assist changes; 100/150/200% text; supported aspect matrix; five-player onboarding; response timing.
+- **Desktop test plan:** Every common flow by keyboard/controller; clean/current/corrupt/empty saves; descriptive presets/Custom mapping and mid-campaign changes; settings persistence; same committed offer before/after assist changes; 100/150/200% text; supported aspect/pseudoloc/input screenshot matrix; Atlas/RouteLedger parity; five-player onboarding; route/build/settlement comprehension; response timing.
 - **Performance targets:** Input acknowledgement <100 ms; screen open/transition no >50 ms hitch after preload; no blocking content scan on UI thread.
-- **Acceptance criteria:** First-minute targets; 80% loop comprehension; all common flows complete without pointer; descriptive presets and Custom expose/persist every independent assist, change mid-campaign without progress/reward/ending loss, never increase Pressure, and leave committed offers invariant; no blocking clipping/focus/color-only/debug state; errors preserve state.
+- **Acceptance criteria:** First-minute targets; 80% loop, route-risk, part-tradeoff, and secured/exposed/lost/committed comprehension; all common flows complete without pointer; descriptive presets and Custom expose/persist every independent assist, change mid-campaign without progress/reward/ending loss, never increase Pressure, and leave committed offers invariant; no blocking clipping/focus/single-channel/debug state; errors preserve state.
 - **Definition of done:** All required flows integrated, localized-ready, accessible baseline, tested, documented, and accepted on desktop/responsive simulation.
 - **Mobile implications:** Shared responsive components and facts accepted; physical touch/safe-area/lifecycle adaptation deferred to Phases 16-17.
-- **Documentation:** UI architecture/component guide, onboarding script, focus/back rules, localization workflow, error copy/state table.
+- **Documentation:** UI architecture/component/state guide, posture and information-placement contract, onboarding script, focus/back rules, localization workflow, error copy/state table.
 - **Complexity:** Extra Large.
 - **Blocks later work:** Yes; visual/audio finalization, alpha usability, and mobile adaptation depend on it.
 
@@ -389,19 +390,19 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 - **Objective:** Replace all placeholder visuals with a cohesive Sun-Bleached Survival Road Atlas asset/animation/VFX package across required content.
 - **Player-facing outcome:** World, vehicles, landmarks, threats, pickups, weather, UI, rewards, and marketing frames look like one distinctive finished game and remain readable at speed.
-- **Technical outcome:** Validated asset pipeline, atlases/materials, animation state, VFX pools/caps, region kits, source/license/import metadata, quality tiers, screenshot capture points.
+- **Technical outcome:** Validated deterministic source-to-runtime asset pipeline, atlases/materials, vehicle rigs, animation state, VFX pools/caps, region kits, complete provenance/import/cost metadata, quality tiers, gallery and screenshot capture points.
 - **Included:** D020-locked region/chassis kits, currently three of each; visible parts; entities/props/landmarks; UI icons/theme; the D020-locked weather/day-night scope; damage/movement/reward VFX; final fonts; cosmetic floor only if retained.
 - **Excluded:** Post-1.0 region/vehicle sets, photorealism, unbounded decorative variants.
 - **Dependencies:** Phases 4-8; representative art perf from Phase 2; a D021-passed public title before type/logo/icon, name-bearing art, or marketing frames lock. Non-branded world/vehicle production may proceed while that gate is pending.
-- **Major tasks:** Pass the clearance-or-rename gate; lock art bible/palette/type/icon; build asset/import pipeline; hero assets; region kits; vehicle/part layers; world props/landmarks; UI/icons; VFX/animation/weather; license audit; optimize/review.
-- **Recommended order:** Art bible/technical specs -> hero minute -> one complete region -> vehicle/entity kits -> remaining regions -> UI/icons -> VFX/weather/cosmetics -> consistency/perf/license pass.
+- **Major tasks:** Pass the clearance-or-rename gate before name-bearing work; lock non-name identity/art bible; build source/provenance/export/import/catalog/license/budget pipeline; consume the accepted Phase-2 Drive and Phase-3 integrated representative evidence; lock family caps/headroom in D020; then region kits, vehicle/part layers, props/landmarks, UI/icons, VFX/animation/weather, optimize/review.
+- **Recommended order:** Non-name art bible/technical specs -> deterministic pipeline -> verify staged evidence/caps -> one complete region -> vehicle/entity kits -> remaining regions -> UI/icons -> VFX/weather/cosmetics -> consistency pass.
 - **Risks:** Inconsistent outsource/generated assets, screenshot-first detail hurts play, texture/material/memory explosion, art throughput below content plan.
-- **Risk reduction:** Source templates/review gates; atlas/material budgets; production throughput measured after one region; silhouette/value tests; no broad asset generation before art lock.
-- **Required prototypes:** Hero minute and representative region/asset-streaming spike; one final landmark/chassis/weather stack before scale.
+- **Risk reduction:** Source/provenance templates; style/gallery/review gates; atlas/material budgets; production throughput measured before multiplication and again after one region; silhouette/value tests; no broad generation/purchase/outsource before tranche lock.
+- **Required prototypes:** Accepted Phase-2 Drive hero and Phase-3 integrated Service/Settle evidence plus a representative region/asset-streaming spike; one final landmark/chassis/weather stack before scale. Fallback fonts, drawn test geometry, and generated-tone feedback cannot satisfy a stage.
 - **Tools/infrastructure:** Art bible, source/license manifest, import presets, atlas report, asset gallery, screenshot/capture tests, VFX/pool overlay, color/contrast checks.
-- **Desktop test plan:** Phone-scale recognition; region/landmark recall; screenshot readability; weather/night/accessibility modes; max-density full-stack perf; asset/license validator.
+- **Desktop test plan:** randomized `[PLACEHOLDER: 500 ms]` per-category recognition at 896 x 414 with blank/near-neighbor controls; region/landmark recall; screenshot readability; 200% text/high-contrast/Reduced Motion/Effects; max-density full-stack perf; deterministic import, source/license, package, memory, authoring/rework validator.
 - **Performance targets:** Preserve 60 FPS/p95 <=16.7/p99 <=25; no >50 ms hitch; texture/material/draw/node/effect budgets reported; memory plateau maintained.
-- **Acceptance criteria:** No placeholder/debug visual; all critical objects recognized without labels/color-only; regions distinct; screenshots honest/readable; source/license/import complete; representative max scene passes.
+- **Acceptance criteria:** No placeholder/debug visual; eight of ten recognize each required critical category at phone scale with `[PLACEHOLDER: <=10%]` false positives; regions distinct; screenshots honest/readable; universal plus kind-specific source/license/import/accessibility/cost metadata complete; D020 throughput/rework/family-cap ledger credible; representative max scene passes before each family multiplies.
 - **Definition of done:** Required launch visual content integrated, consistent, optimized, licensed, tested, and documented.
 - **Mobile implications:** Quality tiers and compressed atlas plan ready; physical device tuning later; essential silhouettes survive reduced effects/detail.
 - **Documentation:** Art bible, palette/type/icon specs, asset/import/license guide, region kits, VFX/animation/perf budgets.
@@ -413,23 +414,23 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Deliver real state-driven vehicle/world/UI/music audio, haptics semantics, and polished multimodal feedback.
-- **Player-facing outcome:** Engine/load/surface, drift, impacts, threats, weather, rewards, warnings, Garage, Results, and music make driving tactile and information clear without overload.
-- **Technical outcome:** Audio buses/director, layered engine/surface states, voice limits, ambience/music state, real asset validation, capture/audible proof, FeedbackDirector, platform haptic events.
+- **Player-facing outcome:** Engine/load/surface, drift, impacts, threats, weather, rewards, warnings, Service, Settle, and music make driving tactile and information clear without overload.
+- **Technical outcome:** Semantic feedback schema/arbiter, Audio/Feedback directors, layered engine/surface states, measured voice/stealing limits, ambience/music state, real asset validation, capture/audible proof, and platform haptic events.
 - **Included:** Master/Music/Vehicle/World/UI buses; D020-locked chassis-compatible vehicle layer; surface/impact/event/UI/ambience/music; warnings; visual equivalents; mix and dynamic-range settings; semantic haptic map.
 - **Excluded:** Voice-heavy narrative, separate full recording set per loadout, mobile physical haptic tuning until device phase.
 - **Dependencies:** Phases 3, 7-9; stable event semantics and asset identity.
-- **Major tasks:** Source/license audio; buses/director; engine/surface; impact/threat; UI/reward; ambience/music; rate limits/concurrency; accessibility/mix; capture/human mix; haptic adapter events.
-- **Recommended order:** Event/bus contract -> engine/surface -> impacts/warnings -> UI/reward -> ambience/music -> mix/accessibility -> full-stack perf/audible review.
+- **Major tasks:** Define semantic event phase/priority/magnitude/direction/cause/cooldown/dedupe; source/license/import audio; buses/director; engine/surface continuous state; impact/threat; UI/reward; ambience/music; voice reserve/stealing/rate limits; accessibility/mix; capture/human mix/fatigue; discrete haptic adapter events.
+- **Recommended order:** Semantic event and bus contract -> real asset/import proof -> engine/surface -> impacts/warnings -> UI/reward -> ambience/music -> mix/accessibility -> 15-minute mix -> 30-minute fatigue/full-stack review.
 - **Risks:** Repeating/fatiguing loops, voice overload, silent regression, music fights warnings, asset licensing, audio thread/memory cost.
-- **Risk reduction:** Real audible proofs; state machine/rate limits; mix hierarchy; long-session review; source manifest; no headless counter as acceptance.
-- **Required prototypes:** Accepted hero-minute real-audio slice; one full 15-minute mix across calm/pressure/critical/Results/Garage.
+- **Risk reduction:** Single event truth; real audible proofs; state machine/dedupe/rate limits/critical reserve; mix hierarchy; long-session review; source/import manifest; no headless counter as acceptance; continuous haptics off by default.
+- **Required prototypes:** Accepted Phase-2 Drive audio slice; Phase-3 15-minute mix across calm/Pressure/critical/Settle/Service; Phase-8/10 30-minute desktop visual/audio masking/fatigue session; separate physical-device discrete-haptic proof.
 - **Tools/infrastructure:** Audio event monitor, bus/voice overlay, loudness/capture workflow, asset/license catalog, automated resource/routing/concurrency tests.
-- **Desktop test plan:** Human audible/mix session; engine continuity and all surfaces; impact classes; warning masking; pause/resume; settings/mono/visual cues; 30-minute fatigue/perf.
-- **Performance targets:** No audio-induced >50 ms hitch; bounded voices/memory; instant pause/resume without duplicate loops; UI feedback <100 ms.
-- **Acceptance criteria:** All required states audible/distinct/mix-controlled; no silent placeholder; visual equivalents; long session not fatiguing; real resources/buses/capture and human check pass.
+- **Desktop test plan:** Human audible/mix session; engine continuity and all surfaces; impact classes; warning masking/critical-cue cause; pause/resume/dedupe; settings/mute/mono/visual equivalents; 15-minute complete mix; 30-minute fatigue/perf.
+- **Performance targets:** No audio-induced >50 ms hitch; initial `[PLACEHOLDER: 24]` minimum-device voices with four critical reserves replaced by measured caps; bounded memory; instant pause/resume without duplicate loops; UI feedback <100 ms.
+- **Acceptance criteria:** All required states audible/distinct/mix-controlled; no silent/generated placeholder; four of five identify critical cause/severity without one required channel; 15-minute mix passes; desktop fatigue samples every five minutes, stops at request or >=4, and meets `[PLACEHOLDER: median <=2 and no unresolved score >=3]`; separate physical haptic comfort uses the same stop rule; real resources/buses/capture and human checks pass.
 - **Definition of done:** Production audio/game feel integrated, licensed, performant, accessible, tested, and documented on desktop.
 - **Mobile implications:** Compressed/streamed/preloaded strategy and semantic haptics ready; audio-session/device behavior deferred.
-- **Documentation:** Audio bible/event map, bus/mix policy, asset/license list, haptic semantics, proof procedure.
+- **Documentation:** Semantic event map, audio bible, bus/mix/voice policy, asset/license/import list, haptic semantics, masking/fatigue and proof procedures.
 - **Complexity:** Large.
 - **Blocks later work:** Yes; desktop alpha quality and mobile audio/haptic adaptation require it.
 
@@ -898,6 +899,8 @@ A player launches a separate desktop slice, starts moving within ten seconds, le
 | `docs/research/APP_STORE_REQUIREMENTS.md` | 2026-07-11 first-party Apple/Godot requirement snapshot and volatile recheck list |
 | `docs/research/NAME_CLEARANCE_RISK.md` | Exact-title collision evidence and mandatory D021 legal-plus-positioning public-name gate |
 | `docs/research/PRODUCT_IDENTITY_AND_SCOPE.md` | Primary-source positioning/business research, resolved identity, and provisional scope gate |
+| `docs/research/GAMEPLAY_CONTENT_AND_PROGRESSION_SYSTEMS.md` | Resolved stable-county, buildcraft, activity, economy, difficulty, and replay contracts |
+| `docs/research/UX_ART_AUDIO_AND_GAME_FEEL_DIRECTION.md` | Compared interface directions and resolved UI/art/asset/audio/feedback/accessibility contract |
 | `.scratch/keep-driving-1-0/` | Canonical Wayfinder map and decision/execution frontier |
 
 All documents are living contracts. A changed decision updates the owning document and appends/supersedes a decision log entry; downstream acceptance gates are re-evaluated.
@@ -943,6 +946,7 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - Recorded the exact-title collision as a formal D021 legal-plus-positioning release gate with a distinct-name default.
 - Resolved the title-independent promise around route-shaped buildcraft and county restoration; added primary-source identity/business research and a measured scope-throughput gate.
 - Resolved the gameplay/content/progression stack: stable county plus persisted manifests, exact escrow/settlement, unique named sidegrades, three activity state machines plus mastery overlays, action-driven Pressure, completed-county replay, and measurable production/balance gates.
+- Resolved the experience stack: Animated Road Atlas + County Field Manual + Semantic Kinetics, Service/Plan/Drive/Settle postures, one Preflight Card, bounded components, staged presentation-family gates, semantic multimodal feedback, real-audio/haptic proof, and accessibility-claims discipline.
 
 ### Files created
 
@@ -951,6 +955,7 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - `docs/research/NAME_CLEARANCE_RISK.md`.
 - `docs/research/PRODUCT_IDENTITY_AND_SCOPE.md`.
 - `docs/research/GAMEPLAY_CONTENT_AND_PROGRESSION_SYSTEMS.md`.
+- `docs/research/UX_ART_AUDIO_AND_GAME_FEEL_DIRECTION.md`.
 - `prototypes/handling_truth_slice/` with its isolated scene, smoke harness, notes, and run instructions.
 - `export_presets.cfg` with a prototype-only ad-hoc macOS export; it does not export the shipping scene.
 - `proofs/handling_truth_slice_relay.jpeg`, retained from visible inspection.
@@ -960,6 +965,7 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 
 - No existing main gameplay/runtime scripts. `project.godot` adds only the prototype feature override and export texture compatibility; prototype work remains isolated from the shipping scene.
 - `prototypes/handling_truth_slice/prototype_audio.gd` extends the previously committed audio helper for the integrated truth slice.
+- Product, UX/art, technical, playtest, decision, and roadmap documents now carry the resolved ticket-04 experience contracts and gates; no gameplay/runtime implementation changed in this ticket.
 - Existing v0 and Real Vertical Slice trackers remain preserved as history/subordinate milestones.
 
 ### Playable build status
@@ -997,8 +1003,8 @@ Vehicle feel human acceptance, hybrid world, build balance, content throughput, 
 
 ### Current roadmap phase
 
-Phase-1 decision-foundation review and bounded Phase-2 Technical-Risk Prototypes overlap deliberately. The documentation package exists and product identity/scope plus gameplay/content/progression systems are settled, but Wayfinder tickets 04-07 still block Phase 3/production scale-up. Handling truth-slice evidence remains valid and may continue without pretending the full decision foundation is accepted.
+Phase-1 decision-foundation review and bounded Phase-2 Technical-Risk Prototypes overlap deliberately. Product identity/scope, gameplay/content/progression, and UX/art/audio/game-feel are settled. Wayfinder tickets 05-07 still block Phase 3/production scale-up. Handling truth-slice evidence remains valid but does not satisfy the representative presentation, human, or full-duration gates.
 
 ### Next recommended task
 
-Workflow next: resolve **Decide UX, Art, Audio And Game-Feel Direction** as the next Wayfinder frontier. Implementation next remains **Desktop Truth Slice A — Production Handling and the First Road**: replace demonstrator presentation with representative hero assets/audio, prove actual rendered 30/60/120 behavior, then complete 1,800-second runs, first-minute capture, controller/audible checks, and five-player handling plus five-naive-player hero-minute sessions. Do not begin broad content or mobile migration.
+Workflow next: resolve **Decide Target Technical And Mobile Architecture** as the next Wayfinder frontier. Implementation next remains **Desktop Truth Slice A — Production Handling and the First Road**: replace demonstrator presentation with the selected final-pipeline hero tranche and real audio, prove actual rendered 30/60/120 behavior, then complete 1,800-second runs, first-minute capture, controller/audible checks, and five-player handling plus five-naive-player hero-minute sessions. Do not begin broad content or mobile migration.

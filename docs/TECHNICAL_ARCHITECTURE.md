@@ -75,7 +75,7 @@ Prefer explicit references and narrow signals over a global catch-all event bus.
 
 ### AppFlow
 
-Owns boot, title, first-launch setup, Garage hub, expedition entry/exit, pause, Results, recovery, and quit transitions.
+Owns boot, TitleSurface, one-card first launch, Service/Plan/Drive/Settle posture changes, expedition entry/exit, SystemSheet/pause, recovery, and quit transitions.
 
 - Explicit state enum/state objects and allowed transitions.
 - Routes screens and session lifetime.
@@ -239,14 +239,19 @@ Transactions return explicit success/failure records and are committed atomicall
 - Player-facing screens are `.tscn` scenes with reusable components, Theme resources, localization keys, focus maps, and responsive layout rules.
 - Presenters/view models convert domain snapshots into display state.
 - Loading/empty/error/disabled/focus/touch/controller states are part of every component contract.
+- A counted UI component is a reusable primitive, card family, or extension widget with its own public state contract/gallery entry. Eight primitives plus seven card families consume 15 of the initial 20-component ceiling; up to five extension widgets remain. Screen shells/posture layouts do not count unless they add reusable state/behavior. Additions require UI-gallery/state-matrix evidence.
+- Presenters may choose copy/order/fold/layout and emit typed intents. They do not compose domain stats, decide affordability, roll content, settle escrow, mutate progression, or save.
+- AtlasCanvas and RouteLedger consume the same route display model so a spatial interface is never the only route to a fact or action.
 - Debug UI is a separate development-only CanvasLayer.
 
 ### AudioDirector and FeedbackDirector
 
-- Consume semantic vehicle/session/world events.
+- Consume deduplicated semantic vehicle/session/world events carrying source, forecast/commit/consequence/resolve phase, priority, magnitude, optional direction, localized cause, cooldown group, and dedupe identity.
 - Audio owns buses, engine/surface states, impact voice limits, music intensity, ambience, warning priority, and pause/background behavior.
 - Feedback owns VFX pooling, camera impulses, UI flashes, and accessibility intensity.
+- Continuous simulation snapshots drive continuous vehicle/audio state; they do not emit per-frame discrete events. Critical cues reserve capacity and may briefly duck masking buses.
 - Platform haptics flow through `PlatformService`; no gameplay module imports an iOS API.
+- Haptics are discrete, optional, rate-limited, paired with another cue, and suppressed while backgrounded. Continuous surface texture is off by default until physical-device fatigue/battery proof.
 - Tests distinguish request, real resource assignment, routed playback state, captured output/human audible proof, and physical-device haptic proof.
 
 ### SettingsService
@@ -363,7 +368,8 @@ Save identity, monotonic sequence, timestamps, content/schema version, and confl
 
 ```text
 Authored Godot scenes/resources + source/license metadata
-  -> catalog/world validators
+  -> style/readability review + deterministic export/import presets
+  -> catalog/world/license/budget validators
   -> bake atlases, chunk packages, collision, route graph, localization references
   -> deterministic content hash + build manifest
   -> runtime ContentCatalog/BakedWorld
@@ -379,6 +385,7 @@ Authored Godot scenes/resources + source/license metadata
 - Contracts have start, success, failure, resume, reward, and extraction definitions.
 - Event sockets meet reaction-distance/navigability rules.
 - Assets record license/ownership, import settings, atlas group, memory class, and platform compression.
+- Presentation assets have universal best-available source/runtime artifact, creator/provenance/license/attribution/review, import version, package/memory class, and status metadata. Kind-specific extensions cover spatial/palette/atlas/collision/quality, UI/localization/alternative, audio format/bus/concurrency, or VFX/pool/accessibility facts only where meaningful. Hero proof/cost/rework is per asset; routine variants report by batch/tranche; defects link issue IDs only when present.
 - Content budgets generate a report per region/build.
 - The release build contains no debug-only, placeholder, unlicensed, or missing asset.
 

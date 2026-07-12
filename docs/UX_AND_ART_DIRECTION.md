@@ -1,11 +1,13 @@
 # Keep Driving UX, Art, Audio, and Game-Feel Direction
 
-Status: 1.0 experience specification
+Status: resolved 1.0 experience specification; Wayfinder ticket 04
 Direction date: 2026-07-11
 
 ## Experience goal
 
 Keep Driving should feel like an animated survival road atlas wrapped around a responsive arcade car. It is rugged, direct, readable, and tactile—not a debug tool, generic Godot interface, grim unreadable horror game, or busy free-to-play dashboard.
+
+The selected synthesis is **Animated Road Atlas + County Field Manual + Semantic Kinetics**. The world and vehicle communicate first; a bounded card/component grammar carries exact and accessible facts; animation, audio, VFX, camera, and optional haptics reinforce only meaningful input, state, decision, consequence, and settlement events. `docs/research/UX_ART_AUDIO_AND_GAME_FEEL_DIRECTION.md` records the three competing directions, tradeoffs, primary-source guidance, budgets, and proof gates.
 
 The interface has three jobs:
 
@@ -16,59 +18,41 @@ The interface has three jobs:
 ## Interface architecture
 
 ```text
-Boot
-├── First-launch setup
-│   ├── Language
-│   ├── Accessibility shortcuts
-│   ├── Input preset
-│   └── Brightness / audio check
-├── Title
-│   ├── Continue
+AppShell
+├── TitleSurface
+│   ├── Continue / Drive
 │   ├── New profile / reset
-│   ├── Settings
-│   ├── Accessibility
-│   ├── Credits / licenses
-│   └── Privacy / support
-└── Game
-    ├── Garage hub
-    │   ├── Vehicle and loadouts
-    │   ├── Owned parts / blueprint fabrication
-    │   ├── Mission board
-    │   ├── World map
-    │   ├── Records / discoveries
-    │   └── Settings / save management
-    ├── Expedition HUD
-    │   ├── Navigation / objective
-    │   ├── Fuel / Vehicle Integrity
-    │   ├── Cargo / unsecured haul
-    │   ├── Threat / warning state
-    │   └── Context prompt
-    ├── Pause
-    │   ├── Resume
-    │   ├── Map / objective
-    │   ├── Controls / settings / accessibility
-    │   ├── Abandon expedition
-    │   └── Save active checkpoint and quit to title
-    ├── Safehouse / extraction
-    └── Results
-        ├── Secured / lost / records
-        ├── Objective and discovery progress
-        ├── Garage / next contract
-        └── Restart / continue
+│   └── SystemSheet
+├── FirstRunPreflightCard
+├── CountySurface
+│   ├── Service — vehicle, loadout, fabrication, test lot
+│   ├── Plan — atlas, route ledger, contracts, records
+│   ├── Drive — world cues, instrument ribbon, context/warning, touch deck
+│   └── Settle — outcome, secured/lost/changed receipt, next action
+└── SystemSheet
+    ├── Pause / objective / controls
+    ├── Settings / accessibility / language
+    ├── Save management / recovery
+    └── Privacy / support / credits / licenses
 ```
 
-Screen routing is an explicit application-flow state machine. A screen never reaches into world dictionaries or writes saves directly. All player-facing strings use localization keys.
+Service, Plan, Drive, and Settle are application postures over a coherent county surface; they are not permission for an opaque camera-only interface. Large spatial transitions become immediate cuts or short fades under Reduced Motion. Screen routing is an explicit application-flow state machine.
+
+Every posture has one default primary action plus explicit focus entry/order/restoration, Back/Cancel, destructive confirmation, loading, empty, ready, disabled, stale, error, and recovery behavior where relevant. Presenters consume immutable snapshots and emit typed intents. They never reach into world dictionaries, compose stats, determine affordability, settle escrow, mutate progression, or write saves. All player-facing strings use localization keys.
+
+The initial production grammar is capped at eight primitives—Glyph, Label, Meter, FactRow, Tag, Divider, FocusRing, ActionChip—and seven card families—Instrument, Navigation, Choice, Compare, Warning, Prompt, Receipt. These consume 15 of the initial 20-component ceiling; up to five reusable extension widgets such as AtlasCanvas, VehicleBench, or TouchDeck remain. A counted component has its own public state contract and gallery entry; screen shells/posture layouts do not count unless they add reusable state/behavior. Additions require a gallery example proving the existing grammar cannot express a required state clearly.
 
 ## First launch and onboarding
 
 ### First-launch setup
 
-Keep the setup to four short, skippable surfaces with safe defaults:
+Use one short, skippable **Preflight Card** with safe defaults rather than a mandatory sequence:
 
-1. **Language** — use system language when supported; always offer English.
+1. **Language and input** — use system language when supported; always offer English; detect keyboard/mouse, controller, or touch and explain that either can change.
 2. **Accessibility shortcuts** — larger text, high-contrast cues, reduced motion, auto-accelerate, and simplified difficulty are visible immediately; the complete suite remains in Settings.
-3. **Input preset** — keyboard/mouse, controller, or touch detected automatically; explain that it can be changed.
-4. **Brightness and audio check** — show the hero car against road/terrain/hazard values and play a real engine plus warning cue with visual equivalents.
+3. **Live brightness and audio check** — show the production hero car against road/terrain/hazard values and play a real engine plus warning cue with visual equivalents.
+
+`Drive now` remains the default action. A player can inspect or change any shown value without traversing pages.
 
 Do not require account, privacy nag, cinematic, lore crawl, or long legal page before play. Privacy/support remain reachable from the Title and Settings.
 
@@ -93,6 +77,16 @@ Prompts appear beside the relevant world action, use the active device glyph, di
 - Introduces only Fuel, Integrity, objective direction, and unsecured haul; deeper systems arrive when used.
 - Guarantees a first choice-bearing part reward on successful return.
 
+### Representative hero-minute cadence
+
+- **0-10 seconds:** production car visible; one accelerate prompt; player moves.
+- **10-22 seconds:** broad steer and brake/reverse gates teach through movement.
+- **22-30 seconds:** Fuel and Integrity are legible by second 25; one real surface seam and harmless breakable introduce tactile consequence.
+- **30-60 seconds:** landmark-framed road/dirt/mud fork plus one optional signal; distinct world and route-ledger facts preserve return direction.
+- **First return:** one Receipt states secured/lost/changed/save truth; the chosen starter part immediately updates the visible car, exact comparison, route forecast, audio, and test-lot behavior.
+
+The cadence is a representative-content contract, not permission to script over player control or to count generated tones/fallback art as hero evidence.
+
 ### Onboarding measures
 
 - Four of five new players begin moving within ten seconds.
@@ -112,6 +106,8 @@ Prompts appear beside the relevant world action, use the active device glyph, di
 - **Cargo and unsecured haul** — capacity, fragile/secured state, what is currently at risk.
 - **Threat state** — calm/rising/danger using motion, icon, audio, and value—not an unexplained debug tier.
 - **Context** — short interaction/recovery prompt only when actionable.
+
+Calm Drive shows at most four persistent glance facts: Fuel, Integrity, next meaningful navigation landmark/action, and exposed haul. Pressure appears when it changes, affects the current decision, or is inspected. At most one warning expands, two transient items coexist, and one Context card appears. Lower-priority items fold before cause, risk, security, destructive consequence, or the primary action.
 
 ### Excluded from production HUD
 
@@ -136,6 +132,8 @@ Warnings use three stages: forecast, urgent, critical. They are rate-limited, ex
 - Undiscovered space is softly incomplete, not covered by an opaque gamey fog wall.
 - Filters: objectives, safehouses, discoveries, mastery; never dozens of commodity icons.
 - Route preview compares distance, known surface mix, closures, and build-relevant risks without drawing a single mandatory GPS line.
+- AtlasCanvas and RouteLedger are equivalent views of the same route facts; every spatial fact has a list/card path.
+- Route alternatives explicitly distinguish known, estimated, and unknown conditions. No universal score or “best route/build” label solves the choice.
 - Controller focus and touch gestures are first-class; map remains operable at 200% text.
 - If retained by D020, fast travel is offered only between eligible restored safehouses from a planning state after the current expedition is closed. It is unavailable with any active manifest, escrow, or pending mutation and clearly explains why.
 
@@ -165,6 +163,8 @@ Every part choice shows:
 
 Green/red color is supplemental; arrows, labels, position, and shape carry the meaning. Hidden math never decides a purchase.
 
+Compare cards separate **Gains**, **Costs**, and **Route consequences**. At most three actions are visible and exactly one is primary. Disabled/incompatible actions retain an exact reason instead of disappearing.
+
 ### Ownership/catalog states
 
 - **Empty:** explain where the selected slot's parts are found and offer relevant objective/map path.
@@ -180,13 +180,13 @@ Green/red color is supplemental; arrows, labels, position, and shape carry the m
 - Scrap change is localized near the action, then settles into the account total.
 - Confirm only for destructive/irreversible actions; routine part swapping is instant and undoable.
 
-## Mission board and Results
+## Plan contract cards and Settle
 
-### Mission board
+### Plan contract cards
 
 Each objective card shows destination, activity family, estimated session length, known surface/weather, required cargo capacity/capability, failure condition, guaranteed reward, and optional bonus. Risk is descriptive and inspectable, not a vague color rarity.
 
-### Results
+### Settle receipt
 
 Present in this order:
 
@@ -197,6 +197,8 @@ Present in this order:
 5. One clear next action: Garage, continue, retry, or choose another objective.
 
 Do not bury failure causes, reward consequences, or save state in a scrolling log.
+
+Settle remains visibly connected to the extraction/failure scene, but its Receipt is authoritative. In order it states cause, secured, lost, committed county change, retained observation, save result, and one next action. Animation never delays control or conceals these facts.
 
 ## Pause, settings, and save management
 
@@ -260,6 +262,7 @@ Design components, not separate desktop and mobile screens.
 
 - Anchors/containers and content priorities determine reflow; no hardcoded pixel positions in production surfaces.
 - Touch target minimum: 48 x 48 logical points with at least 12 points between conflicting targets.
+- Primary touch-driving controls begin at `[PLACEHOLDER: 64 x 64]` and are locked only by physical-device reach, occlusion, and mis-input proof.
 - Interactive content stays outside platform safe area plus a 16-point design inset.
 - Player HUD never covers the projected immediate driving line.
 - Text wraps/reflows at 200% for common tasks; no horizontal-scroll dependency for essential copy.
@@ -282,10 +285,12 @@ Design components, not separate desktop and mobile screens.
 
 - Normal text contrast target at least 4.5:1; large text and essential non-text target at least 3:1.
 - No state communicated by color alone.
+- No gameplay-critical state depends on audio, haptic, motion, fine detail, or spatial-map position alone.
 - Text scale supports 100-200% across all common tasks without unusable clipping or overlap.
 - High-contrast route/hazard mode; separate brightness and effects intensity.
 - Icon plus text labels for unfamiliar symbols; consistent icon grammar.
 - Pseudolocalization with at least 40% expansion and zero blocking truncation.
+- Atlas routes, spatial warnings, and direction cues have RouteLedger/fact-list equivalents.
 
 ### Motion and sensory intensity
 
@@ -330,6 +335,8 @@ Evolve Stylized Survival Readability into an illustrated, inked top-down world:
 - Terrain uses broad authored shapes, subtle paper/grain texture, region decals, shadows, vegetation/wreck clusters, and landmark silhouettes.
 - Weather, headlights, route paint, dust, and debris animate the map without obscuring it.
 - Interface panels resemble rugged navigation cards and dashboard instruments, not literal skeuomorphic gauges everywhere.
+
+Composition begins with three value bands—ink/deep road, terrain/paper midtones, and bone/highlights—then adds stable semantic accents. Field Manual cards may use clipped corners, ink rules, registration marks, stamps, route hatching, and sparse paper grain, but copy surfaces remain flat and high-contrast. Name-bearing type, logo, icon, launch, and marketing assets remain blocked until D021 passes.
 
 ### Shape language
 
@@ -376,7 +383,14 @@ These palettes describe the current provisional three-region target. D020 locks 
 - Atlas textures, material variants, baked collision/navigation metadata, and region LOD rules are cataloged.
 - World props use small coherent kits with composition rules; random scatter alone is not world dressing.
 - Road edges, crossings, barriers, and shortcuts receive unique readable treatment.
-- Asset imports record source, license, scale, pivot, collision, memory class, and mobile compression.
+- Universal asset records include stable ID/package, best-available source/runtime artifact, creator/source, ownership/license/allowed use/attribution/review, import preset/version, memory/package class, and production status. Spatial visuals, UI/fonts/icons, audio, and VFX/animation/haptics add only their relevant scale/pivot/collision, palette/atlas, localization/alternatives, format/rate/loop/bus/concurrency, quality/LOD, accessibility, and pool/cadence fields. Hero assets track proof/hours/rework individually; routine variants do so by batch/tranche, with defect IDs only when defects exist.
+- The deterministic pipeline is best-available source + provenance -> style/readability review -> export -> Godot import preset -> catalog/license/budget validation -> gallery/representative scene -> desktop/mobile-profile proof -> content package.
+- Commit Godot import metadata, not the generated `.godot/` cache. The initial runtime atlas-page hypothesis is `[PLACEHOLDER: 2048 x 2048]`; larger pages require a recorded quality/memory comparison.
+- **Phase-2 Drive hero:** vehicle rig, lot/fork, route/surface treatments, landmark, obstacles, threat/hazard, objective/safehouse and Fuel/repair/cargo/reward silhouettes, Drive HUD subset, plus real engine/surface/impact/warning/pickup/minimal-UI audio. It gates multiplication of vehicle/world/Drive-feedback families.
+- **Phase-3 integrated loop:** representative Service compare/part-install, extraction/safehouse mutation, Settle Receipt and exact secured/lost state, part-install/extraction/Settle cues, region ambience, and minimum sparse music transition across a 15-minute loop. It gates those families.
+- **Phase-8/10 complete shell and mix:** remaining component states, SystemSheet/settings/error/recovery, full semantic event map/mix, 30-minute desktop visual/audio fatigue/masking, and separate physical-device haptic proof. It gates the remaining UI/audio/haptic families.
+
+Each family may multiply only after its corresponding tranche passes recognition, throughput, provenance, import, memory/package, mix, and performance evidence. Phase 2 measures presentation cost—texture residency/pages, audio buffers/voices, materials/draws, nodes, VFX emitters/particles, package bytes, frame/audio time, and haptic cadence. Phase 3 records explicit family caps/headroom in D020's `SCOPE_LOCK.md` before broad production while preserving the separate 30% reserve and whole-process budgets.
 
 ### Typography and iconography
 
@@ -396,7 +410,8 @@ At App Store screenshot scale, a frame should show the player car, road choice, 
 
 - Input response begins in the next simulation frame.
 - UI press/selection acknowledgement: under 100 ms.
-- Small transitions: roughly 120-180 ms; major non-blocking reveal: 250-400 ms.
+- Small transitions: `[PLACEHOLDER: 120-180 ms]`; major non-blocking reveal: `[PLACEHOLDER: 250-400 ms]`. These are tuning hypotheses, not permission to delay repeated actions.
+- Every transition is cancellable or safely resolves to its final state; repeated Plan, Service, or Settle actions cannot queue presentation debt.
 - Reward animation never delays control or requires dismissal unless it presents a meaningful choice.
 - Vehicle animation derives from physical state: body roll, pitch, wheel steer, suspension, slip, damage, cargo weight.
 
@@ -411,6 +426,12 @@ At App Store screenshot scale, a frame should show the player car, road choice, 
 
 Effects are pooled, capped, distance/importance prioritized, and measured in full-stack performance proof. Reduced-effects mode preserves essential silhouettes/cues.
 
+### Semantic feedback events
+
+Gameplay emits one semantic fact. `FeedbackDirector` maps it to visual, audio, camera, and optional haptic outputs according to priority, capability, settings, visibility, cooldown, and performance tier. Required event fields are event/source ID, forecast/commit/consequence/resolve phase, critical/decision/status/flavor priority, magnitude, optional direction, cause localization key, cooldown group, and dedupe key.
+
+Initial families are input acknowledgement, surface transition, drift threshold, light/medium/heavy impact, Fuel/Integrity escalation, Pressure change with disclosed cause, exposed/secured/lost haul, objective/restoration resolution, part installation, and save/recovery state. Continuous simulation values drive continuous vehicle/audio state; they do not spam discrete events. Critical cues reserve capacity and may briefly duck masking buses. No output layer invents separate gameplay truth.
+
 ## Audio direction
 
 Replace the empty generator placeholders with licensed/owned real assets and explicit state-driven playback.
@@ -424,6 +445,8 @@ Replace the empty generator placeholders with licensed/owned real assets and exp
 - UI
 
 Each has independent level; critical warning routing remains understandable at low music/world levels. Mix supports a reduced dynamic-range mode and mono compatibility.
+
+Short frequent effects default to WAV with measured import compression; longer music/ambience default to Ogg Vorbis or another profiled format. Source masters remain lossless. Mono, sample rate, loop, trim, and compression decisions are recorded per asset.
 
 ### Vehicle audio
 
@@ -443,19 +466,20 @@ Each has independent level; critical warning routing remains understandable at l
 
 ### Music
 
-- Sparse adaptive score that supports lonely travel, rising pressure, critical return, safehouse, and Results.
+- Sparse adaptive score that supports lonely travel, rising pressure, critical return, safehouse, and Settle.
 - Stem/intensity transitions respond to expedition state and avoid restarting on minor events.
 - Music does not carry gameplay-critical information.
 
 ### Audio proof
 
-- Tests verify real streams are assigned, buses/routes exist, state transitions trigger, and concurrency/rate limits hold.
-- A rendered capture and human audible check verify engine continuity, surface change, impacts, warning, pickup, Results, and Garage feedback.
+- Initial minimum-device concurrency hypotheses are `[PLACEHOLDER: 24]` simultaneous voices with `[PLACEHOLDER: 4]` reserved for critical vehicle/warning/UI events, one player engine/surface set, three same-family impact voices before stealing, and two routine UI voices. Representative profiling replaces these values before scale.
+- Tests verify real streams are assigned, buses/routes exist, state transitions trigger, voice stealing/rate limits hold, and pause/resume never duplicates loops.
+- A rendered capture and human audible check verify engine continuity, surface change, impacts, warning, pickup, Settle, and Service feedback. One complete 15-minute mix passes before integrated-audio families multiply. A separate 30-minute desktop visual/audio fatigue/masking session samples 0-5 every five minutes, stops at participant request or >=4 discomfort, and targets `[PLACEHOLDER: median <=2 and no unresolved score >=3]` before the complete shell/mix graduates.
 - Headless counters are diagnostic only and cannot satisfy audible acceptance.
 
 ## Haptics
 
-- Low-frequency subtle road texture only if it remains comfortable and battery-safe.
+- Continuous road texture is disabled by default and cannot graduate without physical-device comfort, control-precision, battery, and 30-minute fatigue proof.
 - Distinct, rate-limited patterns for drift threshold, light/heavy impact, pickup, critical warning, and successful extraction.
 - Haptics never substitute for visual/audio meaning and can be scaled or disabled.
 - Physical-device proof checks simultaneous touch, audio, and haptic behavior.
@@ -466,6 +490,9 @@ Each has independent level; critical warning routing remains understandable at l
 - First-launch and first-minute comprehension targets pass with new players.
 - No player-facing debug or placeholder content remains.
 - Responsive aspect/safe-area matrix, 200% text, pseudolocalization, contrast, color-independent, focus, motion, audio-cue, and touch targets pass.
-- Representative art/audio/VFX/haptics meet the hero-minute target before broad content production.
+- Representative art/audio/VFX/haptics meet the hero-minute target before broad content production; the current fallback-font, drawn-geometry, generated-tone slice cannot satisfy this gate.
+- At least 80% explain route risk, part capability/tradeoff, and secured/exposed/lost/committed state correctly.
+- Phone-scale silhouette recognition, multimodal cue-cause recognition, a 15-minute full-state mix, 30-minute fatigue/masking session, asset throughput/provenance, and representative frame/memory/package proof pass.
+- Recognition uses a ten-person randomized per-category test at 896 x 414 logical scale with blank/near-neighbor controls: at least eight of ten per critical category and `[PLACEHOLDER: <=10%]` false positives.
 - Full production content maintains visual/audio identity and performance budgets.
 - Every claimed App Store accessibility feature passes its current end-to-end evaluation criterion.

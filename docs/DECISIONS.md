@@ -435,3 +435,74 @@ Status: Sharpened by D021; public execution now assumes a rename rather than tre
 - Tradeoffs: Finite authored mastery can exhaust; same topology raises repetition risk; no exclusive power may reduce compulsion.
 - Systems affected: Completion state, contracts, mastery, records, manifests, Expedition, profile selection, content/save migrations.
 - Validation: Four of five post-completion players identify and voluntarily begin a non-Scrap goal; alternate-build/condition runs create different route decisions; Expedition, if retained, adds value without being required for completion or ownership.
+
+## D030 — Combine world-first atlas identity, Field Manual structure, and semantic kinetics
+
+- Date/phase: 2026-07-11, Wayfinder experience-direction review.
+- Context: D008 selected an illustrated road atlas but did not resolve whether the interface should be spatial/diegetic, card-driven, or spectacle/tactility-driven. The current code-built dashboard is not a production precedent.
+- Options considered:
+  - Make the county itself the interface with minimal explicit UI.
+  - Build the experience entirely from modular roadbook cards.
+  - Make physicalized kinetic feedback the dominant language.
+  - Combine the strengths behind a strict information and component contract.
+- Selected option: Use **Animated Road Atlas + County Field Manual + Semantic Kinetics**. World/car silhouettes, surface, landmarks, cargo, damage, and motion communicate first. A bounded component grammar carries every exact, responsive, and accessible fact. Kinetic visual/audio/camera/haptic feedback appears only at meaningful input, transition, decision, consequence, and settlement moments. Service, Plan, Drive, and Settle are explicit application postures; the world metaphor never removes list/card equivalents, error/recovery facts, or deterministic navigation.
+- Reason: Preserves the strongest identity while giving comparison, localization, focus, accessibility, and production reuse a reliable structure and keeping sensory/asset scope bounded.
+- Tradeoffs: The hybrid needs discipline to avoid both card clutter and over-diegetic ambiguity; too little motion feels flat while too much causes fatigue; the component ceiling may need evidence-backed revision.
+- Systems affected: AppFlow, Presentation, world cues, HUD, Plan, Service, Settle, localization, responsive UI, accessibility, art, marketing.
+- Validation: UI gallery stays initially within eight primitives/seven card families/20 components; common flows pass focus/aspect/text/input matrices; four of five hero-minute targets pass; at least 80% explain route/build/settlement facts; world-only failures receive the smallest explicit equivalent rather than a new dashboard.
+
+## D031 — Use one Preflight Card and progressive, playable onboarding
+
+- Date/phase: 2026-07-11, Wayfinder onboarding review.
+- Context: Four setup pages plus a 60-90 second lot and first expedition could delay play or duplicate instruction, while no setup would hide high-value accessibility and audio/readability choices.
+- Options considered:
+  - Multi-page first-run wizard.
+  - No first-run setup; defer everything to Settings.
+  - One skippable live Preflight Card followed by spatial teaching and progressive HUD disclosure.
+- Selected option: Show detected language/input, direct accessibility shortcuts, and a live production brightness/engine/warning check on one skippable card with `Drive now` focused. Teach acceleration, steering, braking/reverse, optional handbrake, surface, harmless impact, landmark, fork, optional signal, and return through uninterrupted play. Reveal Fuel/Integrity/haul only when meaningful. First return settles exact facts and applies one of two useful starter parts across car, compare, forecast, audio, and test-lot behavior.
+- Reason: Gets the player moving quickly without concealing the settings most likely to remove first-session barriers.
+- Tradeoffs: Progressive disclosure may hide a system too long; the lot/fork must be final-quality enough to teach through world language; one card can become dense if shortcuts multiply.
+- Systems affected: First launch, Garage lot, HUD, input detection/glyphs, accessibility/settings, starter reward, Settle, hero-minute content.
+- Validation: Four of five move within ten seconds, identify objective/Fuel/Integrity within 30 seconds, and understand the fork/return choice within 60 seconds; 90% drive without help within two minutes; no lethal spawn, required page traversal, or modal interruption.
+
+## D032 — Coordinate presentation from one semantic feedback event
+
+- Date/phase: 2026-07-11, Wayfinder game-feel/audio review.
+- Context: Separate ad hoc UI, VFX, camera, audio, and haptic triggers can contradict, double-fire, mask critical cues, and turn counters or generated tones into false production proof.
+- Options considered:
+  - Let each gameplay/presentation system trigger its own effects.
+  - Centralize all presentation around raw per-frame telemetry.
+  - Emit bounded semantic events and let directors map them to available channels.
+- Selected option: Gameplay emits deduplicated semantic events with phase, priority, magnitude, direction, cause, and cooldown identity. Feedback/Audio directors map each event to visual, camera, audio, and optional haptic output using settings, capability, visibility, and budgets. Continuous simulation drives continuous vehicle/audio state without event spam. Critical channels reserve capacity and may briefly duck masking buses. Haptics are discrete, optional, rate-limited, paired with another cue, and never run in background.
+- Reason: One source of truth makes cues causal, testable, accessible, rate-limited, and adaptable to desktop/mobile without platform APIs leaking into gameplay.
+- Tradeoffs: Event taxonomy and arbitration require ownership; excessive coalescing can hide separate causes; feedback may feel restrained until representative tuning.
+- Systems affected: Vehicle, ExpeditionSession, activities, Pressure, resources, Presentation, AudioDirector, FeedbackDirector, PlatformService, accessibility, tests.
+- Validation: Four of five identify cause/severity of critical cues without a single required sensory channel; automated resource/routing/dedupe/concurrency/pause tests pass; captured 15-minute mix, 30-minute fatigue/masking session, and physical haptic test pass; generated tones/counters never satisfy production acceptance.
+
+## D033 — Gate asset multiplication behind one final-pipeline representative tranche
+
+- Date/phase: 2026-07-11, Wayfinder art/audio production review.
+- Context: The repository has no production visual/font/audio assets, and broad custom production before style, provenance, throughput, import, memory, and recognition proof could create expensive rework or an incoherent asset-pack collage.
+- Options considered:
+  - Produce the full region/vehicle/UI/audio catalog from the written direction.
+  - Buy or generate broad packs, then normalize them late.
+  - Build one small final-pipeline tranche with complete metadata and lock budgets from evidence before multiplication.
+- Selected option: Use three staged gates. Phase 2 proves the Drive hero vehicle/world/HUD plus real engine/surface/impact/warning/pickup audio. Phase 3 proves representative Service compare/part-install, extraction/safehouse mutation, Settle Receipt, exact secured/lost state, ambience, sparse music, and a 15-minute loop. Phases 8/10 prove remaining common component states, full mix/event map, 30-minute desktop visual/audio fatigue, and separate physical haptics. A family multiplies only after its own gate. Universal asset metadata covers stable ID/package, best-available source/runtime artifact, provenance/license/attribution, import version, memory/package class, and status; kind-specific fields apply only where meaningful. Hero proof/cost/rework is individual, routine variants are batch/tranche-level. The deterministic review/import/gallery/platform pipeline precedes packaging. Phase 2 measures presentation cost; Phase 3 records family caps/headroom in D020's `SCOPE_LOCK.md` while preserving its separate 30% reserve and whole-process budgets.
+- Reason: Proves identity and the actual marginal production cost while changes are still cheap; makes mobile/package implications visible before counts multiply.
+- Tradeoffs: Up-front pipeline and tranche work delays broad visible breadth; one region/sample may underrepresent later extremes; strict metadata adds authoring overhead.
+- Systems affected: Art/audio production, ContentCatalog, import/bake tooling, license manifest, UI gallery, performance/build reports, scope lock, outsourcing, localization, marketing.
+- Validation: Each staged family passes randomized per-category phone-scale recognition where visual, source/license audit, deterministic import, representative desktop/minimum-device measurement, clean export, D020 throughput/rework/cap formula, and the relevant hero/integrated/fatigue human proof before that family multiplies.
+
+## D034 — Separate the accessibility design baseline from App Store claims
+
+- Date/phase: 2026-07-11, Wayfinder accessibility/mobile-readiness review.
+- Context: Responsive layout, 200% text, color-independent cues, and settings can improve access without proving native assistive-technology support or every common task on each shipped device.
+- Options considered:
+  - Claim features when corresponding controls/settings exist.
+  - Defer accessibility until mobile adaptation.
+  - Design and test a broad multimodal baseline now, but make store claims only from exact-build end-to-end evidence.
+- Selected option: Build every common flow for 100-200% text, +40% pseudolocalization, 48-point targets, safe areas, focus/Back, keyboard/controller/touch intent parity, color/audio/haptic/motion-independent critical meaning, route-list equivalents, Reduced Motion/Effects, remapping/assists, independent audio categories, captions/visual audio where relevant, and recoverable error states. Treat Apple's Accessibility Nutrition Labels as per-device release assertions: claim only features whose current criterion passes every common task in the exact release candidate. Investigate native/screen-reader feasibility explicitly; never infer it from visual compliance.
+- Reason: Accessibility shapes architecture/content early while keeping public metadata accurate and auditable.
+- Tradeoffs: Common-task matrices and recruited testing add cost; some native assistive features may remain unclaimed at 1.0; stricter layouts constrain styling.
+- Systems affected: UI, input, settings, difficulty, map/navigation, audio/haptics, localization, playtest, App Store metadata, support docs.
+- Validation: Aspect/text/pseudoloc/contrast/focus/no-audio/mono/motion/input/error matrices pass; recruited users complete relevant common tasks; each proposed store label has a dated device/build evidence record and unsupported labels remain unclaimed.

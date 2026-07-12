@@ -130,7 +130,7 @@ Acceptance:
 
 ### 2. First 60 seconds / hero minute
 
-Cohort: five new players who have not seen the build/docs.
+Cohort: five new players who have not seen the build/docs for the observed hero minute, plus five additional new players for the ten-person phone-scale silhouette-recognition subcohort.
 Build: representative final-quality Garage departure, road, route fork, landmark, reward/threat, HUD, real audio.
 
 Observe without help:
@@ -141,6 +141,8 @@ Observe without help:
 - Fuel/Integrity interpretation.
 - First route/reward decision and stated reason.
 - Any unreadable spawn, UI, audio, or world cue.
+- Which car, route classes, landmark/safehouse, objective, hazard/threat, Fuel, repair, and cargo silhouettes are recognized when each category is randomized at exact 896 x 414 logical phone-proof scale for `[PLACEHOLDER: 500 ms]` inside representative density, including blank and near-neighbor control trials.
+- Whether the cause and severity of each critical cue remain identifiable with audio muted, mono output, Reduced Motion, and haptics disabled.
 
 Acceptance:
 
@@ -149,6 +151,8 @@ Acceptance:
 - Four of five encounter and understand a meaningful route or reward decision within 60 seconds.
 - At least 90% drive without help within two minutes across the larger onboarding cohort.
 - No player needs debug vocabulary; engine/surface/impact/pickup/warning/UI audio is audible and mix-controlled.
+- At least eight of ten identify each required critical category and false positives remain `[PLACEHOLDER: <=10%]`; failures simplify value/shape/motion before labels or effects multiply.
+- Four of five identify critical cue cause/severity without relying on one sensory channel.
 
 ### 3. Hybrid proof region
 
@@ -214,8 +218,10 @@ Cohort: representative touch/controller/keyboard users plus recruited players wh
 
 Flows:
 
-- First launch, Continue, Garage/loadout, mission board, map, expedition HUD, pause, Results, settings, recovery, support/privacy.
+- First launch, Continue, Service/loadout, Plan contract cards and Atlas/RouteLedger, Drive HUD, SystemSheet/pause, Settle Receipt, settings, recovery, support/privacy.
 - 100/150/200% text, pseudolocalization +40%, high contrast, reduced motion, visual audio cues, left-handed/largest touch layout, controller-only navigation.
+- AtlasCanvas and RouteLedger/list equivalents, known/estimated/unknown route facts, one-primary-action behavior, focus restoration, Back/Cancel, and destructive confirmation.
+- Fifteen-minute complete-state audio mix plus a separate 30-minute desktop visual/audio masking/fatigue session. Physical-iPhone haptic comfort is a separate device session; desktop or controller rumble is not a substitute.
 
 Acceptance:
 
@@ -227,6 +233,8 @@ Acceptance:
 - Descriptive presets and Custom expose independent assists, can change mid-campaign without progress/reward/ending loss, may only reduce a disclosed action-Pressure delta, and do not silently alter committed offers or punish assisted play.
 - Touch target/safe-area rules pass on physical devices before mobile acceptance.
 - App Store accessibility claims are made only after criterion-specific end-to-end tests.
+- Every proposed App Store accessibility label has a dated exact-build/device/common-task evidence record; unsupported labels remain unclaimed.
+- The desktop 30-minute session samples 0-5 masking/fatigue every five minutes, stops immediately on request or at >=4 discomfort, meets `[PLACEHOLDER: median <=2 and no unresolved score >=3]`, and keeps critical warnings distinguishable under the busiest representative mix. The physical-iPhone haptic session uses the same stop rule and records comfort, control precision, and battery separately.
 
 ### 7. Desktop alpha
 
@@ -350,9 +358,11 @@ Ask after observation, not before.
 ### UI, audio, and accessibility
 
 - What warning did you notice first and how?
+- What caused it, how severe was it, and which channel made that clearest?
 - Which screen took longest to understand?
 - What information was missing, duplicated, or too persistent?
 - Which setting helped, and did it preserve the intended feedback?
+- After 30 minutes, which motion, sound, flash, particle, or haptic became tiring or masked another cue?
 
 ### Return intent
 
@@ -374,6 +384,9 @@ Avoid asking only “Was it fun?” Use ratings after specific observations and 
 - Controller focus loss and pointer dependency.
 - Settings discovery and effect verification.
 - Save/recovery/support comprehension.
+- Phone-scale silhouette recognition accuracy and exposure time.
+- Critical-cue cause/severity accuracy under full mix, mute/mono, Reduced Motion, and haptics-off conditions.
+- Fifteen-minute mix defects and 30-minute visual/audio/haptic fatigue/masking score.
 
 ## Progression and economy testing
 

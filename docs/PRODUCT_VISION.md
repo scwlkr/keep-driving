@@ -55,7 +55,8 @@ Keep Driving should be recognizable within seconds through:
 - A battered yellow hero car against charcoal roads, sun-faded land, cyan route/water accents, and crimson threats.
 - Roads that are advantages, not rails: the player can leave them anywhere.
 - Safehouses, crossings, and shortcuts that visibly change as the county is restored.
-- A compact cockpit-like HUD built around Fuel, Integrity, cargo, and route pressure.
+- A compact Field Manual instrument ribbon: Fuel, Integrity, next landmark/action, and exposed haul; Pressure expands only when it changes or matters.
+- Exact roadbook cards for route/build/settlement facts, with kinetic ink, vehicle, audio, and optional haptic response reserved for meaningful consequences.
 - Weighty but accessible Arcade-Real Handling, visible drift, surface response, and satisfying ram impacts.
 - The recurring decision: continue toward a better reward, divert through risk, or return with what is already secured.
 
@@ -128,7 +129,7 @@ The following counts are a coherent **provisional production target**, not a sou
 - One compact currency, Scrap; recovered parts and blueprints are equipment/unlocks rather than extra spendable currencies.
 - A primary restoration arc targeting **8-12 hours** for a first completion, with **20-30 hours** of world completion, builds, mastery trials, and Expedition Mode if retained by D020.
 - Day/night presentation and limited region-aware weather that change visibility, grip, route pressure, and ambience without becoming survival-meter clutter.
-- Full start/pause/results/map/Garage/loadout/settings/accessibility/save/error flows.
+- Full Title/Preflight, Service/loadout, Plan/Atlas/RouteLedger, Drive, Settle Receipt, SystemSheet/settings/accessibility/save/error flows.
 - Production art, animation, audio, VFX, haptics, readable touch controls, controller support, reliable saves, and a tested iOS release.
 
 ### Scope-lock gate
@@ -183,9 +184,10 @@ The region graph is physically connected but staged by visible repairable barrie
 ### First 30 seconds of controllable play
 
 - Resume or start at the Garage without an account wall.
-- A selected control layout is visible through concise, dismissible prompts.
+- A single skippable Preflight Card exposes detected language/input, direct accessibility shortcuts, and a live production brightness/engine/warning check; `Drive now` remains focused.
+- The selected control layout is visible through concise, dismissible world prompts.
 - The immediate destination and return condition are clear.
-- The player begins moving within ten seconds after drive control becomes available; first-launch language/accessibility setup is timed separately.
+- The player begins moving within ten seconds after drive control becomes available; optional Preflight interaction is timed separately.
 - A route fork, landmark silhouette, or tempting salvage signal is visible before the first minute.
 
 ### First five minutes
@@ -301,6 +303,8 @@ D020 may reduce region, chassis, or postgame quantity, but it preserves the comp
 ## Product success measures
 
 - At least four of five new players drive within ten seconds and identify the immediate goal plus Fuel/Integrity within 30 seconds.
+- At least 80% of representative players correctly explain a compared route risk, selected part capability/tradeoff, and secured/exposed/lost/committed settlement state.
+- Each presentation family passes its staged representative gate before multiplication: Drive hero recognition/cues in Phase 2; integrated Service/Settle plus 15-minute mix in Phase 3; complete shell, 30-minute desktop visual/audio fatigue/masking, and separate physical-device haptic comfort in Phases 8/10.
 - Median handling satisfaction is at least 4/5 in structured desktop tests.
 - The early 12-part prototype produces at least three credible build hypotheses; launch proves every D020-locked route-changing build (minimum four) across representative scenarios. At the same chassis and Build Capacity budget no obtainable loadout is Pareto-dominant; unlock timing/one-time Scrap price do not excuse dominance, and every locked build has an explainable strength/weakness.
 - Repeated 15-minute sessions test the `[PLACEHOLDER: 30-45-second]` consequential route/resource/build/risk cadence while driving; passive scenery, routine steering, and cosmetic pickups do not count.

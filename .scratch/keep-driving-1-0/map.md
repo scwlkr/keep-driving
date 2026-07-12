@@ -17,7 +17,7 @@ The map is complete only after the required decisions and roadmap gates are dura
 - Keep scope in three explicit buckets: Required for 1.0.0, Valuable if Capacity Allows, and Post-1.0 Expansion.
 - Stop and report at real phase boundaries; keep the project playable and commit bounded verified slices frequently.
 - The required documentation package exists, but Roadmap Phase-1 decision acceptance remains in review until tickets 02-07 resolve one per session. Corrections block production scale-up/ticket 08 without invalidating bounded Phase-2 decision prototypes.
-- The isolated `prototypes/handling_truth_slice/` work is evidence for the open UX/game-feel and technical-risk decisions; it does not resolve ticket 04 or ticket 08. Automated smoke and short clean-export rendered harness runs pass; representative presentation, full-duration/cadence/capture, audible mix, physical controller, and five-player evidence remain open.
+- The isolated `prototypes/handling_truth_slice/` work is mechanical evidence against the resolved ticket-04 contract and remains evidence for technical-risk decisions; it does not satisfy a staged production-presentation gate or resolve ticket 08. Automated smoke and short clean-export rendered harness runs pass; representative final-pipeline presentation, full-duration/cadence/capture, audible mix, physical controller, and human evidence remain open.
 - After that desktop handling/hero slice is accepted, Phase 2 includes one signed export-only feasibility check. It requires the clearance-or-rename/release-identity gate first and proves only Godot/Xcode/signing/physical launch; formal mobile adaptation remains after the content-complete stabilized desktop gate.
 
 ## Decisions so far
@@ -25,6 +25,7 @@ The map is complete only after the required decisions and roadmap gates are dura
 - [Audit Current Project And 1.0 Gap](issues/01-audit-current-project-and-1-0-gap.md) — Keep the deterministic/streaming/progression/proof nucleus, but treat the build as playable v0/pre-alpha and replace or deeply refactor the production vehicle, world, content, presentation, save, platform, and release layers.
 - [Decide Product Identity And Launch Scope](issues/02-decide-product-identity-and-launch-scope.md) — Lead with route-shaped buildcraft and county restoration in a paid offline single-player game; assume a distinct public name, keep raw content counts and duration ranges provisional until measured throughput, and never trade quality/reliability for filler.
 - [Design Gameplay Content And Progression Systems](issues/03-design-gameplay-content-and-progression-systems.md) — Keep a stable authored county under persisted expedition manifests; build unique named sidegrades through visible capacity; drive objective restoration/extraction through three reusable activity state machines, action-driven Pressure, and completed-county replay.
+- [Decide UX Art Audio And Game Feel Direction](issues/04-decide-ux-art-audio-and-game-feel-direction.md) — Use an Animated Road Atlas world with bounded Field Manual components and semantic kinetic feedback; prove presentation through staged Drive, integrated-loop, and complete-shell gates before each asset family multiplies.
 
 ## Not yet specified
 
