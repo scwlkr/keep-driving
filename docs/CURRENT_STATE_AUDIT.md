@@ -18,11 +18,11 @@ The shortest responsible route to 1.0 is not to stack content onto this runtime.
 | Area | Current evidence | Audit call |
 |---|---|---|
 | Engine | Godot `4.7.stable.official.5b4e0cb0f`; GDScript; GL Compatibility renderer in `project.godot` | Retain, subject to export/device validation |
-| Entry point | `scenes/main.tscn` contains only `GameRoot`; runtime graph is constructed in code | Refactor into reusable scenes and services |
+| Entry point | `scenes/main.tscn` contains only `GameRoot`; runtime graph is constructed in code | Refactor to a thin `ApplicationShell` over five deep Modules plus reusable Presentation scenes |
 | Runtime | Nine scripts; `scripts/game_root.gd` is 621 lines and owns flow, UI, input, contacts, camera, save calls, audio, and feedback | Split before broad production work |
 | World | Pure deterministic `RunSeed + ChunkCoord` generation and bounded 25-active/49-preloaded streaming | Retain contracts; replace generation/content grammar |
 | Vehicle | Manual `Node2D` kinematics with tunable terrain grip/speed, reverse steering, drift, and camera response | Retain feel vocabulary; replace collision/motion substrate |
-| Progression | `RunProgression` owns run state, payout, affordability, and three upgrade rules | Retain boundary; replace hardcoded data model |
+| Progression | `RunProgression` owns run state, payout, affordability, and three upgrade rules | Retain characterized rule behavior; replace ownership and hardcoded data model |
 | Persistence | One unversioned JSON profile written directly to `user://keep_driving_profile_v0.json` | Replace implementation |
 | Interface | Programmatic default-theme HUD, menus, Garage, and five touch buttons | Replace presentation; retain Garage information standard |
 | Art/audio | Procedural draw calls and flat generated tiles; no committed image, font, shader, or audio asset | Replace for production |
@@ -51,7 +51,7 @@ Run end / Garage purchase
   -> ProfileStore overwrites profile JSON
 ```
 
-The flow is readable at prototype scale, but authority leaks across it. `GameRoot` mirrors progression state into eight mutable fields and tests often reach public dictionaries or call private methods. Production work needs explicit event and adapter boundaries.
+The flow is readable at prototype scale, but authority leaks across it. `GameRoot` mirrors progression state into eight mutable fields and tests often reach public dictionaries or call private methods. Production work needs five typed Module Interfaces with direct shell orchestration and narrow Adapters only at proven platform Seams, not a generic event bus or service mesh.
 
 ## Fresh proof evidence
 
@@ -211,21 +211,21 @@ Mobile support currently means GL Compatibility is selected and an 896 x 414 vie
 - Top-down, non-rotating, look-ahead camera principles.
 - Arcade-Real Handling vocabulary and terrain-dependent driving.
 - Fuel, Vehicle Integrity, and Scrap as the compact economic foundation.
-- Pure deterministic `RunSeed + ChunkCoord` generation contract.
+- Pure deterministic `RunSeed + ChunkCoord` behavior and `WorldGenerator` as characterized private pure-generation evidence only; target persistent identity and authored macro topology still replace its output model.
 - Stable marker IDs, bounded streaming windows, one-attach-per-frame budget, and proof metrics.
-- `RunProgression` as the owner of run/profile rules.
-- `ProfileStore` as an adapter boundary, not its current implementation.
+- `RunProgression` rule behavior as characterized private evidence only; `CampaignModule` and `ExpeditionModule` replace its run/profile ownership.
+- The `ProfileStore` v0 profile fixture and format as migration input only; `SaveModule` replaces its ownership and implementation.
 - Garage cost/effect/tradeoff clarity standard.
 - Fast Godot-native deterministic regression floor.
 
 ### Refactor deeply
 
-- `GameRoot` into flow/session orchestration, world, vehicle, input, presentation, audio/feedback, and save modules.
-- Vehicle into fixed-step arcade simulation with robust collision shapes/queries and shared analog `DriveIntent`.
-- Camera into a dedicated component.
-- World runtime into streaming, spatial query, entity lifecycle/pooling, and encounter services.
-- World generation into a hybrid authored macrograph plus deterministic runtime dressing/events.
-- Run/profile dictionaries into typed, versioned domain records and event-driven updates.
+- `GameRoot` into a thin `ApplicationShell` over `CampaignModule`, `ExpeditionModule`, `DriveRuntimeModule`, `ContentModule`, and `SaveModule`; Presentation/Feedback remain private shell Implementations.
+- Vehicle into a private `DriveRuntimeModule` fixed-step arcade Implementation with robust collision shapes/queries and shared analog `DriveIntent`.
+- Camera behavior into a private component owned by the shell's Feedback Implementation.
+- World streaming, spatial queries, entity lifecycle, and pools into private `DriveRuntimeModule` Implementations; activities and encounters stay private to `ExpeditionModule`.
+- World generation into an authored/baked county macrograph plus deterministic private `DriveRuntimeModule` population.
+- Run/profile dictionaries into typed, versioned domain records and closed typed commands/transitions through the owning Module Interfaces.
 - Hardcoded constants into validated Godot Resource catalogs.
 - Proof harness into unit, integration, rendered capture, performance, release-export, device, and human playtest evidence.
 
@@ -249,7 +249,7 @@ Mobile support currently means GL Compatibility is selected and an 896 x 414 vie
 | Deep builds | Slot, mass, power, cargo, and threat tradeoffs can support the D020-locked build-diversity floor (provisional target five; coherent fallback four) | One dominant stat stack could collapse the system | Twelve-part sandbox, four slots, benchmark matrix, three player-built loadouts, measured path to the locked floor |
 | First-minute clarity | Diegetic prompts and a visible destination can teach without a modal tutorial | Mobile HUD could overload the screen | Five-player first-60-seconds test with comprehension targets |
 | Performance scaling | Current streaming contracts can survive production-like assets and systems | Current benchmark is artificially cheap | Rendered full-stack 30-minute soak with representative art/audio/AI/collisions |
-| Save evolution | A versioned atomic envelope can migrate the existing v0 profile | Bad migration could destroy progress | N-2 fixtures, real v0 fixture, 1,000 interrupted writes, corrupt-primary recovery |
+| Save evolution | Independent PROFILE and SETTINGS alternating verified-slot journals can migrate the existing v0 profile while settings start in a separate durability domain | Bad migration or cross-kind recovery could destroy progress | N-2 and real v0 fixtures; per-kind sequences; highest-checksum-valid authority; corruption-only lower-slot recovery/quarantine; 1,000 interrupted writes |
 | iOS feasibility | Godot GL Compatibility and the chosen architecture can ship on the selected device floor | Exporter, Xcode, signing, or renderer failure could arrive late | Export-only signed feasibility check after the first accepted desktop truth slice; repeat with the frozen full game at Phase 15 before mobile adaptation |
 
 ## Risk register
@@ -261,7 +261,7 @@ Mobile support currently means GL Compatibility is selected and an 896 x 414 vie
 | Upgrade system has a dominant build | High | High | Sidegrade rules, benchmark scenes, catalog validator | Upgrade foundation |
 | Content burden exceeds capacity | High | High | D020 measured production tranche, discipline-by-discipline scope lock, modular landmark/event templates, density budgets | Phase-3 scope lock before content multiplication |
 | Green proofs create false confidence | High | High | Evidence taxonomy and human/rendered/device gates | Every phase |
-| Save migration or interruption loses progress | Medium | Critical | Atomic service, backups, fixtures, fault injection | Desktop alpha |
+| Save migration or interruption loses progress | Medium | Critical | Independent PROFILE/SETTINGS journals, per-kind sequences, alternating verified slots, migration fixtures, highest-checksum-valid authority, corruption-only lower-slot recovery/quarantine, fault injection | Desktop alpha |
 | iOS performance/lifecycle discovered late | Medium | Critical | Architecture constraints from day one; device proof after desktop gates | Mobile entry gate |
 | UI cannot scale from desktop to phone | Medium | High | Responsive component system, safe-area matrix, controller/focus tests | UX gate |
 | Art/audio pipeline becomes inconsistent | Medium | High | Production target board, budgets, import validation, vertical-slice signoff | Content production |

@@ -223,7 +223,7 @@ Settle remains visibly connected to the extraction/failure scene, but its Receip
 
 - Last successful save time and schema/build shown in diagnostics, not normal HUD.
 - New profile/reset requires explicit hold/typed confirmation and lists what is removed.
-- Corrupt-primary recovery explains use of backup and preserves diagnostic copy.
+- Eligible lower-slot recovery identifies the affected independent PROFILE or SETTINGS journal, explains that fallback requires an incomplete, unparsable, or checksum-invalid higher-sequence slot, and quarantines that evidence for diagnostics.
 - Debug profiles and migration tools are compile-time development surfaces, absent from release.
 
 ## Loading, empty, error, and offline states
