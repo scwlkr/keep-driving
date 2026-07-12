@@ -1,9 +1,34 @@
 # Design Gameplay Content And Progression Systems
 
 Type: research
-Status: claimed
+Status: resolved
 Blocked by: 01, 02
 
 ## Question
 
 What world, vehicle handling, upgrade, economy, activity, content, difficulty, reward, replayability, and endgame systems deliver the selected product identity with multiple viable builds and sustainable content production?
+
+## Answer
+
+Use one coupled gameplay stack in which **a stable county is re-read through a different car, haul, condition, objective, and risk state**. Depth comes from changed road decisions, not disposable maps, rarity inflation, currencies, or mission-count multiplication.
+
+### System contract
+
+- **World:** keep one authored, learnable county graph with seed-independent road, landmark, safehouse, and restoration IDs. Each departure freezes an immutable `ExpeditionManifest` containing versions/seed, contract, closures, weather, pre-rolled Pressure branches, reward rolls, starting loadout, and extraction nodes. A separate mutable `ExpeditionProgress` checkpoint owns position/resources, active branch/objective state, consumed sockets, escrow, and pending mutations. Reload resumes that exact pair; it never rerolls current content.
+- **Handling:** retain D004's direct Arcade-Real target—fixed-step analog control, credible momentum/traction/collision, readable surface costs, a low control floor, and a genuine line-choice/recovery ceiling. Stock remains campaign-capable; specialized builds earn bounded route advantages rather than binary keys. Towing is excluded; a winch is self-recovery or an authored site interaction.
+- **Builds:** equip at most one named part per slot under visible `Build Capacity`; compose chassis base -> additive deltas -> bounded multipliers -> clamps -> capability tags -> route forecast. Own each named part once, share it across presets, auto-convert later duplicates at a disclosed rate, and reject hidden sets, random affixes, physical-copy inventory, or Pareto dominance at the same chassis/capacity budget. Unlock timing and one-time Scrap price never excuse permanent dominance. The 12-part prototype needs three distinct hypotheses; launch needs every D020-locked build, minimum four, each with a material strength and weakness.
+- **Extraction and persistence:** distinguish committed profile/county state, immediate route/lore observation, expedition escrow, and active progress. New Scrap, parts, blueprints, chassis, payouts, cargo, and restoration mutations commit only at extraction. Safehouse banking closes the expedition; Continue begins a new serviced manifest there. Failure/abandon loses ordinary escrowed cargo/capability, retains only a `[PLACEHOLDER]` capped 15-20% of loose Scrap plus one eligible intact part/blueprint/cargo item explicitly assigned to installed secure-storage hardware; chassis, payouts, and mutations are ineligible. Previously owned gear and committed progress never drop. Background/quit resumes; every terminal `resolution_id` applies exactly once.
+- **Economy and rewards:** Scrap is the only spendable currency. Required restoration is objective-driven, baseline Fuel/Integrity service is free, the first successful return guarantees a choice between two useful parts, repeat payouts are fixed/disclosed, and every manifest has a finite reward budget. One namespaced `RewardLedger` plus a repetition ledger survives new manifests, reload, loadout preview, and safehouse Continue. Prefer place power, capability, choice, and expression before flexible Scrap; no required low-risk repeat, repair/Fuel tax, random fabrication, or refresh exploit.
+- **Activities and production:** lock three core state machines—Delivery changes the outbound burden, Recovery changes the return burden, Restoration permanently changes county topology/service. Mastery is an optional rules overlay and encounters are complications, not extra families. Count Restoration Objectives, Contract Definitions, decision-distinct Contract Instances, Mastery Overlays, Encounter Templates, Parts, and Viable Builds separately; reskins and parameter variants do not count unless they become a final-pipeline instance with a changed player decision. A bespoke mechanic must recur in `[PLACEHOLDER: three]` objectives or receive a separate D020 cost.
+- **Difficulty and fairness:** show forecast surfaces, closures, cargo/capability needs, broad threat, Fuel/time range, and safe return points without revealing the optimal answer. Visible Pressure changes only from disclosed noise/objective/encounter actions; a selected assist may visibly reduce that action delta but never increase it, change rewards/ending, or react to recent success. Wall-clock time alone never raises Pressure. Use descriptive presets plus independent assists, changeable without progress loss; hazards require telegraphs and graph-safe responses.
+- **Replay and endgame:** the completed county stays restored. Replay comes first from missed places, alternate builds/routes, mastery, and per-departure condition changes; a new campaign requires an explicit new profile/reset. Expedition Mode is optional after the complete ending, retains county topology, grants no exclusive power, needs no network/daily obligation, and is the first endgame cut if capacity fails.
+
+### Proof before lock
+
+- Fuzz at least 10,000 manifests across closures, contracts, loadouts, Fuel, and extraction; fault-inject every transition and prove exact resume plus idempotent settlement.
+- Run exhaustive compatible-loadout Pareto reports and human route-choice tests; no universal winner and every launch build has a representative strength/weakness.
+- Run three-expedition security tests with at least 80% exact committed/exposed comprehension and economy Monte Carlo including fail-fast, circling, safehouse-bounce, reload, failure-heavy, and alternating-low-risk profiles.
+- Measure the Lowlands content cell by discipline. Eight of ten players must distinguish the three activity families by decisions, and a second author must produce a validated data-only variant with `[PLACEHOLDER: under 20%]` rework.
+- Require handling, route-memory, accessibility, repetition, full-campaign stopping-point, and four-of-five voluntary non-Scrap post-completion-goal evidence before content or endgame lock. Bracketed tuning and rework values remain `[PLACEHOLDER]`; the stated fuzz counts, cohort/sample floors, and comprehension ratios are planning acceptance gates unless D020 explicitly rebaselines them.
+
+Primary-source research and detailed failure-mode analysis: [`docs/research/GAMEPLAY_CONTENT_AND_PROGRESSION_SYSTEMS.md`](../../../docs/research/GAMEPLAY_CONTENT_AND_PROGRESSION_SYSTEMS.md). Canonical implementation contracts: [`docs/GAME_DESIGN.md`](../../../docs/GAME_DESIGN.md), decisions D023-D029 in [`docs/DECISIONS.md`](../../../docs/DECISIONS.md), and the phase gates in [`docs/ROADMAP_TO_1.0.md`](../../../docs/ROADMAP_TO_1.0.md).

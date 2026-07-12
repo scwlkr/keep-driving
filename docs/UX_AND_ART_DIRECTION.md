@@ -32,7 +32,7 @@ Boot
 └── Game
     ├── Garage hub
     │   ├── Vehicle and loadouts
-    │   ├── Parts inventory / fabrication
+    │   ├── Owned parts / blueprint fabrication
     │   ├── Mission board
     │   ├── World map
     │   ├── Records / discoveries
@@ -47,8 +47,8 @@ Boot
     │   ├── Resume
     │   ├── Map / objective
     │   ├── Controls / settings / accessibility
-    │   ├── Return to last safe boundary
-    │   └── Quit to title
+    │   ├── Abandon expedition
+    │   └── Save active checkpoint and quit to title
     ├── Safehouse / extraction
     └── Results
         ├── Secured / lost / records
@@ -137,7 +137,7 @@ Warnings use three stages: forecast, urgent, critical. They are rate-limited, ex
 - Filters: objectives, safehouses, discoveries, mastery; never dozens of commodity icons.
 - Route preview compares distance, known surface mix, closures, and build-relevant risks without drawing a single mandatory GPS line.
 - Controller focus and touch gestures are first-class; map remains operable at 200% text.
-- If retained by D020, fast travel is offered only between eligible restored safehouses and clearly explains why it is unavailable.
+- If retained by D020, fast travel is offered only between eligible restored safehouses from a planning state after the current expedition is closed. It is unavailable with any active manifest, escrow, or pending mutation and clearly explains why.
 
 ## Garage, parts, and loadouts
 
@@ -147,10 +147,10 @@ The Garage is vehicle-first. The car remains visible and responds immediately to
 
 - Chassis/loadout header with current role summary.
 - The D020-locked functional-slot set around or beside the vehicle; current target six, coherent fallback five.
-- Category/filterable inventory panel.
+- Category/filterable owned/catalog panel.
 - Exact compare panel with benefits, drawbacks, compatibility, synergy, source, and value.
 - Route forecast for the selected objective.
-- Test-lot action, undo, save preset, fabricate/dismantle, and leave Garage.
+- Test-lot action, undo, save preset, fabricate a known blueprint, and leave Garage.
 
 ### Comparison standard
 
@@ -161,17 +161,17 @@ Every part choice shows:
 - Tradeoff introduced.
 - Mass/power/cargo/noise consequences.
 - Any route, weather, collision, or cargo behavior affected.
-- Affordability, inventory/duplicate state, and what happens on confirm.
+- Affordability, owned/blueprint/duplicate-conversion state, and what happens on confirm.
 
 Green/red color is supplemental; arrows, labels, position, and shape carry the meaning. Hidden math never decides a purchase.
 
-### Inventory states
+### Ownership/catalog states
 
 - **Empty:** explain where the selected slot's parts are found and offer relevant objective/map path.
 - **Incompatible:** state the exact chassis/slot/capacity reason.
-- **Overflow intake:** no item is lost; compare, store, or dismantle.
-- **Missing preset item:** preserve preset, identify missing item, offer repair/swap, never silently substitute.
-- **Max/owned blueprint:** clearly distinguish part ownership, blueprint knowledge, and available copies.
+- **Duplicate find:** preview the fixed Scrap conversion; no second physical copy or overflow queue is created.
+- **Missing/deprecated preset item:** preserve the reference, identify the migration issue, offer an explicit equivalent/refund/swap, never silently substitute.
+- **Owned blueprint:** clearly distinguish named-part ownership, blueprint knowledge, and whether one-time fabrication remains available.
 
 ### Purchase/fabrication feedback
 
@@ -204,8 +204,8 @@ Do not bury failure causes, reward consequences, or save state in a scrolling lo
 
 - Immediate offline pause with Resume first.
 - Map/objective, controls, audio/display/gameplay/accessibility settings.
-- Return to last safe boundary states exactly what unsecured progress will be lost.
-- Quit to title saves only at a valid committed boundary and explains active expedition resume behavior.
+- Abandon expedition requires confirmation and states the exact failure settlement; it never rolls back to a safe boundary.
+- Quit to title writes an atomic active manifest/progress checkpoint and Continue resumes it; quitting is not abandon.
 
 ### Settings groups
 
@@ -310,7 +310,8 @@ Design components, not separate desktop and mobile screens.
 ### Cognitive and difficulty
 
 - Concise objective language, prompt recall, consistent terminology, and map legend.
-- Fuel drain, damage, threat density, and timing assists are independent.
+- Descriptive difficulty presets plus Custom expose the same independent assists; exact names/count require user testing, and changes never discard campaign progress or the ending.
+- Fuel drain, damage, threat density, objective/reaction timing, and a disclosed action-Pressure-gain reduction are independent. No assist increases Pressure or changes rewards/the ending.
 - Tutorial replay and safe test lot.
 - No important information disappears permanently after a timed toast.
 

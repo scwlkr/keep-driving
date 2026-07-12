@@ -11,9 +11,9 @@ The product vision is title-independent and release planning assumes a rename. A
 
 The 1.0 world is a connected road atlas built from authored regions, road hierarchy, shortcuts, landmarks, and safehouses. Damaged crossings and restoration milestones gate access diegetically; there are no invisible level walls, and restored connections remain freely explorable. Deterministic systems remix hazards, route closures, weather, pickups, and encounters so the player learns a real place without receiving the same expedition twice. The car is both movement and weapon; there is no on-foot mode or unrelated combat layer. Zombies are one supporting encounter set, not the headline promise or the only source of pressure.
 
-The primary game gains destinations, voluntary extraction, authored progression, recognizable places, build specialization, and a real completion arc. If retained by D020, the prototype's endless survival run returns as **Expedition Mode after primary completion**, not as a partial late-campaign unlock.
+The primary game gains destinations, voluntary extraction, authored progression, recognizable places, build specialization, and a real completion arc. If retained by D020, **Expedition Mode after primary completion** provides open-ended chained survival over the completed authored county, not disposable outward topology or a partial late-campaign unlock.
 
-Here, *roguelite* means expedition conditions reset and unsecured haul remains at risk while the profile, restored county, discoveries, chassis, parts, and completed campaign milestones persist. The primary profile never wipes and failure never restarts the campaign.
+Here, *roguelite* means expedition conditions reset and unsecured haul remains at risk while the profile, committed restored-county/route observations, banked blueprints, owned chassis/parts, and completed campaign milestones persist. The primary profile never wipes and failure never restarts the campaign.
 
 ## Core fantasy
 
@@ -82,7 +82,7 @@ Feature test: a meaningful part must alter how the player drives, routes, risks,
 
 ### 3. The return makes the risk meaningful
 
-Recovered cargo and uninstalled parts become safe when extracted at a Garage or safehouse. Completion, voluntary return, and failure produce distinct outcomes. The player should frequently know that going farther may be worth it and may also be a mistake.
+Recovered cargo, uninstalled parts, blueprints, and newly found chassis become safe only when extracted at a Garage or safehouse boundary. Completion, voluntary return, and failure produce distinct outcomes. The player should frequently know that going farther may be worth it and may also be a mistake.
 
 Feature test: rewards must create a real continue/return decision without erasing all progress on failure.
 
@@ -122,7 +122,7 @@ The following counts are a coherent **provisional production target**, not a sou
 
 - One seamless county with **three connected regions**, each with a distinct route, terrain, threat, weather, and visual identity.
 - At least **15 major landmarks** and **six safehouses/return points**, with authored road loops and discoverable shortcuts.
-- At least **24 authored contract objectives** distributed across four activity families, plus **15 or more dynamic encounter templates**.
+- Independent provisional floors: at least **six Restoration Objectives**; **four Contract Definitions** (at least two Delivery and two Recovery); **six decision-distinct Delivery Contract Instances**; **six decision-distinct Recovery Contract Instances**; **six Mastery Overlays**; and **15 distinct dynamic Encounter Templates**. Surplus in one axis cannot replace a missing floor in another, and variants never count unless they become final-pipeline decision-distinct instances.
 - **Three vehicle chassis** with visibly different mass, cargo, handling, durability, and slot profiles.
 - **Six functional part slots** and at least **36 launch parts**, all catalog-driven and sidegrade-oriented; at least five viable build archetypes.
 - One compact currency, Scrap; recovered parts and blueprints are equipment/unlocks rather than extra spendable currencies.
@@ -136,7 +136,7 @@ The following counts are a coherent **provisional production target**, not a sou
 Phase 3 must publish `docs/production/SCOPE_LOCK.md`; no world/content/catalog multiplication begins without its PASS. The artifact needs:
 
 1. A dated target candidate and launch window; available internal person-hours by discipline through that window after leave/overhead; committed contractor hours/cash; device, tester, localization, legal, and release budgets. An indefinitely movable date is not capacity.
-2. Repeatable production evidence from one Lowlands tranche: one production landmark cluster, one safehouse state change, three objective variants across at least two families, five encounter/event variants, and twelve production-quality parts with final-pipeline art/audio/localization metadata. Record hours by discipline, rework, defects, package/memory cost, and player decision density.
+2. Repeatable production evidence from one Lowlands tranche: one production landmark cluster; one safehouse state change/Restoration Objective as its own axis; three production `ContractInstance`s spanning at least two `ContractDefinition`s and including at least one decision-changing variant; five encounter/event instances spanning declared templates and including at least one decision-changing variant; and twelve production-quality parts with final-pipeline art/audio/localization metadata. Record original definition/template cost separately from marginal instance/variant cost, plus hours by discipline, rework, defects, package/memory cost, and player decision density. Never extrapolate original-definition quantity from the cheapest variant.
 3. Either a representative sample or an explicit three-point estimate for every unique/fixed tranche: another region kit and transition, alternate chassis, weather/night stack, finale, Expedition Mode, mobile adaptation/device matrix, App Store assets/compliance, support, and launch. Any low-confidence item consuming more than 10% of a discipline's remaining capacity requires a prototype before PASS.
 4. Mandatory integration, QA, accessibility, localization, legal, device, App Review, and release work costed as baseline—not hidden inside contingency—then a separate 30% unallocated risk reserve.
 
@@ -151,20 +151,20 @@ PASS_d = budgeted_d <= confirmed_remaining_capacity_d
 
 The scope passes only if every discipline passes, total cash/contractor/device/tester budgets pass, the critical path fits the dated window, content-density/repetition/build-diversity tests pass, and no P0/P1 evidence gap is being treated as zero cost.
 
-The **minimum coherent fallback**, not the target, is two full region identities plus a compact mechanically distinct finale route; at least eight landmarks and three safehouses; three route-centered activity families; 12 authored objectives and eight encounter templates; two chassis, five functional slots, 24 named parts, and four viable route-changing builds; a 5-8 active-hour ending and 10-15 active hours of no-filler completion/mastery. The ending, regional contrast, route/build/return loop, decision density, build diversity, accessibility, save integrity, supported-device quality, and App Store readiness remain invariant.
+The **minimum coherent fallback**, not the target, is two full region identities plus a compact mechanically distinct finale route; at least eight landmarks and three safehouses; three route-centered activity families; independent floors of three Restoration Objectives, two Contract Definitions (one Delivery and one Recovery), three decision-distinct Delivery Contract Instances, three decision-distinct Recovery Contract Instances, three Mastery Overlays, and eight Encounter Templates; two chassis, five functional slots, 24 named parts, and four viable route-changing builds; a 5-8 active-hour ending and 10-15 active hours of no-filler completion/mastery. Surplus cannot substitute across axes. The ending, regional contrast, route/build/return loop, decision density, build diversity, accessibility, save integrity, supported-device quality, and App Store readiness remain invariant.
 
 If the provisional target fails, cut Required work in this order:
 
 1. Remove separate post-campaign Expedition Mode; retain campaign replay and mastery.
 2. Remove restored-route fast travel and the cosmetic floor.
 3. Reduce the full day/night and weather multiplicity to the smallest readable route-condition set.
-4. Fold route mastery into the other activities instead of retaining it as a separate fourth family.
+4. Remove standalone mastery-overlay quantity and retain only mastery conditions already supported by core activities/routes.
 5. Remove the third chassis.
 6. Compress the third full region into a compact mechanically distinct finale.
 7. Reduce safehouses from six toward the three-safehouse fallback while preserving a coherent return network.
 8. Merge the sixth functional slot into the remaining five-slot model without hiding part tradeoffs.
 9. Reduce the five-build target toward four viable route-changing builds; build diversity may not fall below four.
-10. Reduce objective, encounter, part, and landmark quantity—but not below the coherent fallback—while its density, repetition, and build-diversity tests still pass.
+10. Reduce content-axis, part, and landmark quantity—but not below any independent coherent-fallback floor—while density, repetition, and build-diversity tests still pass; surplus on one axis never compensates another.
 
 Playtime targets rebaseline from the accepted content; enjoyment, ending, no-grind, decision-density, and no-filler gates do not. Each cut triggers the affected validation again. If the fallback also fails, the scope gate is FAIL and the project must change capacity, window, or product decision before production scale-up.
 
@@ -202,7 +202,7 @@ The region graph is physically connected but staged by visible repairable barrie
 2. Drive through at least two meaningful route decisions.
 3. Resolve one dynamic encounter or optional detour.
 4. Complete, extract, or fail with a clear consequence.
-5. Install, compare, sell, or save toward one part decision.
+5. Install, compare, fabricate, or save a preset toward one part decision.
 
 ### Typical one-hour session
 
@@ -215,7 +215,7 @@ The region graph is physically connected but staged by visible repairable barrie
 ### First day
 
 - Complete onboarding and the Lowlands introduction.
-- Install the first choice-bearing part during the first play session.
+- On the first successful return, choose between two useful starter parts and gain ownership of the selected one; install that first choice-bearing part in the first play session.
 - Unlock the first safehouse and second activity family.
 - Understand why a scout and rammer choose different routes.
 
@@ -242,7 +242,7 @@ D020 may reduce region, chassis, or postgame quantity, but it preserves the comp
 2. **First vehicle** — the battered Utility wagon is already the player's usable car, not a menu-locked reward.
 3. **Garage lot tutorial** — move, brake, reverse, drift, and hit a harmless breakable prop in a playable space.
 4. **First expedition** — visible Lowlands safehouse objective; one fork and one optional salvage detour.
-5. **First return and upgrade** — carried salvage is secured; the player chooses and installs one of two mutually useful parts, then can test/undo it in the lot.
+5. **First successful return and upgrade** — carried salvage is secured; the player gains ownership of and installs one of two mutually useful parts, then can test/undo it in the lot.
 6. **First meaningful destination** — restoring a safehouse changes navigation, return safety, and available contracts.
 7. **First discovery** — a landmark or shortcut is marked through exploration, not an exhaustive icon dump.
 8. **First specialization** — enough parts exist to commit toward scout, rammer, drifter, offroad, or hauler behavior.
@@ -302,8 +302,8 @@ D020 may reduce region, chassis, or postgame quantity, but it preserves the comp
 
 - At least four of five new players drive within ten seconds and identify the immediate goal plus Fuel/Integrity within 30 seconds.
 - Median handling satisfaction is at least 4/5 in structured desktop tests.
-- At least three benchmarked builds remain viable across road, offroad, impact, cargo, and endurance tests; no one build wins every axis.
-- Repeated 15-minute sessions contain a consequential route/resource/build/risk tradeoff at least every 30-45 seconds while driving; passive scenery, routine steering, and cosmetic pickups do not count.
+- The early 12-part prototype produces at least three credible build hypotheses; launch proves every D020-locked route-changing build (minimum four) across representative scenarios. At the same chassis and Build Capacity budget no obtainable loadout is Pareto-dominant; unlock timing/one-time Scrap price do not excuse dominance, and every locked build has an explainable strength/weakness.
+- Repeated 15-minute sessions test the `[PLACEHOLDER: 30-45-second]` consequential route/resource/build/risk cadence while driving; passive scenery, routine steering, and cosmetic pickups do not count.
 - At least four of five blind target-player tests distinguish the promise as route-and-build restoration rather than describing it as the existing *Keep Driving*, “top-down *Pacific Drive*,” a rally game, or a generic zombie-driving game.
 - Primary progression has no required grind wall longer than two normal sessions without a new capability, location, or meaningful part choice.
 - Release beta records at least 1,000 launch-to-background-or-quit sessions across at least 50 external participants and every supported device tier over at least 14 consecutive days; at least 99.8% are free of attributable crash/watchdog/unrecovered hang, with zero reproducible save loss and zero open P0/P1.

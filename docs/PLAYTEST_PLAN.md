@@ -158,8 +158,9 @@ Build: 10-15 minute region with two primary routes, offroad shortcut, three land
 Acceptance:
 
 - First-time players reach destination using world cues/map without facilitator route instruction.
-- Meaningful route/encounter/reward decision every 30-45 seconds.
+- For a typical 15-minute proof, begin with the explicit `[PLACEHOLDER]` composition of two to four route choices, one to three encounters, one optional detour, one objective beat, and one return decision; reject filler inserted only to satisfy a timer.
 - Players can describe at least two landmarks and one route tradeoff afterward.
+- At least 80% correctly order the relative risk of paired route/contract forecasts before departure; compare different loadouts against the same committed offer to verify threats/rewards do not counter-pick.
 - Repeat players use learned geography while responding to changed systemic conditions.
 - No obvious route grammar repetition, seam, blank terrain, or unavoidable lethal event.
 - Release-like desktop streaming remains <=4 ms p95.
@@ -180,9 +181,9 @@ Acceptance:
 
 - Players make a valid build in under two minutes after introduction and swap presets in under 60 seconds.
 - At least 80% correctly explain the chosen part's capability and tradeoff.
-- At least three distinct builds are selected and succeed in their intended benchmark.
-- No build wins road, offroad, impact, Fuel, cargo, and threat benchmarks.
-- No hidden math, duplicate, compatibility, affordability, or missing-preset confusion blocks the flow.
+- The 12-part tranche yields at least three distinct build hypotheses; launch acceptance remains every D020-locked build, minimum four.
+- At the same chassis and Build Capacity budget no obtainable loadout is Pareto-dominant; later unlock timing or one-time Scrap price never excuses dominance. Each required build has a representative strength and weakness, and no build wins road, offroad, impact, Fuel, cargo, and threat benchmarks.
+- No hidden math, shared-ownership, duplicate-conversion, compatibility, affordability, capacity, or missing-preset confusion blocks the flow.
 
 ### 5. Three-run expedition/economy proof
 
@@ -199,10 +200,13 @@ Acceptance:
 
 - First meaningful part choice occurs in the first session.
 - At least two credible build paths appear across the cohort.
-- Players distinguish secured/unsecured reward, extraction, objective completion, and failure consequences.
+- At least 80% of players predict exactly which reward/world facts are committed, immediate observations, or expedition escrow before choosing return/push.
 - Returning safely and pushing farther are both selected for understandable reasons.
 - Intentional failure, idling, circling, or farming does not outperform outward objective play.
-- No 30-45 minute span lacks a new capability, place, blueprint, chassis clue, or meaningful choice during primary progression.
+- Safehouse banking visibly closes the expedition; Continue starts a new persisted manifest from that safehouse with serviced baseline Fuel/Integrity while preserving claimed/rolled socket value, reward cooldowns, and repetition history.
+- If retained, fast travel is unavailable until the expedition is closed and never transports active escrow or pending mutations.
+- Failure, abandon, app background, and reload never retain an ordinary escrowed part/cargo, reroll a manifest, or apply a settlement twice.
+- Required restoration and baseline Fuel/Integrity never need Scrap; no player repeats a solved low-risk objective solely to unlock campaign progress.
 
 ### 6. UX shell and accessibility
 
@@ -220,6 +224,7 @@ Acceptance:
 - No blocking clip/overlap/truncation at supported aspects/text sizes.
 - Contrast and color-independent information pass audit.
 - Reduced motion/flash/particle/haptic settings take effect immediately and preserve meaning.
+- Descriptive presets and Custom expose independent assists, can change mid-campaign without progress/reward/ending loss, may only reduce a disclosed action-Pressure delta, and do not silently alter committed offers or punish assisted play.
 - Touch target/safe-area rules pass on physical devices before mobile acceptance.
 - App Store accessibility claims are made only after criterion-specific end-to-end tests.
 
@@ -261,11 +266,13 @@ Tests:
 Exit:
 
 - No progression blocker or required random grind.
-- The D020-locked content target is met without obvious filler/repetition.
-- All required build archetypes viable.
-- Economy source/sink and failure/extraction behavior stable.
+- The D020-locked content target reports Restoration Objectives, Contract Definitions, decision-distinct Contract Instances, Mastery Overlays, Encounter Templates, Parts, and Viable Builds separately; cosmetic/parameter variants inflate none of them.
+- Eight of ten players distinguish delivery, recovery, and restoration by decisions rather than fiction; a second author produces a validated data-only variant with `[PLACEHOLDER: <20%]` rework after review.
+- Every D020-locked build is viable, minimum four; each has a material strength/weakness and the exhaustive report finds no Pareto-dominant obtainable loadout at the same chassis and Build Capacity budget.
+- Economy source/sink and failure/extraction behavior is stable across the Monte Carlo exploit profiles and exact-security human test.
 - At least ten new clean-profile players: median first primary-arc completion lands inside the D020-locked range (current target 8-12 active hours; coherent fallback 5-8), at least 8/10 land inside the lock's declared tolerance, and no player hits a mandatory random-grind block.
 - At least five clean-profile players continuing into mastery each reach the D020-locked authored completion/build/mastery goal inside its active-play range (current target 20-30 hours; coherent fallback 10-15); median mastery enjoyment is >=4/5 and identical repeated filler is neither required nor counted. Expedition-specific goals apply only if the mode survives D020.
+- At least four of five post-completion players identify and voluntarily begin a non-Scrap next goal; Expedition Mode, if retained, remixes declared conditions on the same county topology and grants no exclusive campaign power.
 - Zero P0/P1; P2 burn-down is bounded and scheduled.
 
 ### 9. iOS internal TestFlight
@@ -374,9 +381,10 @@ Avoid asking only “Was it fun?” Use ratings after specific observations and 
 
 - Simulate reward/cost curves across representative success/failure/extraction rates.
 - Catalog benchmark for part/build dominance.
-- Detect impossible unlock dependencies, negative/overflow values, missing sources/sinks, and duplicate reward application.
-- Verify repeated low-risk contract is not optimal beyond intended onboarding.
-- Test all activity outcomes and resume boundaries.
+- Detect impossible unlock dependencies, negative values, missing sources/sinks, strict loadout dominance, and duplicate reward application.
+- Verify repeated low-risk, fail-fast, circling, safehouse-bounce, abandon, reload, offer-cancel, and loadout-preview strategies remain inferior to cautious objective play; the same committed offer remains identical across loadouts.
+- Fuzz at least 10,000 manifests across graph closures, loadouts, Fuel, contracts, and extraction paths; fault-inject every expedition/objective transition and prove the same immutable manifest plus latest-checkpoint position, Fuel, Integrity, Pressure branch, objective/encounter state, consumed sockets, escrow, and pending mutations resume, with `resolution_id` idempotence.
+- Test all delivery, recovery, restoration, mastery-overlay, escrow, outcome, and resume boundaries.
 
 ### Human
 

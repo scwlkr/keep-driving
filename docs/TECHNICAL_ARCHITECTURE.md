@@ -34,11 +34,11 @@ main.tscn (GameRoot)
 
 Primary conflicts with the target:
 
-- `scripts/game_root.gd` cannot safely absorb map, contracts, inventory, loadouts, settings, accessibility, lifecycle, localization, and release behavior.
+- `scripts/game_root.gd` cannot safely absorb map, contracts, ownership/escrow, loadouts, settings, accessibility, lifecycle, localization, and release behavior.
 - `scripts/player_vehicle.gd` directly mutates a `Node2D` in variable-delta `_process`; production collision and frame-rate behavior require a new substrate.
 - `scripts/world_generator.gd` creates a repetitive four-spoke chunk grammar; the campaign needs an authored macrograph and baked world data.
 - `scripts/world_runtime.gd` synchronously generates data and linearly scans/counts entities; production assets and AI need asynchronous loading, spatial queries, lifecycle policies, and real pooling.
-- `scripts/run_progression.gd` and `scripts/game_constants.gd` hardcode three upgrades; the target needs stable catalog resources and typed inventory/loadout state.
+- `scripts/run_progression.gd` and `scripts/game_constants.gd` hardcode three upgrades; the target needs stable catalog resources and typed ownership/loadout state.
 - `scripts/profile_store.gd` directly overwrites unversioned JSON; release saves require an envelope, validation, backups, migration, and lifecycle rules.
 - UI and audio are constructed in the root, preventing reusable scenes, theming, localization, focus navigation, and real asset validation.
 
@@ -87,11 +87,13 @@ Owns boot, title, first-launch setup, Garage hub, expedition entry/exit, pause, 
 
 Authoritative owner for one active expedition:
 
-- Expedition ID/seed, objective, region/time/weather state.
-- Fuel, Vehicle Integrity, carried cargo, secured/unsecured rewards.
-- Player/chassis/loadout snapshot.
-- World mutations and activity/encounter status.
-- Success, extraction, failure, abandon, and resume rules.
+- Immutable `ExpeditionManifest`: identity, content/world version, seed/repetition snapshot, contract/objective branch graph, closures, weather, pre-rolled Pressure branches, encounters, reward rolls, valid extraction nodes, starting loadout/resources, and finite reward/socket budget.
+- Mutable `ExpeditionProgress`: Fuel, Vehicle Integrity, position, visible action-driven Pressure, active branch/objective substate, consumed sockets, carried cargo/escrow, and pending mutations stored against that manifest.
+- Player/chassis/loadout snapshot plus committed, immediate-observation, escrow, and active-manifest security buckets.
+- Pending county mutations; they commit only at extraction and never masquerade as permanent state during an active expedition.
+- Orthogonal state: expedition `offered -> active -> extracted | wrecked | stranded | abandoned`; objective `not_started -> active -> field_complete | objective_failed`. Return/push is mutable intent, not a required transition.
+- Safehouse banking closes the expedition; Continue creates a new manifest from that safehouse with serviced baseline Fuel/Integrity.
+- Quit/background resumes exactly; abandon settles like failure; terminal settlement uses an idempotent `resolution_id` and can apply only once.
 - Signals/snapshots consumed by UI and feedback.
 
 It replaces mirrored run scalars in `GameRoot`. Presentation receives immutable snapshots or narrow signals; it cannot mutate session dictionaries.
@@ -151,13 +153,23 @@ A validation/bake step converts authored sources into runtime `BakedWorld` packa
 
 Runtime never attempts to reconstruct authored macro roads from per-chunk noise.
 
+All persistent county facts use seed-independent authored IDs. `PersistentCountyState` owns committed restoration, discovered landmarks/roads, safehouse state, and other permanent mutations. It is never cleared or reconstructed merely because a new expedition seed is chosen.
+
+### ExpeditionManifestBuilder
+
+- Inputs the stable county/profile snapshot, selected contract/cargo, content versions, namespaced `RewardLedger`, and repetition ledger.
+- Selects only declared weather, closures, reward sockets, objective variants, and prevalidated encounter/Pressure branches; it never redraws county topology, moves major landmarks, or uses the player's selected loadout to counter-pick threats or weight rewards.
+- Uses the selected loadout only to validate an outbound/objective path and an extraction path against closures, cargo, and forecast Fuel before departure; property tests require the same committed offer/rolls across loadout previews.
+- Persists the complete immutable manifest before departure. Reload consumes the stored manifest and mutable progress; it does not regenerate from current profile/county state.
+- Fuzz reports cover route concentration, invalid combinations, reward distribution, and at least 10,000 contract/loadout/closure combinations.
+
 ### WorldPopulationGenerator
 
 Evolves the pure parts of the current `WorldGenerator` contract:
 
-- Input: expedition seed, stable chunk ID, region state, objective, recent event history.
-- Output: pure deterministic marker/event records for eligible authored sockets/zones.
-- Stable IDs for mutation and replay.
+- Input: frozen manifest selection and stable authored socket/chunk IDs.
+- Output: pure deterministic marker/event records only for manifest-selected eligible sockets/zones.
+- Stable authored IDs for county mutation and manifest-scoped IDs for active-instance replay.
 - No Godot nodes or scene-tree access in generation.
 - Seed fuzz and snapshot/hash proof.
 
@@ -180,14 +192,15 @@ Evolves the pure parts of the current `WorldGenerator` contract:
 
 ### EncounterDirector
 
-- Selects eligible event templates using region, seed, contract, time, weather, pressure, route state, and repetition history.
+- Activates only encounter templates/Pressure branches already selected by the manifest. Branch selection uses checkpointed current Pressure, the disclosed triggering action, any declared non-increasing assist modifier, route state, and consumed/cooldown facts; it checkpoints the new Pressure/branch before effects and never rerolls at runtime.
 - Activates authored sockets with reaction-distance and navigability rules.
+- Changes visible Pressure only from disclosed noise, objective actions, or encounter escalation—never elapsed wall time, assist use alone, or recent player success. A declared assist may only attenuate the disclosed action delta; it cannot trigger/increase Pressure or alter rewards.
 - Owns encounter state machines, not low-level entity movement.
 - Provides deterministic debug forcing and a recent-template audit.
 
 ### ActivityService
 
-- Contract definitions and runtime objectives for salvage/recovery, delivery, restoration, and mastery.
+- `ContractDefinition`/`ContractInstance` runtime objectives for Delivery and Recovery, plus `RestorationObjectiveDefinition` runtime objectives for Restoration; Mastery composes as an optional rules overlay rather than a fourth state machine.
 - Validates start requirements, progress, success/failure, reward escrow, extraction, and resume.
 - Uses stable activity IDs and versioned state.
 - World objects publish semantic interactions; activities do not reach into scene paths.
@@ -202,6 +215,8 @@ Application-wide read-only **metadata** registry loaded at boot. Boot loads stab
 - `LandmarkDefinition`
 - `EncounterDefinition`
 - `ContractDefinition`
+- `ContractInstance`
+- `RestorationObjectiveDefinition`
 - `BalanceProfile`
 - Cosmetic and audio/visual metadata/handles
 
@@ -209,11 +224,11 @@ Small vehicle/part/balance metadata may remain resident. Region, landmark, encou
 
 Catalog validation fails development/CI builds for duplicate/missing IDs, bad references, incompatible slots, invalid costs/ranges, missing localization, missing source/license metadata, or absent proof tags. Runtime content references stable IDs, never resource paths in saves.
 
-### Progression, Garage, Inventory, and Economy
+### Progression, Garage, Ownership, and Economy
 
 - `ProgressionService` applies restoration/discovery/chassis/blueprint milestones.
 - `EconomyService` is the only owner of Scrap sources/sinks and transaction validation.
-- `Inventory` owns part instances/copies, intake overflow, secured cargo, and dismantling.
+- `OwnershipCatalog` owns unique named parts, blueprints, fixed duplicate conversion, and preset references. Expedition escrow owns pending intact parts/chassis/cargo until terminal settlement; no physical duplicate inventory or overflow queue exists.
 - `LoadoutService` validates chassis slots/capacities and creates immutable `VehicleRuntimeConfig`.
 - `GaragePresenter` translates domain facts to comparison UI; it does not calculate affordability or stats.
 
@@ -280,11 +295,12 @@ Domain/gameplay code must run under a headless/test adapter.
 
 The payload contains typed/validated sections:
 
-- Profile/restoration/chassis/blueprints/discoveries/records.
-- Scrap and inventory with stable catalog IDs.
+- Profile/chassis/blueprints/discoveries/records plus one namespaced `RewardLedger` as the sole authority for profile/county-socket eligibility/claims/cooldowns, and a persistent repetition ledger.
+- Seed-independent `PersistentCountyState` for committed restoration, safehouses, roads, landmarks, and mutations; it holds no duplicate reward-claim state.
+- Scrap, unique owned-part IDs, and blueprint/fabrication state with stable catalog IDs.
 - Loadout presets.
-- Active expedition resume snapshot when eligible.
-- Safehouse/world mutations that persist beyond one expedition.
+- `ActiveExpeditionSnapshot` containing the immutable `ExpeditionManifest` plus mutable `ExpeditionProgress` when eligible.
+- Applied terminal `resolution_id` records sufficient to make settlement idempotent.
 - Tutorial/onboarding state.
 
 Settings live in a separate versioned file.
@@ -311,10 +327,11 @@ Never silently replace a corrupt profile with defaults. Copy corrupt material to
 
 ### Autosave and resume
 
-- Commit on safehouse/Garage entry, objective/restoration milestone, extraction/results resolution, purchase/fabrication transaction, and clean pause/quit boundary.
+- Permanently commit profile/county truth on safehouse/Garage extraction, results resolution, and purchase/fabrication transactions. Field objective/restoration milestones only checkpoint pending `ExpeditionProgress` until extraction.
+- Atomically checkpoint `ExpeditionProgress` before or with every socket consumption, reward/escrow change, objective/Pressure-branch transition, and pending mutation. Presentation may batch; authoritative value cannot wait for a periodic timer.
 - A periodic expedition checkpoint may save at a bounded interval outside collision/streaming spikes.
-- Background/interruption requests an immediate bounded snapshot; if time is insufficient, last committed state remains valid.
-- Resume restores an eligible expedition consistently or returns to the last safe boundary with an explanation; it never duplicates rewards.
+- Background/interruption requests an immediate bounded snapshot; if time is insufficient, the latest valid atomic `ActiveExpeditionSnapshot` remains authoritative.
+- Resume restores the immutable manifest plus latest valid atomic progress checkpoint; it never regenerates content, treats quit as abandon, rolls back to a convenience boundary, or duplicates rewards. Corrupt-snapshot recovery is a separate explicit error path using the newest valid active checkpoint. If no active checkpoint survives, quarantine the corrupt snapshot, discard all active escrow/pending mutations, restore the newest valid permanent snapshot, and disclose the recovery; corruption can never bank escrow or improve failure settlement.
 - Manual save slots are not required for 1.0. Reset, backup recovery, and debug import/export are required.
 
 ### Cloud readiness

@@ -117,7 +117,7 @@ Launch as a **one-time paid app containing the complete 1.0 game**.
 - Premium one-time purchase with no launch IAP, ads, account, tracking, or mandatory backend.
 - Localization-ready English, accurate store assets/metadata, privacy/legal/support readiness, and zero open release-blocking defects.
 
-The current planning targets—three regions, 15 landmarks, six safehouses, 24 objectives, 15 encounter templates, three chassis, six part slots, 36 parts, an 8-12-hour primary arc, and 20-30 hours of completion/mastery—form a coherent **production target**, not source-proven minimums. Phase 3 must apply the dated, discipline-by-discipline capacity formula, unique-work estimates, 30% risk reserve, cut ladder, and coherent fallback in `PRODUCT_VISION.md`; revising counts or duration openly is preferable to filler or compromised reliability.
+The current planning targets—three regions, 15 landmarks, six safehouses, three chassis, six part slots, 36 parts, an 8-12-hour primary arc, and 20-30 hours of completion/mastery—form a coherent **production target**, not source-proven minimums. Ticket 03/D026 supersedes this research snapshot's old fungible 24-objective count with independent provisional floors: six Restoration Objectives; four Contract Definitions; six Delivery Contract Instances; six Recovery Contract Instances; six Mastery Overlays; and 15 Encounter Templates. Surplus cannot substitute across axes. Phase 3 must apply the dated, discipline-by-discipline capacity formula, unique-work estimates, 30% risk reserve, cut ladder, and coherent fallback in `PRODUCT_VISION.md`; revising counts or duration openly is preferable to filler or compromised reliability.
 
 ### Valuable if capacity allows
 

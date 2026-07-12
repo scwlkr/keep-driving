@@ -24,6 +24,7 @@ The map is complete only after the required decisions and roadmap gates are dura
 
 - [Audit Current Project And 1.0 Gap](issues/01-audit-current-project-and-1-0-gap.md) — Keep the deterministic/streaming/progression/proof nucleus, but treat the build as playable v0/pre-alpha and replace or deeply refactor the production vehicle, world, content, presentation, save, platform, and release layers.
 - [Decide Product Identity And Launch Scope](issues/02-decide-product-identity-and-launch-scope.md) — Lead with route-shaped buildcraft and county restoration in a paid offline single-player game; assume a distinct public name, keep raw content counts and duration ranges provisional until measured throughput, and never trade quality/reliability for filler.
+- [Design Gameplay Content And Progression Systems](issues/03-design-gameplay-content-and-progression-systems.md) — Keep a stable authored county under persisted expedition manifests; build unique named sidegrades through visible capacity; drive objective restoration/extraction through three reusable activity state machines, action-driven Pressure, and completed-county replay.
 
 ## Not yet specified
 
