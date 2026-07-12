@@ -1,0 +1,55 @@
+{
+  "schema": "keep-driving.handling-truth-slice.render-cadence.v1",
+  "pass": true,
+  "actual_scene_tree_rendering": true,
+  "candidate_sha": "734eca717923f6c1f420a67e1201b9a643e61386",
+  "retained_candidate_evidence": true,
+  "debug_unbound": false,
+  "physics_ticks_per_second": 60,
+  "duration_seconds": 6.0,
+  "warmup_seconds": 1.0,
+  "tolerances": {
+    "position_axis_units": 0.5,
+    "velocity_axis_units_per_second": 0.5,
+    "rotation_radians": 0.005
+  },
+  "reports": {
+    "30": "/private/tmp/kd-candidate-cadence-734eca7/cadence-30-report.json",
+    "60": "/private/tmp/kd-candidate-cadence-734eca7/cadence-60-report.json",
+    "120": "/private/tmp/kd-candidate-cadence-734eca7/cadence-120-report.json"
+  },
+  "comparisons": [
+    {
+      "render_hz": 30,
+      "reference_hz": 60,
+      "physics_ticks_match": true,
+      "position_axis_delta": [
+        0.0,
+        0.0
+      ],
+      "velocity_axis_delta": [
+        0.0,
+        0.0
+      ],
+      "rotation_delta_radians": 0.0,
+      "pass": true
+    },
+    {
+      "render_hz": 120,
+      "reference_hz": 60,
+      "physics_ticks_match": true,
+      "position_axis_delta": [
+        0.0,
+        0.0
+      ],
+      "velocity_axis_delta": [
+        0.0,
+        0.0
+      ],
+      "rotation_delta_radians": 0.0,
+      "pass": true
+    }
+  ],
+  "milestone_acceptance_pass": false,
+  "milestone_acceptance_note": "Cadence evidence is one gate; full performance, controller, audio, and human evidence remain separate."
+}

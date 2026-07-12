@@ -1,0 +1,106 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (2 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | HandlingRecognitionHarness[39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mexport[22m | Started Exporting for macOS (3 steps)[39m[0m
+[   0% ] [90m[1mexport[22m | Creating app bundle[39m[0m
+[  25% ] [90m[1mexport[22m | Making PKG[39m[0m
+[   0% ] [90m[1msavepack[22m | Started Packing (102 steps)[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/drive_intent.gdc[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-81c7a5ff59cf66cf28c5ab9b2367bd04-prototype.scn[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_root.gdc[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_audio.gdc[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_camera_rig.gdc[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_vehicle.gdc[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_world.gdc[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/engine_high.wav-d6a7f63f71942e96f74de20b36efe58c.sample[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/engine_high.wav.import[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/engine_idle.wav-a8ee6a90ec10e2a5e6b4fd172e5458e9.sample[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/engine_idle.wav.import[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/engine_load.wav-aa7afabe760b1922bc2d7a35801aa51b.sample[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/engine_load.wav.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/impact_heavy.ogg-55a665047909b8f54818746011dd2535.oggvorbisstr[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/impact_heavy.ogg.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/impact_light.ogg-32f4c156e16ea653d27f55a7758987f9.oggvorbisstr[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/impact_light.ogg.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/impact_medium.ogg-bc39124989cb29cea36ce1d2c6db7445.oggvorbisstr[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/impact_medium.ogg.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/reward.ogg-d3e566670ca1fe6877d68f35608daa95.oggvorbisstr[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/reward.ogg.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/surface_asphalt.ogg-1ca8ac9eea3348ac6cf4f2a1bb9d79a0.oggvorbisstr[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/surface_asphalt.ogg.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/surface_dirt.ogg-856193149b4c03181e90ff6ac0e748d8.oggvorbisstr[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/surface_dirt.ogg.import[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/surface_grass.ogg-4dad365207d4b27dc1a70036454238bc.oggvorbisstr[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/surface_grass.ogg.import[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/surface_mud.ogg-a081ccf661cc73a64bab6ce80f0536e5.oggvorbisstr[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/surface_mud.ogg.import[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/ui_confirm.ogg-bc0e6309f1caff7c9cc00d98f33ab69f.oggvorbisstr[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/ui_confirm.ogg.import[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/warning.ogg-d164f7026071096312fc48f6f1a0df5f.oggvorbisstr[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/audio/warning.ogg.import[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/AtkinsonHyperlegible-Bold.otf-63b3b75e334af93ff3844790265d946d.fontdata[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/fonts/AtkinsonHyperlegible-Bold.otf.import[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/AtkinsonHyperlegible-Regular.otf-17782376423f9c5d77cf1260f8dbce94.fontdata[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/fonts/AtkinsonHyperlegible-Regular.otf.import[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/BarlowCondensed-Bold.otf-26a66b98c968dc61587c02c35e8e06f8.fontdata[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/fonts/BarlowCondensed-Bold.otf.import[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/barrier_heavy.svg-4b4e138833216406f044c0b853cb0ed5.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg.import[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/barrier_light.svg-71d25ba2fe90146f33dc8054943d8566.ctex[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg.import[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/barrier_medium.svg-200b9c24753d93762d3260691ec049a0.ctex[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg.import[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/cargo.svg-fb940c27ee08288faf58c3be9d09556a.ctex[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/cargo.svg.import[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/dust_particle.svg-1f5e7122f14317ddc03a7fb4d8c8a39d.ctex[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/dust_particle.svg.import[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/fuel.svg-1157ea1e6ead360dcb7bcbcb049b9add.ctex[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/fuel.svg.import[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/hero_wagon.svg-26bb01791498a6a956ba30b32848183b.ctex[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg.import[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/integrity.svg-1cdd4c25df70272b78e5ec31aa60a303.ctex[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/integrity.svg.import[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/lowlands_first_road.svg-d90df1c20a925944ef3ceecc12c4e5e7.ctex[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/lowlands_first_road.svg.import[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/objective.svg-7e16de296dc82e750568f3286a7b9e91.ctex[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/objective.svg.import[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/radio_relay.svg-07df321330ee3c33eb35426cf28d9f85.ctex[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg.import[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/repair.svg-08ee8f9cda09b0db77b14fa8d586824e.ctex[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/repair.svg.import[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/reward.svg-643256fcadf0b51636c184ef4704ad31.ctex[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/reward.svg.import[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/safehouse.svg-7c324eed662bce17f157c9c0171729e6.ctex[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/safehouse.svg.import[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/threat.svg-a41483a0abf64c9335073504c171a677.ctex[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/assets/visual/threat.svg.import[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/drive_intent.gd.remap[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype.tscn.remap[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_root.gd.remap[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_audio.gd.remap[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_camera_rig.gd.remap[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_vehicle.gd.remap[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://prototypes/handling_truth_slice/prototype_world.gd.remap[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/global_script_class_cache.cfg[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/uid_cache.bin[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://project.binary[39m[0m
+[92m[ DONE ][39m [1msavepack[22m
+[0m
+[  50% ] [90m[1mexport[22m | Code signing bundle[39m[0m
+[92m[ DONE ][39m [1mexport[22m
+[0m
+/tmp/HandlingTruthSlice.app: replacing existing signature
+HANDLING_TRUTH_SLICE_EXPORT path=/tmp/HandlingTruthSlice.app commit=734eca717923f6c1f420a67e1201b9a643e61386 dirty=false source_assets=37 source_asset_bytes=754939 pck_bytes=743448 app_file_bytes=170311302

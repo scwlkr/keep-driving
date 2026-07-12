@@ -1,0 +1,63 @@
+{
+	"benchmark_mode": "capacity",
+	"duration_seconds": 6.0,
+	"plateau": {
+		"absolute_delta_percent": 0.0361598264328284,
+		"delta_percent": -0.0361598264328284,
+		"evidence_valid": false,
+		"final_window_mean_mb": 201.578125,
+		"first_window_mean_mb": 201.651041666667,
+		"limit_percent": 5.0,
+		"measured_sample_count": 6,
+		"window_sample_count": 3,
+		"within_limit": false
+	},
+	"render_hz_target": 30,
+	"sample_attempts": [
+		{
+			"observed_simulation_seconds": 1.0,
+			"rss_bytes": 211337216,
+			"scheduled_seconds": 1.0,
+			"valid": true
+		},
+		{
+			"observed_simulation_seconds": 2.0,
+			"rss_bytes": 211337216,
+			"scheduled_seconds": 2.0,
+			"valid": true
+		},
+		{
+			"observed_simulation_seconds": 3.0,
+			"rss_bytes": 211501056,
+			"scheduled_seconds": 3.0,
+			"valid": true
+		},
+		{
+			"observed_simulation_seconds": 4.0,
+			"rss_bytes": 211501056,
+			"scheduled_seconds": 4.0,
+			"valid": true
+		},
+		{
+			"observed_simulation_seconds": 5.0,
+			"rss_bytes": 211402752,
+			"scheduled_seconds": 5.0,
+			"valid": true
+		},
+		{
+			"observed_simulation_seconds": 6.0,
+			"rss_bytes": 211353600,
+			"scheduled_seconds": 6.0,
+			"valid": true
+		},
+		{
+			"observed_simulation_seconds": 7.0,
+			"rss_bytes": 211353600,
+			"scheduled_seconds": 7.0,
+			"valid": true
+		}
+	],
+	"sample_interval_seconds": 1.0,
+	"schema": "keep-driving.handling-truth-slice.rss.v1",
+	"warmup_seconds": 1.0
+}

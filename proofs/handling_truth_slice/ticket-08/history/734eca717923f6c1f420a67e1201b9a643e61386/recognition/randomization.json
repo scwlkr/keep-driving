@@ -1,0 +1,4589 @@
+{
+  "schema": "keep-driving.handling-recognition-randomization.v1",
+  "candidate": "734eca717923f6c1f420a67e1201b9a643e61386",
+  "candidate_file_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/candidate.json",
+  "candidate_file_sha256": "d4cea16f4591fe880322e851cef549e73266aa77aca5a2bef64c26856f9b6725",
+  "human_results_present": false,
+  "participants": [
+    {
+      "participant": "KD08-HM-01",
+      "seed": 776763443,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-01-previews/manifest.json",
+      "preview_manifest_sha256": "7c2da7a346da735ee85b609a8607aa5bcd27ad293326a0e8930d005d0fcc7a42",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "896b66bb27658d9b1d340a569d20969877fcc55cc5cd95b5d275d1bca1d1da1a"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "7889c1e310141a16610ac8f167dbec1053b102f25f5b91797768751b45afbc11"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "ede46940af9918244a61d460bbd03232122e06d16b2c31b1fb4aea561e6d0b2d"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "1b6ec9141c6bc924c3b67c77fb89ce6c00799b5adc8872530d8c2fcb499ca95e"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "daf193a631b662a7032ff5a10e83cdf0ff6be2f0e4f9e34329805b9167a130a0"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "1411e297d183a6e613349e82bac7f96afda6242041e66d795bfe36c060a2cacc"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "4eda6a94b9c541c4f0c1c63afdcd1a413a30d837e209a3f138b142a9be802b4d"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "9206530e5ca460ba6be29c9562ea3a9cf668f2b2e44aa6235d0b145657b229b0"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "b5b12b12705a599f7980a4311bc0f79127f0452ad50ae755366e18beb37175d4"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dec0beceeb8f55f560f251037ca40f94570a78581f7242af279fd830d5bd7adc"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "27362dbc75e24003e9ec18b5db8f49f29f3c250eed21e51344b457521af85fee"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "e644c598b3f0a4a1431017c8cb6572a6d38caff1b2d0b23c246f253ef7d01fea"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "d364d03fd320ccb9e1b440bbf1331aee4c3d93a6bae623476142990b4a982710"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "0776ede6d58bc8ba87a7c1018d556b3687c3d3a4d2abe8d6e08bb471ce222cfa"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "a20d083e5e7850bdff3f0f45e067f774c0e2ebf7f16a89dcc86cb07631d2c725"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "f7228117171026beabf735a96069704a8697e30761159221183817c61989af38"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dd30ab4f271ca1d7a5474ccd5d68775b4ba72e815a25ea455a3dab95a39f50ee"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-02",
+      "seed": 1704864874,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-02-previews/manifest.json",
+      "preview_manifest_sha256": "8eb47a1c5775c9754074021ac3f4a3a20b34272ae6fc4f00b30dfb6b7c09c222",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "d364d03fd320ccb9e1b440bbf1331aee4c3d93a6bae623476142990b4a982710"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "f6c449a6be21f46f2abea6986b3e64a103e2a8851f6c84be68d37e65d6e85268"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "f6c449a6be21f46f2abea6986b3e64a103e2a8851f6c84be68d37e65d6e85268"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dec0beceeb8f55f560f251037ca40f94570a78581f7242af279fd830d5bd7adc"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "7889c1e310141a16610ac8f167dbec1053b102f25f5b91797768751b45afbc11"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dd30ab4f271ca1d7a5474ccd5d68775b4ba72e815a25ea455a3dab95a39f50ee"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "f7228117171026beabf735a96069704a8697e30761159221183817c61989af38"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "a20d083e5e7850bdff3f0f45e067f774c0e2ebf7f16a89dcc86cb07631d2c725"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "fa6373b58630972eed85f44d2c5c9cf0dcdae4f2fa13ee3bfeeccdf4b630e3ba"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "c66ade25b3eb734b0896915a976107e7e6710e78fecdcb92ea48c921b395e0aa"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "4eda6a94b9c541c4f0c1c63afdcd1a413a30d837e209a3f138b142a9be802b4d"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "896b66bb27658d9b1d340a569d20969877fcc55cc5cd95b5d275d1bca1d1da1a"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "1b6ec9141c6bc924c3b67c77fb89ce6c00799b5adc8872530d8c2fcb499ca95e"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "b5b12b12705a599f7980a4311bc0f79127f0452ad50ae755366e18beb37175d4"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "fa6373b58630972eed85f44d2c5c9cf0dcdae4f2fa13ee3bfeeccdf4b630e3ba"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "e644c598b3f0a4a1431017c8cb6572a6d38caff1b2d0b23c246f253ef7d01fea"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "abb5d240780f9e88d67a6dd80fe1a2d026db39ca46c7283685c047b32bd4ef7c"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "0776ede6d58bc8ba87a7c1018d556b3687c3d3a4d2abe8d6e08bb471ce222cfa"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-03",
+      "seed": 1937812665,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-03-previews/manifest.json",
+      "preview_manifest_sha256": "48ea5f65144259bc1aa254260a64d42aff40f011f55a5b9f1775449be99d9789",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "b5b12b12705a599f7980a4311bc0f79127f0452ad50ae755366e18beb37175d4"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "c66ade25b3eb734b0896915a976107e7e6710e78fecdcb92ea48c921b395e0aa"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "896b66bb27658d9b1d340a569d20969877fcc55cc5cd95b5d275d1bca1d1da1a"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "01e45628f9f2a7fcc0ee0b777086d2f019448db55bf43b5ad6e14d14c9e52efb"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "ede46940af9918244a61d460bbd03232122e06d16b2c31b1fb4aea561e6d0b2d"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "521fcbd290f04ffff291b6eaa2783345f22af8259d94d1194c3bd1bef2bddabc"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "a20d083e5e7850bdff3f0f45e067f774c0e2ebf7f16a89dcc86cb07631d2c725"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "f7228117171026beabf735a96069704a8697e30761159221183817c61989af38"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "f7228117171026beabf735a96069704a8697e30761159221183817c61989af38"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "24a9c6557faba97c6332c23145029050f20dc161aeceeb9244a05e7b3d5054d3"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "c66ade25b3eb734b0896915a976107e7e6710e78fecdcb92ea48c921b395e0aa"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "d039b192a143b6d1ae88e621e48e4a19a4c724a2c752a3bd7f1c6c978a1d58a2"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "bfb1c4c74275a471e255c4faf0fe4ee3cdacb921a89c1d37674569ced090d51d"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "52349a486842fded4c36de5fdf4a58e2fafd982f101a7c5841ecfddadabc4252"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "1b6ec9141c6bc924c3b67c77fb89ce6c00799b5adc8872530d8c2fcb499ca95e"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dd30ab4f271ca1d7a5474ccd5d68775b4ba72e815a25ea455a3dab95a39f50ee"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "c848eb7eee36f169c0aae4eb542559c26b9393501834cb042837f0ba2ea674a2"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "aa7454cd26017ed47160700640d87a63f4e8cf3c2676bbc97255c5b47d322b09"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-04",
+      "seed": 1780173769,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-04-previews/manifest.json",
+      "preview_manifest_sha256": "aa9d58acd4441b36038e876cc00bf8d8be76995bff9e8b2406704d5e10295076",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "e644c598b3f0a4a1431017c8cb6572a6d38caff1b2d0b23c246f253ef7d01fea"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "f7228117171026beabf735a96069704a8697e30761159221183817c61989af38"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "c66ade25b3eb734b0896915a976107e7e6710e78fecdcb92ea48c921b395e0aa"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dd30ab4f271ca1d7a5474ccd5d68775b4ba72e815a25ea455a3dab95a39f50ee"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "bfb1c4c74275a471e255c4faf0fe4ee3cdacb921a89c1d37674569ced090d51d"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "896b66bb27658d9b1d340a569d20969877fcc55cc5cd95b5d275d1bca1d1da1a"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "c66ade25b3eb734b0896915a976107e7e6710e78fecdcb92ea48c921b395e0aa"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "4eda6a94b9c541c4f0c1c63afdcd1a413a30d837e209a3f138b142a9be802b4d"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "f7228117171026beabf735a96069704a8697e30761159221183817c61989af38"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "abb5d240780f9e88d67a6dd80fe1a2d026db39ca46c7283685c047b32bd4ef7c"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "1b6ec9141c6bc924c3b67c77fb89ce6c00799b5adc8872530d8c2fcb499ca95e"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "521fcbd290f04ffff291b6eaa2783345f22af8259d94d1194c3bd1bef2bddabc"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "52349a486842fded4c36de5fdf4a58e2fafd982f101a7c5841ecfddadabc4252"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "c848eb7eee36f169c0aae4eb542559c26b9393501834cb042837f0ba2ea674a2"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-05",
+      "seed": 241404015,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-05-previews/manifest.json",
+      "preview_manifest_sha256": "69d400653452744059390311bd4dd0e7075406eee2b28b22b496ef3ccee8eee7",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "34815f442036302b6433141f5dfb5f6ea3305a142794687930131f37318505a3"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "fa6373b58630972eed85f44d2c5c9cf0dcdae4f2fa13ee3bfeeccdf4b630e3ba"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "521fcbd290f04ffff291b6eaa2783345f22af8259d94d1194c3bd1bef2bddabc"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "4eda6a94b9c541c4f0c1c63afdcd1a413a30d837e209a3f138b142a9be802b4d"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "c848eb7eee36f169c0aae4eb542559c26b9393501834cb042837f0ba2ea674a2"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "896b66bb27658d9b1d340a569d20969877fcc55cc5cd95b5d275d1bca1d1da1a"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "d364d03fd320ccb9e1b440bbf1331aee4c3d93a6bae623476142990b4a982710"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "1b6ec9141c6bc924c3b67c77fb89ce6c00799b5adc8872530d8c2fcb499ca95e"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "24a9c6557faba97c6332c23145029050f20dc161aeceeb9244a05e7b3d5054d3"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "aa7454cd26017ed47160700640d87a63f4e8cf3c2676bbc97255c5b47d322b09"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "ede46940af9918244a61d460bbd03232122e06d16b2c31b1fb4aea561e6d0b2d"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "a2cd8647a1e8daa0a2517fb38437faa17258559cd105ff9ee358823f1e24c8c4"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "c66ade25b3eb734b0896915a976107e7e6710e78fecdcb92ea48c921b395e0aa"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "bac40b53be8c8396ad718fde5fdd414b32370163b75788edd2fc5d5437022fea"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dd30ab4f271ca1d7a5474ccd5d68775b4ba72e815a25ea455a3dab95a39f50ee"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "9206530e5ca460ba6be29c9562ea3a9cf668f2b2e44aa6235d0b145657b229b0"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "d039b192a143b6d1ae88e621e48e4a19a4c724a2c752a3bd7f1c6c978a1d58a2"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-06",
+      "seed": 1950858448,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-06-previews/manifest.json",
+      "preview_manifest_sha256": "7abd0f8e4ccb549648a865820b38186e0cb269afe7b479a028d78fc875b3135a",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "9206530e5ca460ba6be29c9562ea3a9cf668f2b2e44aa6235d0b145657b229b0"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dec0beceeb8f55f560f251037ca40f94570a78581f7242af279fd830d5bd7adc"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "f6c449a6be21f46f2abea6986b3e64a103e2a8851f6c84be68d37e65d6e85268"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "c848eb7eee36f169c0aae4eb542559c26b9393501834cb042837f0ba2ea674a2"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "c66ade25b3eb734b0896915a976107e7e6710e78fecdcb92ea48c921b395e0aa"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "abb5d240780f9e88d67a6dd80fe1a2d026db39ca46c7283685c047b32bd4ef7c"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "24a9c6557faba97c6332c23145029050f20dc161aeceeb9244a05e7b3d5054d3"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "fa6373b58630972eed85f44d2c5c9cf0dcdae4f2fa13ee3bfeeccdf4b630e3ba"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "bfb1c4c74275a471e255c4faf0fe4ee3cdacb921a89c1d37674569ced090d51d"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "abb5d240780f9e88d67a6dd80fe1a2d026db39ca46c7283685c047b32bd4ef7c"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "daf193a631b662a7032ff5a10e83cdf0ff6be2f0e4f9e34329805b9167a130a0"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "24a9c6557faba97c6332c23145029050f20dc161aeceeb9244a05e7b3d5054d3"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "e644c598b3f0a4a1431017c8cb6572a6d38caff1b2d0b23c246f253ef7d01fea"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "d364d03fd320ccb9e1b440bbf1331aee4c3d93a6bae623476142990b4a982710"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "34815f442036302b6433141f5dfb5f6ea3305a142794687930131f37318505a3"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "fa6373b58630972eed85f44d2c5c9cf0dcdae4f2fa13ee3bfeeccdf4b630e3ba"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "521fcbd290f04ffff291b6eaa2783345f22af8259d94d1194c3bd1bef2bddabc"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-07",
+      "seed": 1071770849,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-07-previews/manifest.json",
+      "preview_manifest_sha256": "57f5de2f4a9e8e24dfddd5581cedfa6298be387d7e9975e9435f250852a4eccd",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "c848eb7eee36f169c0aae4eb542559c26b9393501834cb042837f0ba2ea674a2"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "1411e297d183a6e613349e82bac7f96afda6242041e66d795bfe36c060a2cacc"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "d364d03fd320ccb9e1b440bbf1331aee4c3d93a6bae623476142990b4a982710"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "9206530e5ca460ba6be29c9562ea3a9cf668f2b2e44aa6235d0b145657b229b0"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "daf193a631b662a7032ff5a10e83cdf0ff6be2f0e4f9e34329805b9167a130a0"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "abb5d240780f9e88d67a6dd80fe1a2d026db39ca46c7283685c047b32bd4ef7c"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "bfb1c4c74275a471e255c4faf0fe4ee3cdacb921a89c1d37674569ced090d51d"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "521fcbd290f04ffff291b6eaa2783345f22af8259d94d1194c3bd1bef2bddabc"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "f6c449a6be21f46f2abea6986b3e64a103e2a8851f6c84be68d37e65d6e85268"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "34815f442036302b6433141f5dfb5f6ea3305a142794687930131f37318505a3"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "abb5d240780f9e88d67a6dd80fe1a2d026db39ca46c7283685c047b32bd4ef7c"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "27362dbc75e24003e9ec18b5db8f49f29f3c250eed21e51344b457521af85fee"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "f6c449a6be21f46f2abea6986b3e64a103e2a8851f6c84be68d37e65d6e85268"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "896b66bb27658d9b1d340a569d20969877fcc55cc5cd95b5d275d1bca1d1da1a"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "f7228117171026beabf735a96069704a8697e30761159221183817c61989af38"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "4eda6a94b9c541c4f0c1c63afdcd1a413a30d837e209a3f138b142a9be802b4d"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "a20d083e5e7850bdff3f0f45e067f774c0e2ebf7f16a89dcc86cb07631d2c725"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dd30ab4f271ca1d7a5474ccd5d68775b4ba72e815a25ea455a3dab95a39f50ee"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "e644c598b3f0a4a1431017c8cb6572a6d38caff1b2d0b23c246f253ef7d01fea"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "aa7454cd26017ed47160700640d87a63f4e8cf3c2676bbc97255c5b47d322b09"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-08",
+      "seed": 2104208140,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-08-previews/manifest.json",
+      "preview_manifest_sha256": "57db1514a01edb911a96d2739afcac43943235dd7c7464391d87937a618821ac",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "ede46940af9918244a61d460bbd03232122e06d16b2c31b1fb4aea561e6d0b2d"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "1b6ec9141c6bc924c3b67c77fb89ce6c00799b5adc8872530d8c2fcb499ca95e"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "b5b12b12705a599f7980a4311bc0f79127f0452ad50ae755366e18beb37175d4"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "bfb1c4c74275a471e255c4faf0fe4ee3cdacb921a89c1d37674569ced090d51d"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dec0beceeb8f55f560f251037ca40f94570a78581f7242af279fd830d5bd7adc"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "27362dbc75e24003e9ec18b5db8f49f29f3c250eed21e51344b457521af85fee"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "27362dbc75e24003e9ec18b5db8f49f29f3c250eed21e51344b457521af85fee"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "c848eb7eee36f169c0aae4eb542559c26b9393501834cb042837f0ba2ea674a2"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "bac40b53be8c8396ad718fde5fdd414b32370163b75788edd2fc5d5437022fea"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "f6c449a6be21f46f2abea6986b3e64a103e2a8851f6c84be68d37e65d6e85268"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "fa6373b58630972eed85f44d2c5c9cf0dcdae4f2fa13ee3bfeeccdf4b630e3ba"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "4eda6a94b9c541c4f0c1c63afdcd1a413a30d837e209a3f138b142a9be802b4d"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "f7228117171026beabf735a96069704a8697e30761159221183817c61989af38"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "0776ede6d58bc8ba87a7c1018d556b3687c3d3a4d2abe8d6e08bb471ce222cfa"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "f6c449a6be21f46f2abea6986b3e64a103e2a8851f6c84be68d37e65d6e85268"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "aa7454cd26017ed47160700640d87a63f4e8cf3c2676bbc97255c5b47d322b09"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "bfb1c4c74275a471e255c4faf0fe4ee3cdacb921a89c1d37674569ced090d51d"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "34815f442036302b6433141f5dfb5f6ea3305a142794687930131f37318505a3"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-09",
+      "seed": 372573051,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-09-previews/manifest.json",
+      "preview_manifest_sha256": "a1257771ee76df4eda6e703141ec12f4f8afc9651bebba1e486806393a6ea271",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "a2cd8647a1e8daa0a2517fb38437faa17258559cd105ff9ee358823f1e24c8c4"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "1b6ec9141c6bc924c3b67c77fb89ce6c00799b5adc8872530d8c2fcb499ca95e"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "d039b192a143b6d1ae88e621e48e4a19a4c724a2c752a3bd7f1c6c978a1d58a2"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dd30ab4f271ca1d7a5474ccd5d68775b4ba72e815a25ea455a3dab95a39f50ee"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "27362dbc75e24003e9ec18b5db8f49f29f3c250eed21e51344b457521af85fee"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "bfb1c4c74275a471e255c4faf0fe4ee3cdacb921a89c1d37674569ced090d51d"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "fa6373b58630972eed85f44d2c5c9cf0dcdae4f2fa13ee3bfeeccdf4b630e3ba"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "521fcbd290f04ffff291b6eaa2783345f22af8259d94d1194c3bd1bef2bddabc"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "52349a486842fded4c36de5fdf4a58e2fafd982f101a7c5841ecfddadabc4252"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "c848eb7eee36f169c0aae4eb542559c26b9393501834cb042837f0ba2ea674a2"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "01e45628f9f2a7fcc0ee0b777086d2f019448db55bf43b5ad6e14d14c9e52efb"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "1b6ec9141c6bc924c3b67c77fb89ce6c00799b5adc8872530d8c2fcb499ca95e"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "27362dbc75e24003e9ec18b5db8f49f29f3c250eed21e51344b457521af85fee"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "0b0e7abbc6d285fb67c110bc9fc16b2d150a014945bf99976e1e1767c675a50c"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "4eda6a94b9c541c4f0c1c63afdcd1a413a30d837e209a3f138b142a9be802b4d"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "eca6b9749c1cc2841757be0a3ef1b4c98462f058a8a1569289f204782b39d692"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "a2cd8647a1e8daa0a2517fb38437faa17258559cd105ff9ee358823f1e24c8c4"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        }
+      ]
+    },
+    {
+      "participant": "KD08-HM-10",
+      "seed": 44911743,
+      "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-10-previews/manifest.json",
+      "preview_manifest_sha256": "880f75866c315f754c9dae3787a4ff2880045337e2a483e8b0620fd362e7e47a",
+      "trials": [
+        {
+          "trial_id": "trial_01",
+          "target_category": "objective",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_02",
+          "target_category": "fuel",
+          "stimulus_category": "repair",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "ede46940af9918244a61d460bbd03232122e06d16b2c31b1fb4aea561e6d0b2d"
+        },
+        {
+          "trial_id": "trial_03",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dd30ab4f271ca1d7a5474ccd5d68775b4ba72e815a25ea455a3dab95a39f50ee"
+        },
+        {
+          "trial_id": "trial_04",
+          "target_category": "objective",
+          "stimulus_category": "objective",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/objective.svg",
+          "preview_sha256": "0776ede6d58bc8ba87a7c1018d556b3687c3d3a4d2abe8d6e08bb471ce222cfa"
+        },
+        {
+          "trial_id": "trial_05",
+          "target_category": "landmark",
+          "stimulus_category": "landmark",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "0629eeeef5b4ae8872bae27f3a7c85c8daa9d6266f9bbd0f660dbb303ff0cd87"
+        },
+        {
+          "trial_id": "trial_06",
+          "target_category": "fuel",
+          "stimulus_category": "fuel",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        },
+        {
+          "trial_id": "trial_07",
+          "target_category": "cargo",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_08",
+          "target_category": "repair",
+          "stimulus_category": "repair",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/repair.svg",
+          "preview_sha256": "ede46940af9918244a61d460bbd03232122e06d16b2c31b1fb4aea561e6d0b2d"
+        },
+        {
+          "trial_id": "trial_09",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "e6bda208df774309339af28d43b1314e354933e3436138a9026173b9de064983"
+        },
+        {
+          "trial_id": "trial_10",
+          "target_category": "hero_car",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_11",
+          "target_category": "mud_route",
+          "stimulus_category": "primary_road",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "c66ade25b3eb734b0896915a976107e7e6710e78fecdcb92ea48c921b395e0aa"
+        },
+        {
+          "trial_id": "trial_12",
+          "target_category": "safehouse",
+          "stimulus_category": "safehouse",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "c0ab05cff671881c84212c4abab8c502dae221f1794dd0fa8afa6ee2be3c7d3d"
+        },
+        {
+          "trial_id": "trial_13",
+          "target_category": "primary_road",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_14",
+          "target_category": "landmark",
+          "stimulus_category": "safehouse",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/safehouse.svg",
+          "preview_sha256": "a20d083e5e7850bdff3f0f45e067f774c0e2ebf7f16a89dcc86cb07631d2c725"
+        },
+        {
+          "trial_id": "trial_15",
+          "target_category": "hero_car",
+          "stimulus_category": "hero_car",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg",
+          "preview_sha256": "01e45628f9f2a7fcc0ee0b777086d2f019448db55bf43b5ad6e14d14c9e52efb"
+        },
+        {
+          "trial_id": "trial_16",
+          "target_category": "fuel",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_17",
+          "target_category": "threat",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_18",
+          "target_category": "light_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "aa7454cd26017ed47160700640d87a63f4e8cf3c2676bbc97255c5b47d322b09"
+        },
+        {
+          "trial_id": "trial_19",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "heavy_obstacle",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "4eda6a94b9c541c4f0c1c63afdcd1a413a30d837e209a3f138b142a9be802b4d"
+        },
+        {
+          "trial_id": "trial_20",
+          "target_category": "objective",
+          "stimulus_category": "reward",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "f16a60f893ced7e0fedd05f0ffc3c09afa03895d0c1992298a3739e3572859c7"
+        },
+        {
+          "trial_id": "trial_21",
+          "target_category": "primary_road",
+          "stimulus_category": "dirt_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "b5b12b12705a599f7980a4311bc0f79127f0452ad50ae755366e18beb37175d4"
+        },
+        {
+          "trial_id": "trial_22",
+          "target_category": "medium_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_23",
+          "target_category": "reward",
+          "stimulus_category": "reward",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/reward.svg",
+          "preview_sha256": "5d7b2b0320d69983b8240d14c2f003b8d9e11e87fb676490f0610f4b655fd800"
+        },
+        {
+          "trial_id": "trial_24",
+          "target_category": "reward",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_25",
+          "target_category": "dirt_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_26",
+          "target_category": "landmark",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_27",
+          "target_category": "safehouse",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_28",
+          "target_category": "hero_car",
+          "stimulus_category": "cargo",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "fa6373b58630972eed85f44d2c5c9cf0dcdae4f2fa13ee3bfeeccdf4b630e3ba"
+        },
+        {
+          "trial_id": "trial_29",
+          "target_category": "repair",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_30",
+          "target_category": "light_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_31",
+          "target_category": "dirt_route",
+          "stimulus_category": "dirt_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_dirt.svg",
+          "preview_sha256": "39d40210f413193ec76e82bc45343b370778db18b7160481e2bcd835f4e1728e"
+        },
+        {
+          "trial_id": "trial_32",
+          "target_category": "reward",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_33",
+          "target_category": "threat",
+          "stimulus_category": "heavy_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_heavy.svg",
+          "preview_sha256": "416794f2d09168a7a39cb6159370c9814fe54e07155c29037e4fa4684c093098"
+        },
+        {
+          "trial_id": "trial_34",
+          "target_category": "threat",
+          "stimulus_category": "threat",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/threat.svg",
+          "preview_sha256": "34815f442036302b6433141f5dfb5f6ea3305a142794687930131f37318505a3"
+        },
+        {
+          "trial_id": "trial_35",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_36",
+          "target_category": "safehouse",
+          "stimulus_category": "landmark",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/radio_relay.svg",
+          "preview_sha256": "a2cd8647a1e8daa0a2517fb38437faa17258559cd105ff9ee358823f1e24c8c4"
+        },
+        {
+          "trial_id": "trial_37",
+          "target_category": "mud_route",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_38",
+          "target_category": "primary_road",
+          "stimulus_category": "primary_road",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_primary.svg",
+          "preview_sha256": "27362dbc75e24003e9ec18b5db8f49f29f3c250eed21e51344b457521af85fee"
+        },
+        {
+          "trial_id": "trial_39",
+          "target_category": "heavy_obstacle",
+          "stimulus_category": "light_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_light.svg",
+          "preview_sha256": "d039b192a143b6d1ae88e621e48e4a19a4c724a2c752a3bd7f1c6c978a1d58a2"
+        },
+        {
+          "trial_id": "trial_40",
+          "target_category": "light_obstacle",
+          "stimulus_category": "medium_obstacle",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/barrier_medium.svg",
+          "preview_sha256": "dec0beceeb8f55f560f251037ca40f94570a78581f7242af279fd830d5bd7adc"
+        },
+        {
+          "trial_id": "trial_41",
+          "target_category": "dirt_route",
+          "stimulus_category": "mud_route",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 2,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "1411e297d183a6e613349e82bac7f96afda6242041e66d795bfe36c060a2cacc"
+        },
+        {
+          "trial_id": "trial_42",
+          "target_category": "cargo",
+          "stimulus_category": "cargo",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 1,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/cargo.svg",
+          "preview_sha256": "47713af35f55d735cbd97bda392c9a07a55e3ac2ee8f2311d40213da886b905f"
+        },
+        {
+          "trial_id": "trial_43",
+          "target_category": "cargo",
+          "stimulus_category": "blank",
+          "control": "blank",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "",
+          "preview_sha256": "06bd59727b9391d868f40a3b7051ae04a2fc2c2d8e708ac13f906b611d15b9ec"
+        },
+        {
+          "trial_id": "trial_44",
+          "target_category": "mud_route",
+          "stimulus_category": "mud_route",
+          "control": "target",
+          "expected_presence": true,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/route_mud.svg",
+          "preview_sha256": "889e5dbb2df80fc774568e8bcfca11552bac63a2bfb9b5c9b64e8a5a73627182"
+        },
+        {
+          "trial_id": "trial_45",
+          "target_category": "repair",
+          "stimulus_category": "fuel",
+          "control": "near_neighbor",
+          "expected_presence": false,
+          "position_slot": 0,
+          "asset_path": "res://prototypes/handling_truth_slice/assets/visual/fuel.svg",
+          "preview_sha256": "e67594621b947ec671efcdb30a30167ca1c614b5f382cee0d8a027cae7b2a692"
+        }
+      ]
+    }
+  ]
+}

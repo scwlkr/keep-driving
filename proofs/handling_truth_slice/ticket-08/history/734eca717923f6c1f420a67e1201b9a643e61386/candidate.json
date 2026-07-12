@@ -1,0 +1,77 @@
+{
+  "asset_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/prototypes/handling_truth_slice/ASSET_MANIFEST.md",
+  "asset_manifest_sha256": "b6abd5a6893db2e435fa9f969bd13f673433114f5dff1c6da7e3a799d0a28d46",
+  "build_provenance_path": "/tmp/HandlingTruthSlice.app/Contents/Resources/handling-truth-slice-provenance.json",
+  "build_provenance_sha256": "de770a9d025ef9ba1d5de1ed771d66bd53ec3b56989c556fdb1496eb3140f06d",
+  "codesign_verified": true,
+  "created_at_utc": "2026-07-12T07:10:57.495459+00:00",
+  "executable_path": "/tmp/HandlingTruthSlice.app/Contents/MacOS/Handling Truth Slice",
+  "executable_sha256": "76caa57a56cfc006368434658b39f368e12f43a070f2a01a0e1c8a535b67eb0a",
+  "export_dirty": false,
+  "export_preset_path": "/Users/shanewalker/Desktop/dev/keep-driving/export_presets.cfg",
+  "export_preset_sha256": "185a9a07b537c2d43ffe762b9c2bb896185d5725f798ca5b675c55de73bad51a",
+  "exported_at_utc": "2026-07-12T07:09:14Z",
+  "godot_version": "4.7.stable.official.5b4e0cb0f",
+  "host_build_facts": {
+    "audio_output": {
+      "manufacturer": "Apple Inc.",
+      "name": "MacBook Pro Speakers",
+      "output_channels": 2,
+      "sample_rate_hz": 48000,
+      "transport": "coreaudio_device_type_builtin"
+    },
+    "display": {
+      "connection_type": "spdisplays_internal",
+      "display_type": "spdisplays_built-in-liquid-retina-xdr",
+      "name": "Color LCD",
+      "pixel_dimensions": "3456 x 2234",
+      "scaled_resolution": "1728 x 1117 @ 120.00Hz"
+    },
+    "hardware": {
+      "chip": "Apple M1 Max",
+      "memory": "64 GB",
+      "model_identifier": "MacBookPro18,2",
+      "model_name": "MacBook Pro",
+      "processor_summary": "proc 10:8:2:0"
+    },
+    "macos_build_version": "26A5378j",
+    "macos_product_version": "27.0",
+    "power_state": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37159011)\t100%; charged; 0:00 remaining present: true"
+  },
+  "package_measurements": {
+    "audio_source_bytes": 528738,
+    "executable_bytes": 169468592,
+    "font_source_bytes": 210575,
+    "pck_bytes": 743448,
+    "signed_app_file_bytes": 170311302,
+    "source_asset_bytes": 754939,
+    "source_asset_count": 37,
+    "visual_source_bytes": 15626
+  },
+  "pck_path": "/tmp/HandlingTruthSlice.app/Contents/Resources/Handling Truth Slice.pck",
+  "pck_sha256": "08f12c687d960b5210f7287a340f9f02c3fa29c6470f8433ee0de8b74d8927e1",
+  "playtest_contract_path": "/Users/shanewalker/Desktop/dev/keep-driving/prototypes/handling_truth_slice/PLAYTEST_EVIDENCE.md",
+  "playtest_contract_sha256": "218d641b31b8d41c2bbd6e68dd993ee4e313803ffd58966c08270be36048445c",
+  "recognition_harness_path": "/Users/shanewalker/Desktop/dev/keep-driving/prototypes/handling_truth_slice/recognition/recognition_harness.gd",
+  "recognition_harness_sha256": "a64934f0e8cacc63426da89a4f542c80d8faa5f65747e438478f6de8e6098877",
+  "schema": "keep-driving.handling-truth-slice.candidate.v1",
+  "session_contract": {
+    "benchmark_output_window": [
+      1920,
+      1080
+    ],
+    "build_flavor": "release",
+    "export_preset": "Handling Truth Slice macOS",
+    "logical_viewport": [
+      1280,
+      720
+    ],
+    "profile_fixture": "clean ephemeral prototype; persistence disabled",
+    "release_template_identity": "official Godot release template bound by executable_sha256",
+    "renderer": "gl_compatibility",
+    "scene": "res://prototypes/handling_truth_slice/prototype.tscn",
+    "trace_seed": 80806012
+  },
+  "source_commit": "734eca717923f6c1f420a67e1201b9a643e61386",
+  "worktree_clean_at_export": true
+}

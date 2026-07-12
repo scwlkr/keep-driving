@@ -1,0 +1,182 @@
+{
+  "schema": "keep-driving.handling-recognition-live-exposure-check.v1",
+  "evidence_scope": "automated integration only; not human recognition evidence",
+  "human_evidence": false,
+  "discarded_session_id": "AUTOMATED-INTEGRATION-NOT-HUMAN",
+  "timeout_responses_discarded": 3,
+  "stimulus_hidden": {
+    "candidate": "734eca717923f6c1f420a67e1201b9a643e61386",
+    "candidate_file_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/candidate.json",
+    "candidate_file_sha256": "d4cea16f4591fe880322e851cef549e73266aa77aca5a2bef64c26856f9b6725",
+    "completed_draw_trace": [
+      {
+        "draw_frame": 54,
+        "ordinal": 1,
+        "ticks_ms": 2049
+      },
+      {
+        "draw_frame": 55,
+        "ordinal": 2,
+        "ticks_ms": 2064
+      },
+      {
+        "draw_frame": 56,
+        "ordinal": 3,
+        "ticks_ms": 2083
+      },
+      {
+        "draw_frame": 57,
+        "ordinal": 4,
+        "ticks_ms": 2099
+      },
+      {
+        "draw_frame": 58,
+        "ordinal": 5,
+        "ticks_ms": 2116
+      },
+      {
+        "draw_frame": 59,
+        "ordinal": 6,
+        "ticks_ms": 2132
+      },
+      {
+        "draw_frame": 60,
+        "ordinal": 7,
+        "ticks_ms": 2149
+      },
+      {
+        "draw_frame": 61,
+        "ordinal": 8,
+        "ticks_ms": 2165
+      },
+      {
+        "draw_frame": 62,
+        "ordinal": 9,
+        "ticks_ms": 2182
+      },
+      {
+        "draw_frame": 63,
+        "ordinal": 10,
+        "ticks_ms": 2197
+      },
+      {
+        "draw_frame": 64,
+        "ordinal": 11,
+        "ticks_ms": 2215
+      },
+      {
+        "draw_frame": 65,
+        "ordinal": 12,
+        "ticks_ms": 2233
+      },
+      {
+        "draw_frame": 66,
+        "ordinal": 13,
+        "ticks_ms": 2249
+      },
+      {
+        "draw_frame": 67,
+        "ordinal": 14,
+        "ticks_ms": 2265
+      },
+      {
+        "draw_frame": 68,
+        "ordinal": 15,
+        "ticks_ms": 2282
+      },
+      {
+        "draw_frame": 69,
+        "ordinal": 16,
+        "ticks_ms": 2299
+      },
+      {
+        "draw_frame": 70,
+        "ordinal": 17,
+        "ticks_ms": 2314
+      },
+      {
+        "draw_frame": 71,
+        "ordinal": 18,
+        "ticks_ms": 2332
+      },
+      {
+        "draw_frame": 72,
+        "ordinal": 19,
+        "ticks_ms": 2349
+      },
+      {
+        "draw_frame": 73,
+        "ordinal": 20,
+        "ticks_ms": 2365
+      },
+      {
+        "draw_frame": 74,
+        "ordinal": 21,
+        "ticks_ms": 2383
+      },
+      {
+        "draw_frame": 75,
+        "ordinal": 22,
+        "ticks_ms": 2399
+      },
+      {
+        "draw_frame": 76,
+        "ordinal": 23,
+        "ticks_ms": 2416
+      },
+      {
+        "draw_frame": 77,
+        "ordinal": 24,
+        "ticks_ms": 2432
+      },
+      {
+        "draw_frame": 78,
+        "ordinal": 25,
+        "ticks_ms": 2449
+      },
+      {
+        "draw_frame": 79,
+        "ordinal": 26,
+        "ticks_ms": 2466
+      },
+      {
+        "draw_frame": 80,
+        "ordinal": 27,
+        "ticks_ms": 2483
+      },
+      {
+        "draw_frame": 81,
+        "ordinal": 28,
+        "ticks_ms": 2499
+      },
+      {
+        "draw_frame": 82,
+        "ordinal": 29,
+        "ticks_ms": 2516
+      },
+      {
+        "draw_frame": 83,
+        "ordinal": 30,
+        "ticks_ms": 2533
+      }
+    ],
+    "control": "blank",
+    "event": "stimulus_hidden",
+    "exposure_actual_ms": 501,
+    "exposure_cadence_valid": true,
+    "exposure_frame_count": 30,
+    "hide_completed_draw_frame": 84,
+    "logical_height": 414,
+    "logical_width": 896,
+    "participant": "KD08-HM-01",
+    "preview_manifest_path": "/Users/shanewalker/Desktop/dev/keep-driving/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-01-previews/manifest.json",
+    "preview_manifest_sha256": "7c2da7a346da735ee85b609a8607aa5bcd27ad293326a0e8930d005d0fcc7a42",
+    "recorded_at_utc": "2026-07-12 07:12:53",
+    "schema": "handling_recognition_evidence_v1",
+    "seed": 776763443,
+    "session_id": "AUTOMATED-INTEGRATION-NOT-HUMAN",
+    "target_category": "cargo",
+    "ticks_ms": 2550,
+    "trial_id": "trial_01"
+  }
+}
