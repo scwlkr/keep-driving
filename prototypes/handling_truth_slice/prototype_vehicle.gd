@@ -4,6 +4,8 @@ extends CharacterBody2D
 # PROTOTYPE: can fixed-step Arcade-Real handling make surfaces, slip, and impacts legible?
 
 const DriveIntentSource = preload("res://prototypes/handling_truth_slice/drive_intent.gd")
+const HERO_WAGON: Texture2D = preload("res://prototypes/handling_truth_slice/assets/visual/hero_wagon.svg")
+const DUST_PARTICLE: Texture2D = preload("res://prototypes/handling_truth_slice/assets/visual/dust_particle.svg")
 
 const DEFAULT_SURFACE := {
 	"name": "asphalt",
@@ -63,9 +65,11 @@ const HANDBRAKE_GRIP_SCALE := 0.16
 const HANDBRAKE_TURN_BOOST := 1.42
 const IMPACT_COOLDOWN := 0.28
 const MIN_DAMAGE_SPEED := 35.0
+const BREAKABLE_IMPACT_SPEED := 95.0
 const STUCK_SPEED := 9.0
 const STUCK_DELAY := 1.25
 const RECOVERY_HOLD := 0.45
+const EFFECT_PARTICLE_BUDGET := 24
 
 var self_surface: Dictionary = DEFAULT_SURFACE.duplicate(true)
 var last_intent: Dictionary = {}
@@ -93,18 +97,26 @@ var stuck_seconds := 0.0
 var recovery_hold_seconds := 0.0
 var recovered_this_step := false
 var last_safe_position := Vector2.ZERO
+var physics_step_count := 0
+var collision_query_count := 0
+var peak_effect_emitters := 0
+var effect_emitting := false
 
 var _contact_id := 0
 var _last_safe_rotation := 0.0
 var _has_safe_position := false
+var _hero_sprite: Sprite2D
+var _dust_particles: GPUParticles2D
 
 
 func _ready() -> void:
 	_ensure_collision_shape()
+	_ensure_authored_visual()
+	_ensure_effects()
 	_ensure_safe_position()
 	_update_motion_facts()
 	last_telemetry = _build_telemetry()
-	queue_redraw()
+	_update_visual_state()
 
 
 func _physics_process(delta: float) -> void:
@@ -117,6 +129,7 @@ func set_simulated_intent(intent: Dictionary) -> void:
 
 func step_vehicle(intent: Dictionary, surface: Dictionary, delta: float) -> Dictionary:
 	_ensure_safe_position()
+	physics_step_count += 1
 	var step_delta := maxf(delta, 0.0)
 	impact_transition = false
 	recovered_this_step = false
@@ -161,6 +174,7 @@ func step_vehicle(intent: Dictionary, surface: Dictionary, delta: float) -> Dict
 	velocity -= lateral_velocity * clampf(grip_response, 0.0, 1.0)
 	_apply_progressive_speed_limit(step_delta)
 
+	collision_query_count += 1
 	var collision: KinematicCollision2D = move_and_collide(velocity * step_delta)
 	var collided := collision != null
 	if collided:
@@ -171,8 +185,8 @@ func step_vehicle(intent: Dictionary, surface: Dictionary, delta: float) -> Dict
 
 	_update_recovery(last_intent, collided, step_delta)
 	_update_motion_facts()
+	_update_visual_state()
 	last_telemetry = _build_telemetry()
-	queue_redraw()
 	return last_telemetry.duplicate(true)
 
 
@@ -186,7 +200,26 @@ func set_tune(next_tune: String) -> void:
 		return
 	tune_name = normalized
 	tune = TUNE_PRESETS[normalized].duplicate(true)
-	queue_redraw()
+	_update_visual_state()
+
+
+func presentation_evidence() -> Dictionary:
+	var path := HERO_WAGON.resource_path if HERO_WAGON != null else ""
+	var effect_path := DUST_PARTICLE.resource_path if DUST_PARTICLE != null else ""
+	return {
+		"authored_asset_contract_pass": path.begins_with("res://") and FileAccess.file_exists(path),
+		"final_pipeline_effect_contract_pass": (
+			effect_path.begins_with("res://")
+			and FileAccess.file_exists(effect_path)
+			and _dust_particles != null
+			and _dust_particles.amount == EFFECT_PARTICLE_BUDGET
+		),
+		"source_kind": "project_authored_svg",
+		"runtime_generated_geometry": false,
+		"resource_path": path,
+		"effect_resource_path": effect_path,
+		"effect_particle_budget": EFFECT_PARTICLE_BUDGET,
+	}
 
 
 func camera_lookahead() -> Vector2:
@@ -212,8 +245,8 @@ func recover_to(safe_position: Vector2) -> void:
 	contact_active = false
 	_contact_id = 0
 	_update_motion_facts()
+	_update_visual_state()
 	last_telemetry = _build_telemetry()
-	queue_redraw()
 
 
 func reset_prototype(spawn_position: Vector2) -> void:
@@ -242,9 +275,12 @@ func reset_prototype(spawn_position: Vector2) -> void:
 	last_safe_position = spawn_position
 	_last_safe_rotation = 0.0
 	_has_safe_position = true
+	physics_step_count = 0
+	collision_query_count = 0
+	peak_effect_emitters = 0
 	_update_motion_facts()
+	_update_visual_state()
 	last_telemetry = _build_telemetry()
-	queue_redraw()
 
 
 func _read_surface(surface: Dictionary) -> void:
@@ -280,14 +316,22 @@ func _handle_collision(collision: KinematicCollision2D) -> void:
 	var collider_id := collider.get_instance_id() if is_instance_valid(collider) else 0
 	var weight := "medium"
 	var base_damage := 0.0
+	var breakable := false
 	if is_instance_valid(collider):
 		weight = String(collider.get_meta(&"weight", "medium")).to_lower()
 		base_damage = float(collider.get_meta(&"damage", 0.0))
+		breakable = bool(collider.get_meta(&"breakable", false))
+		if collider.has_meta(&"recovery_anchor"):
+			var fixture_recovery_anchor:Variant = collider.get_meta(&"recovery_anchor")
+			if fixture_recovery_anchor is Vector2:
+				last_safe_position = fixture_recovery_anchor
+			_last_safe_rotation = float(collider.get_meta(&"recovery_rotation", rotation))
 	if weight not in ["light", "medium", "heavy"]:
 		weight = "medium"
 
 	var normal := collision.get_normal()
 	var impact_speed := maxf(0.0, -velocity.dot(normal))
+	var barrier_broken := breakable and weight == "light" and impact_speed >= BREAKABLE_IMPACT_SPEED
 	var is_new_contact := not contact_active or collider_id != _contact_id
 	contact_active = true
 	_contact_id = collider_id
@@ -308,13 +352,24 @@ func _handle_collision(collision: KinematicCollision2D) -> void:
 			"damage": applied_damage,
 			"normal": normal,
 			"position": collision.get_position(),
-			"surface": surface_name,
-			"transition_index": impact_count,
-		}
+				"surface": surface_name,
+				"transition_index": impact_count,
+				"barrier_broken": barrier_broken,
+			}
 
-	var tangent_keep: float = {"light": 0.82, "medium": 0.46, "heavy": 0.12}[weight]
-	var bounce: float = {"light": 0.12, "medium": 0.07, "heavy": 0.02}[weight]
-	velocity = velocity.slide(normal) * tangent_keep + normal * impact_speed * bounce
+	if barrier_broken and is_instance_valid(collider):
+		collider.set_meta(&"broken", true)
+		if collider is CollisionObject2D:
+			(collider as CollisionObject2D).set_deferred("collision_layer", 0)
+		if collider is CanvasItem:
+			(collider as CanvasItem).call_deferred("hide")
+		velocity *= 0.62
+		contact_active = false
+		_contact_id = 0
+	else:
+		var tangent_keep: float = {"light": 0.82, "medium": 0.46, "heavy": 0.12}[weight]
+		var bounce: float = {"light": 0.12, "medium": 0.07, "heavy": 0.02}[weight]
+		velocity = velocity.slide(normal) * tangent_keep + normal * impact_speed * bounce
 
 
 func _update_recovery(intent: Dictionary, collided: bool, step_delta: float) -> void:
@@ -358,6 +413,64 @@ func _ensure_collision_shape() -> void:
 	add_child(shape_node)
 
 
+func _ensure_authored_visual() -> void:
+	if _hero_sprite != null:
+		return
+	_hero_sprite = Sprite2D.new()
+	_hero_sprite.name = "AuthoredHeroWagon"
+	_hero_sprite.texture = HERO_WAGON
+	_hero_sprite.scale = Vector2(0.46, 0.46)
+	_hero_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	add_child(_hero_sprite)
+
+
+func _ensure_effects() -> void:
+	if _dust_particles != null:
+		return
+	_dust_particles = GPUParticles2D.new()
+	_dust_particles.name = "DustAndSkidFeedback"
+	_dust_particles.amount = EFFECT_PARTICLE_BUDGET
+	_dust_particles.amount_ratio = 0.65
+	_dust_particles.lifetime = 0.62
+	_dust_particles.local_coords = false
+	_dust_particles.texture = DUST_PARTICLE
+	_dust_particles.position = Vector2(-24.0, 0.0)
+	_dust_particles.z_index = -1
+	var material := ParticleProcessMaterial.new()
+	material.direction = Vector3(-1.0, 0.0, 0.0)
+	material.spread = 42.0
+	material.gravity = Vector3.ZERO
+	material.initial_velocity_min = 28.0
+	material.initial_velocity_max = 78.0
+	material.scale_min = 0.12
+	material.scale_max = 0.34
+	material.color = Color(0.78, 0.68, 0.48, 0.68)
+	material.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+	material.emission_box_extents = Vector3(11.0, 9.0, 0.0)
+	_dust_particles.process_material = material
+	_dust_particles.emitting = false
+	add_child(_dust_particles)
+
+
+func _update_visual_state() -> void:
+	if _hero_sprite == null:
+		return
+	if integrity <= 25.0:
+		_hero_sprite.modulate = Color(1.0, 0.62, 0.55)
+	elif integrity <= 60.0:
+		_hero_sprite.modulate = Color(1.0, 0.86, 0.72)
+	else:
+		_hero_sprite.modulate = Color.WHITE
+	if _dust_particles != null:
+		var loose_surface := surface_name not in ["road", "asphalt"]
+		var material_slip := handbrake_active and lateral_speed >= 20.0
+		effect_emitting = speed >= 70.0 and (loose_surface or material_slip)
+		_dust_particles.emitting = effect_emitting
+		_dust_particles.amount_ratio = clampf(0.32 + speed / BASE_MAX_SPEED * 0.68, 0.32, 1.0)
+		if effect_emitting:
+			peak_effect_emitters = maxi(peak_effect_emitters, 1)
+
+
 func _update_motion_facts() -> void:
 	speed = velocity.length()
 	var forward := Vector2.RIGHT.rotated(rotation)
@@ -393,29 +506,11 @@ func _build_telemetry() -> Dictionary:
 		"stuck_seconds": stuck_seconds,
 		"recovered": recovered_this_step,
 		"last_safe_position": last_safe_position,
+		"physics_step_count": physics_step_count,
+		"collision_query_count": collision_query_count,
+		"active_effect_emitters": 1 if effect_emitting else 0,
+		"peak_effect_emitters": peak_effect_emitters,
+		"effect_particle_budget": EFFECT_PARTICLE_BUDGET,
 		"camera_lookahead": camera_lookahead(),
 		"camera_zoom": camera_zoom(),
 	}
-
-
-func _draw() -> void:
-	var outline := PackedVector2Array([
-		Vector2(31.0, 0.0), Vector2(20.0, -15.0), Vector2(-23.0, -14.0),
-		Vector2(-31.0, 0.0), Vector2(-23.0, 14.0), Vector2(20.0, 15.0),
-	])
-	var body := PackedVector2Array([
-		Vector2(27.0, 0.0), Vector2(16.0, -11.0), Vector2(-20.0, -10.0),
-		Vector2(-25.0, 0.0), Vector2(-20.0, 10.0), Vector2(16.0, 11.0),
-	])
-	draw_polygon(outline, PackedColorArray([Color(0.04, 0.045, 0.05)]))
-	var body_color := Color(0.92, 0.55, 0.14)
-	if tune_name == "scout":
-		body_color = Color("4fb4c3")
-	elif tune_name == "hauler":
-		body_color = Color("b9903c")
-	draw_polygon(body, PackedColorArray([body_color]))
-	draw_rect(Rect2(-8.0, -9.0, 18.0, 18.0), Color(0.08, 0.13, 0.16), true)
-	draw_line(Vector2(-15.0, -14.0), Vector2(14.0, -14.0), Color(0.02, 0.02, 0.025), 5.0)
-	draw_line(Vector2(-15.0, 14.0), Vector2(14.0, 14.0), Color(0.02, 0.02, 0.025), 5.0)
-	draw_circle(Vector2(25.0, -6.5), 2.5, Color(1.0, 0.95, 0.58))
-	draw_circle(Vector2(25.0, 6.5), 2.5, Color(1.0, 0.95, 0.58))

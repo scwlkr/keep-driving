@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="1024" viewBox="0 0 2048 1024">
+  <defs>
+    <pattern id="rows" width="56" height="56" patternUnits="userSpaceOnUse" patternTransform="rotate(-11)">
+      <path d="M0 9h56M0 37h56" stroke="#596447" stroke-width="5" opacity=".44"/>
+      <path d="M0 20h56M0 48h56" stroke="#d6b978" stroke-width="2" opacity=".24"/>
+    </pattern>
+    <pattern id="grain" width="72" height="72" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="15" r="1.8" fill="#171818" opacity=".10"/>
+      <circle cx="52" cy="42" r="1.3" fill="#f1e8cf" opacity=".16"/>
+      <path d="M8 58l22-3M42 10l20 4" stroke="#171818" stroke-width="1" opacity=".07"/>
+    </pattern>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b9a76f"/>
+      <stop offset=".52" stop-color="#83905f"/>
+      <stop offset="1" stop-color="#5f7357"/>
+    </linearGradient>
+  </defs>
+  <rect width="2048" height="1024" fill="url(#field)"/>
+  <path d="M0 0h660l86 308-170 236H0z" fill="#d6b978" opacity=".56"/>
+  <path d="M0 704l560-116 296 436H0z" fill="#70865c"/>
+  <path d="M1170 0h878v370l-472 112-292-148z" fill="#8e7d50"/>
+  <path d="M1370 648l678-126v502h-820z" fill="#536c58"/>
+  <path d="M42 34h526v296H42zM1430 62h562v240h-562zM1270 738h710v242h-710z" fill="url(#rows)" opacity=".76"/>
+  <g fill="none" stroke="#f1e8cf" opacity=".18">
+    <path d="M-70 242c300-164 574-158 824 18s536 194 830 30 486-104 618 18" stroke-width="5"/>
+    <path d="M-120 492c282-134 552-118 802 52s528 182 806 38 514-94 690 34" stroke-width="4"/>
+    <path d="M-80 790c294-150 566-132 820 44s526 186 808 30 488-108 650 14" stroke-width="5"/>
+  </g>
+  <g fill="#171818" opacity=".16">
+    <circle cx="312" cy="438" r="18"/><circle cx="372" cy="414" r="12"/><circle cx="430" cy="450" r="15"/>
+    <circle cx="1014" cy="266" r="14"/><circle cx="1062" cy="302" r="18"/><circle cx="1114" cy="272" r="11"/>
+    <circle cx="1650" cy="596" r="17"/><circle cx="1706" cy="624" r="12"/><circle cx="1760" cy="584" r="15"/>
+  </g>
+  <rect width="2048" height="1024" fill="url(#grain)"/>
+  <rect x="10" y="10" width="2028" height="1004" fill="none" stroke="#171818" stroke-width="20" opacity=".28"/>
+</svg>

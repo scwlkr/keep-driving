@@ -1,46 +1,55 @@
 # PROTOTYPE — Handling Truth Slice
 
-Question: can fixed-step production-candidate handling, real collision, one authored route choice, honest HUD facts, and audible feedback support Keep Driving's first minute?
+Question: can fixed-step production-candidate handling, real collision, an authored first-road choice, honest HUD facts, and final-pipeline feedback support Keep Driving's first minute?
 
-This is disposable Phase-2 learning code. It does not replace the current game, save data, or main scene.
+This is isolated Phase-2 learning code. It does not replace the current game, saves, or default scene. Ticket 08 remains open until the clean release, performance, physical-controller, audible, and frozen human gates pass.
 
-Run it in one command:
+## Drive the slice
 
 ```sh
 /opt/homebrew/bin/godot --path /Users/shanewalker/Desktop/dev/keep-driving res://prototypes/handling_truth_slice/prototype.tscn
 ```
 
-Controls:
+- `W` gas; `S` brake/reverse; `A` / `D` steer
+- `Space` handbrake; hold `E` to recover; `R` reset
+- `M` Reduced Motion; `Esc` quit
+- Controller: left stick, triggers, south face button handbrake, north face button recovery
+- Debug builds only: `G` auto-drive, `T` telemetry, `1` / `2` / `3` tune probes
+- Frozen handling lab: launch the release app with `-- --prototype-lab-mode --prototype-tune=balanced` (or `scout` / `hauler`); tune keys are then facilitator-only
 
-- `W` gas
-- `S` brake/reverse
-- `A` / `D` steer
-- `Space` handbrake
-- `G` prototype auto-gas toggle
-- `R` reset
-- `T` full prototype telemetry
-- `1` balanced tune / `2` scout tune / `3` hauler tune
-- `Esc` quit
-- Controller: left stick, triggers, and south face button when connected
-
-The relevant acceptance criteria live in `docs/ROADMAP_TO_1.0.md` under **Desktop Truth Slice A — Production Handling and the First Road**.
-
-Quick non-human smoke:
+## Automated contracts
 
 ```sh
 /opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://prototypes/handling_truth_slice/prototype_smoke.gd
+/opt/homebrew/bin/godot --headless --path /Users/shanewalker/Desktop/dev/keep-driving --script res://prototypes/handling_truth_slice/recognition/recognition_contract_test.gd
+./scripts/verify_handling_truth_slice_render_cadence.sh
 ```
 
-Create the isolated clean macOS release export with embedded commit/dirty provenance (requires the official Godot 4.7 `macos.zip` template):
+The smoke covers normalized input/source reset, device-family glyphs, fixed-step surface/tune response, brake-to-reverse, reverse steering, handbrake slip, held recovery, the marked slalom/braking/stuck lab fixtures, high-speed thin collision, contact cooldown/recontact, breakable light barrier/full reset, honest HUD/camera diagnostics, countable audio pools/routing/pause-resume, authored presentation, and bounded effects. The cadence verifier renders the actual SceneTree at 30/60/120 Hz and compares the exact 60 Hz final trace.
+
+The command above is explicitly unbound editor/debug cadence. After the clean export, retain candidate-bound cadence with `HANDLING_TRUTH_SLICE_BIN='/tmp/HandlingTruthSlice.app/Contents/MacOS/Handling Truth Slice' HANDLING_TRUTH_SLICE_SHA="$(git rev-parse HEAD)" ./scripts/verify_handling_truth_slice_render_cadence.sh ABSOLUTE_OUTPUT_DIR`.
+
+The human-operated 896×414 recognition harness, frozen-candidate contract, rendered preview bundle, and immutable-output rules are documented in `recognition/README.md`. Automated or agent runs never count as participants.
+
+## Candidate export and evidence
+
+The normal release export refuses a dirty worktree:
 
 ```sh
 ./scripts/export_handling_truth_slice.sh /tmp/HandlingTruthSlice.app
+./scripts/freeze_handling_truth_slice_candidate.sh /tmp/HandlingTruthSlice.app "$PWD/proofs/handling_truth_slice/ticket-08/candidate.json"
 ```
 
-Rendered benchmark harness (60 measured seconds after five-second warm-up):
+For non-acceptance debugging only, set `ALLOW_DIRTY_HANDLING_EXPORT=1`; provenance will still record `dirty=true`. A clean app embeds its commit/dirty identity, export engine/time/package facts, font licenses, and `ASSET_MANIFEST.md`. The immutable candidate contract adds the signed app/executable/PCK hashes and sizes plus exact macOS, hardware, display, audio-output, power, renderer/view, scene/seed/profile, and source-contract facts.
+
+Rendered benchmark example:
 
 ```sh
-'/tmp/HandlingTruthSlice.app/Contents/MacOS/Handling Truth Slice' --resolution 1920x1080 -- --prototype-benchmark-mode=feel --prototype-build-id=GIT_COMMIT_SHA --prototype-benchmark-seconds=60 --prototype-benchmark-warmup=5
+sha="$(git rev-parse HEAD)"
+repo="$PWD"
+'/tmp/HandlingTruthSlice.app/Contents/MacOS/Handling Truth Slice' --resolution 1920x1080 -- --prototype-benchmark --prototype-benchmark-mode=feel --prototype-build-id="$sha" --prototype-benchmark-seconds=1800 --prototype-benchmark-warmup=5 --prototype-benchmark-require-acceptance --prototype-benchmark-report="$repo/proofs/handling_truth_slice/ticket-08/performance/feel-report.json" --prototype-benchmark-rss="$repo/proofs/handling_truth_slice/ticket-08/performance/feel-rss.json"
 ```
 
-Repeat with `--prototype-benchmark-mode=capacity` for the VSync-off capacity capture. The harness rejects a supplied SHA that does not match the clean commit embedded by the export script. The final milestone gate requires both 1,800-second runs from a clean release export plus an external peak/plateau-memory capture; `acceptance_pass` remains false for debug or shorter runs.
+Repeat with `--prototype-benchmark-mode=capacity`. Each run records rendered frame percentiles, raw RSS/plateau, world work, collision queries, nodes/draws, effects/particles, audio voices, final trace, and artifact paths. An individual benchmark can attest only that run; `milestone_acceptance_pass` stays false because paired-run, controller, audio, and human evidence remain external.
+
+Acceptance contract: `docs/ROADMAP_TO_1.0.md` → **Desktop Truth Slice A — Production Handling and the First Road**. Candidate provenance and human rules: `ASSET_MANIFEST.md` and `PLAYTEST_EVIDENCE.md`.
