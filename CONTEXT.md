@@ -1,6 +1,6 @@
 # Context
 
-## Glossary
+## Playable v0 glossary
 
 - **One-Shot Build Run**: A single user launch prompt after which Codex coordinates as many sessions and parallel agents as needed to build and verify the playable v0 without requiring the user to manage intermediate steps.
 - **Autonomous Build Manager**: The Codex session launched by the One-Shot Build Run prompt, responsible for creating local build tickets, coordinating parallel agents, enforcing proof gates, committing progress, and reporting Done Bar status without requiring intermediate user coordination.
@@ -45,3 +45,37 @@
 - **Repair Pickup**: A rare in-run pickup that restores some Vehicle Damage without creating repair crafting, shop stops, or a repair economy.
 - **Garage**: The between-run screen where Scrap is spent on Permanent Upgrades before starting a fresh Run Seed.
 - **Stylized Survival Readability**: The v0 visual direction: bold high-contrast top-down art that makes terrain, routes, hazards, pickups, enemies, and the car instantly readable. It favors simple custom or procedural assets over photorealism or asset-pack polish.
+
+## 1.0 target glossary
+
+- **Module**: A cohesive unit that hides substantial policy and state behind a small public Interface. The target runtime has Campaign, Expedition, Drive Runtime, Content, and Save Modules.
+- **Interface**: A Module's complete public contract: typed operations/records plus invariants, ordering, errors/recovery, configuration, and performance obligations.
+- **Implementation**: Everything a Module hides behind its Interface, including private policy classes, nodes, queues, caches, and helpers.
+- **Seam**: The deliberate Interface location where a real variation or dependency crosses ownership without callers reaching into an Implementation.
+- **Adapter**: A concrete platform/test object that satisfies the Interface at a Seam. Keep Adapters narrow; there is no broad PlatformService.
+- **ApplicationShell**: The thin Godot composition root that owns Service/Plan/Drive/Settle posture, Module lifetime, call ordering, lifecycle sequencing, and immutable read-model publication. It owns no gameplay truth.
+- **CampaignModule**: Sole live owner of permanent profile/county truth, RewardLedger, Scrap, ownership, Build Capacity validation, departure, and settlement application.
+- **ExpeditionModule**: Sole live owner of one immutable ExpeditionManifest and mutable ExpeditionProgress, including Fuel, Vehicle Integrity, Pressure, activities, encounters, escrow, pending mutations, and terminal rules.
+- **DriveRuntimeModule**: Sole live owner of fixed-step Arcade-Real Handling, vehicle/world physical state, streaming, spatial queries, entities, and reconstructable runtime checkpoint.
+- **ContentModule**: Stable-ID metadata/package owner and the only runtime scheduler for threaded Resource loading.
+- **SaveModule**: Versioned migration, alternating verified slots, ordered durability, recovery/quarantine, and exact-resume owner.
+- **Stable ID**: Namespaced immutable content identity used by rules, packages, saves, and debug tools; never a Node or resource path.
+- **PersistentCountyState**: Seed-independent committed restoration, discovery, route, landmark, and safehouse truth for one learnable county.
+- **ExpeditionOfferSet**: Campaign-owned persisted offers for one monotonic `offer_epoch` and committed-source digest. Back/cancel/reselect/loadout/assist/relaunch cannot replace it; an active manifest reserves its matching plan, settlement consumes it, and lower-slot recovery burns it only when no trusted matching active survives and discarded higher-active risk is `POSSIBLE`.
+- **ExpeditionOfferPlan**: One immutable keyed member of an ExpeditionOfferSet that freezes content/world version, expedition ID/seed, repetition snapshot, contract, conditions/closures, Pressure branches, encounter/reward rolls, valid extraction nodes, and finite budgets before loadout selection.
+- **ExpeditionManifest**: Immutable departure record that copies one ExpeditionOfferPlan unchanged and binds the selected starting build/resources plus starting AppliedExpeditionAssistPolicy; departure preparation cannot reroll its threat, reward, or condition facts.
+- **PreparedDeparture**: Campaign-produced deterministic domain value containing the complete ExpeditionManifest, frozen AppliedExpeditionAssistPolicy, initial ExpeditionProgress/DriveRuntimeCheckpoint, DriveRuntimeConfig, stable WorldEntryRequirements, and domain digest; it binds an offer without RNG.
+- **EntryLoadPlan**: Shell-private consumer-tagged package plan composed from WorldEntryRequirements plus current locale/quality/settings Presentation/Feedback needs; its payload digest is separate from gameplay truth.
+- **ExpeditionProgress**: Mutable checkpointed active-expedition truth, including resources, Pressure, current AppliedExpeditionAssistPolicy, RetainedCampaignDeltaOutbox, activity/encounter state, consumed sockets, escrow, pending mutations, terminal state, and DriveRuntimeCheckpoint.
+- **RetainedCampaignDeltaOutbox**: Typed idempotent observation/cosmetic claims durability-checkpointed inside ExpeditionProgress; the combined read model shows them as retained, and every terminal settlement transfers them once into Campaign before active removal.
+- **AppliedExpeditionAssistPolicy**: Effective revisioned gameplay/physics assist values persisted with active progress; it is copied from preferences at departure and changes mid-expedition only through Expedition durability, so settings recovery cannot rewrite an active run.
+- **SettingsAssistVersion**: Settings revision plus digest of the full preferred expedition policy; Campaign stores it beside its forecast projection and rejects departure if the carried policy/version differs.
+- **DriveRuntimeCheckpoint**: Typed reconstructable physical snapshot for exact resume; it contains no live Node, Resource, RID, resource path, or progression truth, and committed ExpeditionProgress reconciles derivable runtime projections before the first resumed tick.
+- **RewardLedger**: Namespaced permanent authority for reward eligibility, claims, cooldowns, and repetition; county state does not duplicate it.
+- **PendingSettlementReceipt**: Campaign-owned durable exact outcome/delta/highlight record kept after settlement removes the active snapshot; boot returns to Settle until the player durability-acknowledges it.
+- **PendingRecoveryNotice**: Campaign-owned durable lower-slot recovery disclosure with recovery/quarantine IDs, recovered sequence, loss/action digest, and optional burned offer epoch; bootstrap shows it until durable acknowledgement before gameplay routing.
+- **ActiveSnapshotDisposition**: Closed PROFILE durability enum—`PRESERVE_CURRENT`, `INCLUDE_OWNER_CANDIDATE`, or `REMOVE_COMMITTED_TERMINAL`—that tells the shell how to compose the complete PROFILE image without being confused with AppliedExpeditionAssistPolicy; SETTINGS uses `NOT_APPLICABLE`.
+- **Vehicle Integrity**: The 1.0 car-condition resource; it supersedes the v0 Vehicle Damage term.
+- **Build Capacity**: Chassis budget consumed by named parts in addition to compatible slots, making capability tradeoffs visible.
+- **SettingsState**: ApplicationShell-owned preferred settings persisted in an independent SaveModule `SETTINGS` image; typed projections configure Input, Campaign forecast, Presentation, and Feedback, while active gameplay uses its own persisted AppliedExpeditionAssistPolicy.
+- **Service / Plan / Drive / Settle**: The four explicit player-facing application postures: configure, choose/forecast, act in the county, and reconcile exact results.

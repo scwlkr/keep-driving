@@ -207,7 +207,7 @@ Settle remains visibly connected to the extraction/failure scene, but its Receip
 - Immediate offline pause with Resume first.
 - Map/objective, controls, audio/display/gameplay/accessibility settings.
 - Abandon expedition requires confirmation and states the exact failure settlement; it never rolls back to a safe boundary.
-- Quit to title writes an atomic active manifest/progress checkpoint and Continue resumes it; quitting is not abandon.
+- Quit to title requests a durability-gated active manifest/progress checkpoint; transition/confirmation follows acknowledgement, interruption falls back to authoritative verified-slot selection, and quitting is not abandon.
 
 ### Settings groups
 

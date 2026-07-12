@@ -135,12 +135,14 @@ Status: Route-centered activity principle retained; D026 supersedes the four-fam
 
 ## D009 — Refactor into explicit deep modules without a flag-day rewrite
 
+Status: Incremental strangler/no-flag-day rule retained; D035-D036 supersede the earlier public-module list and data-flow shape.
+
 - Date/phase: 2026-07-11, architecture.
 - Context: `GameRoot` currently owns nearly every concern; broad production work would multiply coupling and public mutable state.
 - Options considered:
   - Continue expanding `GameRoot`.
   - Rewrite the project in one replacement branch.
-  - Incremental strangler migration behind AppFlow, session, input, save, catalog, vehicle, world, activity, presentation, and platform boundaries.
+  - Incremental strangler migration behind explicit gameplay Interfaces and platform Seams.
 - Selected option: Incremental modular migration; each replacement passes characterization/integration/playable proof before old path removal.
 - Reason: Keeps a playable build, limits regression surface, and creates ownership needed for parallel content/system work.
 - Tradeoffs: Temporary adapters/duplication and migration sequencing; requires discipline to delete superseded paths.
@@ -148,6 +150,8 @@ Status: Route-centered activity principle retained; D026 supersedes the four-fam
 - Validation: Architecture tests/review, no player-facing dependency on `GameRoot` internals/public dictionaries, clean full-stack desktop proof after each migration.
 
 ## D010 — Retain Godot 4.7 conditionally
+
+Status: Retained and sharpened by D040, which owns the GDScript/Compatibility and stable Apple toolchain policy.
 
 - Date/phase: 2026-07-11, engine/release architecture.
 - Context: Current v0 and proofs run on Godot 4.7, which supports the target 2D workflow and iOS export, but no signed iOS archive exists.
@@ -163,6 +167,8 @@ Status: Route-centered activity principle retained; D026 supersedes the four-fam
 
 ## D011 — Share game logic across desktop/iOS; adapt behind platform/input/UI layers
 
+Status: Shared-gameplay/desktop-first/iPhone-landscape rule retained; D035 and D038 supersede `PlatformService` with the five deep Modules and narrow per-consumer Adapters.
+
 - Date/phase: 2026-07-11, mobile strategy.
 - Context: Current “mobile” support is one simulated viewport and direct touch-state mutation. A separate mobile game would drift, while direct porting unfinished systems would discover problems late.
 - Options considered:
@@ -177,7 +183,7 @@ Status: Route-centered activity principle retained; D026 supersedes the four-fam
 
 ## D012 — Launch premium, offline-first, and privacy-minimal
 
-Status: Superseded by D022, which completes the monetization alternatives and diagnostics/privacy boundary.
+Status: Superseded by D022, which completes the monetization alternatives and diagnostics/privacy scope.
 
 - Date/phase: 2026-07-11, business/release.
 - Context: Mission prohibits harmful progression/dark patterns and does not require mobile monetization conventions.
@@ -193,6 +199,8 @@ Status: Superseded by D022, which completes the monetization alternatives and di
 - Validation: Market/pricing research near launch, store-page tests, external beta value feedback, privacy archive audit.
 
 ## D013 — Replace profile JSON with versioned atomic save and recovery
+
+Status: Versioned envelope, migration, separate settings, and active resume retained; D039 supersedes primary/rotating backups and atomic-rename reliance with alternating verified slots and durability-gated transactions.
 
 - Date/phase: 2026-07-11, reliability.
 - Context: Current save directly overwrites one unversioned file and silently defaults on many failures.
@@ -346,7 +354,7 @@ Status: Sharpened by D021; public execution now assumes a rename rather than tre
   - Regenerate the world and content identity every departure.
   - Persist a complete copy of every generated expedition as county truth.
   - Give authored topology/content seed-independent stable IDs and freeze only conditions/events/rewards into a versioned expedition manifest.
-- Selected option: Profile and county state persist independently. Every departure creates one immutable `ExpeditionManifest` containing content version, expedition ID/seed, repetition snapshot, contract, conditions/closures, pre-rolled Pressure branches, encounter/reward rolls, starting loadout/resources, valid extraction nodes, and finite reward budget. A separate mutable `ExpeditionProgress` checkpoint owns position/resources, active branch/objective state, consumed sockets, escrow, and pending mutations. Runtime effects are reconstructable and own no progression truth.
+- Selected option: Profile and county state persist independently. Campaign commits one immutable `ExpeditionOfferSet` per epoch. `PrepareDeparture` uses no RNG: it requires the full preferred assist policy plus `SettingsAssistVersion(settings revision, full-policy digest)`, rejects either mismatch, copies the selected plan unchanged, and freezes starting loadout/resources/`AppliedExpeditionAssistPolicy` into manifest/progress/config/domain digest. Back/cancel/reselect/loadout/assist/relaunch cannot reroll the set. A trusted recovered active remains reserved and resumes/settles. Only when no trusted matching active survives and higher-active risk is `POSSIBLE` does Campaign consume the recovered current set. Every lower recovery persists `PendingRecoveryNotice`; bootstrap blocks until durable acknowledgement. `ExpeditionProgress` owns resources, applied policy, retained-delta outbox, activity state, escrow, and mutations.
 - Reason: Preserves route memory/restoration while making variation, resume, test reproduction, and content migration deterministic.
 - Tradeoffs: Requires explicit state layers, versioned manifests, stable-ID migration, graph validation, and more save fixtures; macro topology cannot be cheaply randomized for variety.
 - Systems affected: World, encounters, activities, rewards, save, profile/county state, streaming, debug tools.
@@ -360,11 +368,11 @@ Status: Sharpened by D021; public execution now assumes a rename rather than tre
   - Bank all rewards on any terminal result.
   - Keep the prior automatic partial recovery and safe-boundary rollback.
   - Escrow material/capability rewards until extraction, distinguish immediate observation from pending mutations, and make all terminal settlement idempotent.
-- Selected option: Route/landmark observations may commit immediately; Scrap, parts, blueprints, chassis, cargo, payouts, and restoration mutations remain escrowed/pending until extraction. A completed safehouse may establish and close its own extraction boundary. Failure/stranding recovers only `[PLACEHOLDER: 15-20%]` loose Scrap capped at `[PLACEHOLDER: 0.25]` starter-part cost; no free item survives unless installed secure-storage hardware consumed a slot/Build Capacity and the player assigned one eligible intact part/blueprint/cargo item before failure. Chassis, payouts, and mutations are ineligible. Abandon settles like failure; quit/background resumes the immutable manifest plus latest valid progress checkpoint. Safehouse banking ends the expedition and Continuing creates a newly serviced manifest.
+- Selected option: Route/landmark observations and valid activity/trial cosmetics immediately critical-checkpoint as typed retained deltas in active progress; every terminal outcome transfers their IDs idempotently into Campaign before active removal. They never interleave a Campaign write with Expedition's PROFILE journal. Scrap, parts, blueprints, chassis, cargo, payouts, and restoration mutations are forbidden retained-delta kinds and remain escrowed/pending until extraction. A completed safehouse may establish and close its own extraction boundary. Failure/stranding recovers only `[PLACEHOLDER: 15-20%]` loose Scrap capped at `[PLACEHOLDER: 0.25]` starter-part cost; no free item survives unless installed secure-storage hardware consumed a slot/Build Capacity and the player assigned one eligible intact part/blueprint/cargo item before failure. Chassis, payouts, and mutations are ineligible. Abandon settles like failure; quit/background resumes the immutable manifest plus authoritative verified-slot progress checkpoint. Safehouse banking ends the expedition and Continuing creates a newly serviced manifest.
 - Reason: Makes return meaningful, avoids suicide scouting for power, prevents rollback/duplication, and bounds failure pain to the current leg rather than owned progress.
 - Tradeoffs: More transaction/save states and UI explanation; pending world mutation can temporarily revert after failure; recovery tuning may still prove too harsh or exploitable.
 - Systems affected: ExpeditionSession, rewards, inventory/ownership, objectives, county mutations, Results, save/resume, UI.
-- Validation: Fault injection at every transition; `resolution_id` commits at most once; at least 80% predict kept/lost facts; no fail-fast, abandon, reload, or safehouse-bounce strategy competes with objective extraction per active minute.
+- Validation: Fault injection at every transition, including observe/award -> kill/failure/abandon and settlement retry; every retained delta and `resolution_id` commits at most once; at least 80% predict permanent/retained/escrow facts; no fail-fast, abandon, reload, or safehouse-bounce strategy competes with objective extraction per active minute.
 
 ## D025 — Compose named sidegrades through visible Build Capacity and route scenarios
 
@@ -506,3 +514,87 @@ Status: Sharpened by D021; public execution now assumes a rename rather than tre
 - Tradeoffs: Common-task matrices and recruited testing add cost; some native assistive features may remain unclaimed at 1.0; stricter layouts constrain styling.
 - Systems affected: UI, input, settings, difficulty, map/navigation, audio/haptics, localization, playtest, App Store metadata, support docs.
 - Validation: Aspect/text/pseudoloc/contrast/focus/no-audio/mono/motion/input/error matrices pass; recruited users complete relevant common tasks; each proposed store label has a dated device/build evidence record and unsupported labels remain unclaimed.
+
+## D035 — Compose five deep Modules under a thin ApplicationShell
+
+- Date/phase: 2026-07-11, Wayfinder technical-architecture review; sharpens D009 and supersedes the shallow service names in the prior target diagram.
+- Context: `GameRoot` already mixes flow, mirrored run facts, input, UI, contacts, persistence, audio, and proofs. Splitting each concern into a public service would add coordination without establishing authority; hiding everything in one universal kernel would recreate the same god object.
+- Options considered:
+  - One live `GameKernel` with `open/dispatch/read`.
+  - A broad mesh of AppFlow, progression, economy, ownership, loadout, activity, encounter, world, save, presentation, and platform services.
+  - A thin `ApplicationShell` composing deep Campaign, Expedition, Drive Runtime, Content, and Save Modules.
+- Selected option: Use the five deep Modules. Campaign owns permanent county/profile/economy/ownership truth. Expedition owns the immutable manifest and mutable active rules/progress. Drive Runtime owns live physical/world state. Content owns stable-ID packages and loading. Save owns durable sequences/migration/recovery. `ApplicationShell` owns posture, lifetime, ordering, and immutable read-model composition only. Presentation/Feedback are shell Implementations.
+- Reason: Every public Interface follows a real authority and lifecycle, giving high Depth and Locality without a universal kernel or shallow service mesh.
+- Tradeoffs: The shell has explicit departure, fixed-tick, checkpoint, and settlement orchestration; Module records must remain disciplined; internal files may look less independently swappable.
+- Systems affected: Application flow, campaign/Garage, expedition, vehicle/world, content, save, Presentation, feedback, tests, debug tools, migration.
+- Validation: Phase 3 has exactly one live owner per fact; `GameRoot` contains no mirrored gameplay state; the five Interfaces have public tests; changing economy, activity rules, physics, package loading, or durability stays local to its owner except for typed Interface records.
+
+## D036 — Use typed commands, transitions, read models, and explicit ordering
+
+- Date/phase: 2026-07-11, Wayfinder data-flow review.
+- Context: Public Dictionaries and arbitrary signal fan-out let callers mutate implementation details, hide stale UI actions, and obscure save/settlement ordering.
+- Options considered:
+  - Continue direct references plus Dictionaries/signals.
+  - Introduce a global command/event bus.
+  - Route closed typed commands through the owning Module and return typed transitions/read models.
+- Selected option: Commands carry a unique `command_id`, expected revision, closed kind, and stable-ID payload. Module transitions return an immutable read model plus bounded runtime commands, semantic feedback events, and optional durability/terminal requests. `DurabilityRequest` names one owner plus commit/parent/candidate revisions and its commit ID is passed only to that owner. Campaign/Settings serialize mutations; Expedition's oldest unacknowledged candidate is the commit head and newest live state is the speculative tail. Ticks continue from the tail while Save commits from the head. Only the matching head acknowledgement promotes/releases output. Failure stops Save, retains the failed head/descendant tickets and gated output, then safe-pauses; exact-head retry resumes. Explicit verified-image reopen first obtains `CANCEL_OWNER_CHAIN` success guaranteeing held descendants cannot write, then discards the speculative chain. Capacity backpressure pauses rather than drops a transition. Runtime/model/feedback output is `IMMEDIATE` pending projection or `AFTER_DURABILITY`; candidate value is never called secured before acknowledgement. On restore, committed `ExpeditionProgress` overrides every derivable runtime projection through idempotent reconciliation before Drive ticks, including termination after save acknowledgement but before runtime output. Snapshot capture freezes incrementally maintained immutable roots in bounded O(1)/copy-on-write work; serialization/I/O stays outside the physics tick. Movement checkpoints coalesce only before request/revision/ticket allocation. `ApplicationShell` sequences calls directly; there is no global bus. Errors are typed results with recovery and localization facts.
+- Reason: Makes stale/duplicate handling, authority, causal feedback, durability, and testing explicit without centralizing every policy.
+- Tradeoffs: More record definitions and projection code; command unions require ownership; durable results can remain visibly pending.
+- Systems affected: All Module Interfaces, Presentation, feedback, save, debug tooling, tests.
+- Validation: Stale or duplicate commands never mutate state; read models cannot mutate owners; every cross-Module transition has an ordering test; no player-facing system reaches a mutable public Dictionary or Node path.
+
+## D037 — Give one ContentModule every threaded load and package lease
+
+- Date/phase: 2026-07-11, Wayfinder world/content-loading review.
+- Context: Godot 4.7 does not make the active SceneTree thread-safe, warns about shared Resources across loader threads, and can block if `load_threaded_get()` is called before completion. Independent feature loaders would make priority, cache, memory, and attachment unbounded.
+- Options considered:
+  - Let each world/encounter/presentation feature load its own Resources.
+  - Preload all content at boot.
+  - Use one `ContentModule` scheduler over versioned stable-ID packages; let owning Implementations attach completed leases.
+- Selected option: Boot the small metadata index plus one bounded always-resident shell/Title/Settle/loading/recovery package. One scheduler initially runs one threaded Resource request at a time with subthreads disabled, polls across frames, takes only completed Resources, and hands leases to owning main-thread Implementations. `ContentModule` never attaches Nodes. Drive returns request/withdraw/release IDs through frame/close results; private Presentation/Feedback return consumer-tagged deltas for their lazy packages. The shell merges all into Content and delivers leases to the tagged consumer. Fresh departure and cold resume remain paused until exact essentials attach. Optional work starts during Drive only when the essential horizon is full and declared bytes plus measured p99 fit with margin; active optional loads cannot cancel and obsolete results discard after completion. Runtime paths never enter saves.
+- Reason: Centralizes the genuinely cross-cutting load queue/residency invariant while keeping gameplay and authored package schemas local.
+- Tradeoffs: A single queue can head-of-line block, so optional admission is conservative; package timing/dependency/residency metrics add tooling; concurrency stays conservative until measured.
+- Systems affected: Content bake, ContentModule, Drive Runtime, world streaming, Presentation/audio packages, memory/performance, saves/build manifests.
+- Validation: Deterministic package/hash/bootstrap-budget tests; composite `entry_ready` and non-Drive `posture_ready`/visible blocked failure for required world/HUD/warning/accessibility/latency-audio packages; tagged consumer demand/ticket/lease/attach/detach/withdraw/release; pre-consumer abort; queued-cancel/late-discard; every close-drain; essential demand during largest optional; no blocking take/off-thread live mutation; zero blank/invisible/input-freeze.
+
+## D038 — Replace PlatformService with narrow proven Adapters
+
+- Date/phase: 2026-07-11, Wayfinder desktop-to-iOS architecture review; sharpens D011 and supersedes `PlatformService` references in earlier diagrams/records.
+- Context: Input, lifecycle, safe area, haptics, storage, diagnostics, accessibility, and optional online features do not share one cohesive caller. A capability grab bag would leak OS concerns and weaken Locality.
+- Options considered:
+  - One desktop/iOS `PlatformService` or Host Adapter.
+  - OS checks inside gameplay Modules.
+  - Narrow `InputSource`, `LifecycleSource`, `DisplayFactsSource`, `HapticOutput`, and build-time `ExportTarget` Adapters; private storage/loader Seams inside their Modules.
+- Selected option: Use the narrow Adapters. Gameplay sees no OS name or general capability Dictionary. Cloud, Game Center, third-party telemetry, audio-session plugins, and native accessibility receive no public Seam until approved scope and two real Implementations justify one. Godot Control metadata is required, but VoiceOver remains an explicit physical-iPhone/native-plugin feasibility gate because Godot 4.7's documented screen-reader feature excludes iOS.
+- Reason: Platform variation stays at the actual caller while shared Campaign/Expedition/Drive behavior remains identical.
+- Tradeoffs: More composition-root wiring; capability facts are intentionally distributed; native accessibility may be unshippable or expensive at 1.0.
+- Systems affected: Input, lifecycle, Presentation, haptics, save/content internals, build/export, accessibility claims, iOS.
+- Validation: Adapter conformance tests; no domain OS branches; lifecycle ordering clears input and resumes once; safe-area/orientation matrix; physical haptic proof; common-task VoiceOver spike before any claim.
+
+## D039 — Use alternating verified save slots and durability-gated transactions
+
+- Date/phase: 2026-07-11, Wayfinder save/reliability review; sharpens D013.
+- Context: Temp-plus-rename is useful but Godot's cross-platform APIs do not by themselves prove atomic durability. Overwriting the only good slot or presenting rewards before the write completes risks loss or duplication under termination/low storage.
+- Options considered:
+  - One primary file plus rotating backups.
+  - A database.
+  - A versioned envelope in two alternating verified slots, ranked by checksum-valid sequence before compatibility.
+- Selected option: `SaveModule` has closed PROFILE/SETTINGS image kinds with independent schemas, sequence namespaces, open/recovery results, and two-slot journals behind one internal file writer. For each kind it writes the next sequence to a temporary for the inactive slot, flushes/parses/checksums/validates it, replaces only that inactive slot, re-reads it, then advances that kind's committed sequence. Open ranks checksum-valid candidates by sequence without trusting a pointer. The highest checksum-valid sequence is authoritative: future schema/content/migration failure blocks visibly; only incomplete/unparsable/checksum-invalid higher data permits disclosed lower-slot recovery. Save copies corrupt higher evidence to diagnostic quarantine without removing its source slot before the replacement PROFILE notice commit succeeds. Recovery preserves trusted terminal/nonterminal active and burns the recovered offer set only when no trusted matching active survives and discarded higher-active risk is `POSSIBLE`; every lower recovery durability-persists `PendingRecoveryNotice` before routing and clears it only through idempotent acknowledgement. A SETTINGS failure/reset never selects, blocks, or rewrites PROFILE; active progress persists its effective assist policy and retained-delta outbox. Critical commits never coalesce/reorder; terminal and campaign results remain pending until acknowledgement. Offer sets commit before display. Settlement commits retained-delta transfer, set consumption, its exact pending receipt, permanent deltas, and active-snapshot removal, then clears that receipt only after a durable player acknowledgement.
+- Reason: A failed candidate replacement cannot overwrite the current valid sequence, while the format stays inspectable and much simpler than a database.
+- Tradeoffs: Roughly doubles save storage; sequencing/pending UI and fault harness are more complex; platform durability still needs physical proof.
+- Systems affected: SaveModule, settings image, expedition checkpoint, campaign transactions, lifecycle, Settle Receipt, recovery/support.
+- Validation: independent PROFILE/SETTINGS corruption/recovery/reset cross-product; v0/N-2 fixtures; low-storage/permission cases; 1,000 interruption points across slots, including valid replacement/verification before `DurabilityResult`, migration, offer creation, assist-policy change, retained-delta transfer, socket/reward/objective/terminal/purchase/settlement/receipt acknowledgement. The recovery matrix proves trusted nonterminal/terminal no-burn; no trusted matching active plus `POSSIBLE` burn/discard once; notice-write failure/retry and kill before notice commit replay the same recovery; kill after notice commit before display/acknowledgement restores it; duplicate acknowledgement is idempotent; and kill after acknowledgement does not restore it. Require zero profile loss, duplicate reward, rerolled shown offer, active-policy drift, retained-delta loss/duplication, skipped/duplicated recovery disclosure, or lost Settle Receipt; corrupt active progress never improves settlement.
+
+## D040 — Pin the simple Godot stack and a stable release toolchain
+
+- Date/phase: 2026-07-11, Wayfinder language/build review; sharpens D010.
+- Context: The current project and accepted handling proof use Godot 4.7, GDScript, and GL Compatibility. The local selected Xcode 27 beta, iOS 27 SDK, and beta macOS host can expose feasibility, but beta tooling or host OS is not release proof.
+- Options considered:
+  - Move early to C#, GDExtension, custom engine, or native iOS gameplay.
+  - Upgrade tools opportunistically.
+  - Pin the current simple stack and change only at measured phase gates.
+- Selected option: Retain Godot 4.7, GDScript, and GL Compatibility unless a measured production blocker identifies an exact Module and a recorded decision requalifies desktop, export, save, and device gates. Pin the exact Godot executable/export-template hash. Phase-2 feasibility may use available beta Xcode/macOS, but TestFlight/App Store archives require a pinned Apple-accepted stable Xcode/SDK pair on an Xcode-supported stable macOS release/build and a live upload-floor recheck.
+- Reason: Minimizes language/runtime/export variation while the project still has large gameplay/content risks and makes build provenance reproducible.
+- Tradeoffs: A later measured bottleneck can require a controlled migration; conservative engine/tool upgrades defer improvements; maintaining a stable Apple toolchain adds release-host work.
+- Systems affected: Project settings, scripts, native/plugin policy, CI/build manifests, iOS export, TestFlight/App Store release.
+- Validation: One clean-clone command records tools, imports, validates, tests, bakes, exports, and emits manifest-linked artifacts; signed feasibility and frozen-source Phase-15 archives install on physical devices; every release archive records stable macOS release/build, Xcode/SDK, Godot/templates, commit, content, and save schema.

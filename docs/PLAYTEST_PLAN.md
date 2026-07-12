@@ -204,7 +204,7 @@ Acceptance:
 
 - First meaningful part choice occurs in the first session.
 - At least two credible build paths appear across the cohort.
-- At least 80% of players predict exactly which reward/world facts are committed, immediate observations, or expedition escrow before choosing return/push.
+- At least 80% of players predict exactly which reward/world facts are permanently committed, durability-acknowledged retained deltas awaiting terminal transfer, or expedition escrow before choosing return/push.
 - Returning safely and pushing farther are both selected for understandable reasons.
 - Intentional failure, idling, circling, or farming does not outperform outward objective play.
 - Safehouse banking visibly closes the expedition; Continue starts a new persisted manifest from that safehouse with serviced baseline Fuel/Integrity while preserving claimed/rolled socket value, reward cooldowns, and repetition history.
@@ -396,7 +396,7 @@ Avoid asking only “Was it fun?” Use ratings after specific observations and 
 - Catalog benchmark for part/build dominance.
 - Detect impossible unlock dependencies, negative values, missing sources/sinks, strict loadout dominance, and duplicate reward application.
 - Verify repeated low-risk, fail-fast, circling, safehouse-bounce, abandon, reload, offer-cancel, and loadout-preview strategies remain inferior to cautious objective play; the same committed offer remains identical across loadouts.
-- Fuzz at least 10,000 manifests across graph closures, loadouts, Fuel, contracts, and extraction paths; fault-inject every expedition/objective transition and prove the same immutable manifest plus latest-checkpoint position, Fuel, Integrity, Pressure branch, objective/encounter state, consumed sockets, escrow, and pending mutations resume, with `resolution_id` idempotence.
+- Fuzz at least 10,000 manifests across graph closures, loadouts, Fuel, contracts, and extraction paths; fault-inject every expedition/objective transition and prove the same immutable manifest plus authoritative checksum-valid verified-slot position, Fuel, Integrity, Pressure branch, objective/encounter state, consumed sockets, escrow, pending mutations, current `AppliedExpeditionAssistPolicy`, and `RetainedCampaignDeltaOutbox` resume. Observe/award -> kill/failure/abandon and settlement retry must transfer each retained ID exactly once, with `resolution_id` idempotence.
 - Test all delivery, recovery, restoration, mastery-overlay, escrow, outcome, and resume boundaries.
 
 ### Human

@@ -26,6 +26,7 @@ The map is complete only after the required decisions and roadmap gates are dura
 - [Decide Product Identity And Launch Scope](issues/02-decide-product-identity-and-launch-scope.md) — Lead with route-shaped buildcraft and county restoration in a paid offline single-player game; assume a distinct public name, keep raw content counts and duration ranges provisional until measured throughput, and never trade quality/reliability for filler.
 - [Design Gameplay Content And Progression Systems](issues/03-design-gameplay-content-and-progression-systems.md) — Keep a stable authored county under persisted expedition manifests; build unique named sidegrades through visible capacity; drive objective restoration/extraction through three reusable activity state machines, action-driven Pressure, and completed-county replay.
 - [Decide UX Art Audio And Game Feel Direction](issues/04-decide-ux-art-audio-and-game-feel-direction.md) — Use an Animated Road Atlas world with bounded Field Manual components and semantic kinetic feedback; prove presentation through staged Drive, integrated-loop, and complete-shell gates before each asset family multiplies.
+- [Decide Target Technical And Mobile Architecture](issues/05-decide-target-technical-and-mobile-architecture.md) — Reduce `GameRoot` to a thin `ApplicationShell` over deep Campaign, Expedition, Drive Runtime, Content, and Save Modules; use typed transitions, one authority per fact, one load scheduler, independent PROFILE/SETTINGS verified-slot journals, and narrow proven desktop/iOS Adapters.
 
 ## Not yet specified
 

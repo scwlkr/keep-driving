@@ -2,6 +2,7 @@
 
 Status: desktop-to-iOS plan for 1.0.0
 Plan date: 2026-07-11
+Architecture decision and first-party constraints: [Technical and Mobile Architecture Decision](research/TECHNICAL_AND_MOBILE_ARCHITECTURE.md)
 
 ## Principle
 
@@ -18,7 +19,7 @@ The mobile phase may begin only when the desktop content-complete beta has:
 - All primary progression playable start to finish.
 - Full-stack desktop release build at 60 FPS with p95 at or below 16.7 ms, p99 at or below 25 ms, world work p95 at or below 4 ms, and no driving hitch above 50 ms.
 - Stable memory plateau during a two-hour soak.
-- Versioned/atomic save plus v0 migration, corruption recovery, active-expedition resume, and 1,000 interruption/fault cycles passing.
+- Versioned alternating-slot save plus v0 migration; highest checksum-valid sequence authoritative, with disclosed lower-slot recovery only when the higher candidate is incomplete, unparsable, or checksum-invalid; active-expedition resume and 1,000 interruption/fault cycles passing.
 - Keyboard and controller adapters using the same `DriveIntent` contract.
 - Responsive UI aspect/text/focus matrix passing at the simulated phone floor.
 - No open desktop P0/P1 defect and a bounded P2 list.
@@ -41,30 +42,27 @@ After the accepted desktop handling/hero truth slice, Phase 2 performs one bound
 - Product target: sustained 30 FPS on the minimum supported device; 60 FPS on A15-class and newer devices.
 - Raise the deployment/device floor before external TestFlight if the complete game cannot sustain readability, save reliability, memory, thermal, and frame budgets without materially reducing the core experience.
 
-The App Store upload SDK floor is separate. As of the 2026-07-11 research snapshot, uploads require Xcode 26+ and the iOS 26 SDK; recheck Apple's live requirement at every release gate.
+The App Store upload SDK floor is separate. As of the 2026-07-11 research snapshot, uploads require Xcode 26+ and the iOS 26 SDK; recheck Apple's live requirement at every release gate. The current selected local Xcode 27 beta and beta macOS host are feasibility/forward-compatibility evidence only. TestFlight and App Store release gates require a pinned Apple-accepted stable Xcode/SDK pair on an Xcode-supported stable macOS release/build, plus matching Godot templates.
 
 ## Shared desktop-to-mobile architecture
 
 ### Shared without forks
 
-- Domain/progression/economy/activity rules.
-- World definitions, streaming, encounter logic, and save schema.
-- Vehicle fixed-step simulation and collision.
-- Content catalogs and stable IDs.
-- UI component scenes, information architecture, localization keys, and view models.
+- `CampaignModule` permanent rules, `ExpeditionModule` active rules, and `DriveRuntimeModule` fixed-step world/vehicle behavior.
+- `ContentModule` package schemas/stable IDs and `SaveModule` schema/migration semantics.
+- UI component scenes, typed intents, immutable read models, information architecture, and localization keys.
 - Audio/feedback event semantics.
 - Debug/performance metric semantics.
 
-### Platform-specific adapters
+### Narrow platform Adapters
 
-- Keyboard/controller/touch input sources and glyphs.
-- Safe-area, aspect, resolution/quality tier, and orientation.
-- Application lifecycle, interruptions, memory warnings, and storage diagnostics.
-- Haptics and audio-session behavior.
-- Export, signing, entitlements, icons, launch storyboard, privacy manifest, and store packaging.
-- Optional Game Center/cloud support only if explicitly included.
+- `InputSource`: keyboard, controller, touch, replay, and glyph facts.
+- `DisplayFactsSource`: safe area, aspect, resolution/quality tier, and orientation.
+- `LifecycleSource`: desktop focus/quit versus iOS pause/resume/interruption/memory warning.
+- `HapticOutput`: iOS plugin, controller/no-op, and recording proof.
+- Build-time `ExportTarget`: desktop export versus Xcode signing/archive, entitlements, icons, launch storyboard, privacy manifest, and store packaging.
 
-No `if OS == iOS` branches inside economy, world, activity, or progression rules. Platform facts enter through narrow interfaces.
+Storage and resource loading remain private Seams inside `SaveModule` and `ContentModule`. Do not create a broad platform capability Interface or optional Game Center/cloud/telemetry/native-accessibility Adapter before scope and a second real Implementation justify it. No `if OS == iOS` branches exist inside Campaign, Expedition, Drive Runtime, or content rules.
 
 ## Touch controls
 
@@ -120,6 +118,10 @@ Desktop side panels become focused Field Manual cards/sheets on phone. Phone Pla
 - The car/camera composition avoids notches/home indicator and control fingers.
 - Screenshots and automated layout reports capture every reference class at 100%, 150%, and 200% text.
 
+### Native accessibility feasibility
+
+Godot 4.7 Control accessibility metadata is required, but Godot's documented screen-reader feature does not include iOS. Do not infer VoiceOver from metadata or visual accessibility. A physical-iPhone spike must prove focus, values, actions, live warnings, modal restoration, and touch exploration across Service, Plan, Drive, Settle, and SystemSheet. If required and approved, keep the sole concrete `IOSVoiceOverBridge` plugin private inside Presentation; do not promote a public Adapter/Seam until a second real shipping-platform Implementation exists. Otherwise retain the non-native baseline and make no VoiceOver claim.
+
 ## Performance budgets
 
 ### Frame pacing
@@ -140,18 +142,19 @@ Desktop side panels become focused Field Manual cards/sheets on phone. Phone Pla
 - Provisional process peak <= 500 MB on the minimum device.
 - No unbounded cache; texture, audio, baked-chunk, pool, node, and mutation budgets are visible.
 - Memory reaches a stable plateau within +/-5% after warm-up during a two-hour traversal soak.
-- Respond to memory warning by dropping optional caches/detail safely; never discard authoritative state.
+- On memory warning, ask each consumer to detach optional/horizon content, then release returned lease IDs; Content never evicts a held lease, current collision/terrain essentials stay pinned, and authoritative state is never discarded.
 
 ### Thermal and battery
 
 - Thirty-minute representative expedition soak on minimum and mid-tier devices, sampling `ProcessInfo.thermalState` at least once per second after a five-minute ambient-temperature idle baseline.
+- A private QA-only `IOSDeviceMetricsProbe` plugin samples `ProcessInfo.processInfo.thermalState`, timestamp, battery/low-power facts needed by this protocol and writes the evidence stream. It is a concrete instrumentation Implementation inside QA builds, not a gameplay Interface/Adapter, and is absent from Release. Xcode Instruments/Organizer and the controlled battery protocol cross-check it.
 - Zero `critical` sample; `serious` may not persist for more than 60 consecutive seconds or exceed 10% of the measured 30-minute window. Any forced shutdown, runaway quality oscillation, or input degradation fails the gate.
 - Provisional battery target: no more than 15% of a healthy device charge during a controlled 30-minute session at 50% brightness; record exact device, battery health, network, audio, frame mode, and temperature.
 - Offer 30/60 frame mode only if both are stable and clearly labeled; never default to an unstable 60 mode.
 
 ### Launch and resume
 
-- Cold launch <= 5 seconds on minimum device to interactive Title/Continue.
+- Cold launch <= 5 seconds on minimum device to the correct first model: `RecoveryApplying` or durable `PendingRecoveryNotice` when recovery gates boot; otherwise Settle for pending receipt, `SettlementRecovering` for terminal active, `ResumeLoading` for nonterminal active, or interactive Title/Continue.
 - Warm resume target <= 1 second; hard gate <= 2 seconds.
 - No main-thread content bake, catalog scan, or save migration during active driving.
 
@@ -182,9 +185,9 @@ Desktop side panels become focused Field Manual cards/sheets on phone. Phone Pla
 
 ## Loading behavior
 
-- Load Title/Garage and current profile first; region content loads on expedition entry.
+- Load metadata plus the bounded Title/Continue/recovery/settlement bootstrap first. Garage and other heavy posture payloads load lazily through consumer-tagged `PostureLoadPlan`; region content loads through `EntryLoadPlan` on expedition entry/resume.
 - Predictive world streaming uses direction/speed and authored dependency metadata.
-- Essential collision/terrain/objective outrank decoration, optional encounter, and VFX.
+- Current entry/posture-required collision/terrain/objective, HUD/warning/accessibility equivalents, and latency-critical engine/warning/interaction audio outrank encounters, decoration, ambience/music, and extra VFX.
 - No blocking spinner while driving. If essential data cannot arrive, transition at a safe boundary or use tested limited Streaming Drag—never blank terrain.
 - iOS file paths, case sensitivity, packaged resources, and low-storage write behavior receive explicit tests.
 
@@ -197,15 +200,18 @@ On loss of active state:
 1. Clear active touch/controller intent immediately.
 2. Pause simulation and audio/haptics.
 3. Capture a bounded immutable expedition snapshot.
-4. Commit if the OS time budget permits; otherwise retain the last known-good committed save.
+4. Attempt the bounded commit. If termination races it, next launch ranks slots normally: a fully checksum-valid higher sequence is authoritative even if `DurabilityResult` never ran; otherwise the prior verified slot wins.
 5. Record lifecycle reason/timestamp locally for diagnostics.
 
-On resume:
+On warm foreground, reuse the suspended runtime: process completed durability, requery safe area/orientation/controller/audio/quality, reattach only an essential explicitly detached during deliberate safe-point memory handling, require neutral input, restore loops once, and resume once. Never call Save/Expedition/Drive `open` over the live runtime.
 
-1. Revalidate content/save/session identity.
-2. Requery safe area, orientation, controller, audio route, and quality state.
-3. Show a resume overlay; never resume into moving danger under a stuck input.
-4. Restore loops/ambience once and resume only after input release/acknowledgement.
+On cold relaunch after OS termination, or after explicit verified-image reopen has first received successful `CANCEL_OWNER_CHAIN` and drained/closed the old runtime:
+
+1. Run independent PROFILE/SETTINGS selection and revalidate content/build identity. If PROFILE selects an eligible lower slot, immediately show `RecoveryApplying`; copy corrupt higher evidence to diagnostic quarantine without removing its source before the replacement commit, validate recovered active state, preserve trusted terminal/nonterminal active, and burn/discard only when no trusted matching active survives and higher-active risk is `POSSIBLE`.
+2. Commit `PendingRecoveryNotice`; failure or termination before commit repeats the same recovery. Show the durable notice until an idempotent acknowledgement commits. No receipt/resume/Plan route runs first; kill after notice commit restores it, while kill after acknowledgement does not.
+3. If no recovery notice remains, show Settle for a pending receipt. If active progress is terminal, show `SettlementRecovering`, skip Drive, and idempotently resume retained-delta transfer, Campaign settlement, guarded offer-set consumption, and receipt commit.
+4. For nonterminal active progress, show `ResumeLoading`; derive `DriveRestorePlan` from saved world requirements and persisted `AppliedExpeditionAssistPolicy`, then let the shell add current locale/quality/settings Presentation/Feedback needs to a consumer-tagged `EntryLoadPlan`.
+5. Load and attach through the normal frame loop, apply ordered idempotent runtime reconciliation from committed `ExpeditionProgress`, and require neutral input. Tick only after composite `entry_ready`: required collision/terrain/objective/entity content, Drive HUD/warning/accessibility equivalents, latency-critical engine/warning/interaction audio, and input acknowledgement. Only ambience/music/extra VFX may lag; missing/hash-invalid required consumer content remains visibly blocked.
 
 Elapsed background time does not drain Fuel, advance threats, complete objectives, or generate rewards.
 
@@ -222,17 +228,18 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 
 ## Save reliability on mobile
 
-- Same versioned atomic envelope and stable IDs as desktop.
+- Same independent PROFILE/SETTINGS envelopes, per-kind alternating verified slots/sequences, and stable IDs as desktop; settings corruption/reset never rewrites an active PROFILE policy.
 - Background snapshot work is bounded and never serializes live Godot nodes.
-- Fault tests kill the app before/during/after temp write, backup rotation, rename, migration, objective resolution, extraction payout, purchase, and resume.
-- 1,000 lifecycle/write fault cycles with no profile loss or duplicated reward.
-- Corrupt primary recovers latest verified sequence and preserves diagnostics.
-- Low-storage error is player-visible and never overwrites a good backup.
+- Fault tests kill the app before/during/after inactive-slot temporary write, flush, replacement, re-read verification, after valid replacement/verification but before `DurabilityResult`, migration, offer creation, SETTINGS commit versus active PROFILE assist-policy commit, observe/award retained-delta checkpoint and every terminal transfer, objective resolution, extraction payout, both settlement steps, receipt presentation/acknowledgement, purchase, and resume—including after save acknowledgement but before runtime/feedback/receipt release.
+- The lower-PROFILE fault matrix proves trusted nonterminal/terminal active no-burn; no trusted matching active plus `POSSIBLE` burns/discards once; notice-write failure/retry and kill before notice commit repeat the same recovery; kill after notice commit before display/acknowledgement restores it; acknowledgement is idempotent; and kill after acknowledgement does not restore it.
+- 1,000 lifecycle/write fault cycles produce no profile loss, duplicated reward, retained-delta loss/duplication, rerolled offer, active-policy drift, or skipped/duplicated recovery disclosure.
+- Open ranks checksum-valid slots by sequence before compatibility. Future schema/content/migration failure on the highest sequence blocks visibly; only an incomplete/unparsable/checksum-invalid higher candidate permits disclosed lower-slot recovery. Corrupt higher evidence is copied to diagnostic quarantine without removing its source before the replacement notice commit succeeds.
+- Low-storage error is player-visible and never overwrites the current valid slot.
 - Local play remains authoritative at launch. Optional cloud sync cannot enter 1.0 without conflict, offline, deletion, privacy, and multi-device proof.
 
 ## Haptics
 
-- Use the platform adapter; gameplay emits semantic intensity/pattern events.
+- Use the narrow `HapticOutput` Adapter; gameplay emits semantic intensity/pattern events.
 - Continuous road texture is off by default and cannot graduate without comfort, control-precision, battery, and 30-minute fatigue proof; all discrete patterns are rate-limited.
 - Validate light/heavy impact, drift threshold, pickup, critical warning, and extraction patterns on physical devices.
 - Respect Reduce/Off setting instantly.
@@ -301,7 +308,8 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 | Production art/audio exceeds memory | Representative asset spike and per-region manifests | Before content lock |
 | Thermal/battery degrades long runs | Minimum/mid 30-minute soaks every milestone | Device beta |
 | Background creates stuck input/duplicate reward/save loss | Lifecycle adapter plus 1,000 fault cycles | Internal TestFlight |
-| Godot/Xcode/SDK exporter incompatibility | Phase-2 export-only feasibility check after desktop truth slice; reproduce against frozen game in Phase 15 | Before production scale-up, then before mobile scale-up |
+| Godot/Xcode/SDK exporter incompatibility | Phase-2 export-only feasibility check after desktop truth slice; reproduce against frozen game with pinned stable Xcode/SDK in Phase 15 | Before production scale-up, then before mobile scale-up |
+| Godot metadata does not produce usable iOS VoiceOver | Physical common-task feasibility spike; native plugin estimate only after proof | Before any VoiceOver claim or accessibility architecture lock |
 | Optional SDK changes privacy/review scope | Default no tracking; formal SDK decision/privacy manifest audit | Before integration |
 
 ## Mobile definition of done

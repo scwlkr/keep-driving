@@ -324,7 +324,7 @@ Automated proof verifies nonempty real resources, bus names/routes, loop/state t
 
 Haptics are semantic punctuation, not continuous road texture. Initial allowed families are selection, drift threshold, light/heavy impact, critical warning, pickup/commit, restoration, and successful extraction. Every pattern is causal, short, optional, intensity-scalable, rate-limited, and paired with at least one non-haptic cue.
 
-Continuous surface haptics remain disabled by default and cannot graduate without physical-device comfort, battery, control-precision, and 30-minute fatigue proof. Unsupported or disabled haptics remove no information. Platform APIs remain behind the platform adapter selected by ticket 05.
+Continuous surface haptics remain disabled by default and cannot graduate without physical-device comfort, battery, control-precision, and 30-minute fatigue proof. Unsupported or disabled haptics remove no information. Platform APIs remain behind ticket 05's narrow `HapticOutput` Adapter.
 
 ## Accessibility and mobile-readiness standard
 

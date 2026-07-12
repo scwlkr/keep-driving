@@ -2,6 +2,7 @@
 
 Status: target architecture for 1.0.0
 Architecture date: 2026-07-11
+Detailed alternatives, Interface/error contracts, first-party constraints, and failure analysis: [Technical and Mobile Architecture Decision](research/TECHNICAL_AND_MOBILE_ARCHITECTURE.md)
 
 ## Architecture goals
 
@@ -11,7 +12,7 @@ The 1.0 architecture must:
 - Make driving, world, content, progression, presentation, save, and platform behavior independently testable.
 - Support a hybrid authored/systemic county and catalog-driven vehicles/parts without hardcoded matches.
 - Keep one gameplay code path across desktop and iOS; platform variation belongs behind adapters.
-- Protect existing and future saves through stable IDs, schemas, migrations, and atomic writes.
+- Protect existing and future saves through stable IDs, schemas, migrations, independent PROFILE/SETTINGS alternating verified-slot journals, and durability acknowledgement.
 - Keep content production and validation cheaper than code changes.
 - Expose performance budgets and failure evidence early.
 - Stay small enough for the project: explicit modules and typed records, not a framework for hypothetical games.
@@ -30,7 +31,7 @@ main.tscn (GameRoot)
     └── AudioStreamPlayer placeholders
 ```
 
-`GameRoot` owns application flow, input, UI construction/layout, camera, contact resolution, resource advancement, save calls, audio requests, effects, and automated proof helpers. `RunProgression` is a useful domain seam, `WorldGenerator` is a useful pure-generation seam, and `WorldRuntime` proves bounded streaming, but public dictionaries and duplicated state couple tests and implementation.
+`GameRoot` owns application flow, input, UI construction/layout, camera, contact resolution, resource advancement, save calls, audio requests, effects, and automated proof helpers. `RunProgression` is useful characterized rule evidence, `WorldGenerator` is useful characterized pure-generation evidence, and `WorldRuntime` proves bounded streaming; none remains a target authority, and their public dictionaries/duplicated state couple tests to implementation.
 
 Primary conflicts with the target:
 
@@ -39,247 +40,308 @@ Primary conflicts with the target:
 - `scripts/world_generator.gd` creates a repetitive four-spoke chunk grammar; the campaign needs an authored macrograph and baked world data.
 - `scripts/world_runtime.gd` synchronously generates data and linearly scans/counts entities; production assets and AI need asynchronous loading, spatial queries, lifecycle policies, and real pooling.
 - `scripts/run_progression.gd` and `scripts/game_constants.gd` hardcode three upgrades; the target needs stable catalog resources and typed ownership/loadout state.
-- `scripts/profile_store.gd` directly overwrites unversioned JSON; release saves require an envelope, validation, backups, migration, and lifecycle rules.
+- `scripts/profile_store.gd` directly overwrites unversioned JSON; release saves require an envelope, alternating verified slots, migration, recovery, and lifecycle rules.
 - UI and audio are constructed in the root, preventing reusable scenes, theming, localization, focus navigation, and real asset validation.
 
-## Target module map
+## Selected architecture
 
-```mermaid
+Use a thin Godot `ApplicationShell` over five deep runtime Modules. The shell owns composition and call ordering, not gameplay truth.
+
+~~~mermaid
 flowchart LR
-    Input["InputRouter\nkeyboard controller touch replay"] --> Intent["DriveIntent"]
-    Intent --> Vehicle["VehicleController\nfixed-step motion and collision"]
-    Vehicle --> Session["ExpeditionSession\nstate and rules"]
-    World["WorldStreamer\nBakedWorld plus runtime population"] --> Session
-    Encounters["EncounterDirector"] --> World
-    Activities["ActivityService"] --> Session
-    Session --> Progression["Progression and Economy"]
-    Progression --> Save["SaveService\nversioned atomic persistence"]
-    Catalog["ContentCatalog\nvalidated stable-ID resources"] --> Vehicle
-    Catalog --> World
-    Catalog --> Encounters
-    Catalog --> Activities
-    Catalog --> Progression
-    Session --> Presentation["UI Presentation"]
-    Vehicle --> Feedback["Camera Audio VFX Haptics"]
-    Session --> Feedback
-    Platform["PlatformService\nlifecycle safe area haptics diagnostics"] --> Input
-    Platform --> Save
-    Platform --> Presentation
-    AppFlow["AppFlow\nscreen and lifecycle state"] --> Session
-    AppFlow --> Presentation
-```
+    Host["Input / Lifecycle / Display Adapters"] --> Shell["ApplicationShell\ncomposition and ordering"]
+    UI["Presentation Implementation\nService Plan Drive Settle"] <--> Shell
+    Shell --> Campaign["CampaignModule\npermanent authority"]
+    Shell --> Expedition["ExpeditionModule\nactive authority"]
+    Shell --> Drive["DriveRuntimeModule\nphysical authority"]
+    Shell --> Save["SaveModule\ndurable authority"]
+    Shell --> Content["ContentModule\nstable IDs and packages"]
+    Content --> Campaign
+    Content --> Expedition
+    Content --> Drive
+    Content --> UI
+    Shell --> Feedback["Audio / Feedback Implementations"]
+    Content --> Feedback
+    Feedback --> Haptics["HapticOutput Adapter"]
+~~~
 
-Prefer explicit references and narrow signals over a global catch-all event bus. A session owns its runtime modules and disposes them together. Autoloads are reserved for truly application-wide services.
+Do not create a universal game kernel, global command/event bus, public mutable dictionaries, or broad `PlatformService`. Economy, ownership, loadouts, activities, encounters, streaming, and feedback can have private files and tests without becoming public Interfaces. Add a Seam only where it improves Depth and Locality for a real caller.
 
-## Module responsibilities
+### Authority
 
-### AppFlow
+| Fact | Sole live owner | Persisted form |
+|---|---|---|
+| Posture, screen/session lifetime, save/loading/error presentation | `ApplicationShell` | explicit settings/onboarding only |
+| `PersistentCountyState`, `RewardLedger`, Scrap, ownership, presets, offer epoch/current `ExpeditionOfferSet`, pending settlement/recovery notices, Build Capacity validation, records | `CampaignModule` | `PermanentSnapshot` |
+| `ExpeditionManifest`, Fuel, Vehicle Integrity, Pressure, applied gameplay/physics assist policy, retained Campaign-delta outbox, activities, encounters, escrow, consumed sockets, pending mutations, terminal state | `ExpeditionModule` | `ActiveExpeditionSnapshot` |
+| Vehicle kinematics, collision/recovery filters, active world nodes, spatial index, pools, streaming window | `DriveRuntimeModule` | `DriveRuntimeCheckpoint` |
+| Stable-ID index, content/package versions, queue, leases, residency | `ContentModule` | build/content manifest; leases are ephemeral |
+| Per-kind committed sequences, independent PROFILE/SETTINGS verified-slot journals, migrations, recovery | `SaveModule` | typed versioned save envelopes |
+| Preferred `SettingsState` values | private Settings Implementation owned by `ApplicationShell` | independent versioned `SETTINGS` image through `SaveModule` |
+| Focus/layout/animation/component state | Presentation Implementation | not persisted unless promoted to `SettingsState` |
+| Safe area, lifecycle, input/device capability | narrow Adapter | never gameplay truth |
 
-Owns boot, TitleSurface, one-card first launch, Service/Plan/Drive/Settle posture changes, expedition entry/exit, SystemSheet/pause, recovery, and quit transitions.
+One owner per fact does not mean one giant state object. During play, `DriveRuntimeModule` owns physical state. Its latest committed checkpoint becomes resume authority only after relaunch; `ApplicationShell` never mirrors it.
 
-- Explicit state enum/state objects and allowed transitions.
-- Routes screens and session lifetime.
-- Coordinates safe save boundaries through `SaveService`.
-- Never implements driving, economy, or content rules.
-- Handles lifecycle events received from `PlatformService`.
+`DriveRuntimeCheckpoint` is a stable-ID-only value containing the physics tick; vehicle position/rotation, linear/angular motion, steering/slip/filter state; last-safe pose and recovery/contact cooldowns; non-progression manifest-scoped entity physics needed for exact reconstruction; deterministic runtime cursors; and required content hashes. It contains no Node, Resource, RID, path, package lease, pool/cache membership, Presentation state, reward eligibility, socket availability, or objective truth. On restore, committed `ExpeditionProgress` is authoritative over every derivable runtime projection: Expedition supplies idempotent reconciliation commands before Drive ticks. Restoring the checkpoint, attaching its essential content, reconciling from the same progress, and applying the next identical `DriveIntent` must produce the same next-tick physical facts within declared numeric tolerance.
 
-### ExpeditionSession
+## Public Interface contracts
 
-Authoritative owner for one active expedition:
+Public records are typed immutable `RefCounted` values or typed definition Resources. A `StableId` is a namespaced immutable `StringName`, never a Node/resource path. Commands carry `command_id` and `expected_revision`. A `DurabilityRequest` carries owner, unique `commit_id`, `parent_revision`, `candidate_revision`, image kind, reason, criticality, and typed `ActiveSnapshotDisposition` (`PRESERVE_CURRENT`, `INCLUDE_OWNER_CANDIDATE`, `REMOVE_COMMITTED_TERMINAL`, or SETTINGS-only `NOT_APPLICABLE`); its result echoes owner/commit/revision plus the per-kind durable save sequence. Errors carry a typed code, stable context IDs, retryability/recovery, localization key/arguments, and a diagnostic ID; Modules do not silently default authoritative state or invent final English copy.
 
-- Immutable `ExpeditionManifest`: identity, content/world version, seed/repetition snapshot, contract/objective branch graph, closures, weather, pre-rolled Pressure branches, encounters, reward rolls, valid extraction nodes, starting loadout/resources, and finite reward/socket budget.
-- Mutable `ExpeditionProgress`: Fuel, Vehicle Integrity, position, visible action-driven Pressure, active branch/objective substate, consumed sockets, carried cargo/escrow, and pending mutations stored against that manifest.
-- Player/chassis/loadout snapshot plus committed, immediate-observation, escrow, and active-manifest security buckets.
-- Pending county mutations; they commit only at extraction and never masquerade as permanent state during an active expedition.
-- Orthogonal state: expedition `offered -> active -> extracted | wrecked | stranded | abandoned`; objective `not_started -> active -> field_complete | objective_failed`. Return/push is mutable intent, not a required transition.
-- Safehouse banking closes the expedition; Continue creates a new manifest from that safehouse with serviced baseline Fuel/Integrity.
-- Quit/background resumes exactly; abandon settles like failure; terminal settlement uses an idempotent `resolution_id` and can apply only once.
-- Signals/snapshots consumed by UI and feedback.
+### `CampaignModule`
 
-It replaces mirrored run scalars in `GameRoot`. Presentation receives immutable snapshots or narrow signals; it cannot mutate session dictionaries.
+~~~gdscript
+restore(snapshot: PermanentSnapshot, catalog: CampaignCatalogView) -> CampaignRestoreResult
+validate_assists(policy: CampaignAssistPolicy, version: SettingsAssistVersion) -> ValidationResult
+configure_assists(policy: CampaignAssistPolicy, version: SettingsAssistVersion) -> ConfigureResult
+handle(command: CampaignCommand) -> CampaignTransition
+read(query: CampaignReadQuery) -> CampaignReadModel
+snapshot(commit_id: StringName = &"") -> PermanentSnapshot
+~~~
 
-### VehicleController
+Owns permanent county/profile/economy/ownership rules:
 
-- Hosted on `CharacterBody2D` or an equivalently robust 2D collision body.
-- Runs at fixed 60 Hz in `_physics_process`.
-- Consumes normalized `DriveIntent` and `VehicleRuntimeConfig`.
-- Owns velocity, acceleration/braking, steering, slip, surface forces, collision movement, contact transitions, recovery, and benchmark telemetry.
-- Emits semantic events such as `surface_changed`, `impact`, `drift_started`, and `stuck_state_changed`.
-- Does not update profile rewards, HUD text, or audio players.
+- loadout ownership, slot, compatibility, Build Capacity, stat composition, presets, fabrication, and Scrap transactions;
+- restoration/discovery/chassis/blueprint milestones;
+- offer-set epoch/selection, route forecast, and the private `ExpeditionManifestBuilder` over lightweight planning metadata;
+- idempotent settlement application against `resolution_id` and `RewardLedger`, including retained-delta transfer and durable `PendingSettlementReceipt`.
 
-`VehiclePresentation` separately owns body/wheel animation, damage layers, trail sockets, and visual interpolation. `VehicleCameraRig` owns follow/look-ahead/zoom/shake with accessibility limits.
+At offer creation, Campaign commits one immutable set. `PrepareDeparture(offer_id, offer_epoch, loadout_id, preferred_policy, assist_version)` never calls RNG: Campaign requires `SettingsAssistVersion(settings_revision, full_policy_digest)` to match the version stored beside its preflighted forecast projection, freezes applied policy, then binds plan/loadout/resources/policy. Any revision or full-policy digest mismatch returns `SETTINGS_REVISION_CONFLICT`; the shell never patches manifest.
 
-### InputRouter
+An active manifest reserves its plan; settlement consumes the set. Eligible lower-PROFILE recovery first validates recovered active/offer binding. Trusted terminal/nonterminal active remains reserved. Only no trusted matching active plus `POSSIBLE` higher-active risk burns the recovered current set. Every lower recovery persists `PendingRecoveryNotice`; bootstrap blocks gameplay until acknowledgement.
 
-Produces platform-independent records:
+`CampaignTransition` may then return a `PreparedDeparture` containing the manifest, frozen applied policy, initial progress/checkpoint, policy-derived config, `WorldEntryRequirements`, and domain digest. Campaign never chooses Presentation/Feedback payloads. The shell privately composes `EntryLoadPlan`; Expedition validates/stages the domain value.
 
-```gdscript
-class_name DriveIntent
-var throttle: float       # 0..1
-var brake: float          # 0..1
-var steer: float          # -1..1
-var handbrake: float      # 0..1
-var recovery_pressed: bool
-```
+Repeated `command_id` returns its prior result. A durable Campaign command stages one ordered candidate snapshot and pending result; it does not replace the committed read model until the matching typed durability acknowledgement returns through `handle`. Campaign serializes user transactions while a candidate is pending. Save failure retains the candidate for explicit retry; explicit revert reloads the last verified image. Settlement becomes committed Presentation truth only after `SaveModule` acknowledgement. The settlement commit persists `PendingSettlementReceipt`; a separate durability-gated acknowledge command clears it only after the player leaves Settle.
 
-Sources:
+Progression, Economy, Ownership, Loadout, and Garage-policy classes are private Implementations, not separate public Interfaces.
 
-- Keyboard shaping and remapping.
-- Controller axes/triggers, dead zones, glyph set, reconnect.
-- Touch multi-contact steering/pedals/layout.
-- Automated proof/replay source.
-- Accessibility assists that transform intent explicitly.
+### `ExpeditionModule`
 
-UI navigation uses a separate action layer so menu focus cannot leak into driving. Device changes update prompt glyphs without changing game rules.
+~~~gdscript
+open(request: ExpeditionOpenRequest, rules: ExpeditionRulesView) -> ExpeditionOpenResult
+advance(command: ExpeditionCommand) -> ExpeditionTransition
+checkpoint(
+    runtime: DriveRuntimeCheckpoint,
+    commit_id: StringName = &""
+) -> ActiveExpeditionSnapshot
+~~~
 
-### WorldDefinition and content bake
+Owns one immutable `ExpeditionManifest` and mutable `ExpeditionProgress`:
 
-Editor-time authored source:
+- Fuel, Vehicle Integrity, action-driven Pressure, activity/encounter state, escrow, consumed sockets, pending mutations, terminal state, and `RetainedCampaignDeltaOutbox`;
+- Delivery, Recovery, Restoration, and Mastery-overlay rules;
+- safehouse/extraction, failure/stranding/abandon, secure storage, and `SettlementPlan` creation;
+- exact active resume and idempotent `resolution_id`.
 
-- `CountyDefinition` and `RegionDefinition` resources.
-- `RoadGraph` nodes/edges with route class, surface, width, crossings, and adjacency.
-- Landmark, safehouse, objective, event-socket, spawn-zone, weather-zone, and audio-zone scenes/resources.
-- Source version and stable content IDs.
+For a new departure, `open(PreparedDeparture)` validates the manifest/initial progress/digest, including the starting `AppliedExpeditionAssistPolicy`, stages the first active snapshot, and returns an Expedition-owned `DurabilityRequest`; it does not enter Drive until acknowledgement. For resume, `open(ActiveExpeditionSnapshot)` is a typed branch: nonterminal progress returns `DriveRestorePlan` with exact policy-derived config/checkpoint/content/reconciliation; terminal progress returns `TerminalResumePlan` with the deterministic `SettlementPlan` and never opens Drive.
 
-A validation/bake step converts authored sources into runtime `BakedWorld` packages:
+`ExpeditionTransition` returns one immutable read model plus typed runtime commands and semantic feedback events marked `IMMEDIATE` or `AFTER_DURABILITY`, an optional `DurabilityRequest`, and an optional terminal settlement plan. Physical contact is only a fact until this Module applies rules. Runtime nodes own no progression truth.
 
-- Chunk index and bounds.
-- Render layers/atlases and collision data.
-- Road/terrain sampling data.
-- Landmark/objective/socket references.
-- Navigation/route graph.
-- Streaming dependency and memory metadata.
-- Deterministic content hash.
+Route/landmark observations and valid activity/trial cosmetic awards do not issue interleaved Campaign writes. Expedition appends typed `RetainedCampaignDelta(delta_id, kind, stable_payload, source_revision, proof_digest)` values to its outbox and critical-checkpoints them. The combined read model overlays acknowledged outbox facts as retained. Material escrow, payouts, parts, blueprints, chassis, and restoration mutations are forbidden outbox kinds. Every terminal settlement, including failure/abandon, transfers each delta exactly once into Campaign using `applied_retained_delta_ids` before active removal.
 
-Runtime never attempts to reconstruct authored macro roads from per-chunk noise.
+The manifest never mutates or regenerates. Progress advances once per sequential 60 Hz tick. Each retained observation/cosmetic delta, assist-policy change, socket/reward/objective/Pressure/terminal transition appends a candidate with parent/candidate revisions to Expedition's bounded ordered candidate journal. The **commit head** is the oldest unacknowledged candidate; the **speculative tail** is the newest live state. Fixed ticks continue from the speculative tail while `SaveModule` commits immutable candidates from the commit head in order; acknowledgements promote only that matching head, and `AFTER_DURABILITY` output releases in the same order. A descendant may depend on an earlier candidate but can never overtake it. If the journal reaches its measured capacity, the shell enters a visible safe-point `DURABILITY_BACKPRESSURE` pause before another tick rather than dropping or merging a critical transition; ordinary acceptance proof must show this never occurs. On failure, Save stops that PROFILE owner chain and holds descendant CommitTickets; the failed head, descendants, and their gated output remain while Expedition freezes at the next safe frame. Exact-head retry resumes the same chain; explicit reopen first obtains the Save cancellation barrier, then atomically cancels held tickets/speculative output and restores the last verified snapshot. The independent SETTINGS chain may continue. Periodic movement checkpoints may coalesce only before request/revision/ticket allocation and never across a critical candidate. Terminal progress commits before settlement is actionable.
 
-All persistent county facts use seed-independent authored IDs. `PersistentCountyState` owns committed restoration, discovered landmarks/roads, safehouse state, and other permanent mutations. It is never cleared or reconstructed merely because a new expedition seed is chosen.
+Activity, Encounter, Reward, Pressure, and Settlement policy classes are private Implementations, not separate public Interfaces.
 
-### ExpeditionManifestBuilder
+### `DriveRuntimeModule`
 
-- Inputs the stable county/profile snapshot, selected contract/cargo, content versions, namespaced `RewardLedger`, and repetition ledger.
-- Selects only declared weather, closures, reward sockets, objective variants, and prevalidated encounter/Pressure branches; it never redraws county topology, moves major landmarks, or uses the player's selected loadout to counter-pick threats or weight rewards.
-- Uses the selected loadout only to validate an outbound/objective path and an extraction path against closures, cargo, and forecast Fuel before departure; property tests require the same committed offer/rolls across loadout previews.
-- Persists the complete immutable manifest before departure. Reload consumes the stored manifest and mutable progress; it does not regenerate from current profile/county state.
-- Fuzz reports cover route concentration, invalid combinations, reward distribution, and at least 10,000 contract/loadout/closure combinations.
+~~~gdscript
+open(config: DriveRuntimeConfig, checkpoint: DriveRuntimeCheckpoint) -> DriveOpenResult
+step(tick: int, fixed_delta: float, intent: DriveIntent) -> DriveStepResult
+apply(commands: Array[DriveRuntimeCommand]) -> ApplyResult
+advance_frame(
+    frame: RuntimeFrame,
+    ready_leases: Array[ContentLease]
+) -> RuntimeFrameResult
+checkpoint() -> DriveRuntimeCheckpoint
+close() -> RuntimeCloseResult
+~~~
 
-### WorldPopulationGenerator
+Owns the live physical Implementation:
 
-Evolves the pure parts of the current `WorldGenerator` contract:
+- `CharacterBody2D` Arcade-Real Handling at exactly 60 Hz;
+- surface/Road Advantage sampling, collision/recovery, and vehicle telemetry;
+- authored Route Network projection, `WorldStreamer`, `SpatialWorld`, pools/entity lifetime, and runtime-only effects;
+- the only live-world-node instantiate/attach/detach queue and its per-rendered-frame budget;
+- reconstructable vehicle/world checkpoint and immutable performance metrics.
 
-- Input: frozen manifest selection and stable authored socket/chunk IDs.
-- Output: pure deterministic marker/event records only for manifest-selected eligible sockets/zones.
-- Stable authored IDs for county mutation and manifest-scoped IDs for active-instance replay.
-- No Godot nodes or scene-tree access in generation.
-- Seed fuzz and snapshot/hash proof.
+`DriveStepResult` returns pose/motion/surface, contacts, interaction candidates, manifest-scoped entity facts, Streaming Drag state, feedback facts, and metrics. It never directly mutates Fuel, Vehicle Integrity, rewards, escrow, activities, or county state.
 
-### WorldStreamer
+`RuntimeFrameResult` includes typed `ContentDemandDelta(request_plans, withdraw_demand_ids, release_lease_ids)`, attachment status, and metrics. The private `WorldStreamer` creates demand plans with stable demand ID, package/hash, priority, dependencies, and prediction deadline. A withdrawn demand is identified before a lease exists; after Drive detaches a package, it emits its lease ID for release. `RuntimeCloseResult` returns every remaining withdrawn demand and detached lease ID so departure failure, settlement, reset, and shutdown cannot leak residency. Drive never calls Content directly.
 
-- Loads baked chunk packages around the player using predictive direction/speed prefetch.
-- Uses threaded resource loading/pure-data work only; scene attachment remains on the main thread and is amortized.
-- Prioritizes terrain/collision, then essential landmarks/objectives, then entities, decoration, and optional effects.
-- Maintains bounded active/preload sets and explicit memory/node/draw-call/entity/effect budgets.
-- Never shows blank terrain or uses invisible walls. A production-tested Streaming Drag/fallback may limit acceleration only when required terrain is genuinely late.
-- Exposes immutable metrics for debug/performance proof.
+All Interface calls and live SceneTree/physics work occur on the main thread. `step` performs no blocking load, global scene search, or unbounded entity scan. `advance_frame` accepts completed leases, never paths/tickets, and initially attaches at most one world chunk per rendered frame. The Free-Roaming World permits leaving roads; Road Advantage changes speed/grip/risk rather than constraining motion.
 
-### SpatialWorld and EntityLifecycle
+### `ContentModule`
 
-- Spatial hash/grid for nearby entity/contact/AI queries.
-- Pool by entity/effect scene type with hard caps and measured reuse.
-- Registration/unregistration owns lifetime; tests do not edit `active_entities` dictionaries.
-- Importance/distance budgets reduce optional AI, decoration, and effects before required collision/world state.
-- Mutation state lives in the session, not on pooled nodes.
+~~~gdscript
+open_index(identity: BuildContentIdentity) -> ContentOpenResult
+request(plan: ContentLoadPlan) -> LoadTicket
+withdraw(demand_id: StringName) -> void
+advance(poll_budget_us: int) -> ContentTransition
+lease(ticket: LoadTicket) -> ContentLeaseResult
+release(lease_id: StringName) -> void
+~~~
 
-### EncounterDirector
+Boot loads metadata and one bounded always-resident `ShellBootstrapPackage`. It contains minimal Theme/font plus Title/Continue, Pause/Resume/SystemSheet recovery controls, Settle, `RecoveryApplying`, `PendingRecoveryNotice`, `ResumeLoading`, `SettlementRecovering`, and blocking error Presentation; heavy panels/payloads remain lazy. Its size/import budget is build-validated.
 
-- Activates only encounter templates/Pressure branches already selected by the manifest. Branch selection uses checkpointed current Pressure, the disclosed triggering action, any declared non-increasing assist modifier, route state, and consumed/cooldown facts; it checkpoints the new Pressure/branch before effects and never rerolls at runtime.
-- Activates authored sockets with reaction-distance and navigability rules.
-- Changes visible Pressure only from disclosed noise, objective actions, or encounter escalation—never elapsed wall time, assist use alone, or recent player success. A declared assist may only attenuate the disclosed action delta; it cannot trigger/increase Pressure or alter rewards.
-- Owns encounter state machines, not low-level entity movement.
-- Provides deterministic debug forcing and a recent-template audit.
+Package families:
 
-### ActivityService
+- campaign metadata: chassis, parts, Build Capacity, milestones, balance;
+- expedition rules: contracts, restoration, encounters, rewards;
+- county world: Route Network, chunks, collision, landmarks, sockets;
+- Presentation/Feedback: scenes, fonts, icons, audio/VFX handles.
 
-- `ContractDefinition`/`ContractInstance` runtime objectives for Delivery and Recovery, plus `RestorationObjectiveDefinition` runtime objectives for Restoration; Mastery composes as an optional rules overlay rather than a fourth state machine.
-- Validates start requirements, progress, success/failure, reward escrow, extraction, and resume.
-- Uses stable activity IDs and versioned state.
-- World objects publish semantic interactions; activities do not reach into scene paths.
+One scheduler owns every `ResourceLoader.load_threaded_*` call. Initial policy starts one resource request at a time with subthreads disabled; concurrency rises only after representative stability/performance proof. Status is polled across frames and `load_threaded_get()` is called only after loaded status. `ContentModule` never instantiates or attaches live Nodes; it promotes completed Resources into leases on the main thread. `DriveRuntimeModule` alone consumes world leases and owns live attachment.
 
-### ContentCatalog
+Priority is current entry/posture-required world, HUD/warnings/accessibility equivalents, and latency-critical audio; then objective/safehouse and essential prediction horizon; then encounters, decoration, ambience/music, and extra VFX. Optional work uses the horizon/p99 margin rule. Active loads cannot cancel; obsolete results finish then discard. `advance` never waits. Held leases never evict; only unleased residency can.
 
-Application-wide read-only **metadata** registry loaded at boot. Boot loads stable IDs, small scalar facts, localization keys, dependency hashes, and lazy package/asset handles—not region textures, audio payloads, scenes, baked geometry, encounter instances, or other heavy resources:
+### `SaveModule`
 
-- `VehicleDefinition`
-- `PartDefinition`
-- `RegionDefinition`
-- `LandmarkDefinition`
-- `EncounterDefinition`
-- `ContractDefinition`
-- `ContractInstance`
-- `RestorationObjectiveDefinition`
-- `BalanceProfile`
-- Cosmetic and audio/visual metadata/handles
+~~~gdscript
+open(request: SaveOpenRequest) -> SaveOpenResult
+submit(request: CommitRequest) -> CommitTicket
+advance(io_budget_us: int) -> SaveTransition
+recover(request: RecoveryRequest) -> RecoveryResult
+~~~
 
-Small vehicle/part/balance metadata may remain resident. Region, landmark, encounter, contract presentation, audio, and baked-world payloads live in versioned packages resolved lazily when an expedition/preload boundary needs them, then unload when no active/preloaded region references them. Catalog validation may scan source metadata in development/CI, but release boot must not force-load every asset to validate it.
+Owns schema migration, serialization/checksum, one internal file writer over independent PROFILE/SETTINGS ordered journals and alternating verified slots, recovery/quarantine, and fault diagnostics.
 
-Catalog validation fails development/CI builds for duplicate/missing IDs, bad references, incompatible slots, invalid costs/ranges, missing localization, missing source/license metadata, or absent proof tags. Runtime content references stable IDs, never resource paths in saves.
+- Main-thread code captures immutable typed snapshots; file work never touches live Nodes/Resources or runs inside a physics tick.
+- Critical commits never coalesce or reorder. Movement checkpoints coalesce only in an owner-local unnumbered slot before `DurabilityRequest`, revision, or `CommitTicket` allocation; when the writer admits that slot, it freezes the latest complete snapshot and allocates one ordinary candidate. No allocated revision/ticket is replaced or skipped.
+- A gameplay result gated on durability remains pending until final acknowledgement.
+- Low-storage, permission, verification, and deadline failures preserve the last known-good slot.
+- No filesystem rename/flush behavior is assumed sufficient without desktop and physical-iOS fault proof.
 
-### Progression, Garage, Ownership, and Economy
+The storage backend is a private Seam inside this deep Module.
 
-- `ProgressionService` applies restoration/discovery/chassis/blueprint milestones.
-- `EconomyService` is the only owner of Scrap sources/sinks and transaction validation.
-- `OwnershipCatalog` owns unique named parts, blueprints, fixed duplicate conversion, and preset references. Expedition escrow owns pending intact parts/chassis/cargo until terminal settlement; no physical duplicate inventory or overflow queue exists.
-- `LoadoutService` validates chassis slots/capacities and creates immutable `VehicleRuntimeConfig`.
-- `GaragePresenter` translates domain facts to comparison UI; it does not calculate affordability or stats.
+`RecoveryRequest` is a closed family. Its `CANCEL_OWNER_CHAIN(image_kind, owner, failed_commit_id)` branch is the explicit reopen barrier: it is valid only after the failed head has completed, atomically cancels every held unstarted descendant ticket/output for that owner chain, and returns their IDs plus the unchanged authoritative sequence. A `CHAIN_NOT_QUIESCENT` result keeps the shell paused; no Module discards speculative state or reopens until typed success guarantees that no canceled ticket can later write. Other branches cover eligible lower-slot recovery and explicit SETTINGS reset without crossing image kinds.
 
-Transactions return explicit success/failure records and are committed atomically with the save snapshot.
+Eligible lower-PROFILE `RecoveryResult` carries stable recovery/quarantine IDs, recovered sequence, and conservative higher-active risk. Save copies the corrupt higher evidence to diagnostic quarantine without removing its source slot before a replacement PROFILE commit succeeds; termination before that commit therefore returns the same recovery on next boot. The shell validates any recovered active first. Campaign then commits `PendingRecoveryNotice(recovery_id, quarantine_id, recovered_sequence, loss_action_digest, burned_offer_epoch?)`; trusted terminal/nonterminal active is preserved, while only no trusted matching active plus `POSSIBLE` burns the recovered current set and discards unverifiable active/escrow/outbox. Notice-write failure stays in `RecoveryApplying` with exact retry. Success shows the durable notice, including after a kill before display. Notice acknowledgement is a separate idempotent Campaign durability command; only its acknowledgement may route to receipt, terminal/nonterminal active, or Title/Plan, and a kill after that acknowledgement boots from the cleared notice.
 
-### Presentation
+## `ApplicationShell` and Presentation
 
-- Player-facing screens are `.tscn` scenes with reusable components, Theme resources, localization keys, focus maps, and responsive layout rules.
-- Presenters/view models convert domain snapshots into display state.
-- Loading/empty/error/disabled/focus/touch/controller states are part of every component contract.
-- A counted UI component is a reusable primitive, card family, or extension widget with its own public state contract/gallery entry. Eight primitives plus seven card families consume 15 of the initial 20-component ceiling; up to five extension widgets remain. Screen shells/posture layouts do not count unless they add reusable state/behavior. Additions require UI-gallery/state-matrix evidence.
-- Presenters may choose copy/order/fold/layout and emit typed intents. They do not compose domain stats, decide affordability, roll content, settle escrow, mutate progression, or save.
-- AtlasCanvas and RouteLedger consume the same route display model so a spatial interface is never the only route to a fact or action.
-- Debug UI is a separate development-only CanvasLayer.
+`ApplicationShell` owns boot, TitleSurface, Preflight, Service/Plan/Drive/Settle posture transitions, SystemSheet/pause, session lifetime, and lifecycle ordering. It routes typed `AppIntent` values to the owning Module, sequences runtime commands/save requests, combines immutable read models, and publishes feedback. It owns no Fuel, Vehicle Integrity, Scrap, kinematics, activity, or settlement copy.
 
-### AudioDirector and FeedbackDirector
+Fixed-step ordering is explicit:
 
-- Consume deduplicated semantic vehicle/session/world events carrying source, forecast/commit/consequence/resolve phase, priority, magnitude, optional direction, localized cause, cooldown group, and dedupe identity.
-- Audio owns buses, engine/surface states, impact voice limits, music intensity, ambience, warning priority, and pause/background behavior.
-- Feedback owns VFX pooling, camera impulses, UI flashes, and accessibility intensity.
-- Continuous simulation snapshots drive continuous vehicle/audio state; they do not emit per-frame discrete events. Critical cues reserve capacity and may briefly duck masking buses.
-- Platform haptics flow through `PlatformService`; no gameplay module imports an iOS API.
-- Haptics are discrete, optional, rate-limited, paired with another cue, and suppressed while backgrounded. Continuous surface texture is off by default until physical-device fatigue/battery proof.
-- Tests distinguish request, real resource assignment, routed playback state, captured output/human audible proof, and physical-device haptic proof.
+~~~gdscript
+func _physics_process(_delta: float) -> void:
+    var tick := next_physics_tick()
+    var intent := input_source.sample_drive(tick)
+    var physical := drive_runtime.step(tick, 1.0 / 60.0, intent)
+    var transition := expedition.advance(
+        ExpeditionCommand.observe_drive(tick, physical.facts)
+    )
+    if transition.durability_request:
+        var active := expedition.checkpoint(
+            drive_runtime.checkpoint(),
+            transition.durability_request.commit_id
+        )
+        save.submit(make_active_commit(
+            transition.durability_request,
+            campaign.snapshot(),
+            active
+        ))
+    drive_runtime.apply(transition.runtime_commands.with_delivery(IMMEDIATE))
+    publish(
+        transition.pending_read_model,
+        transition.feedback_events.with_delivery(IMMEDIATE)
+    )
+    buffer_after_durability(transition)
+~~~
 
-### SettingsService
+There is no arbitrary signal fan-out or global bus.
 
-- Typed defaults, versioned local persistence, validation, platform-specific availability, and live application.
-- Separate from progression save so corrupt settings cannot destroy a profile.
-- Supports control maps, display, audio, gameplay assists, accessibility, language, and privacy choices.
+Rendered-frame content ordering is explicit:
 
-### PlatformService
+1. `ContentModule.advance(poll_budget_us)` polls/promotes completed loads; the shell takes ready leases for tracked consumer-tagged demand IDs and delivers each only to Drive, Presentation, or Feedback as tagged.
+2. `DriveRuntimeModule.advance_frame` owns bounded world instantiate/attach/detach; private Presentation/Feedback content-frame operations own their scene/font/icon/audio/VFX attachment. Each returns a `ContentDemandDelta` for the next frame.
+3. The shell merges deltas, forwards request plans to `ContentModule.request`, records consumer/demand-to-ticket, calls `ContentModule.withdraw` for withdrawn demand IDs, and calls `ContentModule.release` only after the owning consumer detached the lease. Queued withdrawal removes work; active withdrawal marks the result obsolete for take-and-discard after completion.
 
-Narrow interface with desktop and iOS adapters:
+This one-frame feedback loop is covered by the prediction horizon. Content owns scheduling/residency; Drive alone owns spatial demand and live world nodes; Presentation/Feedback own only their private payloads; the shell owns routing only.
 
-- Platform/capability detection.
-- Safe-area and window/aspect facts.
-- App foreground/background, interruption, memory warning, and termination notification.
-- Haptics.
-- Storage path/available-space diagnostics.
-- Optional Game Center/cloud hooks, disabled at launch unless explicitly shipped.
-- Release build/version and diagnostic information.
+Before a tagged consumer accepts departure/cold-reopen content, the shell owns a typed transient demand ledger only: demand IDs, tickets, and acquired lease IDs. Any content/hash/load or consumer-open failure withdraws every outstanding demand and releases every acquired lease. On acceptance, ownership transfers to that tagged Drive/Presentation/Feedback consumer and its close-drain result. No abort path can strand a ticket or lease.
 
-Domain/gameplay code must run under a headless/test adapter.
+### Durability transaction protocol
 
-### Telemetry and crash diagnostics
+`ApplicationShell` composes complete candidate `SaveImage` values from the owning Module snapshot plus the current permanent/active state:
 
-- Define `TelemetrySink` and `CrashDiagnostics` interfaces early; default release implementation can remain privacy-minimal/no-op plus local structured logs and Apple-provided crash diagnostics.
-- No advertising identifier, fingerprinting, or cross-app tracking.
-- A third-party SDK requires a data inventory, retention/deletion/opt-out policy, privacy manifest/signature validation, App Store label update, offline behavior, symbolication proof, and explicit decision log entry.
-- Balance and playtest events should first use local opt-in export so design is not coupled to a backend.
+1. The owner stages a candidate and returns `DurabilityRequest(owner, commit_id, parent_revision, candidate_revision, image_kind, reason, criticality, active_snapshot_disposition)`.
+2. The shell passes the nonempty commit ID only to the owning Module. A PROFILE Campaign request with `PRESERVE_CURRENT` uses `CampaignModule.snapshot(commit_id)` plus current Expedition state; a PROFILE Expedition request with `INCLUDE_OWNER_CANDIDATE` uses `CampaignModule.snapshot()` plus `ExpeditionModule.checkpoint(DriveRuntimeModule.checkpoint(), commit_id)`; settled active removal requires `REMOVE_COMMITTED_TERMINAL`. A SETTINGS request uses only the private Settings candidate and requires `NOT_APPLICABLE`.
+3. `SaveModule` commits the complete next sequence for the named image kind.
+4. The shell returns `DurabilityResult(owner, commit_id, candidate_revision, save_sequence, outcome)` only to the owner. The owner accepts only its commit head. Success promotes that candidate/read model and releases only its `AFTER_DURABILITY` runtime/feedback output. Failure retains that output with the failed head and descendants, stops that image-kind/owner chain before descendant work, freezes affected gameplay at the next safe frame, and exposes exact-head retry or explicit reload of the last verified image; retry success releases it, while reload discards it with the speculative chain.
+
+`SaveModule`'s expected-prior-sequence check and each owner's parent/candidate revisions form one ordered acknowledgement chain. Out-of-order, duplicate-with-different-result, skipped-revision, or wrong-owner results are typed invariant failures. Campaign and Settings serialize interactive mutations; Expedition may journal a speculative tail behind the commit head so normal driving never waits on disk. Explicit reopen first obtains successful `CANCEL_OWNER_CHAIN`, then atomically discards the matching speculative chain and reconstructs the authoritative image. Queue depth/age are measured, and release acceptance requires zero durability backpressure or save-related >50 ms hitch in representative play.
+
+Checkpointable records are maintained incrementally during ordinary state changes. The end-of-tick calls shown above freeze immutable typed roots through bounded O(1)/copy-on-write capture; they never serialize, perform file I/O, or walk every live entity in `_physics_process`. Serialization and storage begin afterward. Phase 2 records max-entity capture p50/p95/worst and allocations; Phase 3 locks the capture budget inside the world/frame gates.
+
+`IMMEDIATE` runtime commands are reconstructable speculative projections tagged with the pending commit ID; they may prevent repeated contact but can never convey secured value. If the player explicitly reloads after failure, the shell closes/reopens Expedition and Drive Runtime from the last verified active snapshot. The read model exposes pending/error state and never labels candidate value committed.
+
+`ExpeditionProgress` is authoritative over derivable runtime availability. A committed socket/reward/objective transition may therefore be durable even if termination occurs after save acknowledgement but before its runtime output is applied. Every restore derives ordered idempotent reconciliation commands from committed progress and applies them to the paused Drive Runtime before the first tick; stale pickup, socket, objective, and encounter projections cannot reappear or duplicate value.
+
+Departure is executable through the Interfaces:
+
+1. `CampaignModule.handle(PrepareDeparture)` validates offer ID/epoch, loadout, full preferred expedition policy, and `SettingsAssistVersion` revision/digest against the committed set/forecast projection; it copies the plan unchanged, freezes applied policy, binds only declared starting fields without RNG/reroll, and returns deterministic domain `PreparedDeparture`.
+2. The shell composes `WorldEntryRequirements` with current locale/quality/settings Presentation/Feedback plans into consumer-tagged `EntryLoadPlan`; its payload digest is separate from the domain digest.
+3. The transient ledger routes that plan; abort withdraws/releases all.
+4. Drive opens paused; tagged consumers attach until `entry_ready`: required world collision/terrain/objective, Drive HUD/warnings/accessibility equivalents, and latency-critical engine/warning/interaction audio. Only ambience/music/extra VFX may lag.
+5. `ExpeditionModule.open(new PreparedDeparture)` stages the active snapshot and returns an Expedition durability request.
+6. Drive activates only after `entry_ready` plus durability acknowledgement. On Save failure, staged consumers remain paused/ready for exact-head retry. Explicit cancel/reopen drains them. If deliberate memory teardown occurs while failed, retry success still waits for rebuilt `EntryLoadPlan` and re-proven `entry_ready`. Missing required content blocks visibly.
+
+Cold relaunch and explicit verified-image reopen use the same essential-content safety gate:
+
+1. `SaveModule.open` selects and verifies the authoritative slot; `ExpeditionModule.open(resume)` returns domain `DriveRestorePlan` with saved world requirements.
+2. The shell immediately publishes a visible `ResumeLoading` read model; no heavy package work delays the first launch frame.
+3. The shell composes current consumer plans into `EntryLoadPlan`; the transient ledger loads it while bootstrap Presentation updates progress.
+4. Drive reconstructs paused state and tagged consumers attach until `entry_ready`, including latency-critical Drive audio; only ambience/music/extra VFX may lag.
+5. The shell applies reconciliation, shows the neutral-input overlay, and enables ticks only after `entry_ready` plus input acknowledgement. Missing/hash-invalid required consumer packages remain a typed visible blocked state.
+
+If `ExpeditionModule.open(resume)` instead returns `TerminalResumePlan`, the shell immediately publishes `SettlementRecovering`, never loads/opens Drive, idempotently resumes Campaign settlement from the already committed terminal snapshot, commits permanent deltas plus `PendingSettlementReceipt` plus active removal, and routes to Settle. This covers termination between the two settlement durability steps.
+
+Warm foreground is a different lifecycle path. Background leaves the live Drive Runtime suspended; foreground never calls `SaveModule.open`, `ExpeditionModule.open`, or `DriveRuntimeModule.open` over it. The shell revalidates the in-memory session, re-queries display/input/audio facts, applies completed durability results, and checks retained essential leases. Content never evicts a held lease: memory warnings ask Drive/Presentation/Feedback to detach optional/horizon content first, then route release IDs. Current collision/terrain essentials remain pinned; if deliberate safe-point handling explicitly detached another essential, foreground shows `ResumeLoading` and reattaches only that lease. It then requires neutral input, restores loops once, and resumes the same runtime once. OS termination selects the cold path on next launch; explicit reopen first drains/closes the old runtime after its Save cancellation barrier.
+
+Terminal settlement is two durability steps: commit terminal active progress; drain `DriveRuntimeModule.close()` withdrawals/releases to Content; then stage Campaign's idempotent settlement and commit retained-delta transfer, permanent changes, matching offer-set consumption/epoch advance, `PendingSettlementReceipt`, and active-snapshot removal in one next sequence. If the second durability step fails, the terminal active snapshot remains recoverable and can safely retry the same `resolution_id`/delta IDs. If termination occurs after that commit but before Presentation output, boot finds the pending receipt and routes to Settle; it cannot disappear. Leaving Settle durability-acknowledges and clears the receipt.
+
+Presentation is a private shell Implementation:
+
+- player-facing screens are `.tscn` scenes with Theme resources, localization keys, deterministic focus maps, and responsive rules;
+- presenters consume revisioned immutable read models and emit typed intents with expected revision;
+- they may choose copy/order/fold/layout, but cannot compose domain stats, decide affordability, roll content, settle escrow, mutate progression, or save;
+- AtlasCanvas and RouteLedger consume the same route display model;
+- loading/empty/disabled/error/recovery/input-mode states are explicit;
+- the ticket-04 component ceiling and gallery contract remain authoritative.
+
+Presentation and Feedback return private `ContentDemandDelta` values for their lazy scene/font/icon/audio/VFX packages. The shell tags each demand with its consumer, merges request/withdraw/release operations into the same Content scheduler, and delivers leases only to that consumer. They detach before release and return close-drain IDs exactly like Drive; the always-resident bootstrap never enters the lazy ledger.
+
+Non-Drive posture transitions have the same readiness rule. The shell composes private `PostureLoadPlan` for Service, Plan, Settle detail, or heavy SystemSheet panels and publishes that target posture only after all required tagged leases report `posture_ready`. Until then the bootstrap renders a responsive loading/error state; missing required content blocks visibly. Minimal Pause/Resume/SystemSheet recovery controls are always available from the bootstrap.
+
+Audio and Feedback Implementations consume deduplicated semantic events plus continuous vehicle state. They own buses, voices, VFX/camera/UI output, cooldown/dedupe, accessibility intensity, and a narrow `HapticOutput` Adapter. They cannot mutate gameplay.
+
+The private Settings Implementation owned by `ApplicationShell` is the sole owner of preferred `SettingsState`. It persists through `SaveModule` as an independent `SETTINGS` image so corrupt/recovered preferences cannot destroy or rewrite a profile. It derives typed `InputAssistConfig`, `CampaignAssistPolicy`, `PreferredExpeditionAssistPolicy`, `PresentationSettings`, and `FeedbackSettings`.
+
+Settings application is ordered. Settings derives `SettingsAssistVersion` from revision plus full expedition-policy digest and preflights it with every projection. Post-ack configure is total/idempotent; `SettingsApplying` remains until all match. Campaign stores that version beside only its forecast projection. Departure carries full preferred policy plus version; Campaign compares both and freezes applied policy. Active changes use Expedition PROFILE durability; boot active progress wins.
+
+## Narrow platform Seams
+
+A composition-root wiring record may group Adapters, but it is not a broad Interface.
+
+| Interface | Real Implementations | Owner |
+|---|---|---|
+| `InputSource` | keyboard, controller, touch, replay | input composition |
+| `LifecycleSource` | desktop focus/quit, iOS pause/resume/memory/interruption, deterministic test | `ApplicationShell` |
+| `DisplayFactsSource` | desktop window facts, iOS safe-area/orientation facts, deterministic fixture | Presentation |
+| `HapticOutput` | iOS plugin, controller/no-op, recording test | Feedback |
+| `StorageBackend` | Godot `FileAccess`, fault-injecting storage | private to `SaveModule` |
+| `ResourceLoadBackend` | Godot `ResourceLoader`, deterministic fixture | private to `ContentModule` |
+| `ExportTarget` | macOS QA export, iOS Xcode archive | build-time only |
+
+No gameplay Module reads an OS name or general capability dictionary. Do not create cloud, Game Center, telemetry, audio-session, or native accessibility Adapters until scope and feasibility create a second real Implementation.
+
+Godot's iOS screen-reader support is not documented even though Control accessibility metadata exists. Populate semantic metadata, but treat VoiceOver as an explicit physical-device/native-plugin feasibility gate. If it fails, retain the non-native accessibility baseline and make no VoiceOver claim.
+
+Local privacy-minimal structured logs and Apple-provided crash diagnostics are the launch default. A third-party SDK requires a data inventory, retention/deletion/opt-out policy, manifest/signature validation, App Store label update, offline behavior, symbolication proof, and a new decision.
 
 ## Save architecture
 
@@ -287,6 +349,7 @@ Domain/gameplay code must run under a headless/test adapter.
 
 ```json
 {
+  "image_kind": "PROFILE",
   "schema_version": 1,
   "build_version": "1.0.0",
   "content_version": 1,
@@ -304,23 +367,30 @@ The payload contains typed/validated sections:
 - Seed-independent `PersistentCountyState` for committed restoration, safehouses, roads, landmarks, and mutations; it holds no duplicate reward-claim state.
 - Scrap, unique owned-part IDs, and blueprint/fabrication state with stable catalog IDs.
 - Loadout presets.
+- Monotonic offer epoch plus the current immutable `ExpeditionOfferSet`, if shown and not consumed.
 - `ActiveExpeditionSnapshot` containing the immutable `ExpeditionManifest` plus mutable `ExpeditionProgress` when eligible.
+- Active snapshots persist the starting/current `AppliedExpeditionAssistPolicy`; physics-affecting steering/brake/traction values reconstruct `DriveRuntimeConfig` exactly.
+- Active progress persists `RetainedCampaignDeltaOutbox`; permanent snapshots persist applied delta IDs so settlement retries cannot duplicate observations/cosmetics.
 - Applied terminal `resolution_id` records sufficient to make settlement idempotent.
+- Zero or one `PendingSettlementReceipt` with exact outcome, deltas, highlights, and digest until player acknowledgement.
+- Zero or one `PendingRecoveryNotice` with recovery/quarantine IDs, recovered sequence, loss/action digest, and optional burned offer epoch until acknowledgement.
 - Tutorial/onboarding state.
 
-Settings live in a separate versioned file.
+`SaveImageKind` is closed: `PROFILE` or `SETTINGS`. Each kind has its own schema, monotonic sequence namespace, two alternating verified slots, open/recovery result, and expected-prior-sequence chain. `CommitRequest` names the kind. One internal writer may serialize file work, but a failed SETTINGS chain never blocks, replaces, rolls back, or selects a PROFILE slot. A corrupt SETTINGS image is quarantined and may be explicitly reset to declared defaults with a visible notice; the PROFILE result and any persisted active applied policy remain authoritative.
 
 ### Write protocol
 
 1. Build an immutable snapshot on the main thread.
-2. Serialize to a temporary file.
-3. Flush/close and parse/validate the temporary file.
-4. Rotate verified primary to backup A and prior backup A to backup B.
-5. Atomically rename the verified temporary file to primary where the platform permits.
-6. Reload/validate on development and fault-injection paths.
-7. Surface write failure and preserve the last known-good primary/backup.
+2. Choose the inactive alternating slot; never overwrite the highest checksum-valid sequence in the same commit.
+3. Serialize the next sequence to a temporary beside that inactive slot.
+4. Flush/close, parse, checksum, and schema/content-validate the temporary.
+5. Replace only the inactive slot, then re-read and validate it.
+6. Mark the new sequence current in memory. On load, parse both envelopes and rank checksum-valid candidates by sequence before schema/content compatibility; never trust a separate pointer.
+7. Surface any failure and preserve the prior valid slot. Quarantine corrupt material for diagnostics.
 
-Never silently replace a corrupt profile with defaults. Copy corrupt material to diagnostics, recover the newest valid sequence, and tell the player what happened.
+The highest checksum-valid sequence is authoritative. If it has a future schema, unavailable required content, or a failed migration, surface the typed blocking error and preserve both slots; never silently fall back to an older compatible sequence. Recover the lower sequence only when the higher candidate is incomplete, unparsable, or checksum-invalid, then disclose recovery and quarantine evidence. The alternating-slot journal makes recovery independent of one rename being perfectly atomic: a failed replacement may corrupt the inactive candidate, but it cannot overwrite the current valid slot. Desktop and physical-iOS fault tests must still prove the actual `FileAccess`/`DirAccess` behavior. Never silently replace a corrupt profile with defaults.
+
+Durability acknowledgement is a runtime notification, not an on-disk commit marker. If termination occurs after a higher slot became fully checksum-valid but before re-read/`DurabilityResult`/output, next boot still ranks normally and that higher sequence is authoritative; restore/reconciliation/receipt routing supplies the missed output. If the candidate is incomplete, unparsable, or checksum-invalid, the prior slot wins under the disclosed recovery rule. Fault injection includes the window after replacement and after verification but before owner acknowledgement.
 
 ### Migration
 
@@ -328,16 +398,16 @@ Never silently replace a corrupt profile with defaults. Copy corrupt material to
 - Ship fixtures for the current `keep_driving_profile_v0.json`, at least N-2 release schemas, corrupt/truncated/unknown-field cases, max/min values, and removed catalog entries.
 - Unknown future fields are retained when safe or ignored without erasing the save.
 - Removed catalog content maps to a documented equivalent/refund.
-- Migration creates a backup before commit and is idempotent.
+- Migration preserves the pre-migration verified slot before commit and is idempotent.
 
 ### Autosave and resume
 
-- Permanently commit profile/county truth on safehouse/Garage extraction, results resolution, and purchase/fabrication transactions. Field objective/restoration milestones only checkpoint pending `ExpeditionProgress` until extraction.
-- Atomically checkpoint `ExpeditionProgress` before or with every socket consumption, reward/escrow change, objective/Pressure-branch transition, and pending mutation. Presentation may batch; authoritative value cannot wait for a periodic timer.
+- Permanently commit offer-set creation before display, epoch consumption/advance with terminal settlement or the guarded no-trusted-active-plus-`POSSIBLE` recovery burn, profile/county truth on safehouse/Garage extraction, recovery/settlement acknowledgement, and purchase/fabrication transactions. Field objective/restoration milestones only checkpoint pending `ExpeditionProgress` until extraction.
+- Durability-gate `ExpeditionProgress` before or with every retained observation/cosmetic delta, socket consumption, reward/escrow change, objective/Pressure-branch transition, applied gameplay/physics assist change, and pending mutation. Presentation may batch; authoritative value cannot wait for a periodic timer.
 - A periodic expedition checkpoint may save at a bounded interval outside collision/streaming spikes.
-- Background/interruption requests an immediate bounded snapshot; if time is insufficient, the latest valid atomic `ActiveExpeditionSnapshot` remains authoritative.
-- Resume restores the immutable manifest plus latest valid atomic progress checkpoint; it never regenerates content, treats quit as abandon, rolls back to a convenience boundary, or duplicates rewards. Corrupt-snapshot recovery is a separate explicit error path using the newest valid active checkpoint. If no active checkpoint survives, quarantine the corrupt snapshot, discard all active escrow/pending mutations, restore the newest valid permanent snapshot, and disclose the recovery; corruption can never bank escrow or improve failure settlement.
-- Manual save slots are not required for 1.0. Reset, backup recovery, and debug import/export are required.
+- Background/interruption requests an immediate bounded snapshot. On termination, cold boot ranks slots normally: a fully checksum-valid higher sequence is authoritative even if owner acknowledgement never ran; otherwise the prior verified slot wins. Background-time shortage never relies on an in-memory pointer.
+- Resume restores trusted active state exactly. Eligible lower-slot recovery validates recovered active first, then durability-persists `PendingRecoveryNotice`: trusted terminal/nonterminal active remains reserved; only no trusted matching active plus `POSSIBLE` risk discards unverifiable active/outbox/escrow and burns the recovered current set. Bootstrap shows/acknowledges the notice before Settle/resume/Plan. Future schema/content/migration failure on highest checksum-valid remains blocked.
+- Manual save slots are not required for 1.0. Reset, eligible lower-slot recovery, and debug import/export are required.
 
 ### Cloud readiness
 
@@ -372,7 +442,7 @@ Authored Godot scenes/resources + source/license metadata
   -> catalog/world/license/budget validators
   -> bake atlases, chunk packages, collision, route graph, localization references
   -> deterministic content hash + build manifest
-  -> runtime ContentCatalog/BakedWorld
+  -> runtime ContentModule index and versioned package leases
   -> save references by stable ID
 ```
 
@@ -404,8 +474,8 @@ Authored Godot scenes/resources + source/license metadata
 
 | Layer | Purpose | Gate |
 |---|---|---|
-| Unit/domain | Catalog, economy, progression, migration, deterministic generation | Every change |
-| Scene integration | Vehicle, UI, session, world, save adapter interactions | Every affected slice |
+| Unit/domain | Campaign, expedition, content/schema, migration, deterministic generation | Every change |
+| Scene integration | Drive Runtime, Presentation, Content/Save, and real Adapter interactions | Every affected slice |
 | Seed/property fuzz | 100+ seeds, 1,000+ world transitions, event eligibility, save ranges | World/content changes |
 | Rendered capture | Real scenes, assets, layout/aspect, visual state, audio resource/state | Presentation changes |
 | Full-stack performance | Release-like world, vehicle, collision, AI, UI, audio, VFX | Each milestone and content lock |
@@ -419,11 +489,12 @@ Rename the current automated `manual_smoke_proof` to `loop_simulation_proof`; si
 
 ### Test rules
 
-- Tests use public adapters or dedicated test doubles, not production public dictionaries.
+- Tests use deep Module Interfaces or the exact real Adapter contract, never production public dictionaries.
 - Avoid manually invoking `_ready()` after adding a node to a live tree.
 - Every bug fix gets the smallest regression at the correct layer.
 - Performance comparisons store device, build flavor, commit, scene, duration, warm-up, p50/p95/p99, peak memory, and worst-frame evidence.
 - Proof scripts return non-zero on failure and emit structured JSON/JUnit-compatible artifacts for CI.
+- Save/lifecycle faults include ordered multi-candidate acknowledgement/failure/backpressure, offer creation, observe/award then kill/failure/abandon retained-delta transfer, termination between terminal-progress and Campaign-settlement commits, and termination after durability acknowledgement but before runtime/feedback/receipt release. The lower-PROFILE matrix separately proves trusted nonterminal and terminal active preserve/reserve without burn; no trusted matching active plus `POSSIBLE` burns/discards once; notice-write failure/retry and kill before notice commit repeat the same recovery; kill after notice commit before display/acknowledgement restores the notice; duplicate acknowledgement is idempotent; and kill after acknowledgement does not restore it. Prove exactly-once permanent retained deltas, the same offer, terminal/pending-receipt Settle routing, and composite essential-content restore plus progress-driven reconciliation before the first nonterminal tick.
 
 ## Debug tooling
 
@@ -439,6 +510,7 @@ Development-only tools:
 - Input visualizer for keyboard/controller/touch multi-contact.
 - UI safe-area/aspect/text-scale/pseudolocalization preview.
 - Automated screenshot/capture points.
+- QA-only iOS thermal/battery sampler implemented as a private concrete plugin and cross-checked with Xcode Instruments; it is not a gameplay Seam.
 
 All tools are guarded by build feature flags and absent/inert in release archives.
 
@@ -446,20 +518,21 @@ All tools are guarded by build feature flags and absent/inert in release archive
 
 ### Shared
 
-- Domain, world, activities, progression, save schemas, vehicle rules, content catalog, and UI components.
-- `DriveIntent` and UI navigation actions.
+- `CampaignModule`, `ExpeditionModule`, `DriveRuntimeModule`, `ContentModule` package schemas, and `SaveModule` schemas.
+- `DriveIntent`, typed UI intents, immutable read models, and component scenes.
 - Responsive layout rules and content.
 - Performance instrumentation and test semantics.
 
-### Platform adapters
+### Narrow platform Adapters
 
-- Input source/glyphs and touch layout.
-- Safe area, orientation, app lifecycle, haptics, storage diagnostics, controller discovery.
-- Export/signing/build packaging.
-- Optional Game Center/cloud services.
-- Asset compression/quality tier and frame cap.
+- `InputSource`: keyboard, controller, touch, replay.
+- `LifecycleSource`: desktop focus/quit and iOS pause/resume/memory/interruption.
+- `DisplayFactsSource`: safe area, orientation, viewport, scale, and quality facts.
+- `HapticOutput`: iOS plugin, controller/no-op, recording proof.
+- Build-time `ExportTarget`: desktop export versus iOS Xcode archive/signing.
+- Platform package compression, quality tier, and frame cap are data/build choices, not gameplay forks.
 
-Do not fork gameplay into `desktop_game.gd` and `mobile_game.gd`. The mobile phase adapts sources, presentation priority, quality, and lifecycle behind stable shared contracts.
+Storage and resource loading remain private Seams inside `SaveModule` and `ContentModule`. Do not fork gameplay into `desktop_game.gd` and `mobile_game.gd`. The mobile phase adapts sources, Presentation priority, quality, and lifecycle behind stable shared contracts.
 
 ## Build pipeline
 
@@ -476,11 +549,13 @@ One documented command should:
 7. Embed semantic version, monotonically increasing build number, commit SHA, content/schema version, and release/debug flags.
 8. Produce a build manifest, hashes, symbols, logs, and test evidence.
 
+The manifest pins the exact Godot executable and export-template hash. TestFlight/App Store archives also pin an Apple-accepted stable Xcode/SDK pair and its Xcode-supported stable macOS release/build; beta Xcode or beta macOS evidence is forward-looking or bounded feasibility evidence only.
+
 ### CI
 
 - Fast tests and validators on every change.
 - Nightly seed fuzz, save faults, full-stack performance, and soak.
-- Tagged release pipeline on a controlled macOS runner.
+- Tagged release pipeline on a controlled Xcode-supported stable macOS runner; its exact OS build is recorded with every archive.
 - iOS export/archive/signing secrets remain in protected keychain/CI storage, never repository files.
 - Every TestFlight/App Store build maps back to one tag/commit and evidence bundle.
 
@@ -517,25 +592,33 @@ One documented command should:
 4. Tune texture/audio compression and quality tiers.
 5. Reduce optional density/effects before core readability, collision, objective, or save correctness.
 
+Phase 2 records cost by deep Module, Presentation, audio/feedback, and engine remainder. Phase 3 locks explicit sub-budgets and headroom from representative content; invented micro-budgets are not acceptance evidence.
+
 ## Migration sequence from the prototype
 
 1. **Characterize:** freeze current loop behavior with public-contract tests and rename simulation evidence honestly.
-2. **Create shell:** add ContentCatalog, AppFlow, InputRouter, SettingsService, SaveService interfaces, responsive UI shell, and real audio buses behind existing behavior.
-3. **Truth slice:** build fixed-step production handling, one hybrid proof region, representative final presentation/audio, and first-minute flow on desktop.
-4. **Migrate progression:** versioned profile/expedition records, v0 migration, catalog-driven chassis/parts, transaction-safe Garage.
-5. **Migrate world/runtime:** baked authored macrograph, deterministic population, spatial queries, pools, encounter/activity services.
-6. **Scale content:** only after full-stack desktop gates pass.
-7. **Prepare mobile:** responsive/input/lifecycle adapters and release pipeline after corresponding desktop systems are stable.
+2. **Type the Interface:** add stable IDs, typed commands/results/read models, and `InputSource` around the existing root without changing behavior.
+3. **Make durability real:** introduce `SaveModule` and v0 migration; remove direct `ProfileStore` calls.
+4. **Extract permanent truth:** introduce `CampaignModule` around profile/Garage/departure rules; remove mirrored permanent facts from `GameRoot`.
+5. **Graduate driving:** move the accepted fixed-step `CharacterBody2D` path into `DriveRuntimeModule`.
+6. **Extract active truth:** introduce `ExpeditionModule` as sole Fuel/Vehicle Integrity/Pressure/escrow/terminal authority; remove mirrored run scalars and old `RunProgression` ownership.
+7. **Prove resume/settlement:** add active checkpoint restore and idempotent terminal settlement before expanding rewards/content.
+8. **Bake the county:** install `ContentModule` and its sole scheduler, then migrate to stable authored IDs, packages, spatial queries, and pools.
+9. **Move Presentation:** replace runtime UI/audio/VFX construction with immutable read models, typed intents, and semantic feedback.
+10. **Delete the root:** reduce `GameRoot` to `ApplicationShell`, delete each superseded path after its Interface proof, and produce the clean desktop export.
+11. **Prepare mobile:** reproduce the bounded signed feasibility result; formal touch/lifecycle/device adaptation begins only after the frozen desktop gate.
 
-Avoid a flag-day rewrite. Each step keeps a launchable desktop build and removes the superseded path when its replacement passes.
+Avoid a flag-day rewrite or dual writes. Each step keeps a launchable desktop build and removes the superseded Implementation when its Interface passes.
 
 ## Technical definition of done
 
 - Module ownership and authority match this document or a recorded replacement decision.
-- Catalog, save, input, world, vehicle, UI, audio, and platform contracts have public tests.
+- The five deep Module Interfaces, private Presentation/Feedback contracts, Settings projections, and real platform Adapters have public-contract tests.
+- Every authoritative fact has exactly one live owner and no mirrored `GameRoot` copy.
 - No player-facing system depends on mutable public dictionaries or `GameRoot` internals.
+- SceneTree/resource loading obeys the main-thread and single-scheduler contract.
 - Clean-clone local and CI verification/export are reproducible.
 - Full-stack desktop evidence uses representative production content and meets budgets.
-- Save migration, atomicity, recovery, resume, and fault gates pass.
+- Save migration, alternating-slot recovery, durability, exact resume, idempotent settlement, and fault gates pass.
 - Mobile entry occurs only after corresponding desktop gates; supported physical devices meet declared budgets.
 - Tagged 1.0.0 archive, symbols, manifest, exact App Store build, and evidence are retained.

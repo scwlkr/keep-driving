@@ -21,7 +21,7 @@ Use one coherent system stack:
 2. A **deterministic population layer** varies weather, closures, encounter composition, salvage, objective conditions, and pressure without discarding the learned place.
 3. **Arcade-Real handling** makes surface, momentum, mass, collision, and recovery readable through direct controls; assists change barriers without replacing driving.
 4. **Named sidegrade parts** change route fitness and carry visible costs. No rarity ladder or part may be strictly better at the same cost.
-5. **Voluntary extraction** commits newly earned material/capability/world-state value. Failure stings but never erases value committed before departure; only route/lore observations persist immediately during an active expedition.
+5. **Voluntary extraction** commits newly earned material/capability/world-state value. Failure stings but never erases value committed before departure; only durability-acknowledged route/landmark observations and valid activity/trial cosmetics enter `RetainedCampaignDeltaOutbox` during an active expedition and transfer exactly once on every terminal outcome.
 6. **Scrap is the only spendable currency**. Place, capability, knowledge, and expression are rewards, not extra token bars. Mandatory progress never requires repeating a solved low-risk activity.
 7. Three **route-centered activity families**—delivery, recovery, and restoration—combine with authored sockets, cargo properties, region conditions, and encounters. Mastery is a reusable rules overlay, not a fourth family. A permutation counts only when it changes a player decision.
 8. Difficulty uses **descriptive presets plus independent assists**, can change without lost progress, and preserves the same campaign and ending.
@@ -80,17 +80,19 @@ Variation must not move major landmarks, redraw the campaign road graph, invalid
 
 This follows the bounded author/runtime split in Valve's first-party description: author valid places and rules; let a deterministic director select and pace compatible content ([AI systems presentation](https://cdn.fastly.steamstatic.com/apps/valve/2009/ai_systems_of_l4d_mike_booth.pdf)).
 
-### Persisted expedition manifest
+### Persisted offer set, plan, and expedition manifest
 
-Determinism must mean **same active expedition after reload**, not merely “the same seed usually regenerates similar content.” At departure, persist an immutable `ExpeditionManifest` containing:
+Determinism must mean **same offers and active expedition after reload**, not merely “the same seed usually regenerates similar content.” At offer creation, commit one immutable `ExpeditionOfferSet` with monotonic epoch/source digest and keyed `ExpeditionOfferPlan` records containing:
 
 - Content and world-graph version.
 - Seed plus the namespaced `RewardLedger` and repetition-history snapshots used during generation.
 - Contract/objective branch graph, closures, weather, encounter placements, pre-rolled Pressure branches, and reward rolls.
-- Chassis/loadout snapshot, starting Fuel/Integrity, and valid extraction nodes.
+- Valid extraction nodes.
 - Finite salvage/reward budget.
 
-Persist a separate mutable `ExpeditionProgress` checkpoint against that manifest rather than reconstructing it from current profile/world state. It owns position, Fuel/Integrity, Pressure, active encounter/branch and objective substate, consumed sockets, escrow, pending mutations, and the terminal `resolution_id` when allocated. The saved `ActiveExpeditionSnapshot` contains both objects.
+At departure, `PrepareDeparture` validates the full preferred expedition policy plus `SettingsAssistVersion(settings revision, full-policy digest)`, then copies that plan unchanged into an immutable `ExpeditionManifest` and binds only the validated chassis/loadout snapshot, starting Fuel/Integrity, and starting `AppliedExpeditionAssistPolicy`. It performs no RNG and cannot alter conditions, threats, rewards, or rolls.
+
+Persist a separate mutable `ExpeditionProgress` checkpoint against that manifest rather than reconstructing it from current profile/world/settings state. It owns position, Fuel/Integrity, Pressure, the current applied gameplay/physics assist policy, typed retained observation/cosmetic delta outbox, active encounter/branch and objective substate, consumed sockets, escrow, pending mutations, and the terminal `resolution_id` when allocated. The saved `ActiveExpeditionSnapshot` contains both objects.
 
 Expedition and objective state are orthogonal:
 
@@ -99,11 +101,11 @@ expedition: offered -> active -> extracted | wrecked | stranded | abandoned
 objective:  not_started -> active -> field_complete | objective_failed
 ```
 
-The player may extract, push, or change return intent while the expedition is active; `returning` is a UI/navigation intention, not a required lifecycle gate. `objective_failed` still permits return with other exposed haul. Fuel depletion enters a visible grace/recovery state before `stranded`; Integrity depletion resolves as `wrecked`. Abandon settles exposed value like failure. App quit or backgrounding resumes the latest atomic active checkpoint rather than abandoning or rerolling it.
+The player may extract, push, or change return intent while the expedition is active; `returning` is a UI/navigation intention, not a required lifecycle gate. `objective_failed` still permits return with other exposed haul. Fuel depletion enters a visible grace/recovery state before `stranded`; Integrity depletion resolves as `wrecked`. Abandon settles exposed value like failure. App quit or backgrounding resumes the authoritative verified-slot active checkpoint rather than abandoning or rerolling it.
 
 Every terminal settlement receives an idempotent `resolution_id`; applying it twice cannot duplicate reward or mutation. Reload, fast travel, safehouse bounce, failure, or rollback never refreshes salvage, offers, rewards, closures, or encounters. Banking at a safehouse ends the expedition transaction; choosing to continue starts a new manifest from that safehouse while inheriting the namespaced `RewardLedger` plus repetition ledger.
 
-Before committing a manifest, graph validation must prove at least one outbound/objective path and one extraction path under permanent topology, chosen closures, cargo constraints, selected loadout, and forecast Fuel. A condition may make a route costly, not unknowably impossible.
+Back/cancel/reselect/loadout/assist/relaunch cannot replace a current set. Before committing it, graph validation must prove every plan's closures/cargo/threat table permits supported route solutions. Before departure, a second RNG-free validation must prove at least one outbound/objective path and one extraction path for the selected loadout and forecast Fuel. An active manifest reserves its matching plan; terminal settlement consumes the set. Lower-slot recovery preserves a trusted terminal/nonterminal active and burns the recovered current set only when no trusted matching active survives and discarded higher-active risk is `POSSIBLE`. A condition may make a route costly, not unknowably impossible.
 
 ### Route information contract
 
@@ -140,7 +142,7 @@ Use a visible alert state—initially `[PLACEHOLDER]` levels 0–3—changed by 
 
 Every generated encounter must have a telegraph, a finite threat/reward budget, at least two baseline responses, a graph-safe fallback, and a repetition group/cooldown. Ordinary enemy kills do not pay Scrap; survival, objective resolution, discovery, and extraction do. This removes circling/spawn farming from the economy contract.
 
-The manifest pre-rolls every compatible Pressure branch at offer creation. Runtime action-driven Pressure may select/escalate only inside that table, and `ExpeditionProgress` checkpoints the chosen branch; no runtime RNG, loadout counter-pick, or reward reweighting occurs. The selected loadout is used only for route/Fuel legality and forecast, and the same committed offer must remain identical while previewing different loadouts.
+The offer plan pre-rolls every compatible Pressure branch and copies the table unchanged into the manifest. Runtime action-driven Pressure may select/escalate only inside that table, and `ExpeditionProgress` checkpoints the chosen branch; no runtime RNG, loadout counter-pick, or reward reweighting occurs. The selected loadout is used only for route/Fuel legality, declared starting fields, and forecast, and the same committed offer must remain identical while previewing different loadouts.
 
 ### Evidence gate
 
@@ -275,9 +277,9 @@ Begin prototype balance with these explicitly nonfinal `[PLACEHOLDER]` gates: ea
 | State | Examples | Resolution rule |
 |---|---|---|
 | Committed permanent | Restoration, blueprints, chassis, owned/installed parts, and milestones committed before departure | Never removed by expedition failure |
-| Immediate observation | Seen road/landmark and lightweight route/lore knowledge | May commit when observed; never includes material, capability, payout, or world mutation |
+| Acknowledged retained delta | Seen road/landmark knowledge and valid activity/trial cosmetic award | Becomes retained only after its critical active-progress checkpoint is acknowledged; never includes material, capability, payout, restoration, or escrow value; transfers idempotently to Campaign at every terminal outcome |
 | Expedition escrow | Loose Scrap, intact part/cargo, newly found blueprint/chassis, objective payout, and pending restoration mutation | Commits only when the expedition extracts; settles under failure rules otherwise |
-| Active expedition progress | Fuel, Integrity, position, Pressure, active branch/objective state, consumed sockets, escrow, and pending mutations | Checkpointed beside the immutable manifest for resume; resolves at the terminal transaction |
+| Active expedition progress | Fuel, Integrity, position, Pressure, applied assist policy, retained delta outbox, active branch/objective state, consumed sockets, escrow, and pending mutations | Checkpointed beside the immutable manifest for resume; resolves at the terminal transaction |
 
 The value of a run is not only its haul: observed route knowledge can remain meaningful progress, while previously committed restoration and ownership remain safe. Supergiant explicitly combines repeated failure with permanent progression and continuing discovery in *Hades* ([FAQ](https://www.supergiantgames.com/blog/hades-faq/)). That is precedent for durable forward motion, not evidence for this project's exact escrow or recovery rules.
 
@@ -290,6 +292,7 @@ The value of a run is not only its haul: observed route knowledge can remain mea
 - Ordinary failure retains no part or cargo. A secured compartment may preserve one eligible intact part, blueprint, or cargo item physically assigned before failure only if that compartment consumes an explicit cargo/utility slot plus declared `Build Capacity` and survives prototype validation. Chassis, payouts, and pending world mutations are ineligible; there is no free automatic “best item.”
 - Failure may retain a tuned, capped fraction of loose Scrap.
 - Results states exactly what was secured, lost, retained, and why.
+- Failure/stranding/abandon transfers every acknowledged retained observation/cosmetic delta ID exactly once into Campaign before active removal; material/escrow/restoration facts cannot enter that outbox.
 - Active-run abandon settles like failure. App quit/background resumes the exact manifest; neither path can duplicate rewards, reroll an outcome, or corrupt the save.
 
 The prior 25% plus free-item recovery is too exploitable to retain as a default. Begin with the explicit `[PLACEHOLDER]` hypothesis of 15–20% loose Scrap, capped at 0.25 times a starter-part cost, and no ordinary cargo/part retention. Tune from behavior: failure must create regret and make voluntary return rational, but not erase enough time to cause grind or avoidance of interesting risk.
@@ -304,7 +307,7 @@ Across scripted three-run tests:
 - A failed 15–25-minute expedition still leaves comprehensible forward motion.
 - No campaign-critical capability is lost to one failure.
 - At least 80% of test players predict exactly what commits and what remains exposed before choosing push or return.
-- Backgrounding, forced close, and power loss resume the immutable manifest plus latest valid atomic `ExpeditionProgress` checkpoint. Recovery never rolls an active expedition back to a Garage/safehouse convenience boundary; if no active checkpoint survives corruption, all active escrow/pending mutations are discarded and the loss is disclosed.
+- Backgrounding, forced close, and power loss resume the immutable manifest plus authoritative verified-slot `ExpeditionProgress` checkpoint. Faults after observe/award and before terminal transfer preserve the outbox; failure/abandon transfers it once. Recovery never rolls an active expedition back to a Garage/safehouse convenience point. A trusted recovered terminal/nonterminal active remains reserved; only when no trusted matching active survives and discarded higher-active risk is `POSSIBLE` are unverifiable active escrow/pending mutations/outbox discarded and the recovered matching offer set burned. Every lower recovery is durably disclosed before gameplay routing.
 
 ## 5. One-currency, anti-grind economy
 
@@ -340,7 +343,7 @@ No repair timers, premium currency, paid skip, loot keys, random shop rerolls, d
 - Guarantee the first successful return's part choice from two mutually useful options and key capability blueprints through milestones.
 - Never require the same solved low-risk template to repeat for campaign access.
 - Reward first completion, new risk, discovery, harder conditions, and efficient play more than immediate repetition. Every repeat payout is fixed and disclosed before departure; do not use an opaque diminishing-return curve.
-- Persist one namespaced `RewardLedger` (eligibility, claims, cooldowns) plus repetition history outside the active manifest. Reload, offer cancellation, loadout changes, safehouse Continue/entry, fast travel, failure, and abandon do not refresh or reroll offers, salvage, claimed sockets, or the manifest's finite reward budget.
+- Persist one namespaced `RewardLedger` (eligibility, claims, cooldowns) plus repetition history outside the active manifest. Reload, offer cancellation, loadout changes, safehouse Continue/entry, fast travel, failure, and abandon do not refresh or reroll offers, salvage, claimed sockets, or the selected offer plan's finite reward budget copied into the manifest. Terminal settlement consumes the set; lower recovery burns it only when no trusted matching active survives and discarded higher-active risk is `POSSIBLE`.
 - Every required capability has at least two viable acquisition paths.
 - The ending does not require all parts, medals, discoveries, or mastery content.
 - Free loadout changes and undo prevent experimentation from becoming a currency sink.
@@ -583,7 +586,7 @@ Replace every threshold from measured handling, economy, accessibility, and camp
 ## Downstream evidence required before production, content, or endgame lock
 
 - Handling benchmark and five-player report showing approachable control plus mastery.
-- Ten-thousand-seed manifest/graph-feasibility report across contracts, locked builds, and conditions; reload preserves each immutable manifest plus every authoritative `ExpeditionProgress` field from the latest atomic checkpoint.
+- Ten-thousand-seed manifest/graph-feasibility report across contracts, locked builds, and conditions; reload preserves each immutable manifest plus every authoritative `ExpeditionProgress` field from the authoritative verified-slot checkpoint.
 - Hybrid proof-region expressive-range matrix and repeat-player route-memory report.
 - Exhaustive compatible-loadout Pareto/dominance report plus four route-changing human-validated builds at the D020 floor.
 - Three-run push/return/failure study with at least 80% exact security comprehension.

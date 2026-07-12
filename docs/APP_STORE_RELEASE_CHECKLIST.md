@@ -18,7 +18,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Production game/content complete and desktop gates pass.
 - [ ] A distinctive replacement—or D021's fully passed exact-title exception—is legally cleared and passes documented positioning/search-confusion review before signed feasibility or irreversible identity/brand work.
 - [ ] `export_presets.cfg` with reproducible iOS export exists.
-- [ ] Xcode 26+ and iOS 26 SDK upload floor revalidated against Apple's live requirements.
+- [ ] Xcode 26+ and iOS 26 SDK upload floor revalidated against Apple's live requirements; the selected release pair and Xcode-supported macOS host release/build are stable, not beta-only evidence.
 - [ ] Matching Godot 4.7 export templates and exporter compatibility proven.
 - [ ] App version, build number, bundle ID, Team ID, signing, entitlements, device family, deployment target, icons, and launch storyboard configured.
 - [ ] Physical-device install, lifecycle, performance, memory, thermal, battery, audio, haptic, input, and save proof passes.
@@ -49,7 +49,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Team ID recorded in private release runbook and Godot export environment.
 - [ ] Distribution certificate/signing identity valid through launch and emergency-patch window.
 - [ ] App Store provisioning/profile or Xcode automatic-signing policy documented and reproducible.
-- [ ] `xcode-select` targets the approved Xcode; license, command-line tools, iOS platform, and archive destination verified.
+- [ ] `xcode-select` targets the approved stable release Xcode on its approved stable macOS release/build; license, command-line tools, iOS platform, and archive destination verified. Beta Xcode/macOS remains forward-compatibility/feasibility evidence only.
 - [ ] No signing secrets, certificates, provisioning profiles, passwords, or Team credentials committed to git.
 - [ ] Required capabilities/entitlements are a minimal exact list. Remove Game Center, push, iCloud, background modes, network, or other entitlements unless shipped and tested.
 - [ ] Generated Xcode target bundle ID, display name, version, build, deployment target, device family, orientations, icons, launch storyboard, entitlements, privacy manifest, and release settings inspected.
@@ -58,11 +58,11 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ## Toolchain and build requirements
 
 - [ ] Recheck [Apple upcoming requirements](https://developer.apple.com/news/upcoming-requirements/) at the release gate.
-- [ ] Approved Xcode and iOS SDK versions recorded in build manifest.
+- [ ] Approved stable macOS release/build, Xcode, and iOS SDK versions recorded in build manifest.
 - [ ] Approved Godot exact version and export-template hash recorded.
 - [ ] Godot iOS export preset committed without secrets.
 - [ ] Clean clone can validate, test, bake content, export Xcode project, and produce a Release archive through documented commands.
-- [ ] CI/release host has controlled toolchain, keychain access, provisioning, and enough disk.
+- [ ] CI/release host runs the recorded Xcode-supported stable macOS build with controlled toolchain, keychain access, provisioning, and enough disk.
 - [ ] Semantic version, build value, commit SHA, content version, and save schema embedded and visible in diagnostics.
 - [ ] Build manifest contains archive hash, symbols, catalogs/world hashes, licenses, privacy SDK list, tests, and performance/device evidence.
 - [ ] Release build strips cheats, debug overlay, test profiles, placeholder content, verbose logs, and development telemetry.
@@ -148,6 +148,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Touch controls support size/position/opacity/handedness/sensitivity and simultaneous input.
 - [ ] Difficulty assists and tutorial replay work without blocking primary completion.
 - [ ] Evaluate each current App Store Accessibility Nutrition Label using Apple's live criterion.
+- [ ] Because Godot 4.7 does not document iOS screen-reader support, any VoiceOver claim has physical-iPhone common-task evidence from the exact native/plugin Implementation; Control metadata alone never passes.
 - [ ] Claim only features that support **all common tasks**. Do not claim VoiceOver, Voice Control, Larger Text, Reduced Motion, captions, or another label based on partial screens.
 - [ ] Accessibility claims match product page, review notes, support docs, and exact build.
 
@@ -228,7 +229,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Thirty-minute thermal/battery soak passes on minimum/mid/current devices after five-minute ambient idle; thermal state sampled at least once/second; zero `critical`; `serious` lasts <=60 consecutive seconds and <=10% of the measured window.
 - [ ] Controlled battery use is <=15% over the same 30-minute run at 50% brightness, with device, battery health, network, audio, frame mode, and temperature recorded.
 - [ ] Two-hour memory/traversal soak plateaus within +/-5% after warm-up.
-- [ ] Cold launch <=5 seconds; resume <=2 seconds, target <=1 second.
+- [ ] Cold launch <=5 seconds and shows the correct nonblank first model before heavy restore: `RecoveryApplying` or durable `PendingRecoveryNotice` when recovery gates boot; otherwise Settle for pending receipt, `SettlementRecovering` for terminal active, `ResumeLoading` for nonterminal active, or Title/Continue; maximum active snapshot resume <=2 seconds, target <=1 second.
 - [ ] Touch/haptic/audio/controller/lifecycle behavior remains correct under frame and thermal fallback.
 - [ ] No blank terrain, invisible wall, stuck input, duplicated audio loop, reward duplication, or save inconsistency.
 
@@ -236,10 +237,13 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 
 - [ ] Real v0 profile migrates and retains supported value.
 - [ ] Every supported schema fixture migrates idempotently.
-- [ ] 1,000 interrupted write/background/termination cycles produce no profile loss or duplicated reward.
-- [ ] Corrupt primary recovers the newest valid backup and preserves diagnostics.
+- [ ] 1,000 interrupted write/background/termination cycles produce no profile loss, duplicated reward, retained-delta loss/duplication, rerolled shown offer, active-policy drift, or skipped/duplicated recovery disclosure.
+- [ ] Open ranks checksum-valid slots by sequence before compatibility; future schema/content/migration failure on the highest sequence blocks visibly, while only incomplete/unparsable/checksum-invalid higher data permits disclosed lower-slot recovery/quarantine.
+- [ ] PROFILE and SETTINGS use independent schemas/sequences/two-slot journals; corrupt/reset SETTINGS never selects, blocks, rewrites, or rolls back PROFILE, and an active run resumes its persisted `AppliedExpeditionAssistPolicy`.
 - [ ] Low-storage write failure preserves last known-good save and informs player.
-- [ ] Clean install/new profile, update, active-expedition resume, results payout, purchase/fabrication, reset, and recovery pass on devices.
+- [ ] Observe/award -> kill/failure/abandon and terminal-settlement retries transfer every `RetainedCampaignDeltaOutbox` ID exactly once; escrow/prohibited kinds never enter that outbox.
+- [ ] Eligible lower-PROFILE recovery passes the exact device matrix: trusted nonterminal/terminal active preserves the offer without burn; no trusted matching active plus `POSSIBLE` burns/discards once; notice-write failure/retry and kill before notice commit repeat the same recovery; kill after notice commit before display/acknowledgement restores the notice; duplicate acknowledgement is idempotent; kill after acknowledgement does not restore it.
+- [ ] Clean install/new profile, shown-offer relaunch, update, active-expedition resume with persisted `AppliedExpeditionAssistPolicy`, results payout, kill after settlement acknowledgement but before receipt presentation, Settle recovery, receipt acknowledgement, purchase/fabrication, reset, and eligible recovery pass on devices.
 - [ ] Unknown/missing/deprecated content IDs use documented migration/refund rules.
 - [ ] Release archive never exposes destructive debug save controls.
 
@@ -286,7 +290,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] First launch, tutorial, expedition, extraction/failure, Results, Garage transaction, quit/resume, offline relaunch, and update path.
 - [ ] Store screenshots/description/privacy/age/accessibility/controller claims visually correct.
 - [ ] Crash/hang metrics, reviews/support inbox, save reports, and performance/device anomalies monitored.
-- [ ] Known issues/support replies use approved facts; do not advise destructive reset before preserving diagnostics/backups.
+- [ ] Known issues/support replies use approved facts; do not advise destructive reset before preserving diagnostics and both verified-slot candidates.
 - [ ] No live tuning/content/SDK change without versioned build and release process.
 
 ## Rollback and emergency patch
@@ -299,7 +303,7 @@ There is no dependable binary rollback after customers update. The safety plan i
 - [ ] Feature/content kill switches are local/versioned and used only for non-core optional behavior; no mandatory remote dependency.
 - [ ] Criteria defined for remove-from-sale, stop phased update for later versions, support notice, or expedited review request.
 - [ ] P0 response: reproduce/preserve diagnostics, stop risky rollout where possible, publish support notice, patch smallest safe fix, run focused plus full blocker suite, upload new build, update Review Notes, and monitor.
-- [ ] Never delete/mask a broken save automatically. Recover backup, preserve evidence, and communicate.
+- [ ] Never delete/mask a broken save automatically. Recover an eligible lower verified slot only under the declared corruption rule, preserve evidence, and communicate; future schema/content/migration failure remains blocked.
 
 ## Post-launch stabilization
 
