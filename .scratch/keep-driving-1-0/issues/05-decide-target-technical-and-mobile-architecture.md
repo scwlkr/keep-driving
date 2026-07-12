@@ -1,7 +1,7 @@
 # Decide Target Technical And Mobile Architecture
 
 Type: research
-Status: open
+Status: claimed
 Blocked by: 01, 03, 04
 
 ## Question
