@@ -14,7 +14,7 @@ Mobile constraints still shape shared architecture from the start: normalized in
 The mobile phase may begin only when the desktop content-complete beta has:
 
 - Production vehicle handling/collision accepted in human desktop playtests.
-- Complete three-region world, activities, progression, vehicle/part catalog, onboarding, UI, art, audio, save, settings, and accessibility scope.
+- Complete D020-locked world/region, activity, progression, vehicle/part catalog, onboarding, UI, art, audio, save, settings, and accessibility scope.
 - All primary progression playable start to finish.
 - Full-stack desktop release build at 60 FPS with p95 at or below 16.7 ms, p99 at or below 25 ms, world work p95 at or below 4 ms, and no driving hitch above 50 ms.
 - Stable memory plateau during a two-hour soak.
@@ -23,7 +23,7 @@ The mobile phase may begin only when the desktop content-complete beta has:
 - Responsive UI aspect/text/focus matrix passing at the simulated phone floor.
 - No open desktop P0/P1 defect and a bounded P2 list.
 
-After the accepted desktop handling/hero truth slice, Phase 2 performs one bounded signed-export feasibility check: Godot export -> generated Xcode target inspection -> signing -> archive -> physical install/launch. It requires a formally cleared public title and approved development identity, and it may not add touch UI, adapt gameplay, tune content, or begin store setup. Formal mobile adaptation and the first signed build of the complete frozen game still begin at the Phase 15 desktop entry gate above.
+After the accepted desktop handling/hero truth slice, Phase 2 performs one bounded signed-export feasibility check: Godot export -> generated Xcode target inspection -> signing -> archive -> physical install/launch. It requires a D021-passed public title and approved development identity, and it may not add touch UI, adapt gameplay, tune content, or begin store setup. Formal mobile adaptation and the first signed build of the complete frozen game still begin at the Phase 15 desktop entry gate above.
 
 ## Platform recommendation
 
@@ -269,7 +269,7 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 - Touch/controller, left-handed, largest controls, 200% text, reduced motion, high contrast.
 - Cold/warm launch, repeated background/resume, 30-minute thermal, two-hour memory soak.
 - Low storage, low battery, audio route, call/notification, device lock.
-- Full primary flow, failure/extraction, Garage transaction, save recovery, Expedition Mode.
+- Full primary flow, failure/extraction, Garage transaction, save recovery, and any D020-locked postgame mode.
 
 ## TestFlight plan
 

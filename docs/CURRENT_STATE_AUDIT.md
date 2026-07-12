@@ -2,7 +2,7 @@
 
 Status: completed baseline audit
 Audit date: 2026-07-11
-Repository baseline: `8b772aa` plus the documentation work in progress
+Shipping-code audit baseline: `8b772aa` (shipping gameplay scripts unchanged); committed Phase-2 evidence verified through `ba6a4ba`
 Product stage: playable v0 / pre-alpha, not a production alpha
 
 ## Executive finding
@@ -207,7 +207,7 @@ Mobile support currently means GL Compatibility is selected and an 896 x 414 vie
 ### Retain
 
 - Godot 4.7 and GDScript while the early export proof remains healthy.
-- Road Warrior Survival Expedition identity and car-only conflict focus.
+- Car-only, real-time route-survival nucleus; the resolved route/build/restoration identity lives in `PRODUCT_VISION.md`.
 - Top-down, non-rotating, look-ahead camera principles.
 - Arcade-Real Handling vocabulary and terrain-dependent driving.
 - Fuel, Vehicle Integrity, and Scrap as the compact economic foundation.
@@ -246,7 +246,7 @@ Mobile support currently means GL Compatibility is selected and an 896 x 414 vie
 |---|---|---|---|
 | Production driving substrate | A fixed-step custom arcade controller on `CharacterBody2D` will preserve accessibility while supporting robust collisions | Rebuilding feel late would invalidate content | Desktop handling lab across 30/60/120 Hz and five naive players |
 | Memorable free roam | Authored macro roads/landmarks plus deterministic dressing/events will outperform pure infinite generation | Content could feel finite or procedural layers could fight authored intent | One 10-15 minute proof region with two routes, shortcut, three landmarks, crossing, and dynamic event |
-| Deep builds | Slot, mass, power, cargo, and threat tradeoffs can support at least five viable archetypes | One dominant stat stack could collapse the system | Twelve-part sandbox, four slots, benchmark matrix, three player-built loadouts |
+| Deep builds | Slot, mass, power, cargo, and threat tradeoffs can support the D020-locked build-diversity floor (provisional target five; coherent fallback four) | One dominant stat stack could collapse the system | Twelve-part sandbox, four slots, benchmark matrix, three player-built loadouts, measured path to the locked floor |
 | First-minute clarity | Diegetic prompts and a visible destination can teach without a modal tutorial | Mobile HUD could overload the screen | Five-player first-60-seconds test with comprehension targets |
 | Performance scaling | Current streaming contracts can survive production-like assets and systems | Current benchmark is artificially cheap | Rendered full-stack 30-minute soak with representative art/audio/AI/collisions |
 | Save evolution | A versioned atomic envelope can migrate the existing v0 profile | Bad migration could destroy progress | N-2 fixtures, real v0 fixture, 1,000 interrupted writes, corrupt-primary recovery |
@@ -259,14 +259,14 @@ Mobile support currently means GL Compatibility is selected and an 896 x 414 vie
 | Vehicle feel/collision replacement fails | High | Critical | Handling lab before world/content production | Truth slice |
 | Procedural infinity remains forgettable | High | Critical | Hybrid-world proof and authored content pipeline | World foundation |
 | Upgrade system has a dominant build | High | High | Sidegrade rules, benchmark scenes, catalog validator | Upgrade foundation |
-| Content burden exceeds capacity | High | High | Three-region launch scope, modular landmark/event templates, density budgets | Content alpha |
+| Content burden exceeds capacity | High | High | D020 measured production tranche, discipline-by-discipline scope lock, modular landmark/event templates, density budgets | Phase-3 scope lock before content multiplication |
 | Green proofs create false confidence | High | High | Evidence taxonomy and human/rendered/device gates | Every phase |
 | Save migration or interruption loses progress | Medium | Critical | Atomic service, backups, fixtures, fault injection | Desktop alpha |
 | iOS performance/lifecycle discovered late | Medium | Critical | Architecture constraints from day one; device proof after desktop gates | Mobile entry gate |
 | UI cannot scale from desktop to phone | Medium | High | Responsive component system, safe-area matrix, controller/focus tests | UX gate |
 | Art/audio pipeline becomes inconsistent | Medium | High | Production target board, budgets, import validation, vertical-slice signoff | Content production |
 | App Store compliance changes | Medium | High | Recheck official requirements at TestFlight, RC, and submission | Release gate |
-| Working title conflicts with an existing released game/claimed mark | High | Critical | Formal legal/name/competitive clearance and rename fallback; neutral internal/ad-hoc prototype identifiers may continue | Written clearance or cleared replacement before the Phase-2 signed iOS feasibility build, then recheck before Phase-9 public brand lock |
+| Working title conflicts with an existing released game/claimed mark | High | Critical | Public execution assumes a distinctive replacement; exact-title exception requires qualified written legal clearance plus documented positioning/search-confusion approval; neutral internal/ad-hoc prototype identifiers may continue | Cleared and positioning-tested replacement—or the fully passed exact-title exception—before the Phase-2 signed iOS feasibility build, then recheck before Phase-9 public brand lock |
 
 ## Audit definition of done
 

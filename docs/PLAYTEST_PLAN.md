@@ -167,7 +167,7 @@ Acceptance:
 ### 4. Buildcraft and Garage
 
 Cohort: six to ten players.
-Build: at least three chassis/representative data, 12 parts across four-plus slots, test lot, route forecast, presets.
+Build: the D020-locked chassis target or representative data (currently at least three), 12 parts across four-plus slots, test lot, route forecast, presets.
 
 Tasks:
 
@@ -252,20 +252,20 @@ Tests:
 - Full primary campaign and completion.
 - Active-play timing from clean profile through primary completion and mastery; pause/background/developer-shortcut time is excluded.
 - Region/content repetition and density.
-- Three chassis/five archetypes.
+- D020-locked chassis/build-diversity target; currently three chassis/five archetypes.
 - Economy/progression pacing and dead ends.
-- Expedition Mode and mastery.
+- D020-locked mastery and postgame scope; currently Expedition Mode if retained.
 - Accessibility/localization/save upgrade.
 - Two-hour soak and worst-case content.
 
 Exit:
 
 - No progression blocker or required random grind.
-- Content floors met without obvious filler/repetition.
+- The D020-locked content target is met without obvious filler/repetition.
 - All required build archetypes viable.
 - Economy source/sink and failure/extraction behavior stable.
-- At least ten new clean-profile players: median first primary-arc completion 8-12 hours; at least 8/10 complete within 6-14 hours; no mandatory random-grind block.
-- At least five clean-profile players continuing into mastery each reach 90% tracked authored completion plus three distinct Expedition mastery goals within 20-30 active hours; median mastery enjoyment is >=4/5 and identical repeated filler is neither required nor counted.
+- At least ten new clean-profile players: median first primary-arc completion lands inside the D020-locked range (current target 8-12 active hours; coherent fallback 5-8), at least 8/10 land inside the lock's declared tolerance, and no player hits a mandatory random-grind block.
+- At least five clean-profile players continuing into mastery each reach the D020-locked authored completion/build/mastery goal inside its active-play range (current target 20-30 hours; coherent fallback 10-15); median mastery enjoyment is >=4/5 and identical repeated filler is neither required nor counted. Expedition-specific goals apply only if the mode survives D020.
 - Zero P0/P1; P2 burn-down is bounded and scheduled.
 
 ### 9. iOS internal TestFlight
@@ -386,7 +386,7 @@ Avoid asking only “Was it fun?” Use ratings after specific observations and 
 - New chassis starter loadout and catch-up.
 - Failure-heavy and success-heavy profiles.
 - Alternate build/chassis completion.
-- Post-completion Expedition/ mastery return.
+- Post-completion mastery return and, only if retained by D020, Expedition Mode.
 
 Record time-to-choice/capability/location, Scrap earned/spent, part use, objective repetition, failure/extraction reason, abandoned goals, and player-stated next goal.
 
@@ -435,7 +435,7 @@ Simulator evidence can close basic layout/compatibility only, never touch, hapti
 ### Release candidate
 
 - Clean install and update from last supported release/beta.
-- Full campaign and Expedition Mode completion.
+- Full campaign and any D020-locked postgame-mode completion.
 - Offline, lifecycle, low-storage, corruption recovery, and emergency-patch migration.
 - Exact archive metadata/privacy/accessibility/review agreement.
 
@@ -483,7 +483,7 @@ Any of the following blocks 1.0:
 - Open P0 or P1.
 - Any reproducible profile loss, corruption without recovery, reward duplication, or unsupported migration.
 - Crash-free counted sessions below 99.8% over the defined minimum 1,000-session/50-participant/14-day release-beta window.
-- Primary progression, extraction, Garage, save/resume, or Expedition Mode cannot complete.
+- Primary progression, extraction, Garage, save/resume, or any D020-locked postgame mode cannot complete.
 - Minimum supported device misses approved sustained frame, memory, thermal, launch/resume, touch, or lifecycle budget.
 - Required first-minute, handling, hybrid-world, buildcraft, economy, accessibility, and content gates lack passing human evidence.
 - App Store declarations/assets/metadata/review notes do not match the selected archive.

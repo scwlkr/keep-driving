@@ -2,7 +2,7 @@
 
 Status: canonical execution roadmap
 Roadmap date: 2026-07-11
-Current phase: Phase 2 — Technical-Risk Prototypes; handling truth slice in progress
+Current phase: Phase-1 Wayfinder decision audit plus bounded Phase-2 prototypes; production Phase 3 remains blocked
 Canonical Wayfinder map: `.scratch/keep-driving-1-0/map.md`
 
 ## 1. Executive summary
@@ -15,7 +15,7 @@ It is not a desktop alpha, mobile port, or App Store candidate. The visible ship
 
 ### Proposed finished-game direction
 
-Under a formally cleared public title, build a premium, offline-first, top-down survival road-trip roguelite. The player configures a battered car, enters one seamless three-region county, chooses among authored roads and systemic conditions, completes route-centered expeditions, risks unsecured haul, restores safehouses/routes, and decides when to return. Three chassis, six functional part slots, at least 36 named sidegrade parts, four activity families, 15 landmarks, six safehouses, 24 objectives, 15+ encounter templates, an 8-12 hour primary arc, and postgame Expedition Mode form the launch floor. `Keep Driving` remains an internal working title until the clearance-or-rename gate passes.
+Under a distinct formally cleared public title, build a premium, offline-first, single-player top-down survival-driving roguelite where every road is a build decision: **Build the car. Read the county. Take the risk. Bring it home.** The player configures a battered car, enters one connected county, chooses among authored roads and systemic conditions, completes route-centered expeditions, risks unsecured haul, restores safehouses/routes, and decides when to return. Three regions, three chassis, six functional part slots, at least 36 named sidegrade parts, four activity families, 15 landmarks, six safehouses, 24 objectives, 15+ encounter templates, an 8-12 hour primary arc, a 20-30 hour completion/mastery range, and postgame Expedition Mode remain the provisional production target pending the measured tranche gate. Release planning assumes a rename from `Keep Driving` unless written legal and positioning review affirmatively clears the exact title.
 
 The world becomes a hybrid: authored macro roads/landmarks/shortcuts plus deterministic events, weather, threats, and rewards. The visual identity evolves into a sun-bleached illustrated survival road atlas. Vehicle feel remains Arcade-Real but moves to fixed-step analog control and robust collision. One shared game architecture reaches iPhone only after every corresponding desktop system passes.
 
@@ -23,8 +23,8 @@ The world becomes a hybrid: authored macro roads/landmarks/shortcuts plus determ
 
 1. Replace manual `Node2D` motion/radius contacts with a fixed-step arcade vehicle and real collision substrate.
 2. Replace repetitive procedural chunk grammar with an authored/baked county macrograph plus deterministic runtime population.
-3. Replace three linear upgrades with a stable-ID catalog, three chassis, six slots, capacity/tradeoff rules, inventory, comparison, and presets.
-4. Add destinations, extraction, safehouses, authored restoration progression, four route-centered activity families, and real endgame.
+3. Replace three linear upgrades with a stable-ID catalog and the D020-locked chassis/slot/part target (currently three/six/36), capacity/tradeoff rules, inventory, comparison, and presets.
+4. Add destinations, extraction, safehouses, authored restoration progression, the D020-locked route-centered activity target (currently four families), and the locked endgame.
 5. Split `GameRoot` into AppFlow, ExpeditionSession, input, vehicle, world, activities, catalog, progression/economy, save, presentation, audio/feedback, settings, and platform adapters.
 6. Replace unversioned overwrite save with atomic versioned persistence, v0 migration, backups, recovery, resume, and fault proof.
 7. Replace default UI/placeholders/silent audio with production scenes, art, animation, VFX, real buses/assets, haptics, and accessibility.
@@ -46,7 +46,7 @@ The world becomes a hybrid: authored macro roads/landmarks/shortcuts plus determ
 - Three regions and extensive playtime could exceed content-production capacity or become filler.
 - Extraction could feel punitive or irrelevant depending on recovery tuning.
 - Pure difficulty escalation could overwhelm route choice and mobile readability.
-- The exact working title collides with an existing released road-trip game and cannot become the public brand without qualified clearance or a cleared replacement.
+- The exact working title collides with an existing released road-trip game. Public execution assumes a distinctive replacement; the exact title cannot become the public brand unless D021's qualified legal plus positioning/search-confusion exception passes.
 
 ### Recommended path to 1.0.0
 
@@ -87,7 +87,7 @@ Detailed evidence lives in `docs/CURRENT_STATE_AUDIT.md`.
 
 ### Retain
 
-Deterministic pure generation contract; stable marker IDs; bounded streaming metrics; run-progression ownership; ProfileStore adapter concept; Garage clarity standard; Arcade-Real feel/camera vocabulary; Road Warrior identity; desktop-first Godot proof floor.
+Deterministic pure generation contract; stable marker IDs; bounded streaming metrics; run-progression ownership; ProfileStore adapter concept; Garage clarity standard; Arcade-Real feel/camera vocabulary; car-only real-time route-survival nucleus; desktop-first Godot proof floor.
 
 ### Refactor
 
@@ -102,14 +102,14 @@ Four-spoke world grammar; flat placeholder presentation; silent generator audio;
 The shipped game is understandable to a developer, designer, artist, and playtester through these invariants:
 
 - **Fantasy:** turn a wreck into a personal machine, read an open hostile road, take one more calculated risk, and bring the car/haul home.
-- **World:** one learnable three-region county with authored road hierarchy, 15 landmarks, six safehouses, shortcuts, crossings, time/weather, and deterministic encounter remix.
+- **World:** one learnable connected county; current provisional target is three region identities, 15 landmarks, six safehouses, shortcuts, crossings, time/weather, and deterministic encounter remix, subject to D020 throughput lock.
 - **Driving:** fixed-step analog Arcade-Real feel; roads are advantages, never rails; collision weight and surface matter; car-only conflict.
-- **Buildcraft:** three chassis, six slots, 36+ named sidegrade parts, five archetypes, explicit capacity/cost/tradeoff, no rarity inflation.
+- **Buildcraft:** current provisional target is three chassis, six slots, 36+ named sidegrade parts and five archetypes with explicit capacity/cost/tradeoff and no rarity inflation, subject to D020 throughput/diversity lock.
 - **Progression:** restore routes/safehouses, discover places/blueprints/chassis, bank material haul by extraction, complete a final cross-county expedition.
-- **Activities:** salvage/recovery, risky delivery, route restoration, route mastery, plus dynamic road encounters.
+- **Activities:** D020-locked route-centered family set; current provisional target is salvage/recovery, risky delivery, route restoration, and route mastery, plus dynamic road encounters.
 - **Presentation:** sun-bleached animated road atlas, rugged navigation-card UI, real engine/surface/impact/ambience/music, restrained haptics and accessible intensity.
-- **Sessions:** first movement in ten seconds; meaningful decision every 30-45 seconds; 15-25 minute expeditions; 8-12 hour first completion; 20+ hour completion/mastery/endgame target.
-- **Business:** premium one-time purchase, offline-first, no ads/tracking/account/launch IAP/dark patterns.
+- **Sessions:** first movement in ten seconds; consequential decision every 30-45 seconds; 15-25 minute expeditions; D020-locked campaign/mastery ranges (currently 8-12 and 20-30 active hours; fallback 5-8 and 10-15).
+- **Business:** paid complete base app, offline-first, no ads/cross-app tracking/account/launch IAP/dark patterns; no third-party analytics at launch.
 - **Platform:** desktop-proven systems adapted through shared contracts to iPhone landscape; physical-device/TestFlight/App Store evidence required.
 
 ## 4. Major design decisions
@@ -120,13 +120,13 @@ Full records live in `docs/DECISIONS.md`.
 |---|---|---|---|---|---|
 | World | Authored macrograph + deterministic population | Memorable place and replay variation | Pure procedural; fully static | Authoring/bake cost | Proof region repeat test and perf |
 | Driving | Fixed-step custom Arcade-Real controller with robust collision | Preserve feel while fixing production physics/input | Patch Node2D; rigid-body sim | Early rewrite/retune | Handling lab, 30/60/120 Hz, five players |
-| Upgrades | Three chassis, six slots, 36+ named sidegrade parts | Deep learnable builds without inflation | Linear tree; random rarity | Catalog/UI/balance work | 12-part sandbox and benchmark matrix |
-| Progression | Destination/restoration arc with extraction; Expedition Mode endgame | Adds meaning, risk, completion; preserves endless loop | Failure-only survival; generic missions | More state/content | Three-run economy and full campaign |
-| Content | Four route-centered activity families + dynamic encounters | Reuses core systems and protects identity | Broad open-world checklist; survival only | Less genre breadth | Repetition/identity review |
+| Upgrades | D020-locked chassis/part target; currently three chassis, six slots, 36+ named sidegrades | Deep learnable builds without inflation | Linear tree; random rarity | Catalog/UI/balance work | 12-part sandbox, benchmark matrix, throughput forecast |
+| Progression | Destination/restoration arc with extraction; D020-locked postgame target (currently Expedition Mode) | Adds meaning, risk, completion; preserves replay if capacity allows | Failure-only survival; generic missions | More state/content | Three-run economy and full campaign |
+| Content | D020-locked route-centered activity target (currently four families) + dynamic encounters | Reuses core systems and protects identity | Broad open-world checklist; survival only | Less genre breadth | Repetition/identity review |
 | Visual | Sun-Bleached Survival Road Atlas | Distinctive, top-down/mobile readable, feasible 2D | Pixel art; realism/asset packs | Needs cohesive custom pipeline | Hero minute and screenshot/device test |
 | Technical | Incremental deep-module migration, no flag-day rewrite | Keeps playable build and clear ownership | Grow GameRoot; total rewrite | Temporary adapters | Architecture/public-contract review |
 | Mobile | Shared logic/adapters; desktop gates first; iPhone landscape | Prevents drift and late platform surprises | Fork; mobile-first now | Strong shared constraints | Physical touch/device/TestFlight matrix |
-| Monetization | Premium one-time purchase; no launch IAP/ads/tracking | Aligns with product and privacy | Ads/F2P/subscription | Higher purchase barrier | Pricing/store-page research near launch |
+| Monetization | Paid complete base app; no launch IAP/ads/account/cross-app tracking/third-party analytics | Aligns with product and privacy | Ads/F2P/cosmetic IAP/subscription/full unlock | Higher purchase barrier | Pricing/store-page and privacy audit near launch |
 | Save | Versioned atomic envelope, backups, migration, resume | Protects long progression and updates | Extend raw JSON; database | More reliability infrastructure | v0/N-2 fixtures and 1,000 faults |
 
 ## Roadmap prioritization method
@@ -186,7 +186,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 1 — Product Vision and Design Foundation
 
-- **Status:** Complete as Roadmap Phase 1: all ten required documents and the executable phase route exist. Wayfinder tickets 02-07 remain open only as the protocol's one-ticket-per-session audit/index queue; they may correct/reopen decisions and still block Phase 3, but they do not make the roadmap phase or bounded Phase 2 prototypes incomplete.
+- **Status:** Documentation package complete; decision-foundation acceptance in progress. Wayfinder ticket 02 settles product identity/scope; tickets 03-06 still audit gameplay, experience, architecture, and release decisions, and ticket 07 certifies the package. Bounded Phase-2 prototypes may continue, but Phase 3 and content multiplication remain blocked.
 - **Objective:** Define the strongest bounded 1.0 identity, systems, experience, architecture, platform, business model, and scope.
 - **Player-facing outcome:** A coherent promise: premium open-road survival, expressive car builds, meaningful return risk, memorable systemic world.
 - **Technical outcome:** Target module/data/save/content/mobile/test contracts and measurable launch floors.
@@ -196,13 +196,13 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Major tasks:** Choose identity; define launch scope; resolve world/vehicle/progression/content/visual/technical/mobile/monetization decisions; document tradeoffs/validation.
 - **Recommended order:** Identity/pillars -> core loops/journey -> system design -> experience -> architecture -> mobile/release -> scope/decisions.
 - **Risks:** Wishlist scope; vague “polish”; preservation bias; invented certainty about staffing/market/platform; exact-title legal/confusion risk.
-- **Risk reduction:** Numeric content floors, explicit non-goals, Required/Valuable/Post buckets, assumptions with validation timing, and a mandatory qualified clearance-or-rename gate before release identity or brand assets lock.
+- **Risk reduction:** Provisional content targets with a measured production-tranche gate/cut ladder, explicit non-goals, Required/Valuable/Post buckets, assumptions with validation timing, and a distinct-name default plus mandatory qualified clearance before release identity or brand assets lock.
 - **Required prototypes:** Defined for Phase 2, not performed here.
 - **Tools/infrastructure:** Repository evidence, local research skill, first-party Apple/Godot sources.
 - **Desktop test plan:** Review designs against current playable flow; every player-facing decision maps to a later desktop proof.
 - **Performance targets:** Provisional desktop/iOS budgets defined for prototype validation.
 - **Acceptance criteria:** Another capable team can identify what is built, why, what is excluded, and how each risky decision will be tested.
-- **Definition of done:** All ten required planning documents exist, cross-reference decisions or explicit assumptions, and make the first bounded milestone executable. The separate Wayfinder audit/index queue remains visible until processed one ticket per session.
+- **Definition of done:** All ten required planning documents exist, cross-reference accepted decisions or explicit assumptions, make the first bounded milestone executable, and Wayfinder tickets 02-07 are resolved one per session with corrections written back. File existence alone completes the package draft, not this decision foundation.
 - **Mobile implications:** Shared input/UI/save/platform constraints captured; migration remains gated.
 - **Documentation:** All files listed in Section 8.
 - **Complexity:** Large.
@@ -239,10 +239,10 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Objective:** Integrate selected prototype truths into one maintainable desktop vertical slice representing the first 15 minutes and full depart/drive/objective/extract/Garage/restart loop.
 - **Player-facing outcome:** A shareable slice that looks/sounds like the game, teaches itself, contains a memorable route choice, meaningful haul/return decision, and one visible build change.
 - **Technical outcome:** Production AppFlow/ExpeditionSession/Input/Vehicle/World/ContentCatalog/Presentation/Audio/Save skeleton with old paths removed where replaced.
-- **Included:** Utility wagon; fixed-step driving/collision/camera; one proof region route; one objective; extraction/failure; 12 representative parts or the accepted minimum; production HUD/Results/Garage subset; real audio/VFX; versioned save; clean desktop export.
-- **Excluded:** All three full regions, final catalog/content count, complete settings/accessibility, mobile export, App Store work.
+- **Included:** Utility wagon; fixed-step driving/collision/camera; one production landmark cluster and safehouse state change; three objective variants across at least two families; five encounter/event variants; extraction/failure; 12 production-quality parts or the accepted minimum; production HUD/Results/Garage subset; real final-pipeline art/audio/VFX/localization metadata; versioned save; clean desktop export.
+- **Excluded:** Full D020-locked region rollout and final catalog/content counts, complete settings/accessibility, mobile export, App Store work.
 - **Dependencies:** Phase 2 passes.
-- **Major tasks:** Implement module shell; migrate main loop; integrate selected handling/world/catalog/save; build hero UI/audio/art; add export/CI seed; remove superseded prototype root paths; capture evidence.
+- **Major tasks:** Implement module shell; migrate main loop; integrate selected handling/world/catalog/save; build hero UI/audio/art; produce the D020 Lowlands tranche and unique-work samples/estimates; publish the complete `SCOPE_LOCK.md` dated capacity ledger, separately costed mandatory baseline, 30% unallocated risk reserve, formula, cut/fallback result, and PASS/FAIL; add export/CI seed; remove superseded prototype root paths; capture evidence.
 - **Recommended order:** App/session/content/save interfaces -> input/vehicle -> world -> activity/extraction/economy -> UI/audio/feedback -> export/perf/playtest -> delete old path.
 - **Risks:** Half-migrated duplicate authority; scope expands into content production; slice only works on one scripted seed.
 - **Risk reduction:** One authoritative state per fact; public integration tests; multiple seeds/failure states; explicit exclusions; architecture review before merge.
@@ -250,10 +250,10 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** CI fast gate, development build flags, rendered capture, debug overlay, build manifest, clean export preset.
 - **Desktop test plan:** Clean profile; tutorial; objective/extraction/failure; Garage compare/install; restart/resume; keyboard/controller; five-seed world; human 15-minute test; release-like performance.
 - **Performance targets:** 60 FPS/p95 <=16.7 ms, p99 <=25 ms, world <=4 ms, no >50 ms hitch, stable 30-minute memory, UI acknowledgement <100 ms.
-- **Acceptance criteria:** Four/five hero-minute targets; full loop without debug help; real audible state feedback; save/restart correct; no duplicate authority; exported build passes.
-- **Definition of done:** Integrated, playable, tested, documented production slice; current Real Vertical Slice map is resolved/superseded with evidence; no open P0/P1.
+- **Acceptance criteria:** Four/five hero-minute targets; full loop without debug help; real audible state feedback; save/restart correct; no duplicate authority; exported build passes; the representative tranche supplies measured throughput and a credible content forecast rather than inferred capacity.
+- **Definition of done:** Integrated, playable, tested, documented production slice; D020 count target is explicitly locked or superseded before multiplication; current Real Vertical Slice map is resolved/superseded with evidence; no open P0/P1.
 - **Mobile implications:** Shared contracts and responsive proof floor accepted; desktop touch simulation remains non-release evidence.
-- **Documentation:** Slice spec/report, architecture/decision updates, control/asset/content contracts.
+- **Documentation:** Slice spec/report, architecture/decision updates, control/asset/content contracts, and `docs/production/SCOPE_LOCK.md` with the D020 capacity ledger/formula/verdict.
 - **Complexity:** Extra Large.
 - **Blocks later work:** Yes; world, parts, progression, content, and presentation scale-up depend on it.
 
@@ -261,12 +261,12 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 - **Status:** Not started; blocked by dependencies below.
 
-- **Objective:** Build the production authored/baked county framework and scale the proof region into all three region graphs with streaming-safe content sockets.
+- **Objective:** Build the production authored/baked county framework and scale the proof region into the D020-locked region graph target, currently three identities, with streaming-safe content sockets.
 - **Player-facing outcome:** A coherent open county with road hierarchy, landmarks, safehouses, shortcuts, crossings, region identity, time/weather rules, and stable backtracking.
 - **Technical outcome:** Validated County/Region/RoadGraph sources, world bake, BakedWorld packages, deterministic population, predictive streamer, spatial lifecycle, map/navigation graph, and mutation IDs.
-- **Included:** Three region topology; 15 landmark slots; six safehouses; primary/secondary/service/offroad graph; crossings/barriers; event/spawn/weather/audio sockets; map discovery; fast-travel eligibility; debug tools.
+- **Included:** D020-locked topology/content sockets, currently three region identities, 15 landmark slots, and six safehouses; primary/secondary/service/offroad graph; crossings/barriers; event/spawn/weather/audio sockets; map discovery; fast-travel eligibility only if retained by D020; debug tools.
 - **Excluded:** Final art dressing for every asset, complete encounters/contracts, all world audio, native mobile optimization.
-- **Dependencies:** Phase 3; art/content budget contracts from Phase 2.
+- **Dependencies:** Phase 3, including the accepted D020 production-throughput forecast; art/content budget contracts from Phase 2.
 - **Major tasks:** Author graph; build validators/bake; implement streaming/dependencies; spatial hash/pools; population generator; time/weather state; navigation/discovery; content/hash/mutation save; seed/transition fuzz.
 - **Recommended order:** World data/bake -> one region runtime -> spatial/pool -> discovery/map -> time/weather -> remaining topology -> fuzz/perf/content-author workflow.
 - **Risks:** Tooling consumes schedule; authored and procedural layers conflict; repetitive sockets; streaming/memory grows with real assets.
@@ -286,10 +286,10 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 - **Status:** Not started; blocked by dependencies below.
 
-- **Objective:** Deliver all launch chassis/slot rules and a scalable catalog-driven part/loadout ecosystem with provable sidegrades.
-- **Player-facing outcome:** Three distinct vehicles and at least five route-changing build archetypes that are fast to understand, compare, test, save, and rebuild.
+- **Objective:** Deliver the D020-locked launch chassis/slot target and a scalable catalog-driven part/loadout ecosystem with provable sidegrades.
+- **Player-facing outcome:** The D020-accepted vehicle set and route-changing build-diversity floor are fast to understand, compare, test, save, and rebuild; the provisional target is three chassis/five archetypes and the coherent fallback retains two/four.
 - **Technical outcome:** Vehicle/Part Resources, ContentCatalog validation, stat composition, compatibility/capacity rules, inventory/intake, fabrication/dismantling, presets, test lot, and benchmark tooling.
-- **Included:** Three chassis; six slots; at least 36 functional part definitions by content-complete beta; 12+ production-quality foundation parts here; cosmetics framework; exact compare/route forecast; duplicate/overflow/respec rules.
+- **Included:** D020-locked chassis/slot/part target, currently three chassis, six slots, and at least 36 functional parts by content-complete beta; 12+ production-quality foundation parts here; cosmetics framework; exact compare/route forecast; duplicate/overflow/respec rules.
 - **Excluded:** Random rarity/affixes, weapons/on-foot systems, final cosmetic quantity, monetized parts.
 - **Dependencies:** Phase 3 vehicle/catalog; Phase 4 route/surface capability facts for forecast/benchmarks.
 - **Major tasks:** Finalize schemas; implement stat composer/loadout validation; migrate profile; inventory transactions; Garage components; chassis unlock hooks; benchmark scenes/report; content author/validation docs; produce first balanced catalog tranche.
@@ -298,10 +298,10 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Risk reduction:** Every part capability+tradeoff contract; standard benchmark matrix; catalog CI; visible route forecast; free swap/undo; playtest adoption/reasoning.
 - **Required prototypes:** Accepted 12-part sandbox; add one duplicate/overflow/missing-preset and one deprecated-content migration proof.
 - **Tools/infrastructure:** Catalog browser, stat diff, loadout validator, benchmark runner, Garage test lot, inventory/save fixtures.
-- **Desktop test plan:** Build five archetypes; road/offroad/impact/Fuel/cargo/threat benchmarks; compare comprehension; preset swap; duplicate/overflow; migration; one-hour multi-build playtest.
+- **Desktop test plan:** Build and test every D020-locked archetype (provisional target five; coherent fallback four); road/offroad/impact/Fuel/cargo/threat benchmarks; compare comprehension; preset swap; duplicate/overflow; migration; one-hour multi-build playtest.
 - **Performance targets:** Loadout apply/UI compare <100 ms; no per-frame catalog traversal; vehicle remains Phase 3 frame budget; catalog boot/validation measured.
-- **Acceptance criteria:** >=3 viable builds now and path to five; no build wins all benchmarks; all parts show consequence/tradeoff; players build <2 minutes and swap <60 seconds; stable save IDs.
-- **Definition of done:** Three chassis and foundation catalog fully integrated/playable/tested/documented; content pipeline can add remaining parts without code matches.
+- **Acceptance criteria:** >=3 viable builds in the foundation tranche and a measured path to the D020-locked build-diversity floor (provisional target five; coherent fallback four); no build wins all benchmarks; all parts show consequence/tradeoff; players build <2 minutes and swap <60 seconds; stable save IDs.
+- **Definition of done:** The locked chassis floor and foundation catalog are fully integrated/playable/tested/documented; content pipeline can add remaining locked parts without code matches.
 - **Mobile implications:** Compare/slot UI has responsive design contract; touch implementation deferred; active vehicle asset/memory variants budgeted.
 - **Documentation:** Part/chassis authoring guide, stat semantics, benchmark rules, inventory/duplicate/preset behavior, catalog changelog.
 - **Complexity:** Extra Large.
@@ -314,7 +314,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Objective:** Implement the complete restoration arc, extraction/failure reward rules, Scrap economy, unlock pacing, records, and anti-grind protections.
 - **Player-facing outcome:** Every expedition changes a place, capability, build, or goal; returning and pushing farther are meaningful; the game has a clear completion arc.
 - **Technical outcome:** Typed/versioned profile and expedition models, Progression/Economy/Inventory transactions, reward escrow/security, milestone graph, records, tuning/simulation tools.
-- **Included:** Safehouse/region/final milestones; chassis/blueprint unlocks; Scrap sources/sinks; secured/unsecured cargo; failure recovery; first-session choice; records; catch-up/migration; completion and Expedition unlock.
+- **Included:** Safehouse/region/final milestones; chassis/blueprint unlocks; Scrap sources/sinks; secured/unsecured cargo; failure recovery; first-session choice; records; catch-up/migration; completion and the D020-locked postgame unlock if any (currently Expedition Mode).
 - **Excluded:** Live-service progression, multiple currencies, battle pass, daily obligation, final contract content balance.
 - **Dependencies:** Phases 4-5; SaveService foundation from Phase 3.
 - **Major tasks:** Define milestone graph/reward tables; transaction APIs; expedition resolution; Results facts; economy simulation; anti-farm/diminishing repeat rules; unlock/catch-up; records; save fixtures; player tests.
@@ -337,20 +337,20 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Build reusable activity/encounter authoring systems and produce a representative cross-region content set before full quantity scale.
-- **Player-facing outcome:** Salvage/recovery, risky delivery, restoration, mastery, and dynamic road events feel different while keeping route/build decisions central.
+- **Player-facing outcome:** The D020-locked activity set—currently salvage/recovery, risky delivery, restoration, and mastery—plus dynamic road events feel different while keeping route/build decisions central.
 - **Technical outcome:** ActivityService, contract/state/resume/reward schemas, encounter director/templates, authored sockets, validation, debug forcing, repetition metrics, content pipeline.
-- **Included:** Four activity families; dynamic encounters; objective markers/interactions; cargo properties; success/failure/resume; region eligibility; first production content tranche; authoring/QA tools.
-- **Excluded:** AI racing, escort, on-foot systems, daily chores, final 24/15+ quantity (completed in beta production).
+- **Included:** D020-locked activity-family target, currently four; dynamic encounters; objective markers/interactions; cargo properties; success/failure/resume; region eligibility; first production content tranche; authoring/QA tools.
+- **Excluded:** AI racing, escort, on-foot systems, daily chores, final D020-locked objective/encounter quantity (completed in beta production).
 - **Dependencies:** Phases 4-6.
-- **Major tasks:** Implement base activity contract; each family vertical example; encounter selection/history/safety; cargo behavior; reward integration; author validator/debug; content review; repeat across regions.
-- **Recommended order:** Base state/reward/resume -> salvage -> delivery -> restoration -> mastery -> dynamic encounters -> tooling/repetition report -> representative tranche.
+- **Major tasks:** Implement base activity contract; one vertical example for each D020-locked family; encounter selection/history/safety; cargo behavior; reward integration; author validator/debug; content review; repeat across locked regions.
+- **Recommended order:** Base state/reward/resume -> salvage -> delivery -> restoration -> mastery if retained as a separate family -> dynamic encounters -> tooling/repetition report -> representative tranche.
 - **Risks:** Generic errands, repetitive templates, encounter unfairness, authored scripting debt, reward exploits, AI scope creep.
 - **Risk reduction:** Route/build relevance criterion; socket/state templates; reaction/navigability validation; repetition history; excluded activity list; content peer/playtest review.
-- **Required prototypes:** One end-to-end example per family and one event chain under changed weather/route before content multiplication.
+- **Required prototypes:** One end-to-end example per D020-locked family and one event chain under changed weather/route before content multiplication.
 - **Tools/infrastructure:** Contract editor/schema, socket validator, encounter/event forcing, recent-template report, cargo debug, objective/resume fixtures, content checklist.
-- **Desktop test plan:** Each activity on >=2 routes/builds; every outcome/resume/failure; event reaction distance/reroute; one-hour mixed session; repetition review; performance with max representative event.
+- **Desktop test plan:** Each D020-locked activity on >=2 routes/builds; every outcome/resume/failure; event reaction distance/reroute; one-hour mixed session; repetition review; performance with max representative event.
 - **Performance targets:** Activity/encounter decisions outside hot frame; spatial/AI budgets preserved; no >50 ms activation hitch; entity/effect caps enforced.
-- **Acceptance criteria:** Players explain family differences; every family changes route/cargo/build/risk; no unavoidable lethal event; no duplicate reward/resume exploit; author can create validated content without runtime code edits.
+- **Acceptance criteria:** Players explain differences among retained families; every D020-locked family changes route/cargo/build/risk; no unavoidable lethal event; no duplicate reward/resume exploit; author can create validated content without runtime code edits.
 - **Definition of done:** Systems and representative content integrated/playable/tested/documented; pipeline is ready for launch content production.
 - **Mobile implications:** Objective density and HUD facts stay phone-readable; no mobile implementation yet; AI/entity budgets anticipate device tiers.
 - **Documentation:** Activity/encounter authoring guide, template catalog, safety/repetition rules, cargo semantics, QA matrix.
@@ -389,9 +389,9 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Objective:** Replace all placeholder visuals with a cohesive Sun-Bleached Survival Road Atlas asset/animation/VFX package across required content.
 - **Player-facing outcome:** World, vehicles, landmarks, threats, pickups, weather, UI, rewards, and marketing frames look like one distinctive finished game and remain readable at speed.
 - **Technical outcome:** Validated asset pipeline, atlases/materials, animation state, VFX pools/caps, region kits, source/license/import metadata, quality tiers, screenshot capture points.
-- **Included:** Three region kits; three chassis/visible parts; entities/props/landmarks; UI icons/theme; weather/day-night; damage/movement/reward VFX; final fonts; cosmetics floor.
+- **Included:** D020-locked region/chassis kits, currently three of each; visible parts; entities/props/landmarks; UI icons/theme; the D020-locked weather/day-night scope; damage/movement/reward VFX; final fonts; cosmetic floor only if retained.
 - **Excluded:** Post-1.0 region/vehicle sets, photorealism, unbounded decorative variants.
-- **Dependencies:** Phases 4-8; representative art perf from Phase 2; formal clearance of the exact public title before type/logo/icon, name-bearing art, or marketing frames lock. Non-branded world/vehicle production may proceed while that gate is pending.
+- **Dependencies:** Phases 4-8; representative art perf from Phase 2; a D021-passed public title before type/logo/icon, name-bearing art, or marketing frames lock. Non-branded world/vehicle production may proceed while that gate is pending.
 - **Major tasks:** Pass the clearance-or-rename gate; lock art bible/palette/type/icon; build asset/import pipeline; hero assets; region kits; vehicle/part layers; world props/landmarks; UI/icons; VFX/animation/weather; license audit; optimize/review.
 - **Recommended order:** Art bible/technical specs -> hero minute -> one complete region -> vehicle/entity kits -> remaining regions -> UI/icons -> VFX/weather/cosmetics -> consistency/perf/license pass.
 - **Risks:** Inconsistent outsource/generated assets, screenshot-first detail hurts play, texture/material/memory explosion, art throughput below content plan.
@@ -414,7 +414,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Objective:** Deliver real state-driven vehicle/world/UI/music audio, haptics semantics, and polished multimodal feedback.
 - **Player-facing outcome:** Engine/load/surface, drift, impacts, threats, weather, rewards, warnings, Garage, Results, and music make driving tactile and information clear without overload.
 - **Technical outcome:** Audio buses/director, layered engine/surface states, voice limits, ambience/music state, real asset validation, capture/audible proof, FeedbackDirector, platform haptic events.
-- **Included:** Master/Music/Vehicle/World/UI buses; three chassis-compatible vehicle layer; surface/impact/event/UI/ambience/music; warnings; visual equivalents; mix and dynamic-range settings; semantic haptic map.
+- **Included:** Master/Music/Vehicle/World/UI buses; D020-locked chassis-compatible vehicle layer; surface/impact/event/UI/ambience/music; warnings; visual equivalents; mix and dynamic-range settings; semantic haptic map.
 - **Excluded:** Voice-heavy narrative, separate full recording set per loadout, mobile physical haptic tuning until device phase.
 - **Dependencies:** Phases 3, 7-9; stable event semantics and asset identity.
 - **Major tasks:** Source/license audio; buses/director; engine/surface; impact/threat; UI/reward; ambience/music; rate limits/concurrency; accessibility/mix; capture/human mix; haptic adapter events.
@@ -462,9 +462,9 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Integrate every major 1.0 system in one exported desktop build and prove the full product shape before launch-content completion.
-- **Player-facing outcome:** A new player can complete representative early/mid/late expeditions, use all chassis/build/activity families, restore progression, and finish a provisional campaign path.
+- **Player-facing outcome:** A new player can complete representative early/mid/late expeditions, use every D020-locked chassis/build/activity family, restore progression, and finish a provisional campaign path.
 - **Technical outcome:** One authoritative architecture, clean export/CI, representative content, release-like instrumentation, and a prioritized defect/design backlog.
-- **Included:** All systems; representative content in every region; complete flow; keyboard/controller; save/update; accessibility baseline; full-stack perf; internal alpha cohort.
+- **Included:** All locked systems; representative content in every D020-locked region identity; complete flow; keyboard/controller; save/update; accessibility baseline; full-stack perf; internal alpha cohort.
 - **Excluded:** Final content quantity/balance, mobile adaptation, store assets, perfect polish.
 - **Dependencies:** Phases 3-11.
 - **Major tasks:** Integration audit; remove superseded paths; clean export/install; full campaign skeleton; alpha test plan/cohort; perf/save/accessibility passes; triage/fix blockers; update scope.
@@ -473,7 +473,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Risk reduction:** Frozen alpha candidate; end-to-end new/mid/late fixtures; human cohort; evidence taxonomy; delete dead authority; no content count rush.
 - **Required prototypes:** None; discovered unknowns become bounded spikes only if they block acceptance.
 - **Tools/infrastructure:** Desktop export/install script, CI artifacts, alpha build manifest, crash/log collection, session templates, defect tracker.
-- **Desktop test plan:** 10-15 players; clean first hour; representative full arc; every chassis/activity/region; keyboard/controller; install/update/offline; save fault; two-hour soak.
+- **Desktop test plan:** 10-15 players; clean first hour; representative full arc; every D020-locked chassis/activity/region; keyboard/controller; install/update/offline; save fault; two-hour soak.
 - **Performance targets:** 60 FPS/p95 <=16.7/p99 <=25; world <=4 ms; no >50 ms hitch; memory plateau; cold launch <=5 seconds; resume <=2.
 - **Acceptance criteria:** >=80% loop comprehension; median session >=4/5 or owned changes; all systems integrated; no P0/P1; major P2 trends owned; clean export reproducible.
 - **Definition of done:** Alpha evidence signed off, architectural/product blockers resolved, content production plan reforecast with measured throughput.
@@ -487,20 +487,20 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Produce, integrate, balance, and validate every Required-for-1.0 content item and the complete primary/endgame experience.
-- **Player-facing outcome:** Full three-region campaign, 15 landmarks, six safehouses, 24 objectives, 15+ encounters, three chassis, 36+ parts, five builds, mastery, and Expedition Mode are playable start to finish.
+- **Player-facing outcome:** The full result accepted by D020 is playable start to finish; the provisional target is three regions, 15 landmarks, six safehouses, 24 objectives, 15+ encounters, three chassis, 36+ parts, five builds, mastery, and Expedition Mode.
 - **Technical outcome:** Content/catalog/world hashes locked, migration path stable, no missing IDs/assets/strings/licenses, and beta-quality performance/reliability.
-- **Included:** All required launch content; final progression/economy; region/weather/event variety; cosmetics floor; English content; optional Valuable items only after required gates.
+- **Included:** All D020-locked launch content; final progression/economy; locked region/weather/event variety; cosmetic floor only if retained; English content; optional Valuable items only after required gates.
 - **Excluded:** New systems, post-1.0 region/chassis, native mobile adaptation, speculative Valuable features that threaten quality.
 - **Dependencies:** Phase 12 and stable production pipelines.
 - **Major tasks:** Produce content by region/family/catalog; continuous validation/playtest; full clean-profile completion; repetition/density/balance review; final content IDs; localization-ready copy; bug burn-down.
-- **Recommended order:** Complete Lowlands/reference throughput -> Badlands -> Blackwood -> cross-region/final arc -> parts/builds -> Expedition/mastery -> full balance/repetition pass -> content lock.
+- **Recommended order:** Complete Lowlands/reference throughput -> remaining locked region identities -> cross-region/final arc -> parts/builds -> D020-locked mastery/postgame modes -> full balance/repetition pass -> content lock.
 - **Risks:** Filler/repetition, throughput miss, late content breaks perf/save, balance drift, scope creep from Valuable bucket.
 - **Risk reduction:** Weekly density/repetition/throughput reports; modular templates with authored difference; content freeze; Required first; performance/save/catalog gates per tranche.
 - **Required prototypes:** None; every new template must use accepted authoring contracts and get one representative validation before multiplication.
 - **Tools/infrastructure:** Content dashboards, region/checklist validators, repetition report, economy/build benchmarks, full-playthrough fixtures, localization/license coverage.
-- **Desktop test plan:** 20-30 player beta; clean full campaign; returning/mid/late profiles; failure/success-heavy; all chassis/builds; Expedition/mastery; two-hour soak; install/update/save migrations.
+- **Desktop test plan:** 20-30 player beta; clean full campaign; returning/mid/late profiles; failure/success-heavy; all D020-locked chassis/builds/modes; two-hour soak; install/update/save migrations.
 - **Performance targets:** Meet Phase 12 with worst launch content; no content activation hitch >50 ms; package/memory projections within mobile targets.
-- **Acceptance criteria:** All numeric floors met without filler; no progression/random grind blocker; every build/activity/region viable/distinct; zero P0/P1; bounded P2; complete content/license/string IDs; clean-profile active-play cohort meets the 8-12 hour primary-arc and 20+ hour completion/mastery contracts in Section 6.
+- **Acceptance criteria:** Every D020-locked count and playtime range is met without filler; no progression/random grind blocker; every locked build/activity/region is viable/distinct; zero P0/P1; bounded P2; complete content/license/string IDs; clean-profile cohorts meet the Section-6 locked duration/enjoyment contracts.
 - **Definition of done:** Content complete and frozen except bug/balance corrections; full campaign/endgame evidence and beta report approved.
 - **Mobile implications:** Final content defines real asset/package/memory/UI/device workload; no new required content added after mobile entry without requalification.
 - **Documentation:** Content catalog/release inventory, region completion reports, balance/economy snapshot, known issues, localization/license manifest.
@@ -541,7 +541,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Technical outcome:** Xcode/Godot toolchain, iOS preset, bundle/version/signing, PlatformService iOS adapter, lifecycle/safe-area/audio/haptic stubs, build manifest, internal TestFlight pipeline.
 - **Included:** Recheck current Apple/Godot requirements; Xcode 26+/iOS 26 SDK current floor; provisional iOS 17 target; iPhone family; signed archive/install; privacy manifest baseline; lifecycle/save smoke; internal upload.
 - **Excluded:** Final touch controls/layout, full device optimization, store metadata/assets/review submission, iPad unless promoted.
-- **Dependencies:** Phase 14; the Phase 2 signed-export feasibility pass; formally cleared public title; approved immutable release identity; Apple membership/signing/tool access.
+- **Dependencies:** Phase 14; the Phase 2 signed-export feasibility pass; D021-passed public title; approved immutable release identity; Apple membership/signing/tool access.
 - **Major tasks:** Reverify tools/templates; commit production export preset; verify the already approved immutable identity; generate/inspect Xcode target; implement adapters; archive/validate/install; internal TestFlight; record gaps.
 - **Recommended order:** Requirement/tool audit -> identity/preset -> local export -> adapter basics -> physical install -> lifecycle/save/audio/haptic smoke -> archive/validate -> internal TestFlight.
 - **Risks:** Godot exporter/Xcode incompatibility, signing delay, privacy manifest/API issue, platform adapter leaks into domain, unsupported deployment/device floor.
@@ -616,7 +616,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Technical outcome:** Final identity/signing/entitlements/privacy manifest, processed builds, metadata/assets, compliance records, review notes, support/monitoring/emergency pipeline.
 - **Included:** The preparation and external-beta portions of `APP_STORE_RELEASE_CHECKLIST.md`; screenshots/previews; icons/launch; price/territories; age/privacy/accessibility/export/DSA; support/privacy URLs; review notes and package assembly. Phase 19 owns final RC selection/submission/review, Phase 20 owns launch-day items, and Phase 21 owns post-launch items.
 - **Excluded:** New feature/content, unproven optional service, speculative marketing claim, App Review submission, and review-resolution changes.
-- **Dependencies:** Phase 17 candidate; formally cleared public title; approved publisher/bundle identity; legal/business assets/accounts/URLs.
+- **Dependencies:** Phase 17 candidate; D021-passed public title; approved publisher/bundle identity; legal/business assets/accounts/URLs.
 - **Major tasks:** Recheck requirements; final SDK/privacy inventory; create/finish record; capture assets; complete metadata/declarations; external TestFlight; support/emergency drill; assemble and internally approve the review package.
 - **Recommended order:** Identity/business prerequisites -> privacy/legal/SDK -> icons/launch -> metadata/screenshots -> accessibility/age/export -> TestFlight -> review notes/support -> checklist audit.
 - **Risks:** Volatile Apple rules, immutable ID mistake, declaration/archive mismatch, misleading assets, missing URL/legal/account, review delay.
@@ -639,7 +639,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Objective:** Freeze, reproduce, validate, submit, and obtain approval for the exact 1.0.0 archive through the complete release-blocker and App Review loop.
 - **Player-facing outcome:** Final build contains the complete stable game with no known critical/major release blocker.
 - **Technical outcome:** Tagged source, reproducible archive/provenance, retained symbols/manifest, full automation/human/device/save/store evidence, bounded accepted P2 list.
-- **Included:** Clean build; full campaign/Expedition; install/update/offline; performance/soak; 1,000 faults; accessibility/localization; metadata/archive agreement; emergency patch drill.
+- **Included:** Clean build; full campaign and every D020-locked postgame mode; install/update/offline; performance/soak; 1,000 faults; accessibility/localization; metadata/archive agreement; emergency patch drill.
 - **Excluded:** New systems/content/polish bundle; only reviewed blocker fixes create a new RC.
 - **Dependencies:** Phase 18; internally approved review-ready checklist, package, and candidate.
 - **Major tasks:** Freeze RC1; run entire suite; triage; smallest blocker fixes; RC2+ as needed; select exact archive; submit; resolve App Review feedback with a new fully tested RC when required; obtain approval; run launch-readiness review.
@@ -662,7 +662,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Status:** Not started; blocked by dependencies below.
 
 - **Objective:** Release manually during a staffed window, verify public install/product page/core loop, and begin active monitoring/support.
-- **Player-facing outcome:** Keep Driving 1.0.0 is purchasable, installable, offline-playable, supported, and accurately represented.
+- **Player-facing outcome:** The cleared public-title 1.0.0 game is purchasable, installable, offline-playable, supported, and accurately represented.
 - **Technical outcome:** Public build/store state recorded; live install and core loop verified; crash/save/support monitoring active; emergency path ready.
 - **Included:** Manual release; minimum/mid/current fresh install; product page/price/territory/links; first launch/offline/save; support; metrics/triage.
 - **Excluded:** New features, live tuning without a build, celebratory changes to production systems.
@@ -726,14 +726,14 @@ Audit -> Vision -> Desktop Handling/Hero Truth Slice
 
 The formal blocking chain is Phases 0 through 21. A phase may overlap preparation with the prior phase, but it cannot claim acceptance or allow downstream content multiplication until its listed gate passes.
 
-Name clearance or a cleared replacement is an independent release-identity gate. Research and neutral internal/ad-hoc prototype identifiers can proceed early, but no registered production/release App ID, App Store record, logo/icon, public URL, marketing asset, or final public name locks before the written clearance record is archived in `docs/DECISIONS.md`. The decision is due by the end of Phase 2 before the signed iOS feasibility build and is rechecked/frozen at Phase 9.
+D021's legal-clearance plus positioning/search-confusion review is an independent release-identity gate. Public execution assumes a distinctive replacement; the exact title is an exception only if both reviews affirm it. Research and neutral internal/ad-hoc prototype identifiers can proceed early, but no registered production/release App ID, App Store record, logo/icon, public URL, marketing asset, or final public name locks before both records are archived in `docs/DECISIONS.md`. The decision is due by the end of Phase 2 before the signed iOS feasibility build and is rechecked/frozen at Phase 9.
 
 ### Reproducible measurement contracts
 
 - **Desktop regression reference:** MacBookPro18,2, Apple M1 Max (10-core CPU, 32-core GPU), 64 GB RAM, built-in 3456 x 2234 display. Release-like performance runs use a 1920 x 1080 output window with the project's 1280 x 720 logical viewport, GL Compatibility, current exact Godot build, and a clean exported build. Capacity captures run with VSync off; play-feel captures rerun with VSync on. Every artifact records macOS version, engine build, renderer, display/output/logical viewport, VSync, power state, build flavor, commit, scene/seed, asset set, warm-up, duration, p50/p95/p99/worst frame, peak/plateau memory, and raw evidence location. This machine is a comparison reference, not evidence of minimum-device support.
 - **Crash-free release beta:** At least 1,000 counted launch-to-background-or-quit sessions over at least 14 consecutive days from at least 50 external participants, spanning every supported device tier. A session is crash-free only when it has no uncaught crash, OS watchdog termination, or unrecovered hang attributable to the build. The gate is `crash-free sessions / counted sessions >= 99.8%`, with zero reproducible save loss and zero P0/P1; unknown/un-symbolicated terminations do not get silently excluded.
-- **Primary-arc length:** At desktop content beta, at least 10 new players use clean profiles with no developer shortcuts. Record active play only, excluding pause/background time. Median first primary-arc completion must be 8-12 hours, at least 8/10 must finish within 6-14 hours, and no participant may be blocked by mandatory random grind.
-- **Completion/mastery length:** At least five clean-profile players who continue after the primary arc must each reach 90% of tracked authored objectives/landmarks/restorations plus three distinct Expedition mastery goals within 20-30 hours of non-idle active play. Median mastery enjoyment must be >=4/5, and no player may require repeated identical filler to extend or complete that range.
+- **Primary-arc length:** At desktop content beta, at least 10 new players use clean profiles with no developer shortcuts. Record active play only, excluding pause/background time. The D020 scope lock declares the tested primary range (provisional target 8-12 hours; coherent fallback 5-8) and completion tolerance; median must land inside it, at least 8/10 must land inside tolerance, and no participant may be blocked by mandatory random grind.
+- **Completion/mastery length:** At least five clean-profile players who continue after the primary arc must each reach the D020-locked authored completion/build/mastery goal inside its non-idle active-play range (provisional target 20-30 hours; coherent fallback 10-15). Median mastery enjoyment must be >=4/5, repeated identical filler is neither required nor counted, and Expedition-specific goals apply only if that mode survives scope lock.
 
 ### Greatest-risk systems
 
@@ -741,7 +741,7 @@ Name clearance or a cleared replacement is an independent release-identity gate.
 2. Hybrid authored world/bake/streaming under production content.
 3. Part/build tradeoff balance and Garage comprehension.
 4. Extraction/economy/progression pacing.
-5. Content throughput/repetition across three regions.
+5. Content throughput/repetition across the D020-locked region target, currently three.
 6. Versioned save, migration, lifecycle, and reward transaction safety.
 7. Full-stack desktop-to-iOS performance/memory/thermal/touch behavior.
 8. Exact App Store privacy/accessibility/export/archive agreement.
@@ -777,7 +777,7 @@ Unsafe parallel work:
 
 #### Valuable if capacity allows
 
-- Fourth chassis and 8-12 extra parts.
+- Additional chassis and sidegrade parts beyond the D020-locked Required target.
 - Photo mode/shareable run card.
 - Native iPad experience.
 - Game Center achievements and optional iCloud saves.
@@ -824,7 +824,7 @@ This is the first bounded implementation milestone inside Phase 2. It answers wh
 #### Explicitly excluded
 
 - Full hybrid region/streamer replacement.
-- Final world generation, threats/AI, activity system, campaign, extraction economy, Garage inventory, 36-part catalog.
+- Final world generation, threats/AI, activity system, campaign, extraction economy, Garage inventory, or the D020-locked final part catalog (currently 36).
 - Final art quantity, music score, settings suite, save migration, mobile/touch/iOS export.
 - Refactoring unrelated prototype systems.
 
@@ -895,7 +895,8 @@ A player launches a separate desktop slice, starts moving within ten seconds, le
 | `docs/PLAYTEST_PLAN.md` | Evidence classes, structured cohorts/tasks/questions/metrics, device/regression/severity/release blockers |
 | `docs/DECISIONS.md` | Durable major product/architecture decisions, alternatives, tradeoffs, validation |
 | `docs/research/APP_STORE_REQUIREMENTS.md` | 2026-07-11 first-party Apple/Godot requirement snapshot and volatile recheck list |
-| `docs/research/NAME_CLEARANCE_RISK.md` | Exact-title collision evidence and mandatory qualified clearance-or-rename gate |
+| `docs/research/NAME_CLEARANCE_RISK.md` | Exact-title collision evidence and mandatory D021 legal-plus-positioning public-name gate |
+| `docs/research/PRODUCT_IDENTITY_AND_SCOPE.md` | Primary-source positioning/business research, resolved identity, and provisional scope gate |
 | `.scratch/keep-driving-1-0/` | Canonical Wayfinder map and decision/execution frontier |
 
 All documents are living contracts. A changed decision updates the owning document and appends/supersedes a decision log entry; downstream acceptance gates are re-evaluated.
@@ -906,10 +907,10 @@ The user directed the roadmap to proceed without questions. These assumptions pe
 
 | Uncertainty | Assumption in use | Risk | Validation timing |
 |---|---|---|---|
-| Team/capacity | Small independent team/agent-driven production; scope optimized for reusable content tools | Content/art/audio throughput may be lower than target | Measure one full region and reference content tranche before multiplying; reforecast at alpha |
+| Team/capacity | Small independent team/agent-driven production; scope optimized for reusable content tools | Content/art/audio throughput may be lower than target | Publish the D020 `SCOPE_LOCK.md` dated capacity ledger and unique/repeatable/mandatory-baseline formula, then add the separate 30% risk reserve and require every discipline/budget/critical-path PASS before multiplying |
 | Final asset sourcing | Cohesive owned/licensed custom 2D/audio mix; no unreviewed asset-pack collage | Cost, license, or style mismatch | Hero minute then one-region production throughput/license audit |
 | Product price | Premium one-time purchase; exact regional price unresolved | Store conversion/value mismatch | Current market/pricing research and store-page test before App Store record finalization |
-| Public product name | `Keep Driving` is an internal working title only; use it publicly only if qualified written clearance passes, otherwise select and clear a distinctive replacement | Legal/confusion/discoverability and expensive rebrand risk | Resolve before bundle ID, App Store record, logo/icon, public URLs, marketing, or broad final-art naming lock |
+| Public product name | `Keep Driving` is internal only; public execution assumes a distinctive cleared replacement unless legal and positioning review affirmatively clears the exact title | Legal/confusion/discoverability and expensive rebrand risk | Resolve before signed iOS feasibility, production App ID/App Store record, logo/icon, public URLs, marketing, or branded final-art lock |
 | Publisher/bundle/support domain | Bundle ID, Team ID, publisher entity, and support/privacy URLs unresolved pending cleared public title and publisher identity | Immutable ID/legal/launch blocker | Resolve before App ID/App Store record/upload |
 | Apple membership/signing | Access will exist for the Phase 2 export-only feasibility gate and remain valid at Phase 15 | Signed export/TestFlight could block | Audit account/certificates after desktop truth-slice acceptance and recheck at Phase 15 entry |
 | Physical devices | One physical iPhone can be obtained for Phase 2 signing/launch; minimum/small/mid/large/current tiers can be obtained for mobile adaptation | Device gaps hide exporter, perf, layout, or lifecycle defects | Obtain one before the Phase 2 signed gate and the full matrix before Phase 15; do not substitute simulator |
@@ -917,10 +918,10 @@ The user directed the roadmap to proceed without questions. These assumptions pe
 | Minimum iOS | Provisional iOS 17.0, A12/3 GB floor | Optimization burden or OS adoption may make floor wrong | Signed slice and market/OS recheck; lock before external TestFlight |
 | Native iPad | Not Required; iPhone-only native 1.0 | Missed market; compatibility expectations | Promote only if native layout/device/store-asset capacity exists before beta |
 | Game Center/cloud | Valuable, not Required; disabled by default | Feature value versus entitlement/privacy/sync risk | Separate decision after local save/device stability; omit if any gate is incomplete |
-| Analytics/crash SDK | No ads/tracking; default privacy-minimal/no third-party SDK | Less product telemetry/support insight | Adapter bake-off after alpha; add only with exact benefit/privacy/manifest/symbolication proof |
+| Analytics/crash SDK | No advertising/cross-app tracking and no third-party analytics at launch; optional privacy-minimal crash diagnostics only | Less product telemetry/support insight | Add only with exact support benefit, data inventory, retention/disclosure/consent and manifest/symbolication proof; declining it cannot change gameplay |
 | Localization | English required; architecture/pseudoloc ready; extra launch languages capacity-dependent | Store reach/QA cost | Copy lock and localization production forecast before beta |
 | Age rating | Final rating determined by live questionnaire for exact stylized Zombie violence | Rating/marketing mismatch | Complete questionnaire with final content before external TestFlight/RC |
-| Content counts | Numeric floors are achievable without filler | Quality or schedule pressure may require scope change | Throughput/density/repetition evidence; change only through recorded decision |
+| Content counts | D015 counts are provisional targets, not proven floors | Quality or schedule pressure may require scope change | Defined production tranche, throughput/density/repetition evidence, confirmed capacity, and explicit D020 rebaseline before scale-up |
 | Recovery tuning | Failure keeps 25% loose Scrap and one secured item | Too punitive/generous or exploitable | Three-run and hour economy prototype before progression lock |
 | Godot 4.7 | Retain exact version until evidence requires upgrade | Xcode/iOS exporter incompatibility/security/fix need | Signed Phase 15 export and each Apple SDK requirement recheck |
 | Story/narrative | Environmental/light objective framing; no dialogue-heavy RPG | World may feel emotionally thin | Proof-region/player recall and alpha feedback; add authored fragments without new system if needed |
@@ -938,13 +939,15 @@ Noncritical uncertainty must not stop Phase 2. A failed validation changes the r
 - Researched current Apple/Godot release requirements through first-party sources.
 - Defined the finished product, systems, experience, architecture, mobile, release, playtest, scope, decisions, and 22-phase execution route.
 - Built an isolated fixed-step handling truth-slice prototype with normalized keyboard/controller/simulated intent, road/dirt/mud behavior, collision damage/recovery, authored fork, minimal HUD, and generated audible feedback resources.
-- Recorded the exact-title collision as a formal clearance-or-rename release gate.
+- Recorded the exact-title collision as a formal D021 legal-plus-positioning release gate with a distinct-name default.
+- Resolved the title-independent promise around route-shaped buildcraft and county restoration; added primary-source identity/business research and a measured scope-throughput gate.
 
 ### Files created
 
 - The ten required documentation files listed in Section 8.
 - `docs/research/APP_STORE_REQUIREMENTS.md`.
 - `docs/research/NAME_CLEARANCE_RISK.md`.
+- `docs/research/PRODUCT_IDENTITY_AND_SCOPE.md`.
 - `prototypes/handling_truth_slice/` with its isolated scene, smoke harness, notes, and run instructions.
 - `export_presets.cfg` with a prototype-only ad-hoc macOS export; it does not export the shipping scene.
 - `proofs/handling_truth_slice_relay.jpeg`, retained from visible inspection.
@@ -991,8 +994,8 @@ Vehicle feel human acceptance, hybrid world, build balance, content throughput, 
 
 ### Current roadmap phase
 
-Phase 2 — Technical-Risk Prototypes. Phases 0-1 are complete as roadmap phases. Wayfinder decision tickets 02-07 remain open as a one-ticket-per-session audit/index queue; they can correct decisions and block Phase 3/production scale-up, but they do not roll execution back from bounded Phase 2 work.
+Phase-1 decision-foundation review and bounded Phase-2 Technical-Risk Prototypes overlap deliberately. The documentation package exists and product identity/scope is settled, but Wayfinder tickets 03-07 still block Phase 3/production scale-up. Handling truth-slice evidence remains valid and may continue without pretending the full decision foundation is accepted.
 
 ### Next recommended task
 
-Finish **Desktop Truth Slice A — Production Handling and the First Road**, not evidence alone: replace the demonstrator presentation with representative hero car/road/terrain/hazard assets and a reviewable engine/surface/impact/UI audio direction; prove actual rendered 30/60/120 cadence behavior; then run clean exported 1,800-second feel/capacity benchmarks, retain the first-60-second capture, verify the audible mix and physical controller, and complete five-player handling plus five-naive-player hero-minute sessions. Record keep/change/abandon before the signed export-only gate or hybrid-region prototype; do not begin broad content or mobile migration.
+Workflow next: resolve **Design Gameplay Content And Progression Systems** as the next Wayfinder frontier. Implementation next remains **Desktop Truth Slice A — Production Handling and the First Road**: replace demonstrator presentation with representative hero assets/audio, prove actual rendered 30/60/120 behavior, then complete 1,800-second runs, first-minute capture, controller/audible checks, and five-player handling plus five-naive-player hero-minute sessions. Do not begin broad content or mobile migration.

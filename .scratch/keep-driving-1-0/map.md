@@ -9,20 +9,21 @@ The map is complete only after the required decisions and roadmap gates are dura
 ## Notes
 
 - The attached 1.0 mission is the governing contract. Do not ask the user questions; record explicit assumptions, risks, and validation gates instead.
-- `Keep Driving` is a working title pending formal name/trademark/competitive clearance; do not lock the public brand, bundle ID, store record, or marketing assets before that gate.
+- `Keep Driving` is internal only. Public execution assumes a distinctive cleared replacement unless written legal and positioning review affirmatively clears the exact title; do not lock production release identity or brand assets before that gate.
 - Preserve the current playable Godot 4.7 proof baseline where it remains sound, but treat the prototype as a starting point rather than a design or architecture boundary.
 - The completed v0 map and open Real Vertical Slice map are evidence and subordinate milestones, not the canonical 1.0 route.
 - Work desktop-first. A system cannot cross the mobile gate until its playable desktop acceptance criteria, edge cases, profiling, and documentation pass.
 - Prefer the smallest coherent architecture that supports a handcrafted-plus-procedural world, data-driven content, versioned saves, abstracted input, responsive UI, and repeatable release builds.
 - Keep scope in three explicit buckets: Required for 1.0.0, Valuable if Capacity Allows, and Post-1.0 Expansion.
 - Stop and report at real phase boundaries; keep the project playable and commit bounded verified slices frequently.
-- The required documentation completes Roadmap Phase 1. Tickets 02-07 remain open only as Wayfinder's one-ticket-per-session audit/index queue; they can correct/reopen decisions and still block production scale-up/ticket 08, but they do not roll the roadmap back or forbid bounded Phase-2 decision prototypes.
-- The isolated `prototypes/handling_truth_slice/` work is evidence for the open UX/game-feel and technical-risk decisions; it does not resolve ticket 04 or ticket 08. Automated smoke passes, but rendered performance/capture, audible mix, physical controller, collision-weight, frame-rate replay, and five-player evidence remain open.
+- The required documentation package exists, but Roadmap Phase-1 decision acceptance remains in review until tickets 02-07 resolve one per session. Corrections block production scale-up/ticket 08 without invalidating bounded Phase-2 decision prototypes.
+- The isolated `prototypes/handling_truth_slice/` work is evidence for the open UX/game-feel and technical-risk decisions; it does not resolve ticket 04 or ticket 08. Automated smoke and short clean-export rendered harness runs pass; representative presentation, full-duration/cadence/capture, audible mix, physical controller, and five-player evidence remain open.
 - After that desktop handling/hero slice is accepted, Phase 2 includes one signed export-only feasibility check. It requires the clearance-or-rename/release-identity gate first and proves only Godot/Xcode/signing/physical launch; formal mobile adaptation remains after the content-complete stabilized desktop gate.
 
 ## Decisions so far
 
 - [Audit Current Project And 1.0 Gap](issues/01-audit-current-project-and-1-0-gap.md) — Keep the deterministic/streaming/progression/proof nucleus, but treat the build as playable v0/pre-alpha and replace or deeply refactor the production vehicle, world, content, presentation, save, platform, and release layers.
+- [Decide Product Identity And Launch Scope](issues/02-decide-product-identity-and-launch-scope.md) — Lead with route-shaped buildcraft and county restoration in a paid offline single-player game; assume a distinct public name, keep raw content counts and duration ranges provisional until measured throughput, and never trade quality/reliability for filler.
 
 ## Not yet specified
 
@@ -34,4 +35,4 @@ The map is complete only after the required decisions and roadmap gates are dura
 - Multiplayer for 1.0.0; it would multiply architecture, QA, moderation, and App Review risk without strengthening the core solo fantasy.
 - Manipulative retention systems, consumable energy, pay-to-win upgrades, loot boxes, forced ads, or deceptive interfaces.
 - Shipping unproven gameplay directly to mobile before desktop gates pass.
-- Building a live-service backend unless a later decision proves a launch-critical need.
+- Building a live-service backend for 1.0; reconsideration requires a newly charted effort after this destination is redrawn or completed.

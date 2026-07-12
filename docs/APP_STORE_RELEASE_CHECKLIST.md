@@ -7,7 +7,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ## Release policy
 
 - 1.0 is a premium, one-time-purchase, offline-first iPhone game.
-- `Keep Driving` is a working title. Formal legal/name/trademark/competitive clearance is required before bundle ID, App Store record, logo/icon, public URLs, or marketing lock.
+- `Keep Driving` is internal only. Public release assumes a distinctive cleared replacement; retaining the exact title requires D021's qualified written legal clearance plus positioning/search-confusion exception before signed feasibility or public identity lock.
 - No advertising, cross-app tracking, ATT prompt, account, launch IAP, subscription, or mandatory network service.
 - Native iPad, Game Center, and cloud save ship only if their full product, privacy, device, metadata, and review gates pass; otherwise they remain disabled and undisclosed.
 - Use manual release after approval so support, monitoring, metadata, and emergency response are staffed.
@@ -16,7 +16,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ## Current repository blockers
 
 - [ ] Production game/content complete and desktop gates pass.
-- [ ] Public product name cleared in intended territories/classes, confusion risk reviewed, and rename fallback closed before irreversible identity/brand work.
+- [ ] A distinctive replacement—or D021's fully passed exact-title exception—is legally cleared and passes documented positioning/search-confusion review before signed feasibility or irreversible identity/brand work.
 - [ ] `export_presets.cfg` with reproducible iOS export exists.
 - [ ] Xcode 26+ and iOS 26 SDK upload floor revalidated against Apple's live requirements.
 - [ ] Matching Godot 4.7 export templates and exporter compatibility proven.
@@ -29,7 +29,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 
 ### Decisions
 
-- Working product name: **Keep Driving**; blocked from public/store lock pending formal clearance.
+- Working product name: **Keep Driving**; blocked from public/store lock pending D021's legal-plus-positioning gate.
 - Bundle identifier: unresolved until the cleared public name/publisher identity is approved. `com.scwlkr.keepdriving` is only a discarded planning example, not authorization to register it.
 - Marketing version: `1.0.0`.
 - Build value: monotonically increasing CI/release number; never reuse an uploaded build value.
@@ -42,7 +42,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - [ ] Apple Developer Program membership active and correct legal entity selected.
 - [ ] Qualified name/trademark clearance covers the intended app/game title, logo, publisher use, territories/classes, store confusion, domains, and likely marketing/search context.
 - [ ] Existing released games/apps and claimed marks—including YCJY Games' `Keep Driving`—are recorded in the clearance file; no legal conclusion is inferred from a web search alone.
-- [ ] If clearance is not affirmative, replacement candidates receive the same search/clearance before selection; repository strings/assets migrate before public brand lock.
+- [ ] Replacement candidates receive the same qualified clearance plus documented positioning/search-confusion review before selection; repository strings/assets migrate before public brand lock.
 - [ ] Current Apple Developer and App Store Connect agreements accepted.
 - [ ] Bundle ID approved and registered as an explicit App ID.
 - [ ] App Store Connect app record created with matching bundle ID, stable SKU, primary language, and name reservation.
@@ -72,10 +72,10 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 ## Product-completeness requirements
 
 - [ ] Primary progression plays from first launch through final restoration and Results.
-- [ ] All required regions, landmarks, safehouses, contracts, encounters, chassis, parts, loadouts, Expedition Mode, settings, accessibility, and credits are present and production-quality.
+- [ ] All D020-locked regions, landmarks, safehouses, contracts, encounters, chassis, parts, loadouts, postgame features, settings, accessibility, and credits are present and production-quality.
 - [ ] No placeholder art/audio/text, empty state, debug copy, missing localization key, broken URL, unreachable content, or disabled unfinished button.
 - [ ] Offline first launch after install works unless App Store receipt behavior requires a documented network case.
-- [ ] Core game, saves, progression, and Expedition Mode work in airplane mode after installation.
+- [ ] Core game, saves, and progression work in airplane mode after installation; if retained by D020, Expedition Mode does too.
 - [ ] No login or account required.
 - [ ] Premium pricing and territories approved; final regional price is consistent with product decision.
 - [ ] If any IAP is later added, it receives separate StoreKit product, restore, parental, price, privacy, receipt, offline, review, and metadata scope; no launch IAP is assumed.
@@ -99,7 +99,7 @@ First-party research: [Apple App Store and Godot iOS Requirements](research/APP_
 - Subtitle candidate: `Survive the Open Road` (validate length and positioning).
 - Primary category: Games.
 - Game subcategories: choose from the current App Store taxonomy at record creation; likely Action/Adventure, subject to final positioning.
-- Description: final 4,000-character maximum copy centered on open-road survival, vehicle builds, three-region exploration, offline premium play, and accessibility—no unshipped promise.
+- Description: final 4,000-character maximum copy centered on open-road survival, vehicle builds, the exact D020-locked connected-county exploration scope, offline premium play, and accessibility—no unshipped promise.
 - Keywords: final set within the current 100-byte limit; no competitor trademarks or irrelevant terms.
 - Promotional text: optional, maximum current limit, used only for accurate launch context.
 - Support URL: must be a live HTTPS page with real contact and troubleshooting; owner/domain unresolved.

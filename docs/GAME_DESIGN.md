@@ -1,17 +1,17 @@
 # Keep Driving Game Design
 
-Status: 1.0 system design baseline
+Status: prepared 1.0 system-design baseline pending Wayfinder ticket 03 acceptance; D020 owns numeric scope lock
 Design date: 2026-07-11
 
 ## Design summary
 
-Keep Driving 1.0 is a destination-based survival-driving roguelite inside one seamless, learnable county. The player departs from a Garage or restored safehouse, crosses an open road network, completes an objective or explores, recovers unsecured cargo, and chooses whether to press onward or extract. Driving, navigation, vehicle builds, and risk management are the game. Combat remains car-only.
+Keep Driving 1.0 is a single-player, destination-based survival-driving roguelite inside one connected, learnable county. The player departs from a Garage or restored safehouse, crosses an open road network, completes an objective or explores, recovers unsecured cargo, and chooses whether to press onward or extract. Driving, navigation, vehicle builds, and risk management are the game. Combat remains car-only. Expedition conditions reset and unsecured haul is at risk; the restored county, owned build, discoveries, and campaign progress never wipe.
 
 The game combines authored place with deterministic variation:
 
 - Authored macro roads, regions, landmarks, shortcuts, crossings, and safehouses make the world memorable.
 - Seeded weather, route incidents, threats, salvage, contracts, and encounter composition make repeated travel tactically different.
-- Expedition Mode reuses the production systems for endless outward survival after the main restoration arc.
+- If retained by D020, Expedition Mode reuses the production systems for endless outward survival after the main restoration arc.
 
 ## Moment-to-moment model
 
@@ -23,7 +23,7 @@ At speed, the player repeatedly performs a compact decision loop:
 4. **Feel** — surface, weight, collision, damage, sound, haptics, and clear outcome feedback.
 5. **Reassess** — updated Fuel, Integrity, cargo, pressure, route, and time.
 
-Content-density target: while driving, a route, encounter, reward, navigation, or build-relevant decision should occur every 30-45 seconds. A major landmark, objective beat, or safe decision boundary should occur every two to three minutes. Empty travel longer than 60 seconds is a content or pacing defect unless deliberately used as brief contrast.
+Content-density target: while driving, a consequential route/resource/build/risk tradeoff should occur every 30-45 seconds. Passive scenery, routine steering, navigation confirmation, and cosmetic pickups do not count. A major landmark, objective beat, or safe decision boundary should occur every two to three minutes. Empty travel longer than 60 seconds is a content or pacing defect unless deliberately used as brief contrast.
 
 ## Expedition structure
 
@@ -73,7 +73,7 @@ Use an authored macrograph with deterministic runtime population.
 
 - Which eligible event sockets activate for an expedition seed.
 - Road closures, salvage clusters, threat composition, patrol/swarm pressure, weather transitions, ambient props, and optional resource placement.
-- Contract variants, bonus conditions, and post-progression Expedition layouts/rules.
+- Contract variants and bonus conditions; post-progression Expedition layouts/rules only if retained by D020.
 
 ### Living-world selection
 
@@ -81,7 +81,7 @@ Do **not** build generalized civilian traffic, friendly vehicle pathfinding, or 
 
 Make the county feel inhabited and reactive through a bounded stack instead:
 
-- Migrating zombie pressure, road-crossing swarms, and route-aware threat patrols use the same deterministic event sockets as other encounters.
+- Migrating zombie pressure, road-crossing swarms, and route-aware threat patrols use the same deterministic event sockets as other encounters. Zombies are a supporting encounter fiction, not the product headline; the route/build/return loop must survive replacement of that fiction.
 - Safehouses show small stateful work loops—lights, gates, tools, smoke, radios, parked vehicles, and changing restoration activity—without adding on-foot NPC interaction.
 - Noninteractive ambient life uses cheap pooled silhouettes and audio: birds lifting from fields, insects, distant wildlife, wind-driven debris, water, dust, weather fronts, and changing distant smoke/light signals.
 - Rare authored survivor signals may appear as radio calls, distant headlights, an already-departing vehicle silhouette, or changed roadside evidence. They communicate other people without creating a traffic simulator or collision promise.
@@ -91,7 +91,9 @@ The acceptance question is not “is something always moving?” Five-player reg
 
 This replaces pure procedural infinity in the campaign because exploration needs recognizable place, deliberate sightlines, and route memory. It retains deterministic generation because repeated travel needs variation, reproducibility, testability, and compact saves.
 
-### World scale and content floor
+### World scale and provisional content target
+
+The counts below remain planning targets until the production tranche and cut ladder in `PRODUCT_VISION.md` pass. Do not multiply content or call these minimums from competitor research alone.
 
 - Three connected regions: Lowlands, Badlands, Blackwood working identities.
 - At least 15 major landmarks, six safehouses/return points, and 24 authored contract objectives.
@@ -179,19 +181,21 @@ Rules:
 
 ### Time and weather
 
-- Time advances during expeditions and pauses at menus; tutorial starts in clear daylight.
-- A normal 15-25 minute expedition can cross a meaningful light transition but should not cycle through a full day unrealistically.
-- Night changes sightline, threat, route, light, and audio behavior, not just screen tint.
-- Weather affects grip, visibility, surface, route/event eligibility, ambience, and some part value.
+The full transition/night/weather stack below is the current provisional target. D020 may reduce multiplicity, but the retained route-condition set must remain readable, consequential, and accessibility-safe.
+
+- If time-of-day remains, time advances during expeditions and pauses at menus; the tutorial starts in clear daylight.
+- If a light transition remains, a normal 15-25 minute expedition may cross one meaningful transition but should not cycle through a full day unrealistically.
+- If night remains, it changes sightline, threat, route, light, and audio behavior, not just screen tint.
+- Retained weather affects grip, visibility, surface, route/event eligibility, ambience, and some part value.
 - No hunger, temperature, thirst, or extra survival bars.
 - Reduced-intensity and high-visibility modes preserve essential information.
 
-### Navigation and fast travel
+### Navigation and provisional fast travel
 
 - HUD shows a minimal direction/distance cue plus next turn or landmark signal; no debug minimap.
 - The full map pauses this offline game, supports zoom/pan, objective filtering, discovered roads, region condition, safehouses, and one player pin.
-- Restored safehouses enable fast travel after their routes have been physically discovered.
-- Fast travel costs no currency, cannot complete contracts, and is disabled while carrying active mission cargo or in danger. It exists to respect completed travel, not bypass exploration.
+- If retained by D020, restored safehouses enable fast travel after their routes have been physically discovered.
+- If retained, fast travel costs no currency, cannot complete contracts, and is disabled while carrying active mission cargo or in danger. It exists to respect completed travel, not bypass exploration.
 
 ### Expansion strategy
 
@@ -272,9 +276,9 @@ Use visual body roll, pitch, wheel steer, terrain bounce, skid, dust, sparks, an
 
 ## Vehicle and part ecosystem
 
-### Chassis
+### Chassis — provisional D020 target
 
-Launch with three chassis:
+The current target is three launch chassis. Phase 3 locks or rebaselines the count through D020; the coherent fallback retains at least two chassis and four route-changing builds.
 
 | Chassis | Strength | Tradeoff | Natural archetypes |
 |---|---|---|---|
@@ -282,9 +286,11 @@ Launch with three chassis:
 | Utility wagon | Balanced capacity, stable handling, flexible slots | No extreme strength | Explorer, mixed expedition, support |
 | Hauler pickup | Cargo, mass, ram force, durability | Fuel use, turning radius, offroad recovery | Rammer, cargo hauler, endurance |
 
-The Utility wagon is the default. Scout and Hauler are unlocked through authored restoration milestones, not random drops.
+The Utility wagon is the default. Under the current provisional target, Scout and Hauler are unlocked through authored restoration milestones, not random drops; D020 may rebaseline the final launch set.
 
-### Functional slots
+### Functional slots — current provisional target
+
+D020 locks or rebaselines the launch slot set; the coherent fallback retains five functional slots.
 
 1. **Powertrain** — torque, speed, Fuel, heat/noise tradeoffs.
 2. **Traction** — tires/suspension, grip, surface specialization, drift tradeoffs.
@@ -310,7 +316,9 @@ Every functional part declares:
 
 Avoid random affix soup and color-coded rarity as the primary progression. Launch parts are named, learnable designs. Quality is expressed by fit and capability, not an endless number ladder.
 
-### Build archetypes
+### Build archetypes — current provisional target
+
+D020 locks or rebaselines the final archetype set; the coherent fallback must still prove four viable route-changing builds.
 
 - **Endurance scout:** quiet, efficient, signal-aware; avoids threats; low collision tolerance.
 - **Offroad explorer:** traction, clearance, recovery; slower pavement and lower cargo.
@@ -339,12 +347,12 @@ Hybrids remain possible. Tags expose synergies, but the game avoids hidden set b
 
 ### Tuning
 
-Tuning is small and reversible: steering response, final-drive bias, tire pressure/grip bias, and suspension firmness may shift existing tradeoffs inside safe bounds. It cannot create a second hidden upgrade tree. A reset is always free at a workshop.
+Fine tuning is Valuable if Capacity Allows, not required for 1.0. If promoted, it stays small and reversible: steering response, final-drive bias, tire pressure/grip bias, and suspension firmness may shift existing tradeoffs inside safe bounds. It cannot create a second hidden upgrade tree. A reset is always free at a workshop.
 
 ### Cosmetics
 
-- Paint, decals, wheel style, Garage trophies, and non-gameplay vanity.
-- Cosmetics are earned through exploration, mastery, and milestones at launch.
+- A small earned paint palette is a provisional Required target until D020 lock; decals, wheel styles, Garage trophies, expanded vanity, and photo-mode support are Valuable if Capacity Allows.
+- Any shipped cosmetics are earned through exploration, mastery, and milestones; none are launch IAP.
 - Cosmetic systems cannot change hitboxes, readability, or stats.
 
 ### Balance controls
@@ -376,7 +384,7 @@ Progression is capability- and place-based, not a generic player level.
 - Vehicle and loadout mastery goals.
 - Region discoveries and safehouse completion.
 - Contract medals and route mastery.
-- Best Expedition Mode distance/score by chassis or rule set.
+- If retained by D020, best Expedition Mode distance/score by chassis or rule set.
 
 ### Currency and resources
 
@@ -426,6 +434,8 @@ No repair timers, loot-box keys, premium currency, durability tax on owned parts
 
 ## Activities and content
 
+The four families below are the current provisional target. D020 may cut route mastery as a separate fourth family, but every retained activity must remain route/build/return-centered.
+
 ### 1. Salvage and recovery
 
 Find a target vehicle, part crate, machinery component, or route asset and bring it to a workshop. Cargo may add mass, occupy capacity, change balance, or require a secured slot. The route out differs from the route in because the haul changes the car.
@@ -470,7 +480,7 @@ Rescue signals, moving swarms, salvage lures, weather incidents, disabled vehicl
 | Landmark/shortcut | World knowledge and route power | Permanent immediately |
 | Safehouse/restoration | Primary progression and return network | Permanent on objective completion |
 | Cosmetic/trophy | Mastery/exploration expression | Permanent on award |
-| Expedition score | Endgame mastery | Recorded only from valid completed/failure resolution |
+| Expedition score, if retained by D020 | Endgame mastery | Recorded only from valid completed/failure resolution |
 
 Rewards should alter capability, place, or expression. Avoid rewards whose only function is filling another meter.
 
@@ -483,13 +493,13 @@ Replayability layers:
 3. Choose different objectives and risk conditions.
 4. Build different chassis/loadouts that prefer different routes.
 5. Complete mastery medals and region discovery.
-6. Run Expedition Mode with fresh deterministic seeds and production systems.
+6. If retained by D020, run Expedition Mode with fresh deterministic seeds and production systems.
 
 The main game has a clear ending. Endgame is optional mastery, not an infinitely rising stat requirement.
 
-### Expedition Mode
+### Provisional Expedition Mode
 
-- Unlocked during late primary progression; full rules open after completion.
+- Included only if retained by D020, and then unlocked in full only after primary completion.
 - Drive outward through remixed route segments and escalating pressure.
 - Score considers distance, secured salvage, route risk, damage efficiency, encounter resolution, and build rule—not only radial distance.
 - Seed can be shared as text without an account.
@@ -499,9 +509,9 @@ The main game has a clear ending. Endgame is optional mastery, not an infinitely
 
 - Five-player first-minute test meets comprehension and movement targets.
 - Handling lab passes collision, surface, frame-rate, controller, and recovery criteria.
-- Hybrid proof region provides one meaningful decision every 30-45 seconds with no obvious repeated route grammar.
+- Hybrid proof region provides one consequential route/resource/build/risk tradeoff every 30-45 seconds with no obvious repeated route grammar or filler counted as a choice.
 - Twelve-part prototype supports at least three distinct viable builds; none dominates all benchmarks.
 - Three-run economy test makes extraction, continuation, and failure meaningfully different without encouraging intentional failure or farming.
 - One-hour progression test offers at least two credible build paths and a meaningful upgrade choice in the first session.
-- Campaign content floors pass repetition review, density review, and complete-start-to-finish human playtest.
-- Expedition Mode adds replay value without being required to finish the primary arc.
+- The D020-locked campaign content target passes repetition review, density review, and complete-start-to-finish human playtest.
+- If retained by D020, Expedition Mode adds replay value without being required to finish the primary arc.

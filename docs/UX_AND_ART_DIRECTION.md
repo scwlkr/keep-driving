@@ -137,7 +137,7 @@ Warnings use three stages: forecast, urgent, critical. They are rate-limited, ex
 - Filters: objectives, safehouses, discoveries, mastery; never dozens of commodity icons.
 - Route preview compares distance, known surface mix, closures, and build-relevant risks without drawing a single mandatory GPS line.
 - Controller focus and touch gestures are first-class; map remains operable at 200% text.
-- Fast travel is offered only between eligible restored safehouses and clearly explains why it is unavailable.
+- If retained by D020, fast travel is offered only between eligible restored safehouses and clearly explains why it is unavailable.
 
 ## Garage, parts, and loadouts
 
@@ -146,7 +146,7 @@ The Garage is vehicle-first. The car remains visible and responds immediately to
 ### Layout
 
 - Chassis/loadout header with current role summary.
-- Six clear functional slots around or beside the vehicle.
+- The D020-locked functional-slot set around or beside the vehicle; current target six, coherent fallback five.
 - Category/filterable inventory panel.
 - Exact compare panel with benefits, drawbacks, compatibility, synergy, source, and value.
 - Route forecast for the selected objective.
@@ -235,7 +235,7 @@ Do not bury failure causes, reward consequences, or save state in a scrolling lo
 
 ### Offline
 
-Core game, saves, progression, and seeded Expedition Mode work offline. If optional Game Center/cloud features are later enabled, offline copy states what is unavailable and queues only safe, conflict-aware operations.
+Core game, saves, and progression work offline. If retained by D020, seeded Expedition Mode works offline too. If optional Game Center/cloud features are later enabled, offline copy states what is unavailable and queues only safe, conflict-aware operations.
 
 ### Errors
 
@@ -356,13 +356,15 @@ Final tokens require contrast and color-vision testing on representative devices
 
 ### Region presentation
 
+These palettes describe the current provisional three-region target. D020 locks the final region set; a compact finale must remain mechanically and visually distinct if it replaces a full third region.
+
 - Lowlands: ochre/green fields, flooded cyan cuts, wide horizon cues, weathered farm geometry.
 - Badlands: pale stone, rust, charcoal quarry cuts, dust trails, long angular shadows.
 - Blackwood: blue-green canopy masses, wet dark road, amber vehicle lights, high-value hazard edging.
 
 ### Vehicle style
 
-- Three chassis share a coherent inked construction but have instantly different silhouette, wheelbase, mass, cargo shape, and animation.
+- Every D020-locked chassis shares a coherent inked construction but has an instantly different silhouette, wheelbase, mass, cargo shape, and animation; the current target is three and the coherent fallback two.
 - Installed ram, armor, cargo, lights, and major utility parts appear on the car when readability permits.
 - Damage presentation is staged: clean, worn, critical; no gore or visual noise that hides collision shape.
 - Cosmetics preserve heading and hit readability.

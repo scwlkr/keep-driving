@@ -11,13 +11,15 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 
 ## D001 — Target a premium survival road-trip roguelite
 
+Status: Destination/extraction choice retained; category wording superseded by D019; Expedition survival is provisional under D020.
+
 - Date/phase: 2026-07-11, product vision.
 - Context: The prototype proves free-roaming survival driving, but has no destinations, extraction, authored progression, or completion arc.
 - Options considered:
   - Preserve endless score survival as the entire game.
   - Become a conventional mission/racing game.
   - Build a destination-based survival road-trip roguelite and retain endless survival as endgame.
-- Selected option: Destination-based survival road-trip roguelite; Expedition Mode preserves endless outward survival after/alongside late progression.
+- Selected option: Destination-based survival road-trip roguelite; the current target lets Expedition Mode preserve endless outward survival after primary completion if D020 retains it.
 - Reason: Adds goals, world meaning, risk/return decisions, progression, and completion without moving away from driving and route choice.
 - Tradeoffs: Requires authored world/content and more state; risks generic errands if activities are not route/build-centered.
 - Systems affected: Product, world, activities, progression, Results, save, UI, content.
@@ -25,13 +27,15 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 
 ## D002 — Use an authored macro world with deterministic systemic population
 
+Status: Hybrid authored/systemic architecture retained; three-region quantity and Expedition Mode are provisional under D020.
+
 - Date/phase: 2026-07-11, world design.
 - Context: Current `WorldGenerator` determinism/streaming is strong, but every chunk is a repetitive four-spoke hub and cannot create recognizable places.
 - Options considered:
   - Continue fully procedural infinite generation.
   - Build a fully handcrafted static map.
   - Hybrid authored roads/landmarks/regions plus seeded events/weather/threats/rewards.
-- Selected option: Hybrid authored/systemic county with three connected regions and Expedition Mode for more procedural remix.
+- Selected option: Hybrid authored/systemic county; the current target uses three connected regions and Expedition Mode for more procedural remix, subject to D020.
 - Reason: Supports route memory, sightline design, landmarks, content pacing, and replay variation together.
 - Tradeoffs: Higher authoring/bake cost than pure noise; finite content can feel exhausted; systemic sockets need careful repetition controls.
 - Systems affected: World tools, streaming, content bake, encounters, navigation, save IDs, performance.
@@ -67,13 +71,15 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 
 ## D005 — Use catalog-driven named sidegrade parts, not rarity inflation
 
+Status: Named sidegrade catalog retained; three-chassis, six-slot, 36-part, and five-archetype quantities are provisional under D020.
+
 - Date/phase: 2026-07-11, vehicle ecosystem.
 - Context: Current three upgrades x three levels provide no long-term build choice; mission requires deep combinatorial expansion without meaningless inflation.
 - Options considered:
   - Large linear stat tree.
   - Random loot rarity/affixes.
   - Named part catalog with six slots, capacity costs, explicit capabilities/tradeoffs, synergies, inventory, and presets.
-- Selected option: Three launch chassis, six functional slots, at least 36 named parts, five target archetypes, stable IDs, no primary rarity ladder.
+- Selected option: Stable-ID named sidegrades with no primary rarity ladder; the current target is three launch chassis, six functional slots, at least 36 named parts, and five archetypes, subject to D020.
 - Reason: Learnable, balanceable, expandable, player-expressive, and honest in UI.
 - Tradeoffs: Requires strong compare UI/catalog validation and more deliberate content design; fewer dopamine spikes from random rarity.
 - Systems affected: Catalog, vehicle config, inventory, Garage, economy, save, UI, balance tests.
@@ -95,13 +101,15 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 
 ## D007 — Limit launch activities to four route-centered families
 
+Status: Route-centered activity principle retained; four-family quantity is provisional under D020.
+
 - Date/phase: 2026-07-11, content strategy.
 - Context: Broad activity wishlists can dilute the driving identity and exceed content/AI capacity.
 - Options considered:
   - Many generic open-world mission types.
   - Survival drive only.
   - Salvage/recovery, risky delivery, route restoration, and route mastery, plus modular dynamic encounters.
-- Selected option: Four families above; exclude AI racing, escort, on-foot puzzles/combat, and daily chores for 1.0.
+- Selected option: Use the D020-locked route-centered family set; the current target is the four families above. Exclude AI racing, escort, on-foot puzzles/combat, and daily chores for 1.0.
 - Reason: Each family changes route, cargo, build, or risk while sharing core systems.
 - Tradeoffs: Less genre breadth; repetition risk must be solved through route/cargo/weather/encounter variation.
 - Systems affected: ActivityService, world sockets, contracts, rewards, content pipeline, UI.
@@ -165,6 +173,8 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 
 ## D012 — Launch premium, offline-first, and privacy-minimal
 
+Status: Superseded by D022, which completes the monetization alternatives and diagnostics/privacy boundary.
+
 - Date/phase: 2026-07-11, business/release.
 - Context: Mission prohibits harmful progression/dark patterns and does not require mobile monetization conventions.
 - Options considered:
@@ -208,13 +218,15 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 
 ## D015 — Set a bounded but extensible launch content floor
 
+Status: Raw quantity and duration locks superseded by D020; the counts and ranges remain provisional production targets.
+
 - Date/phase: 2026-07-11, scope control.
 - Context: Mission asks for extensive playtime and expandable systems without turning 1.0 into an unbounded wishlist.
 - Options considered:
   - Ship the smallest vertical slice.
   - Attempt many regions/vehicles/activities before quality.
   - Three regions, 15 landmarks, six safehouses, 24 objectives, 15+ encounter templates, three chassis, six slots, 36 parts, 8-12 hour main arc, 20+ hour completion/mastery target.
-- Selected option: The bounded floor above; quality/density gates remain more important than raw count. Fourth chassis, extra parts, photo mode, Game Center/cloud, and native iPad are Valuable if Capacity Allows.
+- Selected option: The bounded target above; quality/density gates remain more important than raw count. Additional chassis/parts beyond the D020-locked Required target, photo mode, Game Center/cloud, and native iPad are Valuable if Capacity Allows.
 - Reason: Large enough for a real premium 1.0, small enough to organize around reusable content modules.
 - Tradeoffs: Still a large increase from the prototype; content quality may force count adjustment through an explicit decision, never silent shrinkage.
 - Systems affected: Roadmap, production staffing, content tools, world, activities, art/audio, QA, store value.
@@ -235,6 +247,8 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 - Validation: Phase-2 export-only feasibility on one physical iPhone, then Phase-15 full-content signed export, supported-device matrix, and market/OS adoption recheck before external TestFlight.
 
 ## D017 — Treat Keep Driving as a working title pending formal clearance
+
+Status: Sharpened by D021; public execution now assumes a rename rather than treating it only as fallback.
 
 - Date/phase: 2026-07-11, product/release risk review.
 - Context: YCJY Games released a commercially established road-trip/car-customization game named `Keep Driving` in 2025, and its Steam product-page footer states that the name/logo are trademarks and/or registered trademarks. This creates material legal, store-confusion, discoverability, and positioning risk; it is not by itself a legal conclusion about this project.
@@ -261,3 +275,61 @@ Existing v0 decisions remain historical evidence in `.scratch/keep-driving-v0/` 
 - Tradeoffs: Runtime adapters/tests must preserve the existing remaining-value semantics while symbols and copy migrate; internal prototype symbols may temporarily retain legacy names behind that adapter. No v0 profile-health migration exists because v0 does not persist this run value.
 - Systems affected: Save migration, expedition state, vehicle rules, UI/HUD/Results, telemetry, tests, copy, accessibility narration, docs.
 - Validation: Characterization proves full legacy `vehicle_damage_remaining` maps to full Integrity, zero maps to destruction, damage subtracts, and repair adds. Any future checkpoint schema migrates this field by identity, never inversion. Target-domain APIs/public copy contain no ambiguous `Vehicle Damage` resource label; damage-event tests remain explicit.
+
+## D019 — Position the product around route-shaped buildcraft and county restoration
+
+- Date/phase: 2026-07-11, Wayfinder product-identity review.
+- Context: The generic “survival road trip” description overlaps YCJY's released *Keep Driving*, while “car + Garage + hostile excursions + upgrades” overlaps *Pacific Drive* and stylized top-down handling alone overlaps rally games. The current target has a stronger differentiator that was not leading the promise.
+- Options considered:
+  - Lead with road-trip survival and zombie ramming.
+  - Become a top-down rally or *Pacific Drive*-like game.
+  - Lead with a learnable open county where installed parts change route options, restoration changes the network, direct driving resolves danger, and return secures risk.
+- Selected option: Premium, offline-first, single-player top-down survival-driving roguelite where **every road is a build decision**. Title-independent promise: **Build the car. Read the county. Take the risk. Bring it home.** Zombies remain one supporting encounter set, not the headline identity.
+- Reason: Makes route knowledge, build choice, direct handling, restoration, and extraction one coherent promise while drawing explicit boundaries from adjacent products.
+- Tradeoffs: Requires authored route topology, visible world-state change, build-conditional shortcuts, and strong handling; generic errands, decorative upgrades, or random disposable maps will visibly fail the promise.
+- Systems affected: Product, world, vehicle/parts, progression, onboarding, art, audio, store positioning, playtest language.
+- Validation: In blind first-minute/store-page tests, at least four of five target players describe route/build/restoration/return without reducing it to the existing *Keep Driving*, “top-down *Pacific Drive*,” rally, or generic zombie driving.
+
+## D020 — Make D015 content counts and duration ranges provisional until measured throughput
+
+- Date/phase: 2026-07-11, Wayfinder launch-scope review; supersedes D015's treatment of raw counts as already locked floors while preserving them as the target.
+- Context: The repository has no production asset/content pipeline, so no primary source or current build proves that three regions, 15 landmarks, six safehouses, 24 objectives, 15 encounters, three chassis, and 36 parts can reach quality without filler. Quietly shrinking to today's prototype would also violate the intended extensive, expandable 1.0.
+- Options considered:
+  - Lock all counts now despite unknown throughput.
+  - Preemptively cut to one car, two regions, and 18-24 parts.
+  - Keep the ambitious bounded target, measure one production tranche, then lock or explicitly rebaseline counts through a ranked cut ladder.
+- Selected option: Keep D015's counts and 8-12-hour primary range as provisional production targets and use 20-30 active hours as the current bounded completion/mastery target. Phase 3 must publish `docs/production/SCOPE_LOCK.md` with a dated ship window; person-hours by discipline; contractor/cash/device/tester budgets; repeatable Lowlands evidence; samples or three-point estimates for unique region/chassis/weather/finale/Expedition/mobile/store work; separately costed integration/QA/accessibility/localization/legal/release baseline; and a 30% unallocated risk reserve. Every discipline, budget, and critical-path date must pass. If the target fails, apply the Required cut ladder and coherent fallback in `PRODUCT_VISION.md`; if the fallback fails, production scale-up stops until capacity, window, or product changes.
+- Reason: Preserves ambition and the product promise while replacing invented capacity confidence with a falsifiable production gate.
+- Tradeoffs: Final launch counts and duration ranges remain open longer; the slice must use final-pipeline assets/content; unique work needs explicit costing; rebaselining can affect store value and playtime targets.
+- Systems affected: Scope, roadmap, staffing, content tools, world, objectives, encounters, parts, art/audio, localization, QA, pricing.
+- Validation: For each discipline, `(repeatable + unique/fixed + integration + QA + accessibility + localization + platform/release) * 1.30 <= confirmed remaining capacity`; total cash/contractor/device/tester budgets and dated critical path also pass; density/repetition/build-diversity tests pass; no unresolved high-cost low-confidence item is assigned zero work.
+
+## D021 — Assume a distinct public name rather than treating rename as fallback
+
+- Date/phase: 2026-07-11, Wayfinder product-position review; sharpens D017.
+- Context: The exact-title collision also overlaps road travel, route choice, car customization, procedural variation, and a young-car fantasy. Legal clearance alone would not erase store confusion or discoverability cost.
+- Options considered:
+  - Keep the title unless counsel forbids it.
+  - Rename immediately to an unresearched candidate.
+  - Continue internal work under the repository title while public execution assumes a separately cleared distinctive name.
+- Selected option: Public planning assumes a rename. Retain `Keep Driving` only if qualified written legal clearance and a documented positioning/search-confusion review both affirm it. Neutral internal/ad-hoc identifiers may continue.
+- Reason: Avoids making release identity depend on an unlikely exception while preventing a rushed name from contaminating implementation.
+- Tradeoffs: Public brand work remains gated; a later name must carry the route/build/restoration promise without forcing gameplay terminology changes.
+- Systems affected: App ID, App Store record, icon/logo, URLs, marketing, support/privacy pages, localization, credits, branded art/audio.
+- Validation: Counsel plus store/domain/trademark screening, pronunciation/recall/search tests, and a documented decision before signed iOS feasibility or any production release identity.
+
+## D022 — Ship a complete paid base app and define the privacy boundary
+
+- Date/phase: 2026-07-11, Wayfinder business-model review; supersedes and completes D012.
+- Context: Apple defines paid as one upfront payment for all functionality and says it must justify a premium expectation. Ads, F2P progression, cosmetic IAP, subscriptions, and full-game unlock each add incentives or infrastructure that conflict with an unproven offline launch.
+- Options considered:
+  - Free with ads.
+  - F2P progression or cosmetic IAP.
+  - Subscription/live service.
+  - Free trial with full-game unlock.
+  - Paid complete base app; evaluate only substantial post-1.0 expansion later.
+- Selected option: One paid 1.0 app with no launch IAP, ads, account, mandatory network, third-party analytics, or cross-app tracking. A substantial non-consumable expansion may be reconsidered only after the promised base game is complete and stable; it may not withhold an ending, launch chassis, or required system.
+- Reason: Aligns commercial incentives with a complete campaign, minimizes privacy/App Review surface, and makes progression trustworthy.
+- Tradeoffs: Higher download barrier, no launch recurring revenue, and a premium bar for product quality, screenshots, reviews, and value communication.
+- Systems affected: Economy, progression, privacy, SDK policy, App Store, pricing, marketing, support, future content.
+- Validation: Target-player store-page/value tests, current regional pricing research near launch, exact privacy manifest/data audit, and no gameplay difference when optional privacy-minimal diagnostics are declined.
