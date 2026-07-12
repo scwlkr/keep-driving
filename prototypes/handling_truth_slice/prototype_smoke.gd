@@ -7,6 +7,7 @@ const PrototypeVehicle = preload("res://prototypes/handling_truth_slice/prototyp
 const PrototypeWorld = preload("res://prototypes/handling_truth_slice/prototype_world.gd")
 const PrototypeAudio = preload("res://prototypes/handling_truth_slice/prototype_audio.gd")
 const PrototypeRoot = preload("res://prototypes/handling_truth_slice/prototype_root.gd")
+const TimingAccumulator = preload("res://prototypes/handling_truth_slice/timing_accumulator.gd")
 
 var failures:Array[String] = []
 
@@ -22,6 +23,92 @@ func _run() -> void:
 		and PrototypeRoot.benchmark_vsync_mode("capacity", 0) == DisplayServer.VSYNC_DISABLED
 		and PrototypeRoot.benchmark_vsync_mode("feel", 30) == DisplayServer.VSYNC_DISABLED,
 		"feel must enable VSync while capacity and render-cadence captures disable it"
+	)
+	_expect(
+		PrototypeRoot.benchmark_max_fps("feel", 0) == 60
+		and PrototypeRoot.benchmark_max_fps("capacity", 0) == 0
+		and PrototypeRoot.benchmark_max_fps("feel", 30) == 30,
+		"feel must cap at 60 FPS, capacity must remain uncapped, and cadence targets must override both"
+	)
+	_expect(
+		is_equal_approx(PrototypeRoot.benchmark_rss_interval_seconds(1800.0), 10.0)
+		and is_equal_approx(PrototypeRoot.benchmark_rss_interval_seconds(60.0), 1.0),
+		"full benchmarks must use 10-second background RSS samples while short diagnostics retain one-second coverage"
+	)
+	_expect(
+		PrototypeRoot.rss_due_sample_count(7.0, 7.0, 1.0) == 1
+		and PrototypeRoot.rss_due_sample_count(5.0, 7.0, 1.0) == 3,
+		"RSS completion must distinguish one final boundary sample from multiple missed intervals"
+	)
+	_expect(
+		PrototypeRoot.rss_schedule_on_time(10.0, 10.20)
+		and not PrototypeRoot.rss_schedule_on_time(10.0, 10.30),
+		"RSS evidence must reject probes started more than 250 ms after their scheduled observation"
+	)
+	_expect(
+		PrototypeRoot.rss_probe_result_valid({
+			"rss_bytes": 1024.0,
+			"probe_exit_code": 0,
+			"thread_start_error": 0,
+			"worker_thread": true,
+		}, true)
+		and not PrototypeRoot.rss_probe_result_valid({
+			"rss_bytes": 1024.0,
+			"probe_exit_code": 0,
+			"thread_start_error": ERR_CANT_CREATE,
+			"worker_thread": false,
+		}, true),
+		"RSS evidence must distinguish a real worker sample from a thread-start failure"
+	)
+	var timing := TimingAccumulator.new()
+	for sample in range(1, 101):
+		timing.add_sample(float(sample))
+	_expect(
+		timing.sample_count == 100
+		and is_equal_approx(timing.sum_ms, 5050.0)
+		and is_equal_approx(timing.worst_ms, 100.0)
+		and is_equal_approx(timing.percentile_ms(0.50), 50.0)
+		and is_equal_approx(timing.percentile_ms(0.95), 95.0)
+		and is_equal_approx(timing.percentile_ms(0.99), 99.0),
+		"bounded timing evidence must preserve exact count, sum, worst, and nearest-rank percentiles"
+	)
+	var fixed_bucket_count:int = timing.bucket_count()
+	for sample in 100_000:
+		timing.add_sample(8.33)
+	_expect(
+		timing.bucket_count() == fixed_bucket_count and timing.sample_count == 100_100,
+		"timing evidence storage must remain fixed after sustained uncapped rendering"
+	)
+	var overflow_timing := TimingAccumulator.new()
+	for sample in 98:
+		overflow_timing.add_sample(1.0)
+	overflow_timing.add_sample(250.0)
+	overflow_timing.add_sample(300.0)
+	_expect(
+		overflow_timing.overflow_count == 2
+		and is_equal_approx(overflow_timing.percentile_ms(0.99), 300.0)
+		and is_equal_approx(overflow_timing.worst_ms, 300.0),
+		"overflow timing must conservatively return the exact worst value instead of manufacturing a percentile pass"
+	)
+	var stable_rss:Array[float] = []
+	var rising_rss:Array[float] = []
+	for sample in 120:
+		stable_rss.append(200.0 * 1024.0 * 1024.0)
+		rising_rss.append((200.0 + 12.0 * float(sample) / 119.0) * 1024.0 * 1024.0)
+	var stable_plateau := PrototypeRoot.memory_plateau_for_samples(stable_rss, 1800.0, 10.0)
+	var rising_plateau := PrototypeRoot.memory_plateau_for_samples(rising_rss, 1800.0, 10.0)
+	_expect(
+		bool(stable_plateau["evidence_valid"])
+		and bool(stable_plateau["within_limit"])
+		and int(stable_plateau["window_sample_count"]) == 12
+		and is_equal_approx(float(stable_plateau["window_span_seconds"]), 120.0)
+		and bool(rising_plateau["evidence_valid"])
+		and not bool(rising_plateau["within_limit"]),
+		"RSS plateau evidence must use bounded first/final ten-percent windows and enforce the five-percent limit"
+	)
+	_expect(
+		not bool(PrototypeRoot.memory_plateau_for_samples(stable_rss.slice(0, 119), 1800.0, 10.0)["evidence_valid"]),
+		"fewer than 120 full-run RSS samples must be invalid"
 	)
 	_expect(
 		String(PrototypeRoot.controller_glyphs_for_name("DualSense Wireless Controller")["handbrake"]) == "CROSS"

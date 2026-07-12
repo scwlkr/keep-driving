@@ -9,17 +9,23 @@ const PrototypeVehicle = preload("res://prototypes/handling_truth_slice/prototyp
 const PrototypeWorld = preload("res://prototypes/handling_truth_slice/prototype_world.gd")
 const PrototypeAudio = preload("res://prototypes/handling_truth_slice/prototype_audio.gd")
 const PrototypeCameraRigScript = preload("res://prototypes/handling_truth_slice/prototype_camera_rig.gd")
+const TimingAccumulator = preload("res://prototypes/handling_truth_slice/timing_accumulator.gd")
 const UI_FONT: Font = preload("res://prototypes/handling_truth_slice/assets/fonts/AtkinsonHyperlegible-Regular.otf")
 const UI_FONT_BOLD: Font = preload("res://prototypes/handling_truth_slice/assets/fonts/AtkinsonHyperlegible-Bold.otf")
 const DISPLAY_FONT: Font = preload("res://prototypes/handling_truth_slice/assets/fonts/BarlowCondensed-Bold.otf")
 const FUEL_ICON: Texture2D = preload("res://prototypes/handling_truth_slice/assets/visual/fuel.svg")
 const INTEGRITY_ICON: Texture2D = preload("res://prototypes/handling_truth_slice/assets/visual/integrity.svg")
 const BUILD_PROVENANCE_FILENAME := "handling-truth-slice-provenance.json"
-const RSS_SAMPLE_INTERVAL_SECONDS := 1.0
+const SHORT_RSS_SAMPLE_INTERVAL_SECONDS := 1.0
+const FULL_RSS_SAMPLE_INTERVAL_SECONDS := 10.0
+const FULL_RSS_MINIMUM_SAMPLES := 120
+const RSS_SCHEDULE_TOLERANCE_SECONDS := 0.25
 const PHYSICS_TICKS_PER_SECOND := 60
 const WORLD_WORK_P95_LIMIT_MS := 4.0
 const MEMORY_PLATEAU_LIMIT_PERCENT := 5.0
 const CADENCE_RATE_TOLERANCE_PERCENT := 10.0
+const SLOW_FRAME_THRESHOLD_MS := 50.0
+const RETAINED_SLOW_FRAME_LIMIT := 32
 const BENCHMARK_TRACE_SEED := 80_806_012
 
 var world
@@ -66,14 +72,21 @@ var benchmark_physics_ticks := 0
 var benchmark_target_physics_ticks := 0
 var benchmark_warmup_physics_ticks := 0
 var benchmark_cycle := -1
-var benchmark_frame_ms:Array[float] = []
-var benchmark_world_work_ms:Array[float] = []
+var benchmark_frame_timing := TimingAccumulator.new()
+var benchmark_world_work_timing := TimingAccumulator.new()
+var benchmark_slow_frame_count := 0
+var benchmark_slow_frame_samples:Array[Dictionary] = []
 var benchmark_peak_static_memory_bytes := 0.0
 var benchmark_peak_rss_bytes := 0.0
-var benchmark_next_rss_sample_seconds := RSS_SAMPLE_INTERVAL_SECONDS
+var benchmark_rss_sample_interval_seconds := SHORT_RSS_SAMPLE_INTERVAL_SECONDS
+var benchmark_next_rss_sample_seconds := SHORT_RSS_SAMPLE_INTERVAL_SECONDS
 var benchmark_rss_samples:Array[Dictionary] = []
 var benchmark_rss_sample_count := 0
 var benchmark_rss_sample_failures := 0
+var benchmark_rss_missed_schedule_count := 0
+var benchmark_rss_thread := Thread.new()
+var benchmark_rss_probe_scheduled_seconds := 0.0
+var benchmark_rss_probe_observed_seconds := 0.0
 var benchmark_peak_nodes := 0
 var benchmark_peak_draw_calls := 0
 var benchmark_peak_physics_objects := 0
@@ -91,6 +104,7 @@ var benchmark_peak_active_effects := 0
 var benchmark_peak_effect_particles := 0
 var benchmark_peak_active_audio_voices := 0
 var benchmark_render_hz := 0
+var benchmark_effective_max_fps := 0
 var benchmark_report_path := ""
 var benchmark_rss_path := ""
 var benchmark_artifact_paths:PackedStringArray = []
@@ -172,7 +186,7 @@ func _physics_process(delta:float) -> void:
 			maxi(int(snapshot.get("active_effect_emitters", 0)), int(snapshot.get("peak_effect_emitters", 0)))
 		)
 		if benchmark_physics_ticks > benchmark_warmup_physics_ticks:
-			benchmark_world_work_ms.append(world_work_ms)
+			benchmark_world_work_timing.add_sample(world_work_ms)
 			benchmark_measured_collision_queries += collision_queries_this_step
 			if bool(snapshot.get("contact_active", false)):
 				benchmark_collision_contacts += 1
@@ -220,9 +234,19 @@ func _process(delta:float) -> void:
 	benchmark_elapsed += delta
 	benchmark_peak_static_memory_bytes = maxf(benchmark_peak_static_memory_bytes, maxf(Performance.get_monitor(Performance.MEMORY_STATIC), float(OS.get_static_memory_usage())))
 	var simulation_seconds := float(benchmark_physics_ticks) / float(PHYSICS_TICKS_PER_SECOND)
-	while benchmark_next_rss_sample_seconds <= simulation_seconds:
-		_record_rss_sample(benchmark_next_rss_sample_seconds, simulation_seconds)
-		benchmark_next_rss_sample_seconds += RSS_SAMPLE_INTERVAL_SECONDS
+	_poll_rss_probe(false)
+	if benchmark_next_rss_sample_seconds <= simulation_seconds and not benchmark_rss_thread.is_started():
+		var due_sample_count := rss_due_sample_count(
+			benchmark_next_rss_sample_seconds,
+			simulation_seconds,
+			benchmark_rss_sample_interval_seconds
+		)
+		if due_sample_count > 1:
+			var missed_before_latest := due_sample_count - 1
+			benchmark_rss_missed_schedule_count += missed_before_latest
+			benchmark_next_rss_sample_seconds += float(missed_before_latest) * benchmark_rss_sample_interval_seconds
+		_start_rss_probe(benchmark_next_rss_sample_seconds, simulation_seconds)
+		benchmark_next_rss_sample_seconds += benchmark_rss_sample_interval_seconds
 	benchmark_peak_nodes = maxi(benchmark_peak_nodes, roundi(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)))
 	benchmark_peak_draw_calls = maxi(benchmark_peak_draw_calls, roundi(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)))
 	benchmark_peak_physics_objects = maxi(benchmark_peak_physics_objects, roundi(Performance.get_monitor(Performance.PHYSICS_2D_ACTIVE_OBJECTS)))
@@ -231,7 +255,20 @@ func _process(delta:float) -> void:
 	benchmark_peak_video_memory_bytes = maxf(benchmark_peak_video_memory_bytes, float(RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_VIDEO_MEM_USED)))
 	_sample_runtime_counts()
 	if benchmark_physics_ticks > benchmark_warmup_physics_ticks:
-		benchmark_frame_ms.append(delta * 1000.0)
+		var frame_ms := delta * 1000.0
+		benchmark_frame_timing.add_sample(frame_ms)
+		if frame_ms >= SLOW_FRAME_THRESHOLD_MS:
+			benchmark_slow_frame_count += 1
+			if benchmark_slow_frame_samples.size() < RETAINED_SLOW_FRAME_LIMIT:
+				benchmark_slow_frame_samples.append({
+					"sample_ordinal": benchmark_frame_timing.sample_count,
+					"frame_ms": frame_ms,
+					"physics_ticks": benchmark_physics_ticks,
+					"simulation_seconds": simulation_seconds,
+					"benchmark_cycle": benchmark_cycle,
+					"rss_probe_in_flight": benchmark_rss_thread.is_alive(),
+					"monotonic_ticks_ms": Time.get_ticks_msec(),
+				})
 	if benchmark_physics_ticks >= benchmark_target_physics_ticks:
 		_report_benchmark_and_quit()
 
@@ -416,6 +453,81 @@ static func benchmark_vsync_mode(value: String, render_hz: int) -> DisplayServer
 	return DisplayServer.VSYNC_DISABLED if render_hz > 0 or value == "capacity" else DisplayServer.VSYNC_ENABLED
 
 
+static func benchmark_max_fps(value: String, render_hz: int) -> int:
+	if render_hz > 0:
+		return render_hz
+	return PHYSICS_TICKS_PER_SECOND if value == "feel" else 0
+
+
+static func benchmark_rss_interval_seconds(duration_seconds: float) -> float:
+	return FULL_RSS_SAMPLE_INTERVAL_SECONDS if duration_seconds >= 1800.0 else SHORT_RSS_SAMPLE_INTERVAL_SECONDS
+
+
+static func rss_due_sample_count(next_scheduled_seconds: float, final_simulation_seconds: float, interval_seconds: float) -> int:
+	if interval_seconds <= 0.0 or next_scheduled_seconds > final_simulation_seconds:
+		return 0
+	return floori((final_simulation_seconds - next_scheduled_seconds) / interval_seconds) + 1
+
+
+static func rss_schedule_on_time(scheduled_seconds: float, observed_seconds: float) -> bool:
+	return observed_seconds - scheduled_seconds <= RSS_SCHEDULE_TOLERANCE_SECONDS
+
+
+static func rss_probe_result_valid(result: Dictionary, schedule_on_time: bool) -> bool:
+	return (
+		float(result.get("rss_bytes", 0.0)) > 0.0
+		and int(result.get("probe_exit_code", -1)) == 0
+		and int(result.get("thread_start_error", -1)) == 0
+		and bool(result.get("worker_thread", false))
+		and schedule_on_time
+	)
+
+
+static func memory_plateau_for_samples(
+	measured_bytes: Array[float],
+	duration_seconds: float,
+	sample_interval_seconds: float
+) -> Dictionary:
+	if measured_bytes.size() < 2:
+		return {
+			"evidence_valid": false,
+			"within_limit": false,
+			"limit_percent": MEMORY_PLATEAU_LIMIT_PERCENT,
+			"measured_sample_count": measured_bytes.size(),
+			"window_sample_count": 0,
+			"window_span_seconds": 0.0,
+			"delta_percent": null,
+			"absolute_delta_percent": null,
+		}
+	var window_sample_count := maxi(1, floori(float(measured_bytes.size()) * 0.10))
+	window_sample_count = mini(window_sample_count, floori(float(measured_bytes.size()) / 2.0))
+	var first_window_total := 0.0
+	var final_window_total := 0.0
+	for index in window_sample_count:
+		first_window_total += measured_bytes[index]
+		final_window_total += measured_bytes[measured_bytes.size() - window_sample_count + index]
+	var first_window_mean := first_window_total / float(window_sample_count)
+	var final_window_mean := final_window_total / float(window_sample_count)
+	var delta_percent := (final_window_mean - first_window_mean) / maxf(first_window_mean, 1.0) * 100.0
+	var evidence_valid := (
+		duration_seconds >= 1800.0
+		and measured_bytes.size() >= FULL_RSS_MINIMUM_SAMPLES
+		and window_sample_count >= floori(float(FULL_RSS_MINIMUM_SAMPLES) * 0.10)
+	)
+	return {
+		"evidence_valid": evidence_valid,
+		"within_limit": evidence_valid and absf(delta_percent) <= MEMORY_PLATEAU_LIMIT_PERCENT,
+		"limit_percent": MEMORY_PLATEAU_LIMIT_PERCENT,
+		"measured_sample_count": measured_bytes.size(),
+		"window_sample_count": window_sample_count,
+		"window_span_seconds": float(window_sample_count) * sample_interval_seconds,
+		"first_window_mean_mb": first_window_mean / (1024.0 * 1024.0),
+		"final_window_mean_mb": final_window_mean / (1024.0 * 1024.0),
+		"delta_percent": delta_percent,
+		"absolute_delta_percent": absf(delta_percent),
+	}
+
+
 static func controller_glyphs_for_name(device_name: String) -> Dictionary:
 	var normalized := device_name.to_lower()
 	if normalized.contains("playstation") or normalized.contains("dualshock") or normalized.contains("dualsense"):
@@ -560,14 +672,16 @@ func _configure_benchmark() -> void:
 			1,
 			roundi((benchmark_warmup_seconds + benchmark_duration_seconds) * PHYSICS_TICKS_PER_SECOND)
 		)
+		benchmark_rss_sample_interval_seconds = benchmark_rss_interval_seconds(benchmark_duration_seconds)
+		benchmark_next_rss_sample_seconds = benchmark_rss_sample_interval_seconds
 		var evidence_label := "cadence-%d" % benchmark_render_hz if benchmark_render_hz > 0 else benchmark_mode
 		var evidence_stem := "handling-truth-slice-%s-%d" % [evidence_label, OS.get_process_id()]
 		if benchmark_report_path.is_empty():
 			benchmark_report_path = _absolute_evidence_path("user://%s-report.json" % evidence_stem)
 		if benchmark_rss_path.is_empty():
 			benchmark_rss_path = _absolute_evidence_path("user://%s-rss.json" % evidence_stem)
-		if benchmark_render_hz > 0:
-			Engine.max_fps = benchmark_render_hz
+		benchmark_effective_max_fps = benchmark_max_fps(benchmark_mode, benchmark_render_hz)
+		Engine.max_fps = benchmark_effective_max_fps
 		DisplayServer.window_set_vsync_mode(benchmark_vsync_mode(benchmark_mode, benchmark_render_hz))
 		controls.visible = false
 		telemetry_visible = false
@@ -593,22 +707,20 @@ func _benchmark_intent(delta:float) -> Dictionary:
 func _report_benchmark_and_quit() -> void:
 	benchmark_enabled = false
 	set_physics_process(false)
-	if benchmark_frame_ms.is_empty():
+	_complete_rss_sampling(float(benchmark_physics_ticks) / float(PHYSICS_TICKS_PER_SECOND))
+	if benchmark_frame_timing.sample_count <= 0:
 		push_error("Prototype rendered benchmark recorded no frames")
 		audio.stop()
 		_schedule_clean_exit(1)
 		return
-	var sorted:Array[float] = benchmark_frame_ms.duplicate()
-	sorted.sort()
-	var total_ms := 0.0
-	for frame_ms in sorted:
-		total_ms += frame_ms
-	var average_ms := total_ms / sorted.size()
-	var measured_fps := 1000.0 / average_ms
-	var sorted_world_work:Array[float] = benchmark_world_work_ms.duplicate()
-	sorted_world_work.sort()
-	var world_work_p95_ms := _percentile(sorted_world_work, 0.95) if not sorted_world_work.is_empty() else INF
-	var world_work_worst_ms := sorted_world_work[-1] if not sorted_world_work.is_empty() else INF
+	var measured_fps := benchmark_frame_timing.average_hz()
+	var frame_ms_p50 := benchmark_frame_timing.percentile_ms(0.50)
+	var frame_ms_p95 := benchmark_frame_timing.percentile_ms(0.95)
+	var frame_ms_p99 := benchmark_frame_timing.percentile_ms(0.99)
+	var frame_ms_worst := benchmark_frame_timing.worst_ms
+	var world_work_p50_ms := benchmark_world_work_timing.percentile_ms(0.50)
+	var world_work_p95_ms := benchmark_world_work_timing.percentile_ms(0.95)
+	var world_work_worst_ms := benchmark_world_work_timing.worst_ms
 	var viewport_size := get_viewport_rect().size
 	var window_size := DisplayServer.window_get_size()
 	var screen_size := DisplayServer.screen_get_size()
@@ -620,18 +732,30 @@ func _report_benchmark_and_quit() -> void:
 	var content_scale_factor := get_window().content_scale_factor
 	var content_scale_size := get_window().content_scale_size
 	var audio_output_device := AudioServer.output_device
-	var timing_pass:bool = _percentile(sorted, 0.95) <= 16.7 and _percentile(sorted, 0.99) <= 25.0 and sorted[-1] <= 50.0
+	var timing_pass:bool = frame_ms_p95 <= 16.7 and frame_ms_p99 <= 25.0 and frame_ms_worst <= 50.0
 	var rendered_valid:bool = display_server != "headless" and benchmark_peak_draw_calls > 0
-	var rss_expected_samples := floori((benchmark_warmup_seconds + benchmark_duration_seconds) / RSS_SAMPLE_INTERVAL_SECONDS)
-	var rss_valid:bool = benchmark_peak_rss_bytes > 0.0 and benchmark_rss_sample_failures == 0 and benchmark_rss_sample_count >= rss_expected_samples
+	var rss_expected_samples := floori((benchmark_warmup_seconds + benchmark_duration_seconds) / benchmark_rss_sample_interval_seconds)
+	var rss_valid:bool = (
+		benchmark_peak_rss_bytes > 0.0
+		and benchmark_rss_sample_failures == 0
+		and benchmark_rss_missed_schedule_count == 0
+		and benchmark_rss_sample_count >= rss_expected_samples
+	)
 	var static_memory_available:bool = benchmark_peak_static_memory_bytes > 0.0
 	var memory_valid:bool = rss_valid
-	var world_work_valid:bool = not sorted_world_work.is_empty() and world_work_p95_ms <= WORLD_WORK_P95_LIMIT_MS
+	var world_work_valid:bool = benchmark_world_work_timing.sample_count > 0 and world_work_p95_ms <= WORLD_WORK_P95_LIMIT_MS
 	var expected_measured_collision_queries := benchmark_target_physics_ticks - benchmark_warmup_physics_ticks
 	var collision_counter_valid:bool = benchmark_measured_collision_queries == expected_measured_collision_queries
 	var resolution_valid:bool = window_size == Vector2i(1920, 1080) and Vector2i(roundi(viewport_size.x), roundi(viewport_size.y)) == Vector2i(1280, 720)
 	var duration_valid:bool = benchmark_duration_seconds >= 15.0 and benchmark_warmup_seconds >= 5.0
 	var vsync_valid:bool = vsync_mode == DisplayServer.VSYNC_DISABLED if benchmark_render_hz > 0 or benchmark_mode == "capacity" else vsync_mode != DisplayServer.VSYNC_DISABLED
+	var fps_cap_valid := Engine.max_fps == benchmark_effective_max_fps
+	var mode_rate_target := PHYSICS_TICKS_PER_SECOND if benchmark_render_hz == 0 and benchmark_mode == "feel" else 0
+	var mode_rate_delta_percent := (
+		absf(measured_fps - float(mode_rate_target)) / float(mode_rate_target) * 100.0
+		if mode_rate_target > 0 else 0.0
+	)
+	var mode_rate_valid := mode_rate_target == 0 or mode_rate_delta_percent <= CADENCE_RATE_TOLERANCE_PERCENT
 	var provenance_valid:bool = _is_git_sha(benchmark_embedded_build_id) and not benchmark_embedded_dirty and benchmark_expected_build_id == benchmark_embedded_build_id
 	var frozen_fields_valid := (
 		benchmark_report_path_explicit
@@ -650,7 +774,7 @@ func _report_benchmark_and_quit() -> void:
 	var cadence_rate_valid:bool = benchmark_render_hz > 0 and cadence_rate_delta_percent <= CADENCE_RATE_TOLERANCE_PERCENT
 	var expected_cadence_frames := roundi(benchmark_duration_seconds * benchmark_render_hz) if benchmark_render_hz > 0 else 0
 	var cadence_frame_delta_percent := (
-		absf(float(sorted.size() - expected_cadence_frames)) / float(expected_cadence_frames) * 100.0
+		absf(float(benchmark_frame_timing.sample_count - expected_cadence_frames)) / float(expected_cadence_frames) * 100.0
 		if expected_cadence_frames > 0 else 0.0
 	)
 	var cadence_frame_count_valid:bool = benchmark_render_hz > 0 and cadence_frame_delta_percent <= CADENCE_RATE_TOLERANCE_PERCENT
@@ -661,7 +785,9 @@ func _report_benchmark_and_quit() -> void:
 		"render_hz_target": benchmark_render_hz,
 		"warmup_seconds": benchmark_warmup_seconds,
 		"duration_seconds": benchmark_duration_seconds,
-		"sample_interval_seconds": RSS_SAMPLE_INTERVAL_SECONDS,
+		"sample_interval_seconds": benchmark_rss_sample_interval_seconds,
+		"schedule_tolerance_seconds": RSS_SCHEDULE_TOLERANCE_SECONDS,
+		"missed_schedule_count": benchmark_rss_missed_schedule_count,
 		"sample_attempts": benchmark_rss_samples,
 		"plateau": plateau,
 	}
@@ -679,6 +805,8 @@ func _report_benchmark_and_quit() -> void:
 		and resolution_valid
 		and duration_valid
 		and vsync_valid
+		and fps_cap_valid
+		and mode_rate_valid
 		and provenance_valid
 		and frozen_fields_valid
 		and exact_physics_trace
@@ -710,6 +838,7 @@ func _report_benchmark_and_quit() -> void:
 		and collision_counter_valid
 		and resolution_valid
 		and vsync_valid
+		and fps_cap_valid
 		and exact_physics_trace
 		and rss_artifact_write_valid
 		and cadence_provenance_valid
@@ -746,6 +875,11 @@ func _report_benchmark_and_quit() -> void:
 		"resolution_valid": resolution_valid,
 		"duration_valid": duration_valid,
 		"vsync_valid": vsync_valid,
+		"fps_cap_valid": fps_cap_valid,
+		"effective_max_fps": benchmark_effective_max_fps,
+		"mode_rate_target": mode_rate_target,
+		"mode_rate_delta_percent": mode_rate_delta_percent,
+		"mode_rate_valid": mode_rate_valid,
 		"provenance_valid": provenance_valid,
 		"frozen_fields_valid": frozen_fields_valid,
 		"evidence_paths_absolute": benchmark_evidence_paths_absolute,
@@ -767,20 +901,27 @@ func _report_benchmark_and_quit() -> void:
 		"build_id": benchmark_embedded_build_id,
 		"expected_build_id": benchmark_expected_build_id,
 		"build_dirty": benchmark_embedded_dirty,
-		"sample_frames": sorted.size(),
+		"sample_frames": benchmark_frame_timing.sample_count,
 		"warmup_seconds": benchmark_warmup_seconds,
 		"duration_seconds": benchmark_duration_seconds,
 		"fps_average": measured_fps,
-		"frame_ms_p50": _percentile(sorted, 0.50),
-		"frame_ms_p95": _percentile(sorted, 0.95),
-		"frame_ms_p99": _percentile(sorted, 0.99),
-		"frame_ms_worst": sorted[-1],
+		"frame_ms_p50": frame_ms_p50,
+		"frame_ms_p95": frame_ms_p95,
+		"frame_ms_p99": frame_ms_p99,
+		"frame_ms_worst": frame_ms_worst,
+		"frame_timing_accumulator": benchmark_frame_timing.evidence_snapshot(),
+		"slow_frame_threshold_ms": SLOW_FRAME_THRESHOLD_MS,
+		"slow_frame_count": benchmark_slow_frame_count,
+		"retained_slow_frame_limit": RETAINED_SLOW_FRAME_LIMIT,
+		"slow_frame_samples": benchmark_slow_frame_samples,
 		"peak_static_memory_mb": benchmark_peak_static_memory_bytes / (1024.0 * 1024.0),
 		"max_sampled_rss_mb": benchmark_peak_rss_bytes / (1024.0 * 1024.0),
-		"rss_interval_seconds": RSS_SAMPLE_INTERVAL_SECONDS,
+		"rss_interval_seconds": benchmark_rss_sample_interval_seconds,
+		"rss_schedule_tolerance_seconds": RSS_SCHEDULE_TOLERANCE_SECONDS,
 		"rss_sample_count": benchmark_rss_sample_count,
 		"rss_expected_samples": rss_expected_samples,
 		"rss_sample_failures": benchmark_rss_sample_failures,
+		"rss_missed_schedule_count": benchmark_rss_missed_schedule_count,
 		"rss_sample_attempt_count": benchmark_rss_samples.size(),
 		"rss_samples_path": benchmark_rss_path,
 		"report_path": benchmark_report_path,
@@ -795,10 +936,11 @@ func _report_benchmark_and_quit() -> void:
 		"peak_video_memory_mb": benchmark_peak_video_memory_bytes / (1024.0 * 1024.0),
 		"peak_unique_texture_resources": benchmark_peak_texture_resources,
 		"peak_unique_material_resources": benchmark_peak_material_resources,
-		"world_work_sample_count": sorted_world_work.size(),
-		"world_work_p50_ms": _percentile(sorted_world_work, 0.50) if not sorted_world_work.is_empty() else null,
+		"world_work_sample_count": benchmark_world_work_timing.sample_count,
+		"world_work_p50_ms": world_work_p50_ms if is_finite(world_work_p50_ms) else null,
 		"world_work_p95_ms": world_work_p95_ms if is_finite(world_work_p95_ms) else null,
 		"world_work_worst_ms": world_work_worst_ms if is_finite(world_work_worst_ms) else null,
+		"world_work_timing_accumulator": benchmark_world_work_timing.evidence_snapshot(),
 		"world_work_p95_limit_ms": WORLD_WORK_P95_LIMIT_MS,
 		"world_work_scope": "PrototypeWorld.surface_at lookup at each fixed step",
 		"collision_queries": benchmark_collision_queries,
@@ -862,14 +1004,88 @@ func _report_benchmark_and_quit() -> void:
 		exit_pass = bool(report["benchmark_run_acceptance_pass"])
 	_schedule_clean_exit(0 if exit_pass else 1)
 
-func _record_rss_sample(scheduled_seconds:float, observed_simulation_seconds:float) -> void:
-	var resident_memory_bytes := _resident_memory_bytes()
-	var valid := resident_memory_bytes > 0.0
+func _start_rss_probe(scheduled_seconds: float, observed_simulation_seconds: float) -> void:
+	if benchmark_rss_thread.is_started():
+		return
+	benchmark_rss_probe_scheduled_seconds = scheduled_seconds
+	benchmark_rss_probe_observed_seconds = observed_simulation_seconds
+	var start_error := benchmark_rss_thread.start(_rss_probe_worker)
+	if start_error != OK:
+		_record_rss_probe_result({
+			"rss_bytes": 0.0,
+			"probe_exit_code": -1,
+			"thread_start_error": int(start_error),
+			"probe_duration_ms": 0.0,
+			"worker_thread": false,
+		})
+		benchmark_rss_thread = Thread.new()
+
+
+func _poll_rss_probe(wait_for_completion: bool) -> void:
+	if not benchmark_rss_thread.is_started():
+		return
+	if not wait_for_completion and benchmark_rss_thread.is_alive():
+		return
+	var result: Dictionary = benchmark_rss_thread.wait_to_finish()
+	_record_rss_probe_result(result)
+	benchmark_rss_thread = Thread.new()
+
+
+func _complete_rss_sampling(final_simulation_seconds: float) -> void:
+	_poll_rss_probe(true)
+	var due_sample_count := rss_due_sample_count(
+		benchmark_next_rss_sample_seconds,
+		final_simulation_seconds,
+		benchmark_rss_sample_interval_seconds
+	)
+	if due_sample_count == 1:
+		_start_rss_probe(benchmark_next_rss_sample_seconds, final_simulation_seconds)
+		benchmark_next_rss_sample_seconds += benchmark_rss_sample_interval_seconds
+		_poll_rss_probe(true)
+	elif due_sample_count > 1:
+		benchmark_rss_missed_schedule_count += due_sample_count
+
+
+func _rss_probe_worker() -> Dictionary:
+	var started_usec := Time.get_ticks_usec()
+	var output:Array = []
+	var exit_code := OS.execute(
+		"/bin/ps",
+		PackedStringArray(["-o", "rss=", "-p", str(OS.get_process_id())]),
+		output,
+		true
+	)
+	var resident_memory_bytes := 0.0
+	if exit_code == 0 and not output.is_empty():
+		resident_memory_bytes = maxf(0.0, float(String(output[0]).strip_edges()) * 1024.0)
+	return {
+		"rss_bytes": resident_memory_bytes,
+		"probe_exit_code": exit_code,
+		"thread_start_error": 0,
+		"probe_duration_ms": float(Time.get_ticks_usec() - started_usec) / 1000.0,
+		"worker_thread": true,
+	}
+
+
+func _record_rss_probe_result(result: Dictionary) -> void:
+	var resident_memory_bytes := float(result.get("rss_bytes", 0.0))
+	var schedule_lateness_seconds := maxf(0.0, benchmark_rss_probe_observed_seconds - benchmark_rss_probe_scheduled_seconds)
+	var schedule_on_time := rss_schedule_on_time(
+		benchmark_rss_probe_scheduled_seconds,
+		benchmark_rss_probe_observed_seconds
+	)
+	var valid := rss_probe_result_valid(result, schedule_on_time)
 	benchmark_rss_samples.append({
-		"scheduled_seconds": scheduled_seconds,
-		"observed_simulation_seconds": observed_simulation_seconds,
+		"scheduled_seconds": benchmark_rss_probe_scheduled_seconds,
+		"observed_simulation_seconds": benchmark_rss_probe_observed_seconds,
 		"rss_bytes": roundi(resident_memory_bytes),
 		"valid": valid,
+		"probe_exit_code": int(result.get("probe_exit_code", -1)),
+		"thread_start_error": int(result.get("thread_start_error", -1)),
+		"probe_duration_ms": float(result.get("probe_duration_ms", 0.0)),
+		"schedule_lateness_seconds": schedule_lateness_seconds,
+		"schedule_on_time": schedule_on_time,
+		"worker_thread": bool(result.get("worker_thread", false)),
 	})
 	if valid:
 		benchmark_peak_rss_bytes = maxf(benchmark_peak_rss_bytes, resident_memory_bytes)
@@ -877,43 +1093,17 @@ func _record_rss_sample(scheduled_seconds:float, observed_simulation_seconds:flo
 	else:
 		benchmark_rss_sample_failures += 1
 
+
 func _rss_plateau_evidence() -> Dictionary:
 	var measured_bytes:Array[float] = []
 	for sample in benchmark_rss_samples:
 		if bool(sample.get("valid", false)) and float(sample.get("scheduled_seconds", 0.0)) > benchmark_warmup_seconds:
 			measured_bytes.append(float(sample.get("rss_bytes", 0.0)))
-	if measured_bytes.size() < 2:
-		return {
-			"evidence_valid": false,
-			"within_limit": false,
-			"limit_percent": MEMORY_PLATEAU_LIMIT_PERCENT,
-			"measured_sample_count": measured_bytes.size(),
-			"window_sample_count": 0,
-			"delta_percent": null,
-			"absolute_delta_percent": null,
-		}
-	var window_sample_count := mini(60, maxi(3, floori(float(measured_bytes.size()) * 0.10)))
-	window_sample_count = mini(window_sample_count, floori(float(measured_bytes.size()) / 2.0))
-	var first_window_total := 0.0
-	var final_window_total := 0.0
-	for index in window_sample_count:
-		first_window_total += measured_bytes[index]
-		final_window_total += measured_bytes[measured_bytes.size() - window_sample_count + index]
-	var first_window_mean := first_window_total / float(window_sample_count)
-	var final_window_mean := final_window_total / float(window_sample_count)
-	var delta_percent := (final_window_mean - first_window_mean) / maxf(first_window_mean, 1.0) * 100.0
-	var evidence_valid := benchmark_duration_seconds >= 1800.0 and measured_bytes.size() >= 120 and window_sample_count >= 60
-	return {
-		"evidence_valid": evidence_valid,
-		"within_limit": evidence_valid and absf(delta_percent) <= MEMORY_PLATEAU_LIMIT_PERCENT,
-		"limit_percent": MEMORY_PLATEAU_LIMIT_PERCENT,
-		"measured_sample_count": measured_bytes.size(),
-		"window_sample_count": window_sample_count,
-		"first_window_mean_mb": first_window_mean / (1024.0 * 1024.0),
-		"final_window_mean_mb": final_window_mean / (1024.0 * 1024.0),
-		"delta_percent": delta_percent,
-		"absolute_delta_percent": absf(delta_percent),
-	}
+	return memory_plateau_for_samples(
+		measured_bytes,
+		benchmark_duration_seconds,
+		benchmark_rss_sample_interval_seconds
+	)
 
 func _schedule_clean_exit(exit_code:int) -> void:
 	if clean_exit_scheduled:
@@ -929,6 +1119,10 @@ func _schedule_clean_exit(exit_code:int) -> void:
 func _notification(what:int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST and is_inside_tree():
 		_schedule_clean_exit(0)
+
+
+func _exit_tree() -> void:
+	_poll_rss_probe(true)
 
 func _sample_runtime_counts() -> void:
 	if audio != null and audio.has_method("active_voice_count"):
@@ -994,23 +1188,6 @@ func _absolute_evidence_path(path_value:String) -> String:
 	if normalized.is_absolute_path():
 		return normalized.simplify_path()
 	return ProjectSettings.globalize_path("res://").path_join(normalized).simplify_path()
-
-func _percentile(sorted:Array[float], quantile:float) -> float:
-	var index := clampi(ceili(quantile * sorted.size()) - 1, 0, sorted.size() - 1)
-	return sorted[index]
-
-func _resident_memory_bytes() -> float:
-	var output:Array = []
-	var exit_code := OS.execute(
-		"/bin/ps",
-		PackedStringArray(["-o", "rss=", "-p", str(OS.get_process_id())]),
-		output,
-		true
-	)
-	if exit_code != 0 or output.is_empty():
-		return 0.0
-	var rss_kib := float(String(output[0]).strip_edges())
-	return maxf(0.0, rss_kib * 1024.0)
 
 func _power_state_evidence() -> Dictionary:
 	var output:Array = []

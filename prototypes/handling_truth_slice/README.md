@@ -52,4 +52,6 @@ repo="$PWD"
 
 Repeat with `--prototype-benchmark-mode=capacity`. Each run records rendered frame percentiles, raw RSS/plateau, world work, collision queries, nodes/draws, effects/particles, audio voices, final trace, and artifact paths. An individual benchmark can attest only that run; `milestone_acceptance_pass` stays false because paired-run, controller, audio, and human evidence remain external.
 
+Measurement is bounded and self-auditing: feel mode uses VSync plus an explicit 60 FPS cap, capacity mode is uncapped with VSync off, and cadence targets override both. Frame/world percentiles use fixed-memory 0.01 ms histograms with exact counts/sums/worst values. Full runs collect RSS on a worker thread every 10 seconds; any missed interval, probe failure, or start more than 250 ms late invalidates the run. Slow frames retain a bounded timestamp/physics/cycle trace. Failed candidate evidence is never overwritten and lives under `proofs/handling_truth_slice/ticket-08/history/<source-commit>/`.
+
 Acceptance contract: `docs/ROADMAP_TO_1.0.md` → **Desktop Truth Slice A — Production Handling and the First Road**. Candidate provenance and human rules: `ASSET_MANIFEST.md` and `PLAYTEST_EVIDENCE.md`.
