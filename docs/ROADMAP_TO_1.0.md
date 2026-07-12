@@ -2,7 +2,7 @@
 
 Status: canonical execution roadmap
 Roadmap date: 2026-07-11
-Current phase: Phase-1 Wayfinder decision audit plus bounded Phase-2 prototypes; production Phase 3 remains blocked
+Current phase: Phase 1 complete; Phase 2 Technical-Risk Prototypes in progress; Phase 3 blocked by Phase 2 acceptance
 Canonical Wayfinder map: `.scratch/keep-driving-1-0/map.md`
 
 ## 1. Executive summary
@@ -187,7 +187,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 1 — Product Vision and Design Foundation
 
-- **Status:** Documentation package complete; decision-foundation acceptance in progress. Wayfinder tickets 02-05 settle product identity/scope, gameplay/content/progression, UX/art/audio/game-feel, and target architecture; ticket 06 still audits playtest/release/App Store gates, and ticket 07 certifies the package. Bounded Phase-2 prototypes may continue, but Phase 3 and content multiplication remain blocked.
+- **Status:** Complete 2026-07-11. Wayfinder tickets 02-07 settled product identity/scope, gameplay/content/progression, UX/art/audio/game-feel, target architecture, playtest/release/App Store gates, and certified the complete package. Phase 2 is current; Phase 3 and content multiplication remain blocked by Phase 2 acceptance.
 - **Objective:** Define the strongest bounded 1.0 identity, systems, experience, architecture, platform, business model, and scope.
 - **Player-facing outcome:** A coherent promise: premium open-road survival, expressive car builds, meaningful return risk, memorable systemic world.
 - **Technical outcome:** Target module/data/save/content/mobile/test contracts and measurable launch floors.
@@ -207,7 +207,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Mobile implications:** Shared input/UI/save/platform constraints captured; migration remains gated.
 - **Documentation:** All files listed in Section 8.
 - **Complexity:** Large.
-- **Blocks later work:** Bounded Phase 2 truth prototypes may run against this baseline. Phase 3, production multiplication, release identity, and ticket 08 remain blocked until the relevant open decision tickets and name-clearance gate resolve.
+- **Blocks later work:** No longer blocks. Ticket 08 and neutral Desktop Truth Slice A work may proceed. D021 still blocks signed iOS feasibility, production release identity, and name-bearing public assets; Phase 2 acceptance still blocks Phase 3 and production multiplication.
 
 ### Phase 2 — Technical-Risk Prototypes
 
@@ -218,7 +218,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Technical outcome:** Evidence-backed choices for vehicle/collision substrate, hybrid world/bake Seam, part catalog/stat model, UI/audio event path, alternating-slot save envelope, and representative performance budget within the selected deep Module Interfaces.
 - **Included:** Handling track; hybrid proof region; 12-part/four-slot sandbox; first-60-second slice with real assets/audio; v0 save migration/fault spike; representative art/entity/audio/VFX perf scene; one bounded signed-export feasibility gate after the desktop handling/hero slice passes.
 - **Excluded:** Full regions/catalog/campaign, production mobile UI/export, broad refactor, final asset quantity.
-- **Dependencies:** Phase 0 and the Phase 1 working baseline; exact interfaces in `TECHNICAL_ARCHITECTURE.md`. Open Wayfinder decisions may be indexed in parallel, but Phase 3 remains blocked until the relevant tickets resolve.
+- **Dependencies:** Complete Phases 0-1 and the exact interfaces in `TECHNICAL_ARCHITECTURE.md`. Phase 3 remains blocked until Phase 2 acceptance; D021 gates only signed iOS feasibility, production release identity, and name-bearing public assets.
 - **Major tasks:** Build normalized `DriveIntent`; compare collision approaches; accept the desktop handling/hero slice; clear or replace the public title and lock a development identity; run one export-only Godot/Xcode/sign/install feasibility check with no touch/UI/gameplay adaptation; author/bake one route network; create catalog schema/validator; build compare/test-lot UI; route real audio buses/assets; implement alternating-slot/migration/fault save proof; run full-stack metrics/human sessions.
 - **Recommended order:** Characterization/evidence naming -> handling/collision/hero minute/audio -> bounded signed export-only check -> hybrid region -> part sandbox -> save fault -> integrated perf/review.
 - **Risks:** Prototypes accidentally become unmaintainable production code; polish hides bad feel; multiple unknowns coupled too early.
@@ -227,7 +227,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Tools/infrastructure:** Dedicated prototype scenes, input visualizer, benchmark track, minimal prototype-only macOS export preset/build, world bake validator, catalog report, save fault harness, rendered capture, profiler.
 - **Desktop test plan:** Five-player handling test with >=2 controller/>=2 keyboard users; ten-player hero/onboarding test with the first five deeply observed; repeat proof-region navigation; build benchmark; three-run economy preview; save fixtures/faults; 30-minute representative performance run.
 - **Performance targets:** 60 FPS/p95 <=16.7 ms; world work <=4 ms; p99 <=25 ms; no >50 ms driving hitch; no blank terrain/tunneling/overlap spam; provisional memory counters active.
-- **Acceptance criteria:** Handling median >=4/5; four/five first-minute comprehension; proof-region decision density; >=3 viable builds/no universal winner; v0 migration/recovery works; representative full-stack budget passes; a minimal signed archive installs and launches on one physical iPhone without requiring a game-system fork.
+- **Acceptance criteria:** Handling median >=4/5; among the first five deeply observed players, four/five move within ten seconds, identify the objective plus Fuel/Integrity within 30 seconds, and understand the first route/reward choice within 60 seconds; across the full ten-person hero/onboarding cohort, nine/ten drive unaided within two minutes and at least eight/ten identify every required critical phone-scale category after a 500 ms exposure with false positives <=10%; proof-region decision density; >=3 viable builds/no universal winner; v0 migration/recovery works; representative full-stack budget passes; a minimal signed archive installs and launches on one physical iPhone without requiring a game-system fork.
 - **Definition of done:** Each prototype has evidence and keep/change/abandon decision; selected contracts recorded; the bounded signed-export risk is retired; unresolved blocker is fixed or changes the roadmap before Phase 3.
 - **Mobile implications:** Intent, responsive component, asset, memory, and lifecycle-safe save contracts are mobile-shaped; no unfinished gameplay is ported.
 - **Documentation:** Prototype reports, updated decisions/architecture/game design/playtest findings.
@@ -236,7 +236,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 
 ### Phase 3 — Core Driving Production Truth Slice
 
-- **Status:** Not started; blocked by Phase 2 acceptance and the relevant open Wayfinder decisions.
+- **Status:** Not started; blocked by Phase 2 acceptance.
 
 - **Objective:** Integrate selected prototype truths into one maintainable desktop vertical slice representing the first 15 minutes and full depart/drive/objective/extract/Garage/restart loop.
 - **Player-facing outcome:** A shareable slice that looks/sounds like the game, teaches itself, contains a memorable route choice, meaningful haul/return decision, and one visible build change.
@@ -400,9 +400,9 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Risk reduction:** Source/provenance templates; style/gallery/review gates; atlas/material budgets; production throughput measured before multiplication and again after one region; silhouette/value tests; no broad generation/purchase/outsource before tranche lock.
 - **Required prototypes:** Accepted Phase-2 Drive hero and Phase-3 integrated Service/Settle evidence plus a representative region/asset-streaming spike; one final landmark/chassis/weather stack before scale. Fallback fonts, drawn test geometry, and generated-tone feedback cannot satisfy a stage.
 - **Tools/infrastructure:** Art bible, source/license manifest, import presets, atlas report, asset gallery, screenshot/capture tests, VFX/pool overlay, color/contrast checks.
-- **Desktop test plan:** randomized `[PLACEHOLDER: 500 ms]` per-category recognition at 896 x 414 with blank/near-neighbor controls; region/landmark recall; screenshot readability; 200% text/high-contrast/Reduced Motion/Effects; max-density full-stack perf; deterministic import, source/license, package, memory, authoring/rework validator.
+- **Desktop test plan:** Randomized 500 ms per-category recognition at 896 x 414 with blank/near-neighbor controls; region/landmark recall; screenshot readability; 200% text/high-contrast/Reduced Motion/Effects; max-density full-stack perf; deterministic import, source/license, package, memory, authoring/rework validator.
 - **Performance targets:** Preserve 60 FPS/p95 <=16.7/p99 <=25; no >50 ms hitch; texture/material/draw/node/effect budgets reported; memory plateau maintained.
-- **Acceptance criteria:** No placeholder/debug visual; eight of ten recognize each required critical category at phone scale with `[PLACEHOLDER: <=10%]` false positives; regions distinct; screenshots honest/readable; universal plus kind-specific source/license/import/accessibility/cost metadata complete; D020 throughput/rework/family-cap ledger credible; representative max scene passes before each family multiplies.
+- **Acceptance criteria:** No placeholder/debug visual; eight of ten recognize each required critical category at phone scale with <=10% false positives; regions distinct; screenshots honest/readable; universal plus kind-specific source/license/import/accessibility/cost metadata complete; D020 throughput/rework/family-cap ledger credible; representative max scene passes before each family multiplies.
 - **Definition of done:** Required launch visual content integrated, consistent, optimized, licensed, tested, and documented.
 - **Mobile implications:** Quality tiers and compressed atlas plan ready; physical device tuning later; essential silhouettes survive reduced effects/detail.
 - **Documentation:** Art bible, palette/type/icon specs, asset/import/license guide, region kits, VFX/animation/perf budgets.
@@ -426,9 +426,9 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Required prototypes:** Accepted Phase-2 Drive audio slice; Phase-3 15-minute mix across calm/Pressure/critical/Settle/Service; Phase-8/10 30-minute desktop visual/audio masking/fatigue session; separate physical-device discrete-haptic proof.
 - **Tools/infrastructure:** Audio event monitor, bus/voice overlay, loudness/capture workflow, asset/license catalog, automated resource/routing/concurrency tests.
 - **Desktop test plan:** Human audible/mix session; engine continuity and all surfaces; impact classes; warning masking/critical-cue cause; pause/resume/dedupe; settings/mute/mono/visual equivalents; 15-minute complete mix; 30-minute fatigue/perf.
-- **Performance targets:** No audio-induced >50 ms hitch; initial `[PLACEHOLDER: 24]` minimum-device voices with four critical reserves replaced by measured caps; bounded memory; instant pause/resume without duplicate loops; UI feedback <100 ms.
-- **Acceptance criteria:** All required states audible/distinct/mix-controlled; no silent/generated placeholder; four of five identify critical cause/severity without one required channel; 15-minute mix passes; desktop fatigue samples every five minutes, stops at request or >=4, and meets `[PLACEHOLDER: median <=2 and no unresolved score >=3]`; separate physical haptic comfort uses the same stop rule; real resources/buses/capture and human checks pass.
-- **Definition of done:** Production audio/game feel integrated, licensed, performant, accessible, tested, and documented on desktop.
+- **Performance targets:** No audio-induced >50 ms hitch; initial minimum-device profiling floor of 24 simultaneous voices with four reserved for critical vehicle/warning/UI events; Product and Evidence Owners freeze the measured cap before the first formal Phase-10 result; bounded memory; instant pause/resume without duplicate loops; UI feedback <100 ms.
+- **Acceptance criteria:** All required states audible/distinct/mix-controlled; no silent/generated placeholder; four of five identify critical cause/severity without one required channel; 15-minute mix passes; desktop fatigue samples every five minutes, stops at request or >=4, and has median <=2 with no unresolved score >=3; separate physical haptic comfort uses the same stop rule; real resources/buses/capture and human checks pass.
+- **Definition of done:** Production audio/game feel integrated, licensed, performant, accessible, tested, and documented on desktop; the measured voice cap and reserve policy are frozen in the audio evidence before the phase passes.
 - **Mobile implications:** Compressed/streamed/preloaded strategy and semantic haptics ready; audio-session/device behavior deferred.
 - **Documentation:** Semantic event map, audio bible, bus/mix/voice policy, asset/license/import list, haptic semantics, masking/fatigue and proof procedures.
 - **Complexity:** Large.
@@ -601,7 +601,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Required prototypes:** None; all work is release-like device validation/optimization.
 - **Tools/infrastructure:** Xcode Instruments/Organizer, Godot profiler/metrics, private QA-only `IOSDeviceMetricsProbe` thermal/battery plugin, device logs/symbols, automated lifecycle/save faults, TestFlight, battery/thermal protocol.
 - **Desktop test plan:** Frozen desktop reference regression on every shared-code change.
-- **Performance targets:** Minimum 30 FPS/p95 <=33.3; A15+ 60/p95 <=16.7/p99 <=25; <=350 MB working/<=500 MB peak provisional; launch <=5; resume <=2; thermal/battery target; no leaks.
+- **Performance targets:** Minimum 30 FPS/p95 <=33.3; A15+ 60/p95 <=16.7/p99 <=25; <=350 MB working/<=500 MB peak provisional; launch <=5; resume <=2; after a five-minute ambient idle, every minimum/mid/current device completes a 30-minute representative soak sampled at least once per second with zero critical thermal state, serious thermal state for no more than 60 consecutive seconds and <=10% of the window, and battery delta <=15% at 50% brightness; no leaks.
 - **Acceptance criteria:** At least one physical device per minimum/small/mid/large/current tier plus a second minimum/current device passes every applicable locked OS/input/frame/quality/performance/accessibility assignment without averaging; no blank/hitch/stuck/audio duplicate/save loss; 1,000/1,000 faults preserve committed state; the distinct first-time cohort reaches 9/10 unaided driving and 8/10 first launch -> expedition -> pause/background/resume -> Settle -> Service using touch; >=200 exact-build internal-TestFlight sessions occupy one frozen seven-day UTC window with every tier >=20 attributable sessions and conservative health >=99.5%; no P0/P1; exact candidate and matrix are ready for Phase 18.
 - **Definition of done:** Supported matrix and final minimum OS/device floor locked; external-TestFlight-ready candidate approved for Phase 18. The 50-participant/1,000-session/14-day external gate has not yet run.
 - **Mobile implications:** Mobile gameplay candidate complete; only compliance/RC fixes remain.
@@ -626,7 +626,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Required prototypes:** None; honest marketing captures from RC-like build.
 - **Tools/infrastructure:** App Store Connect, Xcode archive/privacy report, screenshot/video pipeline, release checklist/runbook, support/privacy site, TestFlight.
 - **Desktop test plan:** Desktop reference regression for shared fixes; store assets reviewed against exact release experience.
-- **Performance targets:** Candidate retains Phase 17 budgets and >=99.8% crash-free beta; no compliance-driven SDK regression.
+- **Performance targets:** Candidate retains Phase 17 budgets and conservative failed-session-equivalent health >=99.8%; no compliance-driven SDK regression.
 - **Acceptance criteria:** `KD-G0` through `KD-G8` pass in the exact candidate ledger; the same processed build that passed `KD-G7` is selected for App Review; every applicable checklist item has owner/evidence; 4/5 unfamiliar target players identify route-shaped buildcraft/county restoration from unbranded store assets without inferring an unshipped feature; exact build/declarations/assets agree; external beta passes; review package is internally accepted; no P0/P1/review blocker.
 - **Definition of done:** The exact candidate is review-ready, the package is frozen and internally approved, launch operations are tested, and no unresolved mismatch remains. Submission is reserved for Phase 19.
 - **Mobile implications:** Final exact iOS archive and claims freeze.
@@ -651,7 +651,7 @@ High-risk, high-change-cost assumptions come first. Raw content count and mobile
 - **Required prototypes:** None.
 - **Tools/infrastructure:** Frozen branch/tag, CI/release host, artifact repository, device matrix, App Store Connect, launch checklist/war room.
 - **Desktop test plan:** Full blocker suite and campaign on exported reference build; compare to iOS behavior.
-- **Performance targets:** All desktop/iOS targets; >=99.8% crash-free; zero data loss; package/launch/resume budgets.
+- **Performance targets:** All desktop/iOS targets; conservative failed-session-equivalent health >=99.8%; zero data loss; package/launch/resume budgets.
 - **Acceptance criteria:** Required suites pass 100% with no blocker coverage silently flaky/quarantined; no RC-scope placeholder; zero P0/P1; all required evidence; exact selected archive/metadata/declarations agree; support/emergency staffed; App Review approval available; `KD-G9` PASS.
 - **Definition of done:** Release authority signs off the exact approved `1.0.0` archive and manual-release plan. Public launch and immediate stabilization remain required in Phases 20-21.
 - **Mobile implications:** This is the final mobile build; any change reopens every affected earlier human, automated, device, store, and compliance gate identified by the ledger.
@@ -780,7 +780,17 @@ Unsafe parallel work:
 - Mobile layout/gameplay forks while desktop facts are changing.
 - Store declarations before final SDK/capability inventory.
 
-### Work intentionally deferred
+### Scope categories and intentional deferral
+
+#### Required for 1.0.0
+
+- The complete title-independent identity, campaign ending, and D020-locked postgame/experience gates; post-completion Expedition Mode is the provisional target and first Required cut if capacity fails.
+- Desktop-proven handling, hybrid world, activities, progression, content, UI, art, audio, save, settings, accessibility, and reliability.
+- Interruption-safe active-expedition checkpoints. Restored-route fast travel and a small earned paint palette are provisional Required targets that D020 may reclassify before scale-up.
+- Responsive mobile layouts and input built only after the corresponding desktop systems pass.
+- Supported-device performance, lifecycle, interruption, offline, save, and TestFlight proof.
+- App Store metadata, privacy, legal, accessibility, review, release, rollback, and support readiness.
+- Paid base app with no launch IAP, ads, account, cross-app tracking, or mandatory backend.
 
 #### Valuable if capacity allows
 
@@ -874,6 +884,8 @@ A player launches a separate desktop slice, starts moving within ten seconds, le
 - Median handling satisfaction >=4/5.
 - Four of five move within ten seconds and identify objective plus Fuel/Integrity within 30 seconds.
 - Four of five understand the first route/reward choice within 60 seconds.
+- Nine of ten drive unaided within two minutes across the full hero/onboarding cohort.
+- At least eight of ten identify every required critical category at 896 x 414 after a 500 ms exposure with blank and near-neighbor controls; false positives are <=10%.
 - Real engine/surface/impact/reward/warning/UI audio is audible, routed, mix-controlled, and has visual equivalents.
 - Release-like slice holds 60 FPS, p95 <=16.7 ms, p99 <=25 ms, and no hitch >50 ms on the desktop reference.
 - Existing main project remains launchable and its retained proof floor passes.
@@ -908,7 +920,19 @@ A player launches a separate desktop slice, starts moving within ten seconds, le
 | `docs/research/UX_ART_AUDIO_AND_GAME_FEEL_DIRECTION.md` | Compared interface directions and resolved UI/art/asset/audio/feedback/accessibility contract |
 | `docs/research/TECHNICAL_AND_MOBILE_ARCHITECTURE.md` | Compared Interface shapes and resolved Module authority, loading, durability, platform Seam, build, and migration contracts |
 | `docs/research/PLAYTEST_RELEASE_AND_APP_STORE_GATES.md` | Exact evidence ledger, cohorts, TestFlight denominator, App Store package, authority, launch, and emergency gates |
-| `.scratch/keep-driving-1-0/` | Canonical Wayfinder map and decision/execution frontier |
+| `CONTEXT.md` | Repository brief and current proof commands |
+| `.scratch/keep-driving-1-0/map.md` | Canonical 1.0 Wayfinder destination, constraints, decisions, and frontier |
+| `.scratch/keep-driving-1-0/issues/01-audit-current-project-and-1-0-gap.md` | Current-project audit ticket and retained evidence |
+| `.scratch/keep-driving-1-0/issues/02-decide-product-identity-and-launch-scope.md` | Product identity and launch-scope decision ticket |
+| `.scratch/keep-driving-1-0/issues/03-design-gameplay-content-and-progression-systems.md` | Gameplay, content, and progression decision ticket |
+| `.scratch/keep-driving-1-0/issues/04-decide-ux-art-audio-and-game-feel-direction.md` | UX, art, audio, and game-feel decision ticket |
+| `.scratch/keep-driving-1-0/issues/05-decide-target-technical-and-mobile-architecture.md` | Technical and mobile architecture decision ticket |
+| `.scratch/keep-driving-1-0/issues/06-define-playtest-release-and-app-store-gates.md` | Playtest, release, and App Store gate decision ticket |
+| `.scratch/keep-driving-1-0/issues/07-publish-complete-1-0-roadmap-package.md` | Roadmap-package publication and certification ticket |
+| `.scratch/keep-driving-1-0/issues/08-execute-first-incomplete-roadmap-milestone.md` | First incomplete milestone execution frontier |
+| `.scratch/keep-driving-real-vertical-slice/map.md` | Subordinate vertical-slice evidence map |
+| `prototypes/handling_truth_slice/README.md` | Handling truth-slice purpose, controls, and proof workflow |
+| `prototypes/handling_truth_slice/NOTES.md` | Handling truth-slice results, limitations, and retained evidence |
 
 All documents are living contracts. A changed decision updates the owning document and appends/supersedes a decision log entry; downstream acceptance gates are re-evaluated.
 
@@ -1014,8 +1038,8 @@ Vehicle feel human acceptance, hybrid world, build balance, content throughput, 
 
 ### Current roadmap phase
 
-Phase-1 decision-foundation review and bounded Phase-2 Technical-Risk Prototypes overlap deliberately. Product identity/scope, gameplay/content/progression, UX/art/audio/game-feel, target technical/mobile architecture, and playtest/release/App Store gates are settled. Only Wayfinder ticket 07 still blocks Phase 3/production scale-up. Handling truth-slice evidence remains valid but does not satisfy the representative presentation, human, or full-duration gates.
+Phase 1 is complete and Phase 2 Technical-Risk Prototypes is current. Product identity/scope, gameplay/content/progression, UX/art/audio/game-feel, target technical/mobile architecture, playtest/release/App Store gates, and the complete roadmap package are settled. Phase 3 and production scale-up remain blocked by Phase 2 acceptance. D021 blocks only the signed iOS feasibility check, production release identity, and name-bearing public assets. Handling truth-slice evidence remains valid but does not satisfy the representative presentation, human, or full-duration gates.
 
 ### Next recommended task
 
-Workflow next: resolve **Publish Complete 1.0 Roadmap Package** (ticket 07), then stop at that decision-foundation boundary. Implementation next remains **Desktop Truth Slice A — Production Handling and the First Road**: replace demonstrator presentation with the selected final-pipeline hero tranche and real audio, prove actual rendered 30/60/120 behavior, then complete 1,800-second runs, first-minute capture, controller/audible checks, and five-player handling plus ten-person hero/onboarding sessions (the first five receive the deep observed hero-minute script). Do not begin broad content or mobile migration.
+Execute **First Incomplete Roadmap Milestone** (ticket 08): continue **Desktop Truth Slice A — Production Handling and the First Road** by replacing demonstrator presentation with the selected final-pipeline hero tranche and real audio, proving actual rendered 30/60/120 behavior, then completing 1,800-second runs, first-minute capture, controller/audible checks, and five-player handling plus ten-person hero/onboarding sessions (the first five receive the deep observed hero-minute script). Keep signed iOS feasibility behind D021 and desktop-slice acceptance; do not begin broad content or mobile migration.

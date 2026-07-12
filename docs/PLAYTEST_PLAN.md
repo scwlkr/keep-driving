@@ -156,7 +156,7 @@ Observe without help:
 - Fuel/Integrity interpretation.
 - First route/reward decision and stated reason.
 - Any unreadable spawn, UI, audio, or world cue.
-- Which car, route classes, landmark/safehouse, objective, hazard/threat, Fuel, repair, and cargo silhouettes are recognized when each category is randomized at exact 896 x 414 logical phone-proof scale for `[PLACEHOLDER: 500 ms]` inside representative density, including blank and near-neighbor control trials.
+- Which car, route classes, landmark/safehouse, objective, hazard/threat, Fuel, repair, and cargo silhouettes are recognized when each category is randomized at exact 896 x 414 logical phone-proof scale for 500 ms inside representative density, including blank and near-neighbor control trials.
 - Whether the cause and severity of each critical cue remain identifiable with audio muted, mono output, Reduced Motion, and haptics disabled.
 
 Acceptance:
@@ -166,7 +166,7 @@ Acceptance:
 - Four of five encounter and understand a meaningful route or reward decision within 60 seconds.
 - Nine of ten drive without help within two minutes across the full onboarding cohort.
 - No player needs debug vocabulary; engine/surface/impact/pickup/warning/UI audio is audible and mix-controlled.
-- At least eight of ten identify each required critical category and false positives remain `[PLACEHOLDER: <=10%]`; failures simplify value/shape/motion before labels or effects multiply.
+- At least eight of ten identify each required critical category and false positives remain <=10%; failures simplify value/shape/motion before labels or effects multiply.
 - Four of five identify critical cue cause/severity without relying on one sensory channel.
 
 ### 3. Hybrid proof region
@@ -253,7 +253,7 @@ Acceptance:
 - App Store accessibility claims are made only after criterion-specific end-to-end tests.
 - Every proposed App Store accessibility label has a dated exact-build/device/common-task evidence record; unsupported labels remain unclaimed.
 - The claim register maps feature -> every common task -> device type/OS -> exact build/settings -> evaluator/participant evidence -> owner. Any failed claimed common task is P1 until the claim is removed everywhere or the implementation passes retest.
-- The desktop 30-minute session samples 0-5 masking/fatigue every five minutes, stops immediately on request or at >=4 discomfort, meets `[PLACEHOLDER: median <=2 and no unresolved score >=3]`, and keeps critical warnings distinguishable under the busiest representative mix. The physical-iPhone haptic session uses the same stop rule and records comfort, control precision, and battery separately.
+- The desktop 30-minute session samples 0-5 masking/fatigue every five minutes, stops immediately on request or at >=4 discomfort, has median <=2 with no unresolved score >=3, and keeps critical warnings distinguishable under the busiest representative mix. The physical-iPhone haptic session uses the same stop rule and records comfort, control precision, and battery separately.
 
 ### 7. Desktop alpha
 

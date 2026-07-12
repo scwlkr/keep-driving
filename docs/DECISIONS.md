@@ -19,7 +19,7 @@ Status: Destination/extraction choice retained; category wording superseded by D
   - Preserve endless score survival as the entire game.
   - Become a conventional mission/racing game.
   - Build a destination-based survival road-trip roguelite and retain endless survival as endgame.
-- Historical selection, topology wording superseded by D029: destination-based survival road-trip roguelite with post-completion Expedition Mode if D020 retains it. The accepted endgame uses open-ended chained survival on the same authored county rather than endless outward topology.
+- Selected option (historical; topology wording superseded by D029): destination-based survival road-trip roguelite with post-completion Expedition Mode if D020 retains it. The accepted endgame uses open-ended chained survival on the same authored county rather than endless outward topology.
 - Reason: Adds goals, world meaning, risk/return decisions, progression, and completion without moving away from driving and route choice.
 - Tradeoffs: Requires authored world/content and more state; risks generic errands if activities are not route/build-centered.
 - Systems affected: Product, world, activities, progression, Results, save, UI, content.
@@ -51,7 +51,7 @@ Status: Risk/return principle retained; reward security, failure, abandon, and s
   - Bank everything on failure.
   - Lose all run progress on failure.
   - Secure knowledge/milestones, risk material haul, permit voluntary safehouse/Garage extraction, and grant partial failure recovery.
-- Historical selection, superseded by D024: installed/owned gear and permanent knowledge never drop; extracted haul banks fully; failure kept milestones/blueprints, 25% loose Scrap, and one secured cargo item, subject to prototype tuning.
+- Selected option (historical; transaction details superseded by D024): installed/owned gear and permanent knowledge never drop; extracted haul banks fully; failure kept milestones/blueprints, 25% loose Scrap, and one secured cargo item, subject to prototype tuning.
 - Reason: Creates a clear push/return decision without deleting hours or encouraging intentional failure.
 - Tradeoffs: More UI/save/economy state; exact recovery can feel too harsh or too generous.
 - Systems affected: ExpeditionSession, cargo, economy, Results, save/resume, UI.
@@ -113,7 +113,7 @@ Status: Route-centered activity principle retained; D026 supersedes the four-fam
   - Many generic open-world mission types.
   - Survival drive only.
   - Salvage/recovery, risky delivery, route restoration, and route mastery, plus modular dynamic encounters.
-- Historical selection, superseded in classification by D026: use the route-centered set described above and exclude AI racing, escort, on-foot puzzles/combat, and daily chores for 1.0.
+- Selected option (historical; classification superseded by D026): use the route-centered set described above and exclude AI racing, escort, on-foot puzzles/combat, and daily chores for 1.0.
 - Reason: Each family changes route, cargo, build, or risk while sharing core systems.
 - Tradeoffs: Less genre breadth; repetition risk must be solved through route/cargo/weather/encounter variation.
 - Systems affected: ActivityService, world sockets, contracts, rewards, content pipeline, UI.

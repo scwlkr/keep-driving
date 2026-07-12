@@ -221,7 +221,9 @@ The region graph is physically connected but staged by visible repairable barrie
 - Unlock the first safehouse and second activity family.
 - Understand why a scout and rammer choose different routes.
 
-### Current provisional-target first 6-10 active hours
+### First week — current provisional target of 6-10 active hours
+
+The first week means several self-paced sessions, not a streak, daily reward, or calendar-pressure system. After time away, Continue must restore the exact expedition or return the player to a clear Garage goal without requiring recap outside the game.
 
 - Restore access toward the D020-locked region set or approach the final region milestone; the current target is three region identities.
 - Own the D020-locked chassis set and maintain multiple saved loadouts; the current target includes at least two chassis by this horizon.

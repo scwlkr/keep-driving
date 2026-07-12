@@ -256,6 +256,22 @@ Elapsed background time does not drain Fuel, advance threats, complete objective
 - App Store controller disclosure matches actual required/optional support.
 - Inspect the archived Game Controllers capability/Info.plist; supported profiles and `GCSupportsControllerUserInteraction` must match tests, while `GCRequiresControllerUserInteraction` stays absent because touch is a complete path.
 
+## Privacy, diagnostics, packaging, and App Review
+
+The 1.0 permission baseline is no camera, microphone, location, contacts, photos, Bluetooth, push, tracking, advertising identifier, or background-network entitlement. Core play is offline, has no account, and shows no ATT prompt. A later capability enters only through a recorded product/privacy decision, exact purpose string and entitlement, denial/offline behavior, privacy-manifest/App Store disclosure update, physical-device proof, and Review Notes.
+
+Apple-provided crash reports, Xcode Organizer, symbolicated device logs, and privacy-minimal local diagnostic IDs are the launch support baseline. Build Owner retains the exact archive and dSYM/symbols; Evidence Owner links anonymous incidents to build/device/tier and classifies crashes, watchdogs, hangs, and unknown terminations; a named support operator owns reproduction/contact follow-up; Privacy/Compliance Owner approves any consented diagnostic upload, fields, retention, deletion, and store disclosure. A third-party crash/analytics SDK remains absent unless a new decision proves a specific support benefit and passes manifest/signature, opt-out, offline queue, symbolication, and privacy-label gates.
+
+The archived build—not project settings—defines packaging truth: bundle/version/build, device family/orientations, deployment floor, signing/entitlements, icons/launch storyboard, privacy manifest/report, required-reason APIs, SDK signatures, controller capability, export determination, and Mac/Vision availability are inspected together. The same processed build that clears external TestFlight is selected for App Review; any replacement build reopens the affected evidence.
+
+| App Review risk | Reduction | Blocking evidence |
+|---|---|---|
+| Landscape/touch path or optional-controller claim is incomplete | Touch completes every common flow; controller is optional; current physical-device navigation and archived capability/Info.plist agree | Mobile common-task matrix and Review Notes rehearsal |
+| Offline/no-login/save behavior is misunderstood | Natural reviewer path covers first launch, expedition, pause/background/resume, Settle, Service, offline relaunch, reset/recovery, privacy, and support without a demo account | Outside-developer reviewer smoke on the exact build |
+| Archive, privacy, permission, age, accessibility, export, or metadata claims diverge | Generate exact-archive privacy report; diff declarations/assets/URLs/notes against the manifest; remove unused entitlements/permissions | `KD-G8`/`KD-G9` ledger and final checklist |
+| Placeholder/debug/hidden content or unavailable dependency blocks review | Release flavor excludes debug surfaces; every URL/service/content path is live; retain a short natural route to representative content | Clean-install current-iOS App Review package smoke |
+| Review or external-beta change forces a new binary | Treat every new processed build as a new candidate and rerun affected device/compliance gates plus the full `KD-G7` window | ReleaseEvidenceLedger reopen record |
+
 ## Device test matrix
 
 ### Required hardware tiers

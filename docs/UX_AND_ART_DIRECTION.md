@@ -370,6 +370,14 @@ These palettes describe the current provisional three-region target. D020 locks 
 - Badlands: pale stone, rust, charcoal quarry cuts, dust trails, long angular shadows.
 - Blackwood: blue-green canopy masses, wet dark road, amber vehicle lights, high-value hazard edging.
 
+### Lighting, time, and weather presentation
+
+- The current provisional target uses authored illustrated dawn, day, dusk, and night states rather than photoreal dynamic lighting; D020 may reduce that multiplicity to the smallest readable route-condition set. Every retained transition interpolates palette, shadow direction/length, emissive accents, ambience, and sky/ground value without changing semantic colors.
+- Day keeps road hierarchy and terrain texture readable at full speed. If dusk/night remain, they lower environmental value while preserving road edges, objective silhouettes, hazards, and the hero car; headlights clarify near-field shape but are never the only way to identify a required route or threat.
+- Baked contact/landmark shadows communicate grounding and time, never a collision boundary. Optional soft lights, long shadows, reflective wet-road accents, and extra weather layers degrade before silhouettes, route contrast, or warning readability on lower quality tiers.
+- Retained rain, fog, dust, wind, and storm fronts use bounded overlays, particles, surface treatment, audio, and motion cues. Reduced Motion/weather-intensity/particle settings reduce movement and density while preserving the route-condition fact through value, icon, text, and audio alternatives.
+- Every D020-retained time/weather state and representative transition receives phone-scale screenshot, contrast, color-independent, Reduced Motion, route/hazard-recognition, and performance captures before a region presentation family multiplies.
+
 ### Vehicle style
 
 - Every D020-locked chassis shares a coherent inked construction but has an instantly different silhouette, wheelbase, mass, cargo shape, and animation; the current target is three and the coherent fallback two.
@@ -472,9 +480,9 @@ Short frequent effects default to WAV with measured import compression; longer m
 
 ### Audio proof
 
-- Initial minimum-device concurrency hypotheses are `[PLACEHOLDER: 24]` simultaneous voices with `[PLACEHOLDER: 4]` reserved for critical vehicle/warning/UI events, one player engine/surface set, three same-family impact voices before stealing, and two routine UI voices. Representative profiling replaces these values before scale.
+- The initial minimum-device profiling floor is 24 simultaneous voices with four reserved for critical vehicle/warning/UI events, one player engine/surface set, three same-family impact voices before stealing, and two routine UI voices. Product and Evidence Owners freeze the measured cap before the first formal Phase-10 result and before audio families multiply.
 - Tests verify real streams are assigned, buses/routes exist, state transitions trigger, voice stealing/rate limits hold, and pause/resume never duplicates loops.
-- A rendered capture and human audible check verify engine continuity, surface change, impacts, warning, pickup, Settle, and Service feedback. One complete 15-minute mix passes before integrated-audio families multiply. A separate 30-minute desktop visual/audio fatigue/masking session samples 0-5 every five minutes, stops at participant request or >=4 discomfort, and targets `[PLACEHOLDER: median <=2 and no unresolved score >=3]` before the complete shell/mix graduates.
+- A rendered capture and human audible check verify engine continuity, surface change, impacts, warning, pickup, Settle, and Service feedback. One complete 15-minute mix passes before integrated-audio families multiply. A separate 30-minute desktop visual/audio fatigue/masking session samples 0-5 every five minutes, stops at participant request or >=4 discomfort, and requires median <=2 with no unresolved score >=3 before the complete shell/mix graduates.
 - Headless counters are diagnostic only and cannot satisfy audible acceptance.
 
 ## Haptics
@@ -493,6 +501,6 @@ Short frequent effects default to WAV with measured import compression; longer m
 - Representative art/audio/VFX/haptics meet the hero-minute target before broad content production; the current fallback-font, drawn-geometry, generated-tone slice cannot satisfy this gate.
 - At least 80% explain route risk, part capability/tradeoff, and secured/exposed/lost/committed state correctly.
 - Phone-scale silhouette recognition, multimodal cue-cause recognition, a 15-minute full-state mix, 30-minute fatigue/masking session, asset throughput/provenance, and representative frame/memory/package proof pass.
-- Recognition uses a ten-person randomized per-category test at 896 x 414 logical scale with blank/near-neighbor controls: at least eight of ten per critical category and `[PLACEHOLDER: <=10%]` false positives.
+- Recognition uses a ten-person randomized per-category test at 896 x 414 logical scale with blank/near-neighbor controls: at least eight of ten per critical category and <=10% false positives.
 - Full production content maintains visual/audio identity and performance budgets.
 - Every claimed App Store accessibility feature passes its current end-to-end evaluation criterion.
