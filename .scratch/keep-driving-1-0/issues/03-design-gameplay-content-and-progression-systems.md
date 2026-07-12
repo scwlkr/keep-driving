@@ -1,7 +1,7 @@
 # Design Gameplay Content And Progression Systems
 
 Type: research
-Status: open
+Status: claimed
 Blocked by: 01, 02
 
 ## Question
