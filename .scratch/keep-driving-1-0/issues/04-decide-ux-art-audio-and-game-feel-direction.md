@@ -1,7 +1,7 @@
 # Decide UX Art Audio And Game Feel Direction
 
 Type: prototype
-Status: open
+Status: claimed
 Blocked by: 01, 02, 03
 
 ## Question
