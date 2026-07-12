@@ -1,7 +1,7 @@
 # Publish Complete 1.0 Roadmap Package
 
 Type: task
-Status: open
+Status: claimed
 Blocked by: 02, 03, 04, 05, 06
 
 ## Question
