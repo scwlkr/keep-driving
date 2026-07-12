@@ -55,6 +55,20 @@ licenses_path="$resources_path/licenses"
 /bin/cp "$repo_root/prototypes/handling_truth_slice/ASSET_MANIFEST.md" "$licenses_path/"
 /usr/bin/codesign --force --deep --sign - --timestamp=none "$output_path"
 /usr/bin/codesign --verify --deep --strict "$output_path"
+launch_log="$(/usr/bin/mktemp /tmp/handling-truth-slice-launch.XXXXXX)"
+if ! "$output_path/Contents/MacOS/Handling Truth Slice" --headless --quit-after 2 >"$launch_log" 2>&1; then
+	/bin/cat "$launch_log" >&2
+	/bin/rm -f "$launch_log"
+	print -u2 "Exported Handling Truth Slice launch smoke failed."
+	exit 1
+fi
+if /usr/bin/grep -Eq 'SCRIPT ERROR:|ERROR:' "$launch_log"; then
+	/bin/cat "$launch_log" >&2
+	/bin/rm -f "$launch_log"
+	print -u2 "Exported Handling Truth Slice contains a missing or invalid runtime dependency."
+	exit 1
+fi
+/bin/rm -f "$launch_log"
 app_file_bytes="$(/usr/bin/find "$output_path" -type f -exec /usr/bin/stat -f '%z' {} + | /usr/bin/awk '{ total += $1 } END { print total + 0 }')"
 
-print "HANDLING_TRUTH_SLICE_EXPORT path=$output_path commit=$commit dirty=$dirty source_assets=$source_asset_count source_asset_bytes=$source_asset_bytes pck_bytes=$pck_bytes app_file_bytes=$app_file_bytes"
+print "HANDLING_TRUTH_SLICE_EXPORT path=$output_path commit=$commit dirty=$dirty launch_smoke=true source_assets=$source_asset_count source_asset_bytes=$source_asset_bytes pck_bytes=$pck_bytes app_file_bytes=$app_file_bytes"

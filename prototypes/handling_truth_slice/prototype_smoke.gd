@@ -16,6 +16,14 @@ func _initialize() -> void:
 
 func _run() -> void:
 	_expect(InputMap.has_action(&"drive_recover"), "keyboard recovery must be present in the exported InputMap")
+	var export_presets := ConfigFile.new()
+	var export_preset_error := export_presets.load("res://export_presets.cfg")
+	var export_files:PackedStringArray = export_presets.get_value("preset.0", "export_files", PackedStringArray())
+	_expect(
+		export_preset_error == OK
+		and "res://prototypes/handling_truth_slice/timing_accumulator.gd" in export_files,
+		"the explicit release export filter must include every runtime measurement dependency"
+	)
 	_expect(PrototypeRoot.is_valid_benchmark_mode("feel") and PrototypeRoot.is_valid_benchmark_mode("capacity"), "only the two frozen benchmark modes must be valid")
 	_expect(not PrototypeRoot.is_valid_benchmark_mode("feal"), "mistyped benchmark modes must be rejected")
 	_expect(
