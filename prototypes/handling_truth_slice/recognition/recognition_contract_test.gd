@@ -55,6 +55,13 @@ func _run() -> void:
 		Harness.canonical_preview_dir("KD08-HM-01").ends_with("/proofs/handling_truth_slice/ticket-08/recognition/KD08-HM-01-previews"),
 		"recognition preview evidence must resolve to the canonical retained participant directory"
 	)
+	_expect(
+		Harness.json_size_matches([1280.0, 720.0], Vector2i(1280, 720))
+		and not Harness.json_size_matches([1280.0, 721.0], Vector2i(1280, 720))
+		and not Harness.json_size_matches([1280.5, 720.0], Vector2i(1280, 720))
+		and not Harness.json_size_matches(["1280", 720.0], Vector2i(1280, 720)),
+		"JSON numeric arrays must validate the frozen viewport by integer component value"
+	)
 
 	var first_plan: Array[Dictionary] = Harness.build_trial_plan(40_414)
 	var replay_plan: Array[Dictionary] = Harness.build_trial_plan(40_414)

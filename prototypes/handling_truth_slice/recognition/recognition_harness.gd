@@ -678,6 +678,18 @@ static func canonical_preview_dir(participant: String) -> String:
 	).simplify_path()
 
 
+static func json_size_matches(value: Variant, expected: Vector2i) -> bool:
+	if value is not Array or (value as Array).size() != 2:
+		return false
+	var values := value as Array
+	for component in values:
+		if typeof(component) not in [TYPE_INT, TYPE_FLOAT]:
+			return false
+		if float(component) != float(int(component)):
+			return false
+	return int(values[0]) == expected.x and int(values[1]) == expected.y
+
+
 func _capture_preview_bundle() -> void:
 	_preview_dir = _preview_dir.simplify_path()
 	var manifest_path := _preview_dir.path_join("manifest.json")
@@ -760,7 +772,7 @@ func _validate_preview_manifest() -> bool:
 		and String(manifest.get("candidate_file_sha256", "")) == _candidate_file_sha256
 		and String(manifest.get("participant", "")) == _participant
 		and int(manifest.get("seed", 0)) == _seed
-		and manifest.get("logical_size", []) == [LOGICAL_SIZE.x, LOGICAL_SIZE.y]
+		and json_size_matches(manifest.get("logical_size", []), LOGICAL_SIZE)
 		and int(manifest.get("preview_count", 0)) == _trials.size()
 	)
 	var previews:Array = manifest.get("previews", [])
@@ -863,8 +875,8 @@ func _validate_candidate_identity() -> bool:
 		and String(session_contract.get("export_preset", "")) == "Handling Truth Slice macOS"
 		and not String(session_contract.get("release_template_identity", "")).is_empty()
 		and String(session_contract.get("renderer", "")) == "gl_compatibility"
-		and session_contract.get("logical_viewport", []) == [1280, 720]
-		and session_contract.get("benchmark_output_window", []) == [1920, 1080]
+		and json_size_matches(session_contract.get("logical_viewport", []), Vector2i(1280, 720))
+		and json_size_matches(session_contract.get("benchmark_output_window", []), Vector2i(1920, 1080))
 		and String(session_contract.get("scene", "")) == "res://prototypes/handling_truth_slice/prototype.tscn"
 		and int(session_contract.get("trace_seed", 0)) == 80_806_012
 		and not String(session_contract.get("profile_fixture", "")).is_empty()
