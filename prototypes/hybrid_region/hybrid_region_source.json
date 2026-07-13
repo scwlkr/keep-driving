@@ -1,0 +1,52 @@
+{
+  "schema": "keep-driving.hybrid-region-source.v1",
+  "county_id": "county.lowlands_proof",
+  "version": 1,
+  "start_node_id": "county.lowlands_proof.node.garage",
+  "objective_node_id": "county.lowlands_proof.node.relay",
+  "nodes": [
+    {"id": "county.lowlands_proof.node.garage", "kind": "safehouse", "position": [0, 0]},
+    {"id": "county.lowlands_proof.node.fork", "kind": "junction", "position": [900, 0]},
+    {"id": "county.lowlands_proof.node.creek", "kind": "crossing", "position": [1720, -420]},
+    {"id": "county.lowlands_proof.node.quarry", "kind": "landmark", "position": [1580, 560]},
+    {"id": "county.lowlands_proof.node.orchard", "kind": "junction", "position": [2380, 600]},
+    {"id": "county.lowlands_proof.node.relay", "kind": "objective", "position": [3040, 0]}
+  ],
+  "edges": [
+    {"id": "county.lowlands_proof.edge.garage_fork", "from_node_id": "county.lowlands_proof.node.garage", "to_node_id": "county.lowlands_proof.node.fork", "surface": "road"},
+    {"id": "county.lowlands_proof.edge.fork_creek", "from_node_id": "county.lowlands_proof.node.fork", "to_node_id": "county.lowlands_proof.node.creek", "surface": "road"},
+    {"id": "county.lowlands_proof.edge.creek_relay", "from_node_id": "county.lowlands_proof.node.creek", "to_node_id": "county.lowlands_proof.node.relay", "surface": "road"},
+    {"id": "county.lowlands_proof.edge.fork_quarry", "from_node_id": "county.lowlands_proof.node.fork", "to_node_id": "county.lowlands_proof.node.quarry", "surface": "dirt"},
+    {"id": "county.lowlands_proof.edge.quarry_orchard", "from_node_id": "county.lowlands_proof.node.quarry", "to_node_id": "county.lowlands_proof.node.orchard", "surface": "mud"},
+    {"id": "county.lowlands_proof.edge.orchard_relay", "from_node_id": "county.lowlands_proof.node.orchard", "to_node_id": "county.lowlands_proof.node.relay", "surface": "dirt"},
+    {"id": "county.lowlands_proof.edge.quarry_relay_shortcut", "from_node_id": "county.lowlands_proof.node.quarry", "to_node_id": "county.lowlands_proof.node.relay", "surface": "rough"}
+  ],
+  "route_contracts": [
+    {"id": "county.lowlands_proof.route.primary", "purpose": "main", "edge_ids": ["county.lowlands_proof.edge.garage_fork", "county.lowlands_proof.edge.fork_creek", "county.lowlands_proof.edge.creek_relay"]},
+    {"id": "county.lowlands_proof.route.dirt", "purpose": "main", "edge_ids": ["county.lowlands_proof.edge.garage_fork", "county.lowlands_proof.edge.fork_quarry", "county.lowlands_proof.edge.quarry_orchard", "county.lowlands_proof.edge.orchard_relay"]},
+    {"id": "county.lowlands_proof.route.quarry_shortcut", "purpose": "shortcut", "edge_ids": ["county.lowlands_proof.edge.garage_fork", "county.lowlands_proof.edge.fork_quarry", "county.lowlands_proof.edge.quarry_relay_shortcut"]}
+  ],
+  "landmarks": [
+    {"id": "county.lowlands_proof.landmark.garage", "node_id": "county.lowlands_proof.node.garage", "kind": "safehouse"},
+    {"id": "county.lowlands_proof.landmark.quarry", "node_id": "county.lowlands_proof.node.quarry", "kind": "industrial"},
+    {"id": "county.lowlands_proof.landmark.relay", "node_id": "county.lowlands_proof.node.relay", "kind": "radio_relay"}
+  ],
+  "crossings": [
+    {"id": "county.lowlands_proof.crossing.creek", "edge_id": "county.lowlands_proof.edge.fork_creek", "kind": "ford"}
+  ],
+  "event_templates": [
+    {"id": "county.lowlands_proof.event.roadblock", "kind": "roadblock"},
+    {"id": "county.lowlands_proof.event.recovery", "kind": "recovery"},
+    {"id": "county.lowlands_proof.event.crossing_hazard", "kind": "crossing_hazard"},
+    {"id": "county.lowlands_proof.event.salvage", "kind": "salvage"},
+    {"id": "county.lowlands_proof.event.threat", "kind": "threat"},
+    {"id": "county.lowlands_proof.event.cargo", "kind": "cargo"},
+    {"id": "county.lowlands_proof.event.reward", "kind": "reward"}
+  ],
+  "event_sockets": [
+    {"id": "county.lowlands_proof.socket.fork", "target_node_id": "county.lowlands_proof.node.fork", "condition_options": ["clear", "dust", "rain"], "eligible_event_ids": ["county.lowlands_proof.event.roadblock", "county.lowlands_proof.event.recovery"]},
+    {"id": "county.lowlands_proof.socket.creek", "target_node_id": "county.lowlands_proof.node.creek", "condition_options": ["low_water", "high_water", "debris"], "eligible_event_ids": ["county.lowlands_proof.event.crossing_hazard", "county.lowlands_proof.event.salvage"]},
+    {"id": "county.lowlands_proof.socket.quarry", "target_node_id": "county.lowlands_proof.node.quarry", "condition_options": ["quiet", "occupied", "collapse"], "eligible_event_ids": ["county.lowlands_proof.event.threat", "county.lowlands_proof.event.cargo"]},
+    {"id": "county.lowlands_proof.socket.relay_approach", "target_edge_id": "county.lowlands_proof.edge.creek_relay", "condition_options": ["clear", "wind", "storm"], "eligible_event_ids": ["county.lowlands_proof.event.reward", "county.lowlands_proof.event.threat"]}
+  ]
+}
